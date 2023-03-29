@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMS", "CRMS\CRMS.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{C35B0DFD-74F0-4BC0-8642-E619A332751B}"
 	ProjectSection(SolutionItems) = preProject
-		Sample.txt = Sample.txt
+		HTMLPage1.html = HTMLPage1.html
 	EndProjectSection
 EndProject
 Global
