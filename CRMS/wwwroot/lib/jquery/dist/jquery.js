@@ -142,7 +142,7 @@ function toType( obj ) {
 }
 /* global Symbol */
 // Defining this global in .eslintrc.json would create a danger of using the global
-// unguarded in another place, it seems safer to define global only for this module
+// unguarded in another place, it seCRMS safer to define global only for this module
 
 
 
@@ -186,10 +186,10 @@ jQuery.fn = jQuery.prototype = {
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
-	pushStack: function( elems ) {
+	pushStack: function( elCRMS ) {
 
 		// Build a new jQuery matched element set
-		var ret = jQuery.merge( this.constructor(), elems );
+		var ret = jQuery.merge( this.constructor(), elCRMS );
 
 		// Add the old object onto the stack (as a reference)
 		ret.prevObject = this;
@@ -431,19 +431,19 @@ jQuery.extend( {
 		return first;
 	},
 
-	grep: function( elems, callback, invert ) {
+	grep: function( elCRMS, callback, invert ) {
 		var callbackInverse,
 			matches = [],
 			i = 0,
-			length = elems.length,
+			length = elCRMS.length,
 			callbackExpect = !invert;
 
-		// Go through the array, only saving the items
+		// Go through the array, only saving the itCRMS
 		// that pass the validator function
 		for ( ; i < length; i++ ) {
-			callbackInverse = !callback( elems[ i ], i );
+			callbackInverse = !callback( elCRMS[ i ], i );
 			if ( callbackInverse !== callbackExpect ) {
-				matches.push( elems[ i ] );
+				matches.push( elCRMS[ i ] );
 			}
 		}
 
@@ -451,16 +451,16 @@ jQuery.extend( {
 	},
 
 	// arg is for internal usage only
-	map: function( elems, callback, arg ) {
+	map: function( elCRMS, callback, arg ) {
 		var length, value,
 			i = 0,
 			ret = [];
 
-		// Go through the array, translating each of the items to their new values
-		if ( isArrayLike( elems ) ) {
-			length = elems.length;
+		// Go through the array, translating each of the itCRMS to their new values
+		if ( isArrayLike( elCRMS ) ) {
+			length = elCRMS.length;
 			for ( ; i < length; i++ ) {
-				value = callback( elems[ i ], i, arg );
+				value = callback( elCRMS[ i ], i, arg );
 
 				if ( value != null ) {
 					ret.push( value );
@@ -469,8 +469,8 @@ jQuery.extend( {
 
 		// Go through every key on the object,
 		} else {
-			for ( i in elems ) {
-				value = callback( elems[ i ], i, arg );
+			for ( i in elCRMS ) {
+				value = callback( elCRMS[ i ], i, arg );
 
 				if ( value != null ) {
 					ret.push( value );
@@ -1230,7 +1230,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// getElementById is not reliable as a find shortcut
 		Expr.find[ "ID" ] = function( id, context ) {
 			if ( typeof context.getElementById !== "undefined" && documentIsHTML ) {
-				var node, i, elems,
+				var node, i, elCRMS,
 					elem = context.getElementById( id );
 
 				if ( elem ) {
@@ -1242,9 +1242,9 @@ setDocument = Sizzle.setDocument = function( node ) {
 					}
 
 					// Fall back on getElementsByName
-					elems = context.getElementsByName( id );
+					elCRMS = context.getElementsByName( id );
 					i = 0;
-					while ( ( elem = elems[ i++ ] ) ) {
+					while ( ( elem = elCRMS[ i++ ] ) ) {
 						node = elem.getAttributeNode( "id" );
 						if ( node && node.value === id ) {
 							return [ elem ];
@@ -2515,7 +2515,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			preexisting = results.length,
 
 			// Get initial elements from seed or context
-			elems = seed || multipleContexts(
+			elCRMS = seed || multipleContexts(
 				selector || "*",
 				context.nodeType ? [ context ] : context,
 				[]
@@ -2523,8 +2523,8 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 
 			// Prefilter to get matcher input, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
-				condense( elems, preMap, preFilter, context, xml ) :
-				elems,
+				condense( elCRMS, preMap, preFilter, context, xml ) :
+				elCRMS,
 
 			matcherOut = matcher ?
 
@@ -2676,11 +2676,11 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				contextBackup = outermostContext,
 
 				// We must always have either seed elements or outermost context
-				elems = seed || byElement && Expr.find[ "TAG" ]( "*", outermost ),
+				elCRMS = seed || byElement && Expr.find[ "TAG" ]( "*", outermost ),
 
 				// Use integer dirruns iff this is the outermost matcher
 				dirrunsUnique = ( dirruns += contextBackup == null ? 1 : Math.random() || 0.1 ),
-				len = elems.length;
+				len = elCRMS.length;
 
 			if ( outermost ) {
 
@@ -2694,7 +2694,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			// Add elements passing elementMatchers directly to results
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
-			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
+			for ( ; i !== len && ( elem = elCRMS[ i ] ) != null; i++ ) {
 				if ( byElement && elem ) {
 					j = 0;
 
@@ -3057,18 +3057,18 @@ function winnow( elements, qualifier, not ) {
 	return jQuery.filter( qualifier, elements, not );
 }
 
-jQuery.filter = function( expr, elems, not ) {
-	var elem = elems[ 0 ];
+jQuery.filter = function( expr, elCRMS, not ) {
+	var elem = elCRMS[ 0 ];
 
 	if ( not ) {
 		expr = ":not(" + expr + ")";
 	}
 
-	if ( elems.length === 1 && elem.nodeType === 1 ) {
+	if ( elCRMS.length === 1 && elem.nodeType === 1 ) {
 		return jQuery.find.matchesSelector( elem, expr ) ? [ elem ] : [];
 	}
 
-	return jQuery.find.matches( expr, jQuery.grep( elems, function( elem ) {
+	return jQuery.find.matches( expr, jQuery.grep( elCRMS, function( elem ) {
 		return elem.nodeType === 1;
 	} ) );
 };
@@ -4082,7 +4082,7 @@ jQuery.extend( {
 	// Is the DOM ready to be used? Set to true once it occurs.
 	isReady: false,
 
-	// A counter to track how many items to wait for before
+	// A counter to track how many itCRMS to wait for before
 	// the ready event fires. See #6781
 	readyWait: 1,
 
@@ -4140,16 +4140,16 @@ if ( document.readyState === "complete" ||
 
 // Multifunctional method to get and set values of a collection
 // The value/s can optionally be executed if it's a function
-var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
+var access = function( elCRMS, fn, key, value, chainable, emptyGet, raw ) {
 	var i = 0,
-		len = elems.length,
+		len = elCRMS.length,
 		bulk = key == null;
 
 	// Sets many values
 	if ( toType( key ) === "object" ) {
 		chainable = true;
 		for ( i in key ) {
-			access( elems, fn, i, key[ i ], true, emptyGet, raw );
+			access( elCRMS, fn, i, key[ i ], true, emptyGet, raw );
 		}
 
 	// Sets one value
@@ -4164,7 +4164,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 
 			// Bulk operations run against the entire set
 			if ( raw ) {
-				fn.call( elems, value );
+				fn.call( elCRMS, value );
 				fn = null;
 
 			// ...except when executing function values
@@ -4179,24 +4179,24 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 		if ( fn ) {
 			for ( ; i < len; i++ ) {
 				fn(
-					elems[ i ], key, raw ?
+					elCRMS[ i ], key, raw ?
 					value :
-					value.call( elems[ i ], i, fn( elems[ i ], key ) )
+					value.call( elCRMS[ i ], i, fn( elCRMS[ i ], key ) )
 				);
 			}
 		}
 	}
 
 	if ( chainable ) {
-		return elems;
+		return elCRMS;
 	}
 
 	// Gets
 	if ( bulk ) {
-		return fn.call( elems );
+		return fn.call( elCRMS );
 	}
 
-	return len ? fn( elems[ 0 ], key ) : emptyGet;
+	return len ? fn( elCRMS[ 0 ], key ) : emptyGet;
 };
 
 
@@ -4983,13 +4983,13 @@ function getAll( context, tag ) {
 
 
 // Mark scripts as having already been evaluated
-function setGlobalEval( elems, refElements ) {
+function setGlobalEval( elCRMS, refElements ) {
 	var i = 0,
-		l = elems.length;
+		l = elCRMS.length;
 
 	for ( ; i < l; i++ ) {
 		dataPriv.set(
-			elems[ i ],
+			elCRMS[ i ],
 			"globalEval",
 			!refElements || dataPriv.get( refElements[ i ], "globalEval" )
 		);
@@ -4999,15 +4999,15 @@ function setGlobalEval( elems, refElements ) {
 
 var rhtml = /<|&#?\w+;/;
 
-function buildFragment( elems, context, scripts, selection, ignored ) {
+function buildFragment( elCRMS, context, scripts, selection, ignored ) {
 	var elem, tmp, tag, wrap, attached, j,
 		fragment = context.createDocumentFragment(),
 		nodes = [],
 		i = 0,
-		l = elems.length;
+		l = elCRMS.length;
 
 	for ( ; i < l; i++ ) {
-		elem = elems[ i ];
+		elem = elCRMS[ i ];
 
 		if ( elem || elem === 0 ) {
 
@@ -5663,7 +5663,7 @@ function leverageNative( el, type, expectSync ) {
 				// (focus or blur), assume that the surrogate already propagated from triggering the
 				// native event and prevent that from happening again here.
 				// This technically gets the ordering wrong w.r.t. to `.trigger()` (in which the
-				// bubbling surrogate propagates *after* the non-bubbling base), but that seems
+				// bubbling surrogate propagates *after* the non-bubbling base), but that seCRMS
 				// less bad than duplication.
 				} else if ( ( jQuery.event.special[ type ] || {} ).delegateType ) {
 					event.stopPropagation();
@@ -6204,12 +6204,12 @@ jQuery.extend( {
 		return clone;
 	},
 
-	cleanData: function( elems ) {
+	cleanData: function( elCRMS ) {
 		var data, elem, type,
 			special = jQuery.event.special,
 			i = 0;
 
-		for ( ; ( elem = elems[ i ] ) !== undefined; i++ ) {
+		for ( ; ( elem = elCRMS[ i ] ) !== undefined; i++ ) {
 			if ( acceptData( elem ) ) {
 				if ( ( data = elem[ dataPriv.expando ] ) ) {
 					if ( data.events ) {
@@ -6387,19 +6387,19 @@ jQuery.each( {
 	replaceAll: "replaceWith"
 }, function( name, original ) {
 	jQuery.fn[ name ] = function( selector ) {
-		var elems,
+		var elCRMS,
 			ret = [],
 			insert = jQuery( selector ),
 			last = insert.length - 1,
 			i = 0;
 
 		for ( ; i <= last; i++ ) {
-			elems = i === last ? this : this.clone( true );
-			jQuery( insert[ i ] )[ original ]( elems );
+			elCRMS = i === last ? this : this.clone( true );
+			jQuery( insert[ i ] )[ original ]( elCRMS );
 
 			// Support: Android <=4.0 only, PhantomJS 1 only
 			// .get() because push.apply(_, arraylike) throws on ancient WebKit
-			push.apply( ret, elems.get() );
+			push.apply( ret, elCRMS.get() );
 		}
 
 		return this.pushStack( ret );
@@ -6591,7 +6591,7 @@ function curCSS( elem, name, computed ) {
 
 		// A tribute to the "awesome hack by Dean Edwards"
 		// Android Browser returns percentage for some values,
-		// but width seems to be reliably pixels.
+		// but width seCRMS to be reliably pixels.
 		// This is against the CSSOM draft spec:
 		// https://drafts.csswg.org/cssom/#resolved-values
 		if ( !support.pixelBoxStyles() && rnumnonpx.test( ret ) && rboxStyle.test( name ) ) {
@@ -10825,7 +10825,7 @@ jQuery.trim = function( text ) {
 // to call noConflict to hide this version of jQuery, it will work.
 
 // Note that for maximum portability, libraries that are not jQuery should
-// declare themselves as anonymous modules, and avoid setting a global if an
+// declare thCRMSelves as anonymous modules, and avoid setting a global if an
 // AMD loader is present. jQuery is a special case. For more information, see
 // https://github.com/jrburke/requirejs/wiki/Updating-existing-libraries#wiki-anon
 

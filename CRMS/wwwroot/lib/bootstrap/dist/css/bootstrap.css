@@ -2672,7 +2672,7 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
+  align-itCRMS: stretch;
   width: 100%;
 }
 .input-group > .form-control,
@@ -2696,7 +2696,7 @@ textarea.form-control-lg {
 
 .input-group-text {
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -3843,7 +3843,7 @@ textarea.form-control-lg {
 
 .btn-group-vertical {
   flex-direction: column;
-  align-items: flex-start;
+  align-itCRMS: flex-start;
   justify-content: center;
 }
 .btn-group-vertical > .btn,
@@ -3965,7 +3965,7 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: space-between;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -3979,7 +3979,7 @@ textarea.form-control-lg {
 .navbar > .container-xxl {
   display: flex;
   flex-wrap: inherit;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: space-between;
 }
 .navbar-brand {
@@ -4013,7 +4013,7 @@ textarea.form-control-lg {
 .navbar-collapse {
   flex-basis: 100%;
   flex-grow: 1;
-  align-items: center;
+  align-itCRMS: center;
 }
 
 .navbar-toggler {
@@ -4601,7 +4601,7 @@ textarea.form-control-lg {
 .accordion-button {
   position: relative;
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   width: 100%;
   padding: 1rem 1.25rem;
   font-size: 1rem;
@@ -5388,7 +5388,7 @@ textarea.form-control-lg {
 
 .toast-header {
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   padding: 0.5rem 0.75rem;
   color: #6c757d;
   background-color: rgba(255, 255, 255, 0.85);
@@ -5455,7 +5455,7 @@ textarea.form-control-lg {
 
 .modal-dialog-centered {
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   min-height: calc(100% - 1rem);
 }
 
@@ -5491,7 +5491,7 @@ textarea.form-control-lg {
 .modal-header {
   display: flex;
   flex-shrink: 0;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: space-between;
   padding: 1rem 1rem;
   border-bottom: 1px solid #dee2e6;
@@ -5518,7 +5518,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   flex-shrink: 0;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: flex-end;
   padding: 0.75rem;
   border-top: 1px solid #dee2e6;
@@ -6003,7 +6003,7 @@ textarea.form-control-lg {
   bottom: 0;
   z-index: 1;
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: center;
   width: 15%;
   padding: 0;
@@ -6235,7 +6235,7 @@ textarea.form-control-lg {
 
 .offcanvas-header {
   display: flex;
-  align-items: center;
+  align-itCRMS: center;
   justify-content: space-between;
   padding: 1rem 1rem;
 }
@@ -6520,7 +6520,7 @@ textarea.form-control-lg {
 .hstack {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-itCRMS: center;
   align-self: stretch;
 }
 
@@ -7034,24 +7034,24 @@ textarea.form-control-lg {
   justify-content: space-evenly !important;
 }
 
-.align-items-start {
-  align-items: flex-start !important;
+.align-itCRMS-start {
+  align-itCRMS: flex-start !important;
 }
 
-.align-items-end {
-  align-items: flex-end !important;
+.align-itCRMS-end {
+  align-itCRMS: flex-end !important;
 }
 
-.align-items-center {
-  align-items: center !important;
+.align-itCRMS-center {
+  align-itCRMS: center !important;
 }
 
-.align-items-baseline {
-  align-items: baseline !important;
+.align-itCRMS-baseline {
+  align-itCRMS: baseline !important;
 }
 
-.align-items-stretch {
-  align-items: stretch !important;
+.align-itCRMS-stretch {
+  align-itCRMS: stretch !important;
 }
 
 .align-content-start {
@@ -8053,24 +8053,24 @@ textarea.form-control-lg {
     justify-content: space-evenly !important;
   }
 
-  .align-items-sm-start {
-    align-items: flex-start !important;
+  .align-itCRMS-sm-start {
+    align-itCRMS: flex-start !important;
   }
 
-  .align-items-sm-end {
-    align-items: flex-end !important;
+  .align-itCRMS-sm-end {
+    align-itCRMS: flex-end !important;
   }
 
-  .align-items-sm-center {
-    align-items: center !important;
+  .align-itCRMS-sm-center {
+    align-itCRMS: center !important;
   }
 
-  .align-items-sm-baseline {
-    align-items: baseline !important;
+  .align-itCRMS-sm-baseline {
+    align-itCRMS: baseline !important;
   }
 
-  .align-items-sm-stretch {
-    align-items: stretch !important;
+  .align-itCRMS-sm-stretch {
+    align-itCRMS: stretch !important;
   }
 
   .align-content-sm-start {
@@ -8704,24 +8704,24 @@ textarea.form-control-lg {
     justify-content: space-evenly !important;
   }
 
-  .align-items-md-start {
-    align-items: flex-start !important;
+  .align-itCRMS-md-start {
+    align-itCRMS: flex-start !important;
   }
 
-  .align-items-md-end {
-    align-items: flex-end !important;
+  .align-itCRMS-md-end {
+    align-itCRMS: flex-end !important;
   }
 
-  .align-items-md-center {
-    align-items: center !important;
+  .align-itCRMS-md-center {
+    align-itCRMS: center !important;
   }
 
-  .align-items-md-baseline {
-    align-items: baseline !important;
+  .align-itCRMS-md-baseline {
+    align-itCRMS: baseline !important;
   }
 
-  .align-items-md-stretch {
-    align-items: stretch !important;
+  .align-itCRMS-md-stretch {
+    align-itCRMS: stretch !important;
   }
 
   .align-content-md-start {
@@ -9355,24 +9355,24 @@ textarea.form-control-lg {
     justify-content: space-evenly !important;
   }
 
-  .align-items-lg-start {
-    align-items: flex-start !important;
+  .align-itCRMS-lg-start {
+    align-itCRMS: flex-start !important;
   }
 
-  .align-items-lg-end {
-    align-items: flex-end !important;
+  .align-itCRMS-lg-end {
+    align-itCRMS: flex-end !important;
   }
 
-  .align-items-lg-center {
-    align-items: center !important;
+  .align-itCRMS-lg-center {
+    align-itCRMS: center !important;
   }
 
-  .align-items-lg-baseline {
-    align-items: baseline !important;
+  .align-itCRMS-lg-baseline {
+    align-itCRMS: baseline !important;
   }
 
-  .align-items-lg-stretch {
-    align-items: stretch !important;
+  .align-itCRMS-lg-stretch {
+    align-itCRMS: stretch !important;
   }
 
   .align-content-lg-start {
@@ -10006,24 +10006,24 @@ textarea.form-control-lg {
     justify-content: space-evenly !important;
   }
 
-  .align-items-xl-start {
-    align-items: flex-start !important;
+  .align-itCRMS-xl-start {
+    align-itCRMS: flex-start !important;
   }
 
-  .align-items-xl-end {
-    align-items: flex-end !important;
+  .align-itCRMS-xl-end {
+    align-itCRMS: flex-end !important;
   }
 
-  .align-items-xl-center {
-    align-items: center !important;
+  .align-itCRMS-xl-center {
+    align-itCRMS: center !important;
   }
 
-  .align-items-xl-baseline {
-    align-items: baseline !important;
+  .align-itCRMS-xl-baseline {
+    align-itCRMS: baseline !important;
   }
 
-  .align-items-xl-stretch {
-    align-items: stretch !important;
+  .align-itCRMS-xl-stretch {
+    align-itCRMS: stretch !important;
   }
 
   .align-content-xl-start {
@@ -10657,24 +10657,24 @@ textarea.form-control-lg {
     justify-content: space-evenly !important;
   }
 
-  .align-items-xxl-start {
-    align-items: flex-start !important;
+  .align-itCRMS-xxl-start {
+    align-itCRMS: flex-start !important;
   }
 
-  .align-items-xxl-end {
-    align-items: flex-end !important;
+  .align-itCRMS-xxl-end {
+    align-itCRMS: flex-end !important;
   }
 
-  .align-items-xxl-center {
-    align-items: center !important;
+  .align-itCRMS-xxl-center {
+    align-itCRMS: center !important;
   }
 
-  .align-items-xxl-baseline {
-    align-items: baseline !important;
+  .align-itCRMS-xxl-baseline {
+    align-itCRMS: baseline !important;
   }
 
-  .align-items-xxl-stretch {
-    align-items: stretch !important;
+  .align-itCRMS-xxl-stretch {
+    align-itCRMS: stretch !important;
   }
 
   .align-content-xxl-start {

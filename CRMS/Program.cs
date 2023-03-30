@@ -1,7 +1,16 @@
+using CRMS.Data;
+using CRMS.Repository;
+using CRMS.Repository.MsSQL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<CRMSDbContext>();
+
+builder.Services.AddScoped<CRMSDbContext, CRMSDbContext>();
+builder.Services.AddScoped<ICRMSRepository, UserDbRepository>();
 
 var app = builder.Build();
 

@@ -516,7 +516,7 @@ $.extend( $.validator, {
 			if ( errors ) {
 				var validator = this;
 
-				// Add items to error list and map
+				// Add itCRMS to error list and map
 				$.extend( this.errorMap, errors );
 				this.errorList = $.map( this.errorMap, function( message, name ) {
 					return {
@@ -525,7 +525,7 @@ $.extend( $.validator, {
 					};
 				} );
 
-				// Remove items from success list
+				// Remove itCRMS from success list
 				this.successList = $.grep( this.successList, function( element ) {
 					return !( element.name in errors );
 				} );
