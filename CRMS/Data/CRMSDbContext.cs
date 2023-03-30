@@ -13,12 +13,11 @@ namespace CRMS.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
-
             var server = _appConfig.GetConnectionString("Server");
             var db = _appConfig.GetConnectionString("DB");
             var userName = _appConfig.GetConnectionString("UserName");
             var password = _appConfig.GetConnectionString("Password");
+            
             string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true";
             
             optionsBuilder.UseSqlServer(connectionString);
@@ -29,8 +28,6 @@ namespace CRMS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-
 
 
             base.OnModelCreating(modelBuilder);
