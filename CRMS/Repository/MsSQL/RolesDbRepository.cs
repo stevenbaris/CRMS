@@ -1,33 +1,33 @@
-﻿using CRMS.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using CRMS.Data;
 using CRMS.Models;
 using CRMS.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Repository.MsSQL
 {
-    public class UserDbRepository : IRepository<User>
+    public class RolesDbRepository : IRepository<Role>
     {
-        public Task<User> CreateAsync(User entity)
+        public Task<Role> CreateAsync(Role entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> DeleteAsync(Guid id)
+        public Task<Role> DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<User>> GetAllAsync()
+        public Task<List<Role>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> GetbyIdAsync(Guid id)
+        public Task<Role> GetbyIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> UpdateAsync(User entity)
+        public Task<Role> UpdateAsync(Role entity)
         {
             throw new NotImplementedException();
         }

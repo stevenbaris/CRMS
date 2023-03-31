@@ -10,7 +10,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CRMSDbContext>();
 
 builder.Services.AddScoped<CRMSDbContext, CRMSDbContext>();
-builder.Services.AddScoped<ICRMSRepository, UserDbRepository>();
+//builder.Services.AddScoped<IUserRepository, UserDbRepository>();
+//builder.Services.AddScoped<IRolesRepository, RolesDbRepository>();
 
 var app = builder.Build();
 

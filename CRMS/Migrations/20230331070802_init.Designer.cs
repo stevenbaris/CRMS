@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMS.Migrations
 {
     [DbContext(typeof(CRMSDbContext))]
-    [Migration("20230330155102_new")]
-    partial class @new
+    [Migration("20230331070802_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,9 @@ namespace CRMS.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CRMS.Models.Roles", b =>
+            modelBuilder.Entity("CRMS.Models.Role", b =>
                 {
-                    b.Property<Guid>("RolesId")
+                    b.Property<Guid>("RoleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -34,7 +34,7 @@ namespace CRMS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RolesId");
+                    b.HasKey("RoleId");
 
                     b.ToTable("Roles");
                 });
@@ -72,28 +72,28 @@ namespace CRMS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RolesId")
+                    b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("RolesId");
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CRMS.Models.User", b =>
                 {
-                    b.HasOne("CRMS.Models.Roles", "Roles")
+                    b.HasOne("CRMS.Models.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Roles");
+                    b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("CRMS.Models.Roles", b =>
+            modelBuilder.Entity("CRMS.Models.Role", b =>
                 {
                     b.Navigation("Users");
                 });

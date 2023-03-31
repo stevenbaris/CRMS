@@ -5,6 +5,7 @@ namespace CRMS.Data
 {
     public class CRMSDbContext : DbContext
     {
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Database Connectivity
@@ -12,24 +13,24 @@ namespace CRMS.Data
             optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             base.OnConfiguring(optionsBuilder);
+
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // fluent api customize the tables schema
-            //modelBuilder.UserModel();
 
-            // seed some basic data 
-            // administrator user in the user table
             modelBuilder.Entity<User>()
-            .HasOne<Roles>(me => me.Roles)
-            .WithMany(parent => parent.Users)
-            .HasForeignKey(me => me.RolesId);
+           .HasOne<Role>(me => me.Role)
+           .WithMany(parent => parent.Users)
+           .HasForeignKey(me => me.RoleId);
 
-            //modelBuilder.SeedDefaultData();
             base.OnModelCreating(modelBuilder);
         }
+        
         public DbSet<User> Users { get; set; }
-        public DbSet<Roles> Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
     }
 }
