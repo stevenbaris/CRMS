@@ -1,6 +1,9 @@
+using CustomersAPI.Configuration;
 using CustomersAPI.Data;
+using CustomersAPI.Models;
 using CustomersAPI.Repository;
 using CustomersAPI.Repository.MSSQL;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,18 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
+
+//DBCONTEXT
 builder.Services.AddDbContext<CustomerDBContext>();
 
-builder.Services.AddScoped<ICustomerDBRepository, CustomerDBRepo>();
-builder.Services.AddScoped<ITransactionDBRepository, TransactionDBRepo>();
-builder.Services.AddScoped<CustomerTransactionService>();
 
+//OTHER DEPENDENCY INJECTION SERVICES
+builder.Services
+    .AddRepoService()
+    .AddIdentityConfig()
+    .AddAuthorizationandAuthentication(builder.Configuration)
+    .AddSwaggerConfig();
 
-
-
-
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 
 var app = builder.Build();
@@ -28,6 +33,8 @@ var app = builder.Build();
 app.UseSwagger();
 
 app.UseSwaggerUI();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -1,9 +1,10 @@
 ﻿using CustomersAPI.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomersAPI.Data
 {
-    public class CustomerDBContext : DbContext
+    public class CustomerDBContext : IdentityDbContext<ApplicationUser>
     {
         IConfiguration _appConfig;
 
