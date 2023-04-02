@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace CRMS.Controllers
 {
-    public class HomeController : Controller
+    public class EmployeesController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<EmployeesController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public EmployeesController(ILogger<EmployeesController> logger)
         {
             _logger = logger;
         }

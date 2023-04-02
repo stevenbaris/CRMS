@@ -15,21 +15,17 @@ namespace CRMS.Controllers
     public class AppointmentPurposesController : Controller
     {
         private readonly IRepository<AppointmentPurpose> _purposesRepository;
-        //private readonly ILogger _logger;
-
         public AppointmentPurposesController(
             IRepository<AppointmentPurpose> purposesRepository)
-            //ILogger logger)
         {
             _purposesRepository = purposesRepository;
-            //_logger = logger;
         }
 
         // GET: AppointmentPurposes
         public async Task<IActionResult> Index()
         {
             var purposesList = await _purposesRepository.GetAllAsync();
-            return View(purposesList);
+            return View("~/Views/ManageLists/AppointmentPurposes/Index.cshtml", purposesList);
                      
         }
 
@@ -42,13 +38,13 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(appointmentPurpose);
+            return View("~/Views/ManageLists/AppointmentPurposes/Details.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Create
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/ManageLists/AppointmentPurposes/Create.cshtml");
         }
 
         // POST: AppointmentPurposes/Create
@@ -62,7 +58,7 @@ namespace CRMS.Controllers
                 await _purposesRepository.CreateAsync(appointmentPurpose);
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointmentPurpose);
+            return View("~/Views/ManageLists/AppointmentPurposes/Create.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Edit/5
@@ -73,7 +69,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            return View(appointmentPurpose);
+            return View("~/Views/ManageLists/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
         }
 
         // POST: AppointmentPurposes/Edit/5
@@ -108,7 +104,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(appointmentPurpose);
+            return View("~/Views/ManageLists/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Delete/5
@@ -120,7 +116,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(appointmentPurpose);
+            return View("~/Views/ManageLists/AppointmentPurposes/Delete.cshtml", appointmentPurpose);
         }
 
         // POST: AppointmentPurposes/Delete/5

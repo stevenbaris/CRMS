@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Customization";
+}
+
+<header>
+    <div>
+        <h3 class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-controls="dropdown-menu" aria-expanded="false" id="CustomizationDD">Customize Properties</h3>
+        <ul class="dropdown-menu" aria-labelledby="CustomizationDD">
+            <li><a class="dropdown-item" href="#" data-value="Contacts" aria-selected="true">Contacts</a></li>
+            <li><a class="dropdown-item" href="#" data-value="Companies">Companies</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-value="Separated link">Separated link</a></li>
+        </ul>
+    </div>
+
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Select Object</option>
+        <option value="1">User</option>
+        <option value="2">Appointments</option>
+        <option value="3">Engagements</option>
+        <option value="4">Leads</option>
+    </select>
+    
+
+
+
+    <br />
+    <div class="tab-container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="Roles-tab" data-bs-toggle="tab" data-bs-target="#Roles" type="button" role="tab" aria-controls="Roles" aria-selected="true">Roles</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="Purpose-tab" data-bs-toggle="tab" data-bs-target="#Purpose" type="button" role="tab" aria-controls="Purpose" aria-selected="false">Purpose</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="AssignCommunicationMethodedContacts-tab" data-bs-toggle="tab" data-bs-target="#CommunicationMethod" type="button" role="tab" aria-controls="CommunicationMethod" aria-selected="false">Communication Method</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="EngagementTypes-tab" data-bs-toggle="tab" data-bs-target="#EngagementTypes" type="button" role="tab" aria-controls="EngagementTypes" aria-selected="false">Engagement Types</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="Effectivity-tab" data-bs-toggle="tab" data-bs-target="#Effectivity" type="button" role="tab" aria-controls="Effectivity" aria-selected="false">Effectivity</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="LeadsStatus-tab" data-bs-toggle="tab" data-bs-target="#LeadsStatus" type="button" role="tab" aria-controls="LeadsStatus" aria-selected="false">Status</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="LeadsSource-tab" data-bs-toggle="tab" data-bs-target="#LeadsSource" type="button" role="tab" aria-controls="LeadsSource" aria-selected="false">Source</button>
+            </li>
+        </ul>
+    </div>
+</header>
+@*<partial name="_ContactsPartial" />*@
+
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            // Set the initial value of the h3 element to the default selected item
+            var defaultText = $('#employeeDD .dropdown-menu a[data-value="Employee Access"]').text();
+            $('#employeeDD .dropdown-toggle').text(defaultText);
+
+            // Update the text of the h3 element when a dropdown item is selected
+            $('#employeeDD .dropdown-menu a').click(function () {
+                var selectedText = $(this).text();
+                $('#employeeDD .dropdown-toggle').text(selectedText);
+            });
+        });
+    </script>
+}

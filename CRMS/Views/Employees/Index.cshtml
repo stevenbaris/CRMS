@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Employees";
+}
+
+<header >
+    <div >
+        <h3 class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" id="employeeDD">Employee Access</h3>
+            <ul class="dropdown-menu" aria-labelledby="employeeDD">
+                <li><a class="dropdown-item" href="#" data-value="Employee Access">Employee Access</a></li>
+                <li><a class="dropdown-item" href="#" data-value="Employee List">Employee List</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" data-value="Separated link">Separated link</a></li>
+            </ul>
+        <p></a># Records</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button">+ New Employee</button>
+        </div>
+    </div>
+
+
+
+    <br />
+    <div class="tab-container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="AllEmployees-tab" data-bs-toggle="tab" data-bs-target="#AllEmployees" type="button" role="tab" aria-controls="AllEmployees" aria-selected="true">All Employees</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="WithAccess-tab" data-bs-toggle="tab" data-bs-target="#WithAccess" type="button" role="tab" aria-controls="WithAccess" aria-selected="false">W/ Access</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="WithoutAccess-tab" data-bs-toggle="tab" data-bs-target="#WithoutAccess" type="button" role="tab" aria-controls="WithoutAccess" aria-selected="false">W/o Access</button>
+            </li>
+        </ul>
+    </div>
+</header>
+    <partial name="_EmployeesTablePartial" />
+    
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            // Set the initial value of the h3 element to the default selected item
+            var defaultText = $('#employeeDD .dropdown-menu a[data-value="Employee Access"]').text();
+            $('#employeeDD .dropdown-toggle').text(defaultText);
+
+            // Update the text of the h3 element when a dropdown item is selected
+            $('#employeeDD .dropdown-menu a').click(function () {
+                var selectedText = $(this).text();
+                $('#employeeDD .dropdown-toggle').text(selectedText);
+            });
+        });
+    </script>
+}

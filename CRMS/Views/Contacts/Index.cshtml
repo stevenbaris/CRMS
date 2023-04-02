@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Contacts";
+}
+
+<header>
+    <div>
+        <h3 class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-controls="dropdown-menu" aria-expanded="false" id="ContactsDD">Contacts</h3>
+        <ul class="dropdown-menu" aria-labelledby="ContactsDD">
+            <li><a class="dropdown-item" href="#" data-value="Contacts" aria-selected="true">Contacts</a></li>
+            <li class="disabled "><a class="dropdown-item" href="#" data-value="Companies">Companies</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" data-value="Separated link">Separated link</a></li>
+        </ul>
+        <p></a># Records</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button">+ New Contact</button>
+        </div>
+    </div>
+
+
+
+    <br />
+    <div class="tab-container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="AllContacts-tab" data-bs-toggle="tab" data-bs-target="#AllContacts" type="button" role="tab" aria-controls="AllContacts" aria-selected="true">All Contacts</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="MyContacts-tab" data-bs-toggle="tab" data-bs-target="#MyContacts" type="button" role="tab" aria-controls="MyContacts" aria-selected="false">MyContacts</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="AssignedContacts-tab" data-bs-toggle="tab" data-bs-target="#AssignedContacts" type="button" role="tab" aria-controls="AssignedContacts" aria-selected="false">Assigned</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="UnassignedContacts-tab" data-bs-toggle="tab" data-bs-target="#UnassignedContacts" type="button" role="tab" aria-controls="UnassignedContacts" aria-selected="false">Unassigned</button>
+            </li>
+        </ul>
+    </div>
+</header>
+<partial name="_ContactsPartial" />
+
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            // Set the initial value of the h3 element to the default selected item
+            var defaultText = $('#employeeDD .dropdown-menu a[data-value="Employee Access"]').text();
+            $('#employeeDD .dropdown-toggle').text(defaultText);
+
+            // Update the text of the h3 element when a dropdown item is selected
+            $('#employeeDD .dropdown-menu a').click(function () {
+                var selectedText = $(this).text();
+                $('#employeeDD .dropdown-toggle').text(selectedText);
+            });
+        });
+    </script>
+}
