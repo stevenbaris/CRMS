@@ -1,35 +1,34 @@
 ﻿using CRMS.Data;
 using CRMS.Models;
-using CRMS.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Repository.MsSQL
 {
-    public class UserDbRepository : IRepository<User>
+    public class UserDBRepository : IUserRepository
     {
-        public Task<User> CreateAsync(User entity)
+        private readonly CRMSDbContext _context;
+
+        public UserDBRepository(CRMSDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<User> DeleteAsync(Guid id)
+        public ICollection<ApplicationUser> GetUsers()
         {
-            throw new NotImplementedException();
+            return _context.Users.ToList();
         }
 
-        public Task<List<User>> GetAllAsync()
+        public ApplicationUser GetUser(string id)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(u => u.Id == id);
         }
 
-        public Task<User> GetbyIdAsync(Guid id)
+        public ApplicationUser UpdateUser(ApplicationUser user)
         {
-            throw new NotImplementedException();
-        }
+            _context.Update(user);
+            _context.SaveChanges();
 
-        public Task<User> UpdateAsync(User entity)
-        {
-            throw new NotImplementedException();
+            return user;
         }
+    
     }
 }

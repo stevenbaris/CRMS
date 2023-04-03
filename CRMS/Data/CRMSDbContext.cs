@@ -1,11 +1,21 @@
 ﻿using CRMS.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace CRMS.Data
 {
-    public class CRMSDbContext : DbContext
+    public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
-       
+
+        public CRMSDbContext(DbContextOptions<CRMSDbContext> options)
+        : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Database Connectivity
@@ -20,17 +30,17 @@ namespace CRMS.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<User>()
-           .HasOne<Role>(me => me.Role)
-           .WithMany(parent => parent.Users)
-           .HasForeignKey(me => me.RoleId);
-
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
         }
-        
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
+        public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
+        {
+            public void Configure(EntityTypeBuilder<ApplicationUser> builder)
+            {
+                builder.Property(u => u.FirstName).HasMaxLength(255);
+                builder.Property(u => u.LastName).HasMaxLength(255);
+            }
+        }
     }
 }
