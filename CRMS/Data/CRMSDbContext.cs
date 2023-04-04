@@ -1,10 +1,12 @@
 ﻿using CRMS.Data.TableMapping;
 using CRMS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Data
 {
-    public class CRMSDbContext : DbContext
+    public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         private readonly IConfiguration _appConfig;
 
@@ -41,6 +43,9 @@ namespace CRMS.Data
         public DbSet<EngagementType> EngagementTypes { get; set;}
         public DbSet<Source> Sources { get; set; }
         public DbSet<LeadStatus> Statuses { get; set; }
+        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<RollingTransactions> RollingTransactions { get; set; }
+
 
     }
 }

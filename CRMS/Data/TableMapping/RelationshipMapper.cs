@@ -32,13 +32,41 @@ namespace CRMS.Data.TableMapping
                 .ToTable("LEADS_STATUSES")
                 .HasKey(stts => stts.LeadStatus_Id);
 
+            modelBuilder.Entity<Contacts>()
+                .ToTable("CONTACTS")
+                .HasKey(contact => contact.Contact_Id);
+
+            modelBuilder.Entity<RollingTransactions>()
+                .ToTable("ROLLING TRANSACTIONS")
+                .HasKey(transact => transact.RollingTransactions_ID);
+
+
             //RELATIONSHIP
+            modelBuilder.Entity<Contacts>()
+                .HasOne<ApplicationUser>(contact => contact.User)
+                .WithMany(AppUser => AppUser.Contacts)
+                .HasForeignKey(contact => contact.ContactOwnerID)
+                .HasConstraintName("FK_ContactOwner");
+
+            modelBuilder.Entity<Contacts>()
+                .HasOne<ApplicationUser>(contact => contact.User)
+                .WithMany(AppUser => AppUser.Contacts)
+                .HasForeignKey(contact => contact.ContactCreatorID)
+                .HasConstraintName("FK_ContactCreator");
+
+            modelBuilder.Entity<RollingTransactions>()
+                .HasOne<Contacts>(transact => transact.Contacts)
+                .WithOne(contact => contact.Transactions)
+                .HasForeignKey<RollingTransactions>(transact => transact.ContactId)
+                .HasConstraintName("FK_TransactionsOfContact");
+
 
 
             //COLUMN PROPERTIES
-
+            modelBuilder.Entity<RollingTransactions>()
+                .Property(trans => trans.TransacationTotal)
+                .HasColumnType("decimal(18,2)");
 
         }
-
     }
 }

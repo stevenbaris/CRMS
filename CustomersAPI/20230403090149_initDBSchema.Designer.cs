@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CustomersAPI.Migrations
 {
     [DbContext(typeof(CustomerDBContext))]
-    [Migration("20230330104749_init migration CustomerAPI")]
-    partial class initmigrationCustomerAPI
+    [Migration("20230403090149_initDBSchema")]
+    partial class initDBSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,83 @@ namespace CustomersAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CustomersAPI.Models.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DOB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("CustomersAPI.Models.Customer", b =>
                 {
@@ -68,7 +145,7 @@ namespace CustomersAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Customer_Id = new Guid("b5c4f49b-9d42-4dcf-850f-bd2748b9a086"),
+                            Customer_Id = new Guid("5c789246-a36e-46fb-bbe0-59eeb68c19a6"),
                             Address = "5234 Crossing Street",
                             DOB = new DateTime(1975, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mauris.sagittis@icloud.edu",
@@ -79,7 +156,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("49251f79-637d-413f-83df-a596818e7936"),
+                            Customer_Id = new Guid("f65a5031-50a8-4893-9972-d05c7d88a2ae"),
                             Address = "3 Pepper Wood Center",
                             DOB = new DateTime(1984, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "aabrahamovitz0@marketwatch.com",
@@ -90,7 +167,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("4ba14856-6a17-42e3-be8e-c1253fd1d9d9"),
+                            Customer_Id = new Guid("efbf6381-b76b-49e8-9d3d-aa2ac7de0c71"),
                             Address = "97649 Corry Terrace",
                             DOB = new DateTime(1956, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mhabercham1@squidoo.com",
@@ -101,7 +178,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("37bb612e-a419-42ec-ba3c-98e0806bc328"),
+                            Customer_Id = new Guid("a809e63c-a6d8-4201-a18a-7da209801bd9"),
                             Address = "4608 Raven Parkway",
                             DOB = new DateTime(1987, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "amacrow2@globo.com",
@@ -112,7 +189,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("11c4b4c3-4c5b-4dc2-a34b-b632a701eb40"),
+                            Customer_Id = new Guid("ccb70d01-3249-4d5b-be97-560bbed7620f"),
                             Address = "2067 Golden Leaf Circle",
                             DOB = new DateTime(1964, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tedington3@illinois.edu",
@@ -123,7 +200,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("5e8eeaa8-1f10-40de-bfe8-2089f9f8d6d9"),
+                            Customer_Id = new Guid("c9fde16b-bebe-4160-a866-da2a1b2ca61f"),
                             Address = "52014 Leroy Hill",
                             DOB = new DateTime(1954, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "hsimunek4@yellowpages.com",
@@ -134,7 +211,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("ec894063-3b56-4a26-9fa9-5ea6565f8049"),
+                            Customer_Id = new Guid("535ec1ed-3fdf-4691-9681-4d2c5d6738d2"),
                             Address = "673 Autumn Leaf Court",
                             DOB = new DateTime(2006, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "asummerskill5@gravatar.com",
@@ -145,7 +222,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("5bcea2f4-b79d-4fdf-a378-d67d6fb3f568"),
+                            Customer_Id = new Guid("8fe044ed-eabc-4354-b11e-4c962ccc63e5"),
                             Address = "9 Pleasure Way",
                             DOB = new DateTime(1978, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jbrowett6@mediafire.com",
@@ -156,7 +233,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("0d67eb24-4ff5-48d2-b7e3-0c20e5722b9d"),
+                            Customer_Id = new Guid("58545c34-7a1a-4ac8-8198-3cc391ef3ed0"),
                             Address = "17 Columbus Junction",
                             DOB = new DateTime(1955, 5, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "gbilson7@prnewswire.com",
@@ -167,7 +244,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("62b1ae3b-58f1-4a0c-8e80-f22e170bda8a"),
+                            Customer_Id = new Guid("4fd960ab-2aa6-49d7-a526-2d0f4da21320"),
                             Address = "82368 Boyd Point",
                             DOB = new DateTime(2002, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ahave8@so-net.ne.jp",
@@ -178,7 +255,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("f4b8736c-409f-4d76-86a2-eb31a849f2ee"),
+                            Customer_Id = new Guid("0ab31e3a-858c-4f9f-9d62-dccb5cea16e2"),
                             Address = "59830 Brickson Park Road",
                             DOB = new DateTime(2001, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "khadlington9@paypal.com",
@@ -189,7 +266,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("0f5da1f6-8af2-45b7-b7f7-1009a0824a75"),
+                            Customer_Id = new Guid("cad23225-85c0-4f54-a4df-440df5c3d10c"),
                             Address = "624 Buhler Point",
                             DOB = new DateTime(1994, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mcrummaya@tripod.com",
@@ -200,7 +277,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("ade4638a-f6af-430f-a1f0-4c272bae514e"),
+                            Customer_Id = new Guid("19ddd5d4-12fd-4357-a49d-05651d48b550"),
                             Address = "64071 Acker Park",
                             DOB = new DateTime(1997, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "cakramb@wsj.com",
@@ -211,7 +288,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("34678801-6788-438c-88a0-95f8e3aa5382"),
+                            Customer_Id = new Guid("429408a7-890c-4f07-bfa8-c76da7def723"),
                             Address = "58172 Ruskin Crossing",
                             DOB = new DateTime(1965, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tcantoc@msu.edu",
@@ -222,7 +299,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("c5dee34c-f062-4723-9d00-b9d21624cdf6"),
+                            Customer_Id = new Guid("c073d015-78ac-4436-a555-fc74eeba640c"),
                             Address = "1 Pond Center",
                             DOB = new DateTime(1996, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mmularkeyd@typepad.com",
@@ -233,7 +310,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            Customer_Id = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             Address = "4526 Northfield Road",
                             DOB = new DateTime(1953, 3, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "mmerryfielde@nih.gov",
@@ -244,7 +321,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("edf55e81-8fe1-47d2-9d0a-b605951d756a"),
+                            Customer_Id = new Guid("b7faef3d-2d5b-4e2a-8376-502b361c64d3"),
                             Address = "03722 Westridge Court",
                             DOB = new DateTime(1997, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "cthomkinsf@etsy.com",
@@ -255,7 +332,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("c5d15bbf-0629-4b65-9bbe-53acbadee905"),
+                            Customer_Id = new Guid("460a787b-4f0f-44c6-840b-51d30c4e0566"),
                             Address = "62956 1st Street",
                             DOB = new DateTime(1972, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rmorgang@bbc.co.uk",
@@ -266,7 +343,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("026b6f1a-d2aa-44e5-b064-83228988f1b4"),
+                            Customer_Id = new Guid("69b66251-6956-4eed-8811-e8d1de41de29"),
                             Address = "57 Hagan Point",
                             DOB = new DateTime(1992, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "rskedgeh@google.de",
@@ -277,7 +354,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("d8cf10d0-0095-44ce-8263-bef0e0119659"),
+                            Customer_Id = new Guid("8f67ca88-92a0-40ae-92e8-9d0642fad52b"),
                             Address = "9664 Redwing Court",
                             DOB = new DateTime(1991, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "fstoweri@engadget.com",
@@ -288,7 +365,7 @@ namespace CustomersAPI.Migrations
                         },
                         new
                         {
-                            Customer_Id = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            Customer_Id = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             Address = "1 Dawn Circle",
                             DOB = new DateTime(1994, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ddimnagej@etsy.com",
@@ -325,354 +402,485 @@ namespace CustomersAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Transaction_Id = new Guid("5751685c-7175-4973-8f0a-809e55d4b69b"),
+                            Transaction_Id = new Guid("e91cf5b6-016d-4f27-ab85-cde749f2e79b"),
                             Amount = 6068.91m,
-                            CustomerId = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            CustomerId = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             TransactionDate = new DateTime(2022, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("872b0336-a3d2-4080-a422-e98de6a268f2"),
+                            Transaction_Id = new Guid("f9e411f6-b7fd-46ce-aea7-b5c6608bf7da"),
                             Amount = 6523.52m,
-                            CustomerId = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            CustomerId = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             TransactionDate = new DateTime(2022, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("c4657148-c4eb-45b1-b66a-280dd9cbbba1"),
+                            Transaction_Id = new Guid("71fc4c48-1991-45c1-a1ca-71d29018335e"),
                             Amount = 16861.07m,
-                            CustomerId = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            CustomerId = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             TransactionDate = new DateTime(2022, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("d2b0dbb2-06db-49ef-bf58-99ed3f5e023d"),
+                            Transaction_Id = new Guid("3e66e1a0-8182-49df-aa5c-ec0cbd32f60f"),
                             Amount = 15743.60m,
-                            CustomerId = new Guid("5e8eeaa8-1f10-40de-bfe8-2089f9f8d6d9"),
+                            CustomerId = new Guid("c9fde16b-bebe-4160-a866-da2a1b2ca61f"),
                             TransactionDate = new DateTime(2022, 4, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("04fbdc8c-89c3-47c6-be50-2c0503b5e0a9"),
+                            Transaction_Id = new Guid("c46aea69-8326-405d-be63-bdbf2c5c5703"),
                             Amount = 3896.77m,
-                            CustomerId = new Guid("37bb612e-a419-42ec-ba3c-98e0806bc328"),
+                            CustomerId = new Guid("a809e63c-a6d8-4201-a18a-7da209801bd9"),
                             TransactionDate = new DateTime(2023, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("35dafa6c-e09f-41de-a1f9-129575aa1fe4"),
+                            Transaction_Id = new Guid("b0e5e17f-4caf-40f2-b598-ec550002b667"),
                             Amount = 14115.62m,
-                            CustomerId = new Guid("c5d15bbf-0629-4b65-9bbe-53acbadee905"),
+                            CustomerId = new Guid("460a787b-4f0f-44c6-840b-51d30c4e0566"),
                             TransactionDate = new DateTime(2022, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("76373f06-c630-4e4f-839e-3b7d02fb3644"),
+                            Transaction_Id = new Guid("b23855af-40a5-46c0-b678-ed1a04271c3f"),
                             Amount = 1347.45m,
-                            CustomerId = new Guid("d8cf10d0-0095-44ce-8263-bef0e0119659"),
+                            CustomerId = new Guid("8f67ca88-92a0-40ae-92e8-9d0642fad52b"),
                             TransactionDate = new DateTime(2022, 11, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("e54b1e98-5f8f-4ed1-8e78-2b985aacbd27"),
+                            Transaction_Id = new Guid("9915dd35-4bfa-4f40-9ac1-ff2c074a9fcc"),
                             Amount = 19644.39m,
-                            CustomerId = new Guid("c5d15bbf-0629-4b65-9bbe-53acbadee905"),
+                            CustomerId = new Guid("460a787b-4f0f-44c6-840b-51d30c4e0566"),
                             TransactionDate = new DateTime(2022, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("d28e6fed-4ce4-4f11-9acc-33d22b6bc366"),
+                            Transaction_Id = new Guid("2ad1ec8a-6b9e-4fc8-96f9-efbae0f65dfa"),
                             Amount = 14420.64m,
-                            CustomerId = new Guid("5bcea2f4-b79d-4fdf-a378-d67d6fb3f568"),
+                            CustomerId = new Guid("8fe044ed-eabc-4354-b11e-4c962ccc63e5"),
                             TransactionDate = new DateTime(2022, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("d7eaf4da-c52f-4605-aa1e-d1e37c7362d1"),
+                            Transaction_Id = new Guid("bd2853cf-3ae4-46e0-b6cf-1f77a45485c1"),
                             Amount = 13405.27m,
-                            CustomerId = new Guid("11c4b4c3-4c5b-4dc2-a34b-b632a701eb40"),
+                            CustomerId = new Guid("ccb70d01-3249-4d5b-be97-560bbed7620f"),
                             TransactionDate = new DateTime(2022, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("b59b48ff-d969-4611-9140-0d603aad2556"),
+                            Transaction_Id = new Guid("7672faa0-628d-478a-9583-614c30f8438c"),
                             Amount = 14215.58m,
-                            CustomerId = new Guid("ec894063-3b56-4a26-9fa9-5ea6565f8049"),
+                            CustomerId = new Guid("535ec1ed-3fdf-4691-9681-4d2c5d6738d2"),
                             TransactionDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("11ae8710-4aef-4849-a9e5-6ed8eb010a8f"),
+                            Transaction_Id = new Guid("7eb10987-d455-4b4f-b5ad-fe1526e2f63f"),
                             Amount = 17181.86m,
-                            CustomerId = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            CustomerId = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             TransactionDate = new DateTime(2022, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("22c33b66-7bf8-4ba9-a0f7-acb23a69c2a3"),
+                            Transaction_Id = new Guid("90429ab2-bedb-47b4-ab00-de533c3d9513"),
                             Amount = 12838.18m,
-                            CustomerId = new Guid("c5dee34c-f062-4723-9d00-b9d21624cdf6"),
+                            CustomerId = new Guid("c073d015-78ac-4436-a555-fc74eeba640c"),
                             TransactionDate = new DateTime(2022, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("f3833de4-83bd-45a1-ab30-31af5d837eb7"),
+                            Transaction_Id = new Guid("794c832d-4384-4fd6-823d-59f2c9caab42"),
                             Amount = 3399.04m,
-                            CustomerId = new Guid("34678801-6788-438c-88a0-95f8e3aa5382"),
+                            CustomerId = new Guid("429408a7-890c-4f07-bfa8-c76da7def723"),
                             TransactionDate = new DateTime(2023, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("aa959317-8013-4f50-b51d-7967d99f5fcd"),
+                            Transaction_Id = new Guid("ea192ce4-ca54-4f15-afd2-9f038701dbc5"),
                             Amount = 19017.30m,
-                            CustomerId = new Guid("49251f79-637d-413f-83df-a596818e7936"),
+                            CustomerId = new Guid("f65a5031-50a8-4893-9972-d05c7d88a2ae"),
                             TransactionDate = new DateTime(2022, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("ef7c2d7f-5ff2-47a6-87ac-677f39e9ab11"),
+                            Transaction_Id = new Guid("89a2712b-23a2-478c-89c1-9bd9fb013f52"),
                             Amount = 12621.27m,
-                            CustomerId = new Guid("0f5da1f6-8af2-45b7-b7f7-1009a0824a75"),
+                            CustomerId = new Guid("cad23225-85c0-4f54-a4df-440df5c3d10c"),
                             TransactionDate = new DateTime(2022, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("4ebf69e4-bbe1-489e-8bff-cd402b90543a"),
+                            Transaction_Id = new Guid("cb3d2ae9-10bc-4348-a840-0ffac47ab7f5"),
                             Amount = 8205.19m,
-                            CustomerId = new Guid("5bcea2f4-b79d-4fdf-a378-d67d6fb3f568"),
+                            CustomerId = new Guid("8fe044ed-eabc-4354-b11e-4c962ccc63e5"),
                             TransactionDate = new DateTime(2022, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("1ed02e48-8f66-46a6-a883-1325f1d67740"),
+                            Transaction_Id = new Guid("60198401-9a0b-4ab4-80da-eaac6ad45e66"),
                             Amount = 18900.31m,
-                            CustomerId = new Guid("edf55e81-8fe1-47d2-9d0a-b605951d756a"),
+                            CustomerId = new Guid("b7faef3d-2d5b-4e2a-8376-502b361c64d3"),
                             TransactionDate = new DateTime(2022, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("70920a75-ff0c-4a91-a2fe-e574677e9fea"),
+                            Transaction_Id = new Guid("13779749-17d8-4c81-925d-aae22b43b1f6"),
                             Amount = 19958.59m,
-                            CustomerId = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            CustomerId = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             TransactionDate = new DateTime(2022, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("add08a49-59a8-415c-ae42-ee30302b28f5"),
+                            Transaction_Id = new Guid("99d73a89-654f-47d2-ba74-481c6ad40a44"),
                             Amount = 13524.20m,
-                            CustomerId = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            CustomerId = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             TransactionDate = new DateTime(2022, 9, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("3700f939-cf85-4b2b-b2e3-a8a8a566adad"),
+                            Transaction_Id = new Guid("2f422d76-474d-46e4-a1c9-27c5eaadc58c"),
                             Amount = 7914.91m,
-                            CustomerId = new Guid("d8cf10d0-0095-44ce-8263-bef0e0119659"),
+                            CustomerId = new Guid("8f67ca88-92a0-40ae-92e8-9d0642fad52b"),
                             TransactionDate = new DateTime(2022, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("cc7331a0-d6b2-4a7a-b323-b7b33761e345"),
+                            Transaction_Id = new Guid("66ce3b0b-732d-4c32-9be1-eed024b41e24"),
                             Amount = 14447.04m,
-                            CustomerId = new Guid("62b1ae3b-58f1-4a0c-8e80-f22e170bda8a"),
+                            CustomerId = new Guid("4fd960ab-2aa6-49d7-a526-2d0f4da21320"),
                             TransactionDate = new DateTime(2022, 12, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("19c9c154-58d9-479f-8b3b-b8705cf47314"),
+                            Transaction_Id = new Guid("99970be2-cd67-4ef7-9f8a-d31b24a5cfb6"),
                             Amount = 4079.20m,
-                            CustomerId = new Guid("34678801-6788-438c-88a0-95f8e3aa5382"),
+                            CustomerId = new Guid("429408a7-890c-4f07-bfa8-c76da7def723"),
                             TransactionDate = new DateTime(2022, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("eac08797-eba8-4818-af91-9028e941bb7d"),
+                            Transaction_Id = new Guid("e998fba6-3572-443f-a1d8-100355be9b77"),
                             Amount = 17809.47m,
-                            CustomerId = new Guid("026b6f1a-d2aa-44e5-b064-83228988f1b4"),
+                            CustomerId = new Guid("69b66251-6956-4eed-8811-e8d1de41de29"),
                             TransactionDate = new DateTime(2023, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("99a8ec9b-80a4-4ef5-9b0b-1f4cf8614d57"),
+                            Transaction_Id = new Guid("3a1d2074-7cc8-4295-812b-8f32bfc2fd04"),
                             Amount = 12163.93m,
-                            CustomerId = new Guid("11c4b4c3-4c5b-4dc2-a34b-b632a701eb40"),
+                            CustomerId = new Guid("ccb70d01-3249-4d5b-be97-560bbed7620f"),
                             TransactionDate = new DateTime(2023, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("f4087fb8-60af-4e35-9174-759223fd011d"),
+                            Transaction_Id = new Guid("971487b8-aadb-4663-9f0f-9e411ce72c6d"),
                             Amount = 10839.38m,
-                            CustomerId = new Guid("0d67eb24-4ff5-48d2-b7e3-0c20e5722b9d"),
+                            CustomerId = new Guid("58545c34-7a1a-4ac8-8198-3cc391ef3ed0"),
                             TransactionDate = new DateTime(2023, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("684312ea-0a64-4614-96d7-e377169cee15"),
+                            Transaction_Id = new Guid("053eba4a-064f-4c98-ab7a-033efc39c64e"),
                             Amount = 17362.33m,
-                            CustomerId = new Guid("37bb612e-a419-42ec-ba3c-98e0806bc328"),
+                            CustomerId = new Guid("a809e63c-a6d8-4201-a18a-7da209801bd9"),
                             TransactionDate = new DateTime(2022, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("4512388c-5e51-4fb9-a431-a55344eb78d2"),
+                            Transaction_Id = new Guid("4f59bb35-e5d0-4228-b5c8-f915e7c2e169"),
                             Amount = 15326.44m,
-                            CustomerId = new Guid("5bcea2f4-b79d-4fdf-a378-d67d6fb3f568"),
+                            CustomerId = new Guid("8fe044ed-eabc-4354-b11e-4c962ccc63e5"),
                             TransactionDate = new DateTime(2023, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("92433e38-af44-4beb-951f-34faeb3c3750"),
+                            Transaction_Id = new Guid("6d95657c-3ec0-4771-85f8-1f3742755795"),
                             Amount = 15225.41m,
-                            CustomerId = new Guid("62b1ae3b-58f1-4a0c-8e80-f22e170bda8a"),
+                            CustomerId = new Guid("4fd960ab-2aa6-49d7-a526-2d0f4da21320"),
                             TransactionDate = new DateTime(2023, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("b224b098-0634-49ba-9593-00f5c63d3692"),
+                            Transaction_Id = new Guid("f044e6e8-d6e7-46d6-8e22-5f5423a8205e"),
                             Amount = 8243.38m,
-                            CustomerId = new Guid("4ba14856-6a17-42e3-be8e-c1253fd1d9d9"),
+                            CustomerId = new Guid("efbf6381-b76b-49e8-9d3d-aa2ac7de0c71"),
                             TransactionDate = new DateTime(2023, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("a442172b-d901-4658-a1d8-42a37ae420fe"),
+                            Transaction_Id = new Guid("1aa2305b-821a-4bbf-a4ae-33f431f5d688"),
                             Amount = 19646.52m,
-                            CustomerId = new Guid("edf55e81-8fe1-47d2-9d0a-b605951d756a"),
+                            CustomerId = new Guid("b7faef3d-2d5b-4e2a-8376-502b361c64d3"),
                             TransactionDate = new DateTime(2022, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("28841356-ef18-45e7-b08f-b98249a06e9b"),
+                            Transaction_Id = new Guid("47f20f44-5027-4885-b127-2f05c06a1313"),
                             Amount = 5587.62m,
-                            CustomerId = new Guid("026b6f1a-d2aa-44e5-b064-83228988f1b4"),
+                            CustomerId = new Guid("69b66251-6956-4eed-8811-e8d1de41de29"),
                             TransactionDate = new DateTime(2023, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("d121e8a8-490f-46ae-ab8d-803d6ba61d56"),
+                            Transaction_Id = new Guid("78767eca-ca8e-4df5-8a6c-298e5954a012"),
                             Amount = 8628.20m,
-                            CustomerId = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            CustomerId = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             TransactionDate = new DateTime(2023, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("4cc61ade-682f-4d9b-abd8-64a17dcce762"),
+                            Transaction_Id = new Guid("7a2fca26-491e-4b57-9aa4-c5118c2c1be3"),
                             Amount = 3134.06m,
-                            CustomerId = new Guid("62b1ae3b-58f1-4a0c-8e80-f22e170bda8a"),
+                            CustomerId = new Guid("4fd960ab-2aa6-49d7-a526-2d0f4da21320"),
                             TransactionDate = new DateTime(2022, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("e6510ea0-d8e2-4edb-a40b-7533fd5bee3d"),
+                            Transaction_Id = new Guid("736ec3b4-2fa7-4b60-8afd-5e1d8e3decd3"),
                             Amount = 7895.30m,
-                            CustomerId = new Guid("c5dee34c-f062-4723-9d00-b9d21624cdf6"),
+                            CustomerId = new Guid("c073d015-78ac-4436-a555-fc74eeba640c"),
                             TransactionDate = new DateTime(2022, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("050f71c4-ea5f-4d93-9e5d-1cd443274cd8"),
+                            Transaction_Id = new Guid("39a71a4a-f8bf-4dee-98a3-20f53b519b25"),
                             Amount = 2116.34m,
-                            CustomerId = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            CustomerId = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             TransactionDate = new DateTime(2022, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("afec2965-82a0-49ef-9109-488b07d429c2"),
+                            Transaction_Id = new Guid("4b127757-2bbd-4a7c-a8d0-5ac50763b4fd"),
                             Amount = 14523.92m,
-                            CustomerId = new Guid("4ba14856-6a17-42e3-be8e-c1253fd1d9d9"),
+                            CustomerId = new Guid("efbf6381-b76b-49e8-9d3d-aa2ac7de0c71"),
                             TransactionDate = new DateTime(2022, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("1f40f67f-5499-48cb-92e6-3766719c0a80"),
+                            Transaction_Id = new Guid("d356e4a8-ed99-4e57-8c0c-a877f4efef51"),
                             Amount = 15192.52m,
-                            CustomerId = new Guid("34678801-6788-438c-88a0-95f8e3aa5382"),
+                            CustomerId = new Guid("429408a7-890c-4f07-bfa8-c76da7def723"),
                             TransactionDate = new DateTime(2023, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("361e0099-5f0d-442d-903d-030dcb6a97f3"),
+                            Transaction_Id = new Guid("c3381e92-d999-4572-a572-616fc2769014"),
                             Amount = 11703.50m,
-                            CustomerId = new Guid("5e8eeaa8-1f10-40de-bfe8-2089f9f8d6d9"),
+                            CustomerId = new Guid("c9fde16b-bebe-4160-a866-da2a1b2ca61f"),
                             TransactionDate = new DateTime(2022, 5, 19, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("0a0f7578-1c28-497e-ad7f-065641e3dcae"),
+                            Transaction_Id = new Guid("8dfec47d-105d-4885-a924-02e868d25b37"),
                             Amount = 9842.85m,
-                            CustomerId = new Guid("d8cf10d0-0095-44ce-8263-bef0e0119659"),
+                            CustomerId = new Guid("8f67ca88-92a0-40ae-92e8-9d0642fad52b"),
                             TransactionDate = new DateTime(2022, 12, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("9a838dd8-8dff-4528-8c2d-1f71d139f6fe"),
+                            Transaction_Id = new Guid("f2ec6b80-f589-4c62-9462-e0938e77635d"),
                             Amount = 3940.43m,
-                            CustomerId = new Guid("026b6f1a-d2aa-44e5-b064-83228988f1b4"),
+                            CustomerId = new Guid("69b66251-6956-4eed-8811-e8d1de41de29"),
                             TransactionDate = new DateTime(2022, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("70853e7e-b5a8-462b-b817-05975154bf58"),
+                            Transaction_Id = new Guid("c2f6c4a0-d975-48cb-87b7-45b8c365a66e"),
                             Amount = 13910.67m,
-                            CustomerId = new Guid("0d67eb24-4ff5-48d2-b7e3-0c20e5722b9d"),
+                            CustomerId = new Guid("58545c34-7a1a-4ac8-8198-3cc391ef3ed0"),
                             TransactionDate = new DateTime(2022, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("8fb38c8f-2561-4754-aa7a-fad5ba63229d"),
+                            Transaction_Id = new Guid("2b775dc1-46c4-45e0-9458-b016e50e9ecc"),
                             Amount = 1183.59m,
-                            CustomerId = new Guid("ade4638a-f6af-430f-a1f0-4c272bae514e"),
+                            CustomerId = new Guid("19ddd5d4-12fd-4357-a49d-05651d48b550"),
                             TransactionDate = new DateTime(2022, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("904170c2-ed34-4437-8879-18620cf33b00"),
+                            Transaction_Id = new Guid("e484145a-1e79-4e57-9b7d-e421855ab075"),
                             Amount = 12396.27m,
-                            CustomerId = new Guid("37bb612e-a419-42ec-ba3c-98e0806bc328"),
+                            CustomerId = new Guid("a809e63c-a6d8-4201-a18a-7da209801bd9"),
                             TransactionDate = new DateTime(2022, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("d66d46db-b136-4a56-8d08-71a3a86dde40"),
+                            Transaction_Id = new Guid("a9aaebad-94f3-49be-bf1f-5cadd7c2e140"),
                             Amount = 18095.37m,
-                            CustomerId = new Guid("ade4638a-f6af-430f-a1f0-4c272bae514e"),
+                            CustomerId = new Guid("19ddd5d4-12fd-4357-a49d-05651d48b550"),
                             TransactionDate = new DateTime(2022, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("708311b0-82cd-4e8a-bfdb-765b16a6e726"),
+                            Transaction_Id = new Guid("e2897d64-a559-4917-b2a1-9cd04717e9f6"),
                             Amount = 7388.27m,
-                            CustomerId = new Guid("c5dee34c-f062-4723-9d00-b9d21624cdf6"),
+                            CustomerId = new Guid("c073d015-78ac-4436-a555-fc74eeba640c"),
                             TransactionDate = new DateTime(2022, 9, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("01bfd07c-e870-4867-a491-a524bdab507f"),
+                            Transaction_Id = new Guid("a7c37cb5-f8ed-4d03-8173-905d0db3b322"),
                             Amount = 5204.34m,
-                            CustomerId = new Guid("2ee2d83f-62e0-40b7-ad0b-14b1b81ed871"),
+                            CustomerId = new Guid("ab8633c3-3056-4dff-88a9-4066c0bd2114"),
                             TransactionDate = new DateTime(2022, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("8de0f7f0-9f3a-4d70-b648-b2e08f689b8c"),
+                            Transaction_Id = new Guid("6708028c-d98f-45f6-a9c9-78142413e7ac"),
                             Amount = 14562.70m,
-                            CustomerId = new Guid("32ba67ab-9d6b-4ebc-8bc5-0740fbe25b32"),
+                            CustomerId = new Guid("cddd06e2-5def-47fa-ac26-606416b83717"),
                             TransactionDate = new DateTime(2023, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("78cbf1cc-8af6-44c6-94b9-148aeb2397cd"),
+                            Transaction_Id = new Guid("d975ce29-a6f7-4318-b937-3727a04a5b70"),
                             Amount = 12432.71m,
-                            CustomerId = new Guid("ade4638a-f6af-430f-a1f0-4c272bae514e"),
+                            CustomerId = new Guid("19ddd5d4-12fd-4357-a49d-05651d48b550"),
                             TransactionDate = new DateTime(2023, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
-                            Transaction_Id = new Guid("8ded48d7-9884-4a0c-82a1-2137c16f033f"),
+                            Transaction_Id = new Guid("dd5a2ce8-3ef5-44db-b292-62135b663c99"),
                             Amount = 9929.75m,
-                            CustomerId = new Guid("c5d15bbf-0629-4b65-9bbe-53acbadee905"),
+                            CustomerId = new Guid("460a787b-4f0f-44c6-840b-51d30c4e0566"),
                             TransactionDate = new DateTime(2022, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("CustomersAPI.Models.Transactions", b =>
@@ -685,6 +893,57 @@ namespace CustomersAPI.Migrations
                         .HasConstraintName("FK_Customer_ID");
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("CustomersAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("CustomersAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomersAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("CustomersAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CustomersAPI.Models.Customer", b =>

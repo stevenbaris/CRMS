@@ -42,7 +42,7 @@ namespace CustomersAPI.Configuration
                         {
                             ValidateIssuer = true,
                             ValidateAudience = true,
-                            //ValidateLifetime = true,
+                            ValidateLifetime = true,
                             ValidateIssuerSigningKey = true,
                             ValidIssuer = Configuration["JWT:Issuer"],
                             ValidAudience = Configuration["JWT:Audience"],
@@ -55,7 +55,7 @@ namespace CustomersAPI.Configuration
 
         public static IServiceCollection AddIdentityConfig(this IServiceCollection Services)
         {
-            Services.AddIdentity<ApplicationUser, IdentityRole>()
+            Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<CustomerDBContext>()
                 .AddDefaultTokenProviders();
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomersAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ExternalDataController : ControllerBase
@@ -34,7 +34,7 @@ namespace CustomersAPI.Controllers
         }
 
         //GET ALL CUSTOMERE WITH TRANSACTION LIST
-        [HttpGet("Transactions")]
+        [HttpGet("CustomerTransactions")]
         public async Task<IActionResult> GetAllTransactions()
         {
             _logger.LogInformation("Request received from user: {user} to get the complete transactions list.", User.Identity.Name);

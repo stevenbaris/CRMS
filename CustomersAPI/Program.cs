@@ -19,9 +19,9 @@ builder.Services.AddDbContext<CustomerDBContext>();
 
 //OTHER DEPENDENCY INJECTION SERVICES
 builder.Services
-    .AddRepoService()
     .AddIdentityConfig()
     .AddAuthorizationandAuthentication(builder.Configuration)
+    .AddRepoService()
     .AddSwaggerConfig();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));

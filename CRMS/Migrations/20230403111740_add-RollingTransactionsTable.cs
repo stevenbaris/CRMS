@@ -5,205 +5,205 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CRMS.Migrations
 {
-    public partial class addingidentitytables : Migration
+    public partial class addRollingTransactionsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("14b225d2-a67b-4ce7-a874-d7e4d43b7bc0"));
+                keyValue: new Guid("1ab2f946-f117-4702-ad14-05150a77243f"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("39e0e557-04cb-47a7-998b-32fae947dacc"));
+                keyValue: new Guid("3dbba4ea-3e87-436a-88d4-2bea2faa2e89"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("b723e6c9-17a9-4fd5-9a0d-82dbbe2b48de"));
+                keyValue: new Guid("43b0f213-a447-4f12-980a-b948403fc490"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("cefb49da-c282-4627-906e-ee0d56ce81a0"));
+                keyValue: new Guid("4bb4af14-f406-4836-9ff5-07a136a20c31"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("fe21a2e1-0d21-408b-9cc2-272f3ee542c8"));
+                keyValue: new Guid("97b81117-da08-47fe-a24e-60d8f7be34fc"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("2217910d-7f3a-4f3f-ab09-88122e46b65f"));
+                keyValue: new Guid("47947c54-cbea-4751-bf82-ac43fdbdbf55"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("37169b6b-3501-4ae4-b4a9-5851e441dbd2"));
+                keyValue: new Guid("68bf1f8e-f31d-418e-824c-2f55db4e81e7"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("48651ee6-af94-4a26-a1db-416cc3c39594"));
+                keyValue: new Guid("7dc22be9-52d8-4d83-b1a0-2e01456aa305"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("4bdb241e-644c-4b83-88ef-8babb9dac2b6"));
+                keyValue: new Guid("895b5fba-8559-4aa2-8a1e-1dfb4d371903"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("646c730f-d5b1-4046-82da-fd403b78f68c"));
+                keyValue: new Guid("ca67a03e-44b4-4cd0-885c-17e5c2cee30a"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("889b0b4e-ad4d-465d-8406-ccd35651c3c0"));
+                keyValue: new Guid("cd1d02a3-fcbc-49b6-afb0-0c789ad63035"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("ba768f7c-66b4-49bc-ad38-263e242fa469"));
+                keyValue: new Guid("d63e684c-fe71-427b-8620-19f57c9fa95a"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("d0d011fe-53e0-442b-ae07-435b45495200"));
+                keyValue: new Guid("ebf32643-30cd-4173-b9cf-0ec9a2b6c1c3"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("14f8c3ce-0dae-4793-a428-0e7665e5585e"));
+                keyValue: new Guid("6174d5d8-631f-4078-9330-2d7508f247d5"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("194cc59a-d282-4c45-8dcf-8ed057d75c0e"));
+                keyValue: new Guid("8d906718-db4c-4206-84e5-0153921199e0"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("76d947a0-c597-4ef2-83f0-7f4036bd3471"));
+                keyValue: new Guid("d0a08d8c-246f-42ca-a15a-26529aefdc14"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("824be642-ca17-4bbd-a7eb-6fdb7aec0cf4"));
+                keyValue: new Guid("d578ba6c-d51e-4774-8314-9c406bd5d450"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("1c6c8f48-5583-4435-821e-857e0c5a6a3b"));
+                keyValue: new Guid("057bb849-c0a0-4d27-8296-4855bf0ab0c3"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("21d87b01-7ac2-42cf-8399-bf752fb635fb"));
+                keyValue: new Guid("1451297a-93da-47b9-a5eb-67544830726f"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("41c9261f-5751-49ef-a7f1-24bc4b1057c4"));
+                keyValue: new Guid("1af2cf2f-2bda-45bb-9d86-2e6a49464517"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("5b2768ef-a1b1-444c-b0ac-155d433ff362"));
+                keyValue: new Guid("54c79ced-f46d-4f52-ad58-f4d7bcf9b053"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("8905c48d-c071-43b0-a859-2daed63da8bc"));
+                keyValue: new Guid("748323cb-aaba-4740-9c25-59cf2e4a5c8d"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("a3a45328-c7b8-4913-af67-5429ae1dc300"));
+                keyValue: new Guid("ae75c350-a351-43bb-8c0e-dfd068c8a7de"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("b58d27f3-4247-4c7b-ba58-0e87d7c52cdc"));
+                keyValue: new Guid("d335af28-3fc8-44bb-8f9f-9d8420ce749d"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("dabbed93-cce7-4c2c-aab1-0e40ac34f6dd"));
+                keyValue: new Guid("e861bd4f-517e-4880-bb3d-26a358c98a69"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("20921d0a-a717-4a85-b4a5-b26c7f84f9c7"));
+                keyValue: new Guid("217c4929-b995-4ab6-897c-348f48fe31a1"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("4ec7dec0-24f1-4d29-827f-0e03e8d405de"));
+                keyValue: new Guid("38c95f40-985d-4435-aee9-d863d348f162"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("953c53b9-325b-4ac8-9c82-325226b030c1"));
+                keyValue: new Guid("4a166d72-d16b-4284-ae89-f4877a29a68d"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("a6b740f4-faab-4f36-a6e2-72ebe572a9e5"));
+                keyValue: new Guid("63dcf354-2593-453d-8f5f-45d0f396639c"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("cd7a22ce-0632-4b13-a3e0-eb502de8faa3"));
+                keyValue: new Guid("d2deb997-1e0b-44db-af11-84ea001ef78f"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("f992ea21-08f3-4c2f-bb98-91946bc15da2"));
+                keyValue: new Guid("d66e4b47-43ac-433e-89d4-dad453747357"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("2348a0ac-7197-481d-96c4-64b28f3ffd9b"));
+                keyValue: new Guid("3fdcd373-b594-415b-a048-c64d9f9567df"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("2643073b-3b97-46c5-8218-1db223193676"));
+                keyValue: new Guid("8160025e-8e8b-4a15-9084-7ab149cc3eca"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("802f018e-6c60-4d4b-b045-ee561a2c38a6"));
+                keyValue: new Guid("a10052cd-dc35-4b5e-832d-bced13f6de72"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("8d4be98a-1d59-4866-9528-3bbbd94d6257"));
+                keyValue: new Guid("af2f7795-9909-4fe0-850c-237ad1bdf11d"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("99c01814-4d9a-4a57-8c0e-96e36e865c88"));
+                keyValue: new Guid("b629c8c0-9cca-46f6-acd0-ab636fe70491"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("ed6dc4a7-c020-441e-8a89-57c208e14a65"));
+                keyValue: new Guid("dc47582f-e332-4c99-9019-1f97acdb8688"));
 
             migrationBuilder.InsertData(
                 table: "APPOINTMENT_PURPOSES",
                 columns: new[] { "Purpose_Id", "PurposeName" },
                 values: new object[,]
                 {
-                    { new Guid("2107d263-f6a6-409b-b9d9-a034da509e97"), "Presentation" },
-                    { new Guid("4b450562-ccd8-44ef-b28c-77ce2e1c9a7c"), "Proposal" },
-                    { new Guid("61456991-8576-4f1a-a753-139940610a5e"), "Fact-Find" },
-                    { new Guid("a6051811-1ce8-423e-9b69-b37c742295ec"), "Others" },
-                    { new Guid("ac558199-bf88-4cd2-99ed-839231cc8689"), "Sales Closing" }
+                    { new Guid("46ba3f3d-bb0d-418b-b275-d3c2a539a762"), "Sales Closing" },
+                    { new Guid("90f7f41a-c895-4c9d-b151-3fb6f0aabd86"), "Proposal" },
+                    { new Guid("94ba0450-a39b-4f6a-a4f5-292792c8c669"), "Fact-Find" },
+                    { new Guid("b603a1fe-47ab-410f-9961-b27915aded6f"), "Others" },
+                    { new Guid("f191d001-cb19-471d-9363-331711825f0b"), "Presentation" }
                 });
 
             migrationBuilder.InsertData(
@@ -211,14 +211,14 @@ namespace CRMS.Migrations
                 columns: new[] { "CommunicationMethod_Id", "CommunicationMethodName" },
                 values: new object[,]
                 {
-                    { new Guid("09e0eeb2-8aba-4b2c-8f55-4889f0f1973b"), "Others" },
-                    { new Guid("4cf975d3-2698-453d-818b-3017752da0a0"), "Instagram" },
-                    { new Guid("7ff23b6d-1ebd-4bc9-996c-b6df7ba9852b"), "Facebook" },
-                    { new Guid("97bb2f0e-5a40-4443-8460-c6090d9fd461"), "Email" },
-                    { new Guid("ad0aaebf-9815-4c8c-be7d-fbf15d79f27a"), "WhatsApp" },
-                    { new Guid("b8c4c8d5-4cc2-4bff-86c1-b4f3c9c52f1b"), "Phone Call" },
-                    { new Guid("c32854ad-eef8-4841-93ab-5e842ad2fb19"), "Test Message" },
-                    { new Guid("dffce4c9-3b0c-4b13-b05a-b862a35c7142"), "Line" }
+                    { new Guid("4678aac8-0810-46ba-a941-b37779e828f0"), "Others" },
+                    { new Guid("58d97bed-0c73-45f5-95eb-f8ff3dcc920f"), "Test Message" },
+                    { new Guid("58f47347-35f3-4062-bb71-82a267694c0f"), "Email" },
+                    { new Guid("643c6512-5104-4ca7-a039-02f8bf0e9910"), "Instagram" },
+                    { new Guid("a4f3a312-a3c6-45d5-8a8e-367153d2b0ac"), "Line" },
+                    { new Guid("a9dc8c41-666c-4d43-9d36-a26322f870fe"), "WhatsApp" },
+                    { new Guid("c67f7688-c624-4ece-a762-d465e4090fdf"), "Facebook" },
+                    { new Guid("e2601bb0-81ef-42c3-a700-0a5d726ce5d0"), "Phone Call" }
                 });
 
             migrationBuilder.InsertData(
@@ -226,10 +226,10 @@ namespace CRMS.Migrations
                 columns: new[] { "Effectivity_Id", "Effectivity_Name" },
                 values: new object[,]
                 {
-                    { new Guid("9a6e751c-5f50-4747-b80b-60d8cfb98144"), "Read but no response" },
-                    { new Guid("d4914ea9-9ed2-4e0c-957e-a7d5380a7e38"), "Not Read" },
-                    { new Guid("df49f373-e988-4ce1-b304-abcc8bcc5ed7"), "Good Engagement" },
-                    { new Guid("fe8afbb6-20ea-484a-919f-9878a48800a3"), "Simple Response" }
+                    { new Guid("184fe740-43e8-4dd0-9152-29c7b2cf85f4"), "Not Read" },
+                    { new Guid("2f6a48bd-c73e-461e-8b6d-9718d27b4cfb"), "Simple Response" },
+                    { new Guid("647bbac0-b3f6-4744-b124-5b2dd5b9fc46"), "Read but no response" },
+                    { new Guid("f19b0b7e-46aa-4fd8-9b08-12a512deab38"), "Good Engagement" }
                 });
 
             migrationBuilder.InsertData(
@@ -237,14 +237,14 @@ namespace CRMS.Migrations
                 columns: new[] { "EType_Id", "EngagementName" },
                 values: new object[,]
                 {
-                    { new Guid("18fd6b9e-8331-4e9a-a400-559754b662f7"), "Company News" },
-                    { new Guid("1f1d1c14-50c0-402d-b445-a07531a05007"), "Others" },
-                    { new Guid("4ae1f267-2b69-42f9-8ed4-474bf85e7a0a"), "Congratulations" },
-                    { new Guid("5166f386-c8e6-4c93-8559-d56ef453333c"), "Anniversary" },
-                    { new Guid("b74af64b-e725-498f-98a0-bec3c50360ef"), "Discount" },
-                    { new Guid("ca2f11d3-bdf6-4b4f-afb6-dff9136e8119"), "Birthday" },
-                    { new Guid("e78da97e-8db3-488a-817d-e96681f60dc0"), "New Product" },
-                    { new Guid("ecabb29a-28d9-4414-859b-c1f9cd3a0f1d"), "Holiday" }
+                    { new Guid("1193f49d-be8a-4721-a75d-2cc42aac5a65"), "Others" },
+                    { new Guid("68f26ff1-f03b-491c-8e53-8172b6def7eb"), "Holiday" },
+                    { new Guid("7c64668d-c996-4182-a86f-ccb067bffefd"), "Congratulations" },
+                    { new Guid("aabb222b-76a2-432e-ab8b-2f7f8f0aeb8b"), "Anniversary" },
+                    { new Guid("b8ac4535-9e75-46d2-9228-5e5602c3bc1e"), "Birthday" },
+                    { new Guid("c0ae4de5-6f93-429f-ba5e-dc6a90658f97"), "New Product" },
+                    { new Guid("ed0b8343-c65b-4de7-b0ca-64fffe91c414"), "Discount" },
+                    { new Guid("ed690734-1bda-4180-8caa-692e20181b05"), "Company News" }
                 });
 
             migrationBuilder.InsertData(
@@ -252,12 +252,12 @@ namespace CRMS.Migrations
                 columns: new[] { "Source_Id", "SourceName" },
                 values: new object[,]
                 {
-                    { new Guid("6911a4f7-64c7-4a4a-b966-9323f5b73ad2"), "Webinar" },
-                    { new Guid("78ca56fd-c25c-49dc-b74c-3881e4309b7f"), "Compony-Generated" },
-                    { new Guid("7b578a2b-1681-4018-aaf8-ddf78b6e5749"), "Others" },
-                    { new Guid("937f5772-6ce1-4231-ab98-b38de56f3b0b"), "Social Media" },
-                    { new Guid("9ab32434-ef92-45e1-a08e-fea904160b26"), "Friend" },
-                    { new Guid("dc8ef401-a5c3-45ef-bc79-9a13d98e520b"), "Referral" }
+                    { new Guid("22916c8b-1b19-4045-8977-8089a78e64c0"), "Referral" },
+                    { new Guid("38d600e9-cccd-45ff-8b92-597b592b186b"), "Social Media" },
+                    { new Guid("75f2b6b5-ff1e-45cc-b98b-f33c0790c7ca"), "Compony-Generated" },
+                    { new Guid("788f63ca-11b5-44ec-b796-dbb73e63ad66"), "Friend" },
+                    { new Guid("8bbc315c-ec27-446d-bb06-42eb9b87608b"), "Others" },
+                    { new Guid("ee9f6d22-24b8-4afd-8341-aa3f10c72ad5"), "Webinar" }
                 });
 
             migrationBuilder.InsertData(
@@ -265,12 +265,12 @@ namespace CRMS.Migrations
                 columns: new[] { "LeadStatus_Id", "LeadStatusName" },
                 values: new object[,]
                 {
-                    { new Guid("05d4f04c-eba1-4b7f-ad97-c8196c665431"), "Application Submitted" },
-                    { new Guid("2cd79579-5b43-496e-8039-d8464dc2a6de"), "Contacted" },
-                    { new Guid("53ca32fd-d16a-4852-9abf-ccfb0b8b4793"), "Lead is Dead" },
-                    { new Guid("887658a8-d10e-427f-a676-da6882f0ae01"), "Proposal Generated" },
-                    { new Guid("a3745347-03a2-4e5a-b899-7798fd2e9a69"), "Policy Issued" },
-                    { new Guid("f515d52d-b404-45e6-ba5b-67b81ed17b9e"), "Met" }
+                    { new Guid("243488a8-f9ce-49d7-935c-1f9e02899017"), "Proposal Generated" },
+                    { new Guid("2d419c85-4b2d-4454-b3fb-0485e5620096"), "Met" },
+                    { new Guid("584bba83-9d7e-45e5-9faf-c985cbc66d2e"), "Lead is Dead" },
+                    { new Guid("970b5c04-567b-4f9d-9e4d-6d9410db3804"), "Application Submitted" },
+                    { new Guid("c2f44fda-f681-4919-8146-fc34c140432a"), "Contacted" },
+                    { new Guid("d06e04f0-771f-41be-90f0-182ef4654316"), "Policy Issued" }
                 });
         }
 
@@ -279,198 +279,198 @@ namespace CRMS.Migrations
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("2107d263-f6a6-409b-b9d9-a034da509e97"));
+                keyValue: new Guid("46ba3f3d-bb0d-418b-b275-d3c2a539a762"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("4b450562-ccd8-44ef-b28c-77ce2e1c9a7c"));
+                keyValue: new Guid("90f7f41a-c895-4c9d-b151-3fb6f0aabd86"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("61456991-8576-4f1a-a753-139940610a5e"));
+                keyValue: new Guid("94ba0450-a39b-4f6a-a4f5-292792c8c669"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("a6051811-1ce8-423e-9b69-b37c742295ec"));
+                keyValue: new Guid("b603a1fe-47ab-410f-9961-b27915aded6f"));
 
             migrationBuilder.DeleteData(
                 table: "APPOINTMENT_PURPOSES",
                 keyColumn: "Purpose_Id",
-                keyValue: new Guid("ac558199-bf88-4cd2-99ed-839231cc8689"));
+                keyValue: new Guid("f191d001-cb19-471d-9363-331711825f0b"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("09e0eeb2-8aba-4b2c-8f55-4889f0f1973b"));
+                keyValue: new Guid("4678aac8-0810-46ba-a941-b37779e828f0"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("4cf975d3-2698-453d-818b-3017752da0a0"));
+                keyValue: new Guid("58d97bed-0c73-45f5-95eb-f8ff3dcc920f"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("7ff23b6d-1ebd-4bc9-996c-b6df7ba9852b"));
+                keyValue: new Guid("58f47347-35f3-4062-bb71-82a267694c0f"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("97bb2f0e-5a40-4443-8460-c6090d9fd461"));
+                keyValue: new Guid("643c6512-5104-4ca7-a039-02f8bf0e9910"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("ad0aaebf-9815-4c8c-be7d-fbf15d79f27a"));
+                keyValue: new Guid("a4f3a312-a3c6-45d5-8a8e-367153d2b0ac"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("b8c4c8d5-4cc2-4bff-86c1-b4f3c9c52f1b"));
+                keyValue: new Guid("a9dc8c41-666c-4d43-9d36-a26322f870fe"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("c32854ad-eef8-4841-93ab-5e842ad2fb19"));
+                keyValue: new Guid("c67f7688-c624-4ece-a762-d465e4090fdf"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_COMMUNICATION METHODS",
                 keyColumn: "CommunicationMethod_Id",
-                keyValue: new Guid("dffce4c9-3b0c-4b13-b05a-b862a35c7142"));
+                keyValue: new Guid("e2601bb0-81ef-42c3-a700-0a5d726ce5d0"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("9a6e751c-5f50-4747-b80b-60d8cfb98144"));
+                keyValue: new Guid("184fe740-43e8-4dd0-9152-29c7b2cf85f4"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("d4914ea9-9ed2-4e0c-957e-a7d5380a7e38"));
+                keyValue: new Guid("2f6a48bd-c73e-461e-8b6d-9718d27b4cfb"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("df49f373-e988-4ce1-b304-abcc8bcc5ed7"));
+                keyValue: new Guid("647bbac0-b3f6-4744-b124-5b2dd5b9fc46"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_EFFECTIVITY",
                 keyColumn: "Effectivity_Id",
-                keyValue: new Guid("fe8afbb6-20ea-484a-919f-9878a48800a3"));
+                keyValue: new Guid("f19b0b7e-46aa-4fd8-9b08-12a512deab38"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("18fd6b9e-8331-4e9a-a400-559754b662f7"));
+                keyValue: new Guid("1193f49d-be8a-4721-a75d-2cc42aac5a65"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("1f1d1c14-50c0-402d-b445-a07531a05007"));
+                keyValue: new Guid("68f26ff1-f03b-491c-8e53-8172b6def7eb"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("4ae1f267-2b69-42f9-8ed4-474bf85e7a0a"));
+                keyValue: new Guid("7c64668d-c996-4182-a86f-ccb067bffefd"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("5166f386-c8e6-4c93-8559-d56ef453333c"));
+                keyValue: new Guid("aabb222b-76a2-432e-ab8b-2f7f8f0aeb8b"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("b74af64b-e725-498f-98a0-bec3c50360ef"));
+                keyValue: new Guid("b8ac4535-9e75-46d2-9228-5e5602c3bc1e"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("ca2f11d3-bdf6-4b4f-afb6-dff9136e8119"));
+                keyValue: new Guid("c0ae4de5-6f93-429f-ba5e-dc6a90658f97"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("e78da97e-8db3-488a-817d-e96681f60dc0"));
+                keyValue: new Guid("ed0b8343-c65b-4de7-b0ca-64fffe91c414"));
 
             migrationBuilder.DeleteData(
                 table: "ENGAGEMENT_ENGAGEMENT-TYPES",
                 keyColumn: "EType_Id",
-                keyValue: new Guid("ecabb29a-28d9-4414-859b-c1f9cd3a0f1d"));
+                keyValue: new Guid("ed690734-1bda-4180-8caa-692e20181b05"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("6911a4f7-64c7-4a4a-b966-9323f5b73ad2"));
+                keyValue: new Guid("22916c8b-1b19-4045-8977-8089a78e64c0"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("78ca56fd-c25c-49dc-b74c-3881e4309b7f"));
+                keyValue: new Guid("38d600e9-cccd-45ff-8b92-597b592b186b"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("7b578a2b-1681-4018-aaf8-ddf78b6e5749"));
+                keyValue: new Guid("75f2b6b5-ff1e-45cc-b98b-f33c0790c7ca"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("937f5772-6ce1-4231-ab98-b38de56f3b0b"));
+                keyValue: new Guid("788f63ca-11b5-44ec-b796-dbb73e63ad66"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("9ab32434-ef92-45e1-a08e-fea904160b26"));
+                keyValue: new Guid("8bbc315c-ec27-446d-bb06-42eb9b87608b"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_SOURCES",
                 keyColumn: "Source_Id",
-                keyValue: new Guid("dc8ef401-a5c3-45ef-bc79-9a13d98e520b"));
+                keyValue: new Guid("ee9f6d22-24b8-4afd-8341-aa3f10c72ad5"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("05d4f04c-eba1-4b7f-ad97-c8196c665431"));
+                keyValue: new Guid("243488a8-f9ce-49d7-935c-1f9e02899017"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("2cd79579-5b43-496e-8039-d8464dc2a6de"));
+                keyValue: new Guid("2d419c85-4b2d-4454-b3fb-0485e5620096"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("53ca32fd-d16a-4852-9abf-ccfb0b8b4793"));
+                keyValue: new Guid("584bba83-9d7e-45e5-9faf-c985cbc66d2e"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("887658a8-d10e-427f-a676-da6882f0ae01"));
+                keyValue: new Guid("970b5c04-567b-4f9d-9e4d-6d9410db3804"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("a3745347-03a2-4e5a-b899-7798fd2e9a69"));
+                keyValue: new Guid("c2f44fda-f681-4919-8146-fc34c140432a"));
 
             migrationBuilder.DeleteData(
                 table: "LEADS_STATUSES",
                 keyColumn: "LeadStatus_Id",
-                keyValue: new Guid("f515d52d-b404-45e6-ba5b-67b81ed17b9e"));
+                keyValue: new Guid("d06e04f0-771f-41be-90f0-182ef4654316"));
 
             migrationBuilder.InsertData(
                 table: "APPOINTMENT_PURPOSES",
                 columns: new[] { "Purpose_Id", "PurposeName" },
                 values: new object[,]
                 {
-                    { new Guid("14b225d2-a67b-4ce7-a874-d7e4d43b7bc0"), "Presentation" },
-                    { new Guid("39e0e557-04cb-47a7-998b-32fae947dacc"), "Proposal" },
-                    { new Guid("b723e6c9-17a9-4fd5-9a0d-82dbbe2b48de"), "Fact-Find" },
-                    { new Guid("cefb49da-c282-4627-906e-ee0d56ce81a0"), "Sales Closing" },
-                    { new Guid("fe21a2e1-0d21-408b-9cc2-272f3ee542c8"), "Others" }
+                    { new Guid("1ab2f946-f117-4702-ad14-05150a77243f"), "Sales Closing" },
+                    { new Guid("3dbba4ea-3e87-436a-88d4-2bea2faa2e89"), "Proposal" },
+                    { new Guid("43b0f213-a447-4f12-980a-b948403fc490"), "Presentation" },
+                    { new Guid("4bb4af14-f406-4836-9ff5-07a136a20c31"), "Others" },
+                    { new Guid("97b81117-da08-47fe-a24e-60d8f7be34fc"), "Fact-Find" }
                 });
 
             migrationBuilder.InsertData(
@@ -478,14 +478,14 @@ namespace CRMS.Migrations
                 columns: new[] { "CommunicationMethod_Id", "CommunicationMethodName" },
                 values: new object[,]
                 {
-                    { new Guid("2217910d-7f3a-4f3f-ab09-88122e46b65f"), "Instagram" },
-                    { new Guid("37169b6b-3501-4ae4-b4a9-5851e441dbd2"), "Test Message" },
-                    { new Guid("48651ee6-af94-4a26-a1db-416cc3c39594"), "Others" },
-                    { new Guid("4bdb241e-644c-4b83-88ef-8babb9dac2b6"), "Facebook" },
-                    { new Guid("646c730f-d5b1-4046-82da-fd403b78f68c"), "WhatsApp" },
-                    { new Guid("889b0b4e-ad4d-465d-8406-ccd35651c3c0"), "Line" },
-                    { new Guid("ba768f7c-66b4-49bc-ad38-263e242fa469"), "Email" },
-                    { new Guid("d0d011fe-53e0-442b-ae07-435b45495200"), "Phone Call" }
+                    { new Guid("47947c54-cbea-4751-bf82-ac43fdbdbf55"), "Facebook" },
+                    { new Guid("68bf1f8e-f31d-418e-824c-2f55db4e81e7"), "Instagram" },
+                    { new Guid("7dc22be9-52d8-4d83-b1a0-2e01456aa305"), "Email" },
+                    { new Guid("895b5fba-8559-4aa2-8a1e-1dfb4d371903"), "Phone Call" },
+                    { new Guid("ca67a03e-44b4-4cd0-885c-17e5c2cee30a"), "Line" },
+                    { new Guid("cd1d02a3-fcbc-49b6-afb0-0c789ad63035"), "Test Message" },
+                    { new Guid("d63e684c-fe71-427b-8620-19f57c9fa95a"), "WhatsApp" },
+                    { new Guid("ebf32643-30cd-4173-b9cf-0ec9a2b6c1c3"), "Others" }
                 });
 
             migrationBuilder.InsertData(
@@ -493,10 +493,10 @@ namespace CRMS.Migrations
                 columns: new[] { "Effectivity_Id", "Effectivity_Name" },
                 values: new object[,]
                 {
-                    { new Guid("14f8c3ce-0dae-4793-a428-0e7665e5585e"), "Read but no response" },
-                    { new Guid("194cc59a-d282-4c45-8dcf-8ed057d75c0e"), "Simple Response" },
-                    { new Guid("76d947a0-c597-4ef2-83f0-7f4036bd3471"), "Good Engagement" },
-                    { new Guid("824be642-ca17-4bbd-a7eb-6fdb7aec0cf4"), "Not Read" }
+                    { new Guid("6174d5d8-631f-4078-9330-2d7508f247d5"), "Not Read" },
+                    { new Guid("8d906718-db4c-4206-84e5-0153921199e0"), "Read but no response" },
+                    { new Guid("d0a08d8c-246f-42ca-a15a-26529aefdc14"), "Good Engagement" },
+                    { new Guid("d578ba6c-d51e-4774-8314-9c406bd5d450"), "Simple Response" }
                 });
 
             migrationBuilder.InsertData(
@@ -504,14 +504,14 @@ namespace CRMS.Migrations
                 columns: new[] { "EType_Id", "EngagementName" },
                 values: new object[,]
                 {
-                    { new Guid("1c6c8f48-5583-4435-821e-857e0c5a6a3b"), "Holiday" },
-                    { new Guid("21d87b01-7ac2-42cf-8399-bf752fb635fb"), "Birthday" },
-                    { new Guid("41c9261f-5751-49ef-a7f1-24bc4b1057c4"), "Company News" },
-                    { new Guid("5b2768ef-a1b1-444c-b0ac-155d433ff362"), "Anniversary" },
-                    { new Guid("8905c48d-c071-43b0-a859-2daed63da8bc"), "New Product" },
-                    { new Guid("a3a45328-c7b8-4913-af67-5429ae1dc300"), "Congratulations" },
-                    { new Guid("b58d27f3-4247-4c7b-ba58-0e87d7c52cdc"), "Discount" },
-                    { new Guid("dabbed93-cce7-4c2c-aab1-0e40ac34f6dd"), "Others" }
+                    { new Guid("057bb849-c0a0-4d27-8296-4855bf0ab0c3"), "Birthday" },
+                    { new Guid("1451297a-93da-47b9-a5eb-67544830726f"), "Congratulations" },
+                    { new Guid("1af2cf2f-2bda-45bb-9d86-2e6a49464517"), "Company News" },
+                    { new Guid("54c79ced-f46d-4f52-ad58-f4d7bcf9b053"), "Anniversary" },
+                    { new Guid("748323cb-aaba-4740-9c25-59cf2e4a5c8d"), "Holiday" },
+                    { new Guid("ae75c350-a351-43bb-8c0e-dfd068c8a7de"), "Discount" },
+                    { new Guid("d335af28-3fc8-44bb-8f9f-9d8420ce749d"), "Others" },
+                    { new Guid("e861bd4f-517e-4880-bb3d-26a358c98a69"), "New Product" }
                 });
 
             migrationBuilder.InsertData(
@@ -519,12 +519,12 @@ namespace CRMS.Migrations
                 columns: new[] { "Source_Id", "SourceName" },
                 values: new object[,]
                 {
-                    { new Guid("20921d0a-a717-4a85-b4a5-b26c7f84f9c7"), "Referral" },
-                    { new Guid("4ec7dec0-24f1-4d29-827f-0e03e8d405de"), "Social Media" },
-                    { new Guid("953c53b9-325b-4ac8-9c82-325226b030c1"), "Compony-Generated" },
-                    { new Guid("a6b740f4-faab-4f36-a6e2-72ebe572a9e5"), "Webinar" },
-                    { new Guid("cd7a22ce-0632-4b13-a3e0-eb502de8faa3"), "Others" },
-                    { new Guid("f992ea21-08f3-4c2f-bb98-91946bc15da2"), "Friend" }
+                    { new Guid("217c4929-b995-4ab6-897c-348f48fe31a1"), "Webinar" },
+                    { new Guid("38c95f40-985d-4435-aee9-d863d348f162"), "Others" },
+                    { new Guid("4a166d72-d16b-4284-ae89-f4877a29a68d"), "Referral" },
+                    { new Guid("63dcf354-2593-453d-8f5f-45d0f396639c"), "Social Media" },
+                    { new Guid("d2deb997-1e0b-44db-af11-84ea001ef78f"), "Compony-Generated" },
+                    { new Guid("d66e4b47-43ac-433e-89d4-dad453747357"), "Friend" }
                 });
 
             migrationBuilder.InsertData(
@@ -532,12 +532,12 @@ namespace CRMS.Migrations
                 columns: new[] { "LeadStatus_Id", "LeadStatusName" },
                 values: new object[,]
                 {
-                    { new Guid("2348a0ac-7197-481d-96c4-64b28f3ffd9b"), "Application Submitted" },
-                    { new Guid("2643073b-3b97-46c5-8218-1db223193676"), "Met" },
-                    { new Guid("802f018e-6c60-4d4b-b045-ee561a2c38a6"), "Proposal Generated" },
-                    { new Guid("8d4be98a-1d59-4866-9528-3bbbd94d6257"), "Lead is Dead" },
-                    { new Guid("99c01814-4d9a-4a57-8c0e-96e36e865c88"), "Contacted" },
-                    { new Guid("ed6dc4a7-c020-441e-8a89-57c208e14a65"), "Policy Issued" }
+                    { new Guid("3fdcd373-b594-415b-a048-c64d9f9567df"), "Contacted" },
+                    { new Guid("8160025e-8e8b-4a15-9084-7ab149cc3eca"), "Lead is Dead" },
+                    { new Guid("a10052cd-dc35-4b5e-832d-bced13f6de72"), "Met" },
+                    { new Guid("af2f7795-9909-4fe0-850c-237ad1bdf11d"), "Proposal Generated" },
+                    { new Guid("b629c8c0-9cca-46f6-acd0-ab636fe70491"), "Policy Issued" },
+                    { new Guid("dc47582f-e332-4c99-9019-1f97acdb8688"), "Application Submitted" }
                 });
         }
     }
