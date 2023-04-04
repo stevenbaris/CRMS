@@ -1,39 +1,37 @@
-﻿@model ICollection<ApplicationUser>
+﻿@model IEnumerable<IdentityRole>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Users";
 }
 
 
 <div class="text-left">
-    <h1 class="display-4">Users</h1>
+    <h1 class="display-4">Roles</h1>
     @if (@Model != null && @Model.Any())
     {
+        <a class="btn btn-primary mb-3" style="width:auto" asp-action="Create" 
+        asp-controller="Role">Add Role</a>
+
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model)
+                @foreach (var role in Model)
                 {
                     <tr>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td>@user.Email</td>
+                        <td>@role.Name</td>
                         <td>
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
+                            <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id">Edit</a>
                         </td>
                         <td>
-                            <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                            <a asp-controller="Role" asp-action="Delete" asp-route-id="@role.Id">Delete</a>
                         </td>
                     </tr>
                 }

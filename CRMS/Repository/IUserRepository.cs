@@ -7,6 +7,7 @@ namespace CRMS.Repository
         ICollection<ApplicationUser> GetUsers();
 
         ApplicationUser GetUser(string id);
+        ApplicationUser AddUser(ApplicationUser user);
 
         ApplicationUser UpdateUser(ApplicationUser user);
     }

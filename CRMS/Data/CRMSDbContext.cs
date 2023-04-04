@@ -9,7 +9,7 @@ namespace CRMS.Data
 {
     public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
-
+        //public class CustomerDBContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
         public CRMSDbContext(DbContextOptions<CRMSDbContext> options)
         : base(options)
         {

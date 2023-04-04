@@ -29,6 +29,12 @@ namespace CRMS.Repository.MsSQL
 
             return user;
         }
-    
+
+        public ApplicationUser AddUser(ApplicationUser user)
+        {
+            _context.Add(user);
+            _context.SaveChanges();
+            return user;
+        }
     }
 }

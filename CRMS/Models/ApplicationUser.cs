@@ -21,8 +21,6 @@ namespace CRMS.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [Required]
         public DateTime DOB { get; set; }
-        [RegularExpression("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",
-            ErrorMessage = "Must be a valid email")]
         [MinLength(5, ErrorMessage =
             "The Address is too short")]
         [Required]

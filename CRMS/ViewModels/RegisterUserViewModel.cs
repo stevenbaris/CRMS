@@ -14,6 +14,9 @@ namespace CRMS.ViewModels
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [MinLength(5, ErrorMessage =
+           "The Address is too short")]
+        [Required]
         public string Address { get; set; }
 
         [DataType(DataType.Password)]

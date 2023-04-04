@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Formats.Asn1.AsnWriter;
+using Microsoft.AspNetCore.Authorization;
+using CRMS.Data;
 
 namespace CRMS.Controllers
 {
@@ -22,6 +25,7 @@ namespace CRMS.Controllers
 
             _signInManager = signInManager;
         }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -58,6 +62,7 @@ namespace CRMS.Controllers
             }
             return View(userViewModel);
         }
+
 
         public IActionResult Index()
         {
@@ -141,8 +146,10 @@ namespace CRMS.Controllers
 
             _unitOfWork.User.UpdateUser(user);
 
-            return RedirectToAction("Edit", new { id = user.Id });
+            // return RedirectToAction("Edit", new { id = user.Id });
+            return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -170,6 +177,32 @@ namespace CRMS.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User cannot be found";
+                return View("Not Found");
+            } else
+            {
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
+                return View("Index");
+            }
         }
     }
 }
