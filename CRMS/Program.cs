@@ -1,5 +1,15 @@
 using CRMS.Data;
 using CRMS.Models;
+using CRMS.Repository;
+using CRMS.Repository.MsSQL;
+using CRMS.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
+using CRMS.Data;
+using CRMS.Models;
 using CRMS.Services;
 using CRMS.Services.SqlRepositories;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +18,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//Configure entity framework to connect for a db
+builder.Services.AddDbContext<CRMSDbContext>();
+//builder.Services.AddScoped<IUserRepository, UserDBRepository>();
+//builder.Services.AddScoped<IRoleRepository, RoleDBRepository>();
 
 builder.Services.AddDbContext<CRMSDbContext>()
                 .AddScoped<IRepository<AppointmentPurpose>, PurposeRepo>()
@@ -44,6 +58,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+// Enable the identity framework for login all other pages by default
+app.UseAuthentication();;
 
 app.UseAuthorization();
 
@@ -52,3 +68,4 @@ app.MapControllerRoute(
     pattern: "{controller=Employees}/{action=Index}/{id?}");
 
 app.Run();
+

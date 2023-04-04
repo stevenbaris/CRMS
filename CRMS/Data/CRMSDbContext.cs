@@ -1,12 +1,13 @@
 ﻿using CRMS.Data.TableMapping;
 using CRMS.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CRMS.Data
 {
-    public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         private readonly IConfiguration _appConfig;
 
