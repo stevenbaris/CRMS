@@ -7,21 +7,29 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CRMS.Data
 {
-    public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+    public class CRMSDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        //public class CustomerDBContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
-        public CRMSDbContext(DbContextOptions<CRMSDbContext> options)
-        : base(options)
-        {
+        private readonly IConfiguration _appConfig;
 
+        public CRMSDbContext(IConfiguration appconfig)
+        {
+            _appConfig = appconfig;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Database Connectivity
-            string connectionString = @"Server=(localdb)\MSSQLLocalDB;Database=CRMSDB;Integrated Security=True;";
+            var server = _appConfig.GetConnectionString("Server");
+            var db = _appConfig.GetConnectionString("DB");
+            var userName = _appConfig.GetConnectionString("UserName");
+            var password = _appConfig.GetConnectionString("Password");
+
+            string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true";
+
+
             optionsBuilder.UseSqlServer(connectionString)
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            
             base.OnConfiguring(optionsBuilder);
 
 

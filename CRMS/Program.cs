@@ -18,7 +18,7 @@ builder.Services.AddDbContext<CRMSDbContext>();
 //builder.Services.AddScoped<IRoleRepository, RoleDBRepository>();
 
 //Configure Identity Framework
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<CRMSDbContext>();
 //Configuration cutomization for password
 //builder.Services.Configure<IdentityOptions>(options =>
@@ -52,7 +52,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=User}/{action=Create}/{id?}");
 
 app.Run();
 

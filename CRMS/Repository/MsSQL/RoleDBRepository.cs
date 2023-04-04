@@ -12,7 +12,7 @@ namespace CRMS.Repository
             _context = context;
         }
 
-        public ICollection<IdentityRole> GetRoles()
+        public List<IdentityRole<Guid>> GetRoles()
         {
             return _context.Roles.ToList();
         }

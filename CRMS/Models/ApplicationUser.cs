@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace CRMS.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
         [DisplayName("First Name")]
         [MinLength(2, ErrorMessage =
@@ -26,9 +26,4 @@ namespace CRMS.Models
         [Required]
         public string Address { get; set; }
     }
-    public class ApplicationRole : IdentityRole
-    {
-
-    }
-
 }

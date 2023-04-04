@@ -13,6 +13,7 @@ namespace CRMS.Data
             // };
             //modelBuilder.Entity<EntityModel>().HasData(cust);
 
+      
         }
 
     }

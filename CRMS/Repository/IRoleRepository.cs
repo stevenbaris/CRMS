@@ -4,6 +4,6 @@ namespace CRMS.Repository
 {
     public interface IRoleRepository
     {
-        ICollection<IdentityRole> GetRoles();
+        List<IdentityRole<Guid>> GetRoles();
     }
 }
