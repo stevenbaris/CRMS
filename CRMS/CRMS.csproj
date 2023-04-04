@@ -35,6 +35,7 @@
     <Folder Include="Views\ManageLeads\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Views\ManageUsers\" />
+	<Folder Include="Services\MSSQL\" />
   </ItemGroup>
 
 </Project>

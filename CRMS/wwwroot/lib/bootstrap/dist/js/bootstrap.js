@@ -1167,7 +1167,7 @@
   class Carousel extends BaseComponent {
     constructor(element, config) {
       super(element);
-      this._items = null;
+      this._itCRMS = null;
       this._interval = null;
       this._activeElement = null;
       this._isPaused = false;
@@ -1245,7 +1245,7 @@
 
       const activeIndex = this._getItemIndex(this._activeElement);
 
-      if (index > this._items.length - 1 || index < 0) {
+      if (index > this._itCRMS.length - 1 || index < 0) {
         return;
       }
 
@@ -1262,7 +1262,7 @@
 
       const order = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
 
-      this._slide(order, this._items[index]);
+      this._slide(order, this._itCRMS[index]);
     } // Private
 
 
@@ -1377,13 +1377,13 @@
     }
 
     _getItemIndex(element) {
-      this._items = element && element.parentNode ? SelectorEngine.find(SELECTOR_ITEM, element.parentNode) : [];
-      return this._items.indexOf(element);
+      this._itCRMS = element && element.parentNode ? SelectorEngine.find(SELECTOR_ITEM, element.parentNode) : [];
+      return this._itCRMS.indexOf(element);
     }
 
     _getItemByOrder(order, activeElement) {
       const isNext = order === ORDER_NEXT;
-      return getNextActiveElement(this._items, activeElement, isNext, this._config.wrap);
+      return getNextActiveElement(this._itCRMS, activeElement, isNext, this._config.wrap);
     }
 
     _triggerSlideEvent(relatedTarget, eventDirectionName) {
@@ -1983,7 +1983,7 @@
   const SELECTOR_DATA_TOGGLE$3 = '[data-bs-toggle="dropdown"]';
   const SELECTOR_MENU = '.dropdown-menu';
   const SELECTOR_NAVBAR_NAV = '.navbar-nav';
-  const SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
+  const SELECTOR_VISIBLE_ITCRMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
   const PLACEMENT_TOP = isRTL() ? 'top-end' : 'top-start';
   const PLACEMENT_TOPEND = isRTL() ? 'top-start' : 'top-end';
   const PLACEMENT_BOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
@@ -2257,15 +2257,15 @@
       key,
       target
     }) {
-      const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
+      const itCRMS = SelectorEngine.find(SELECTOR_VISIBLE_ITCRMS, this._menu).filter(isVisible);
 
-      if (!items.length) {
+      if (!itCRMS.length) {
         return;
-      } // if target isn't included in items (e.g. when expanding the dropdown)
+      } // if target isn't included in itCRMS (e.g. when expanding the dropdown)
       // allow cycling to get the last item in case key equals ARROW_UP_KEY
 
 
-      getNextActiveElement(items, target, key === ARROW_DOWN_KEY, !items.includes(target)).focus();
+      getNextActiveElement(itCRMS, target, key === ARROW_DOWN_KEY, !itCRMS.includes(target)).focus();
     } // Static
 
 
@@ -4370,9 +4370,9 @@
   const SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
   const SELECTOR_NAV_LIST_GROUP$1 = '.nav, .list-group';
   const SELECTOR_NAV_LINKS = '.nav-link';
-  const SELECTOR_NAV_ITEMS = '.nav-item';
-  const SELECTOR_LIST_ITEMS = '.list-group-item';
-  const SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}, .${CLASS_NAME_DROPDOWN_ITEM}`;
+  const SELECTOR_NAV_ITCRMS = '.nav-item';
+  const SELECTOR_LIST_ITCRMS = '.list-group-item';
+  const SELECTOR_LINK_ITCRMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITCRMS}, .${CLASS_NAME_DROPDOWN_ITEM}`;
   const SELECTOR_DROPDOWN$1 = '.dropdown';
   const SELECTOR_DROPDOWN_TOGGLE$1 = '.dropdown-toggle';
   const METHOD_OFFSET = 'offset';
@@ -4415,7 +4415,7 @@
       this._offsets = [];
       this._targets = [];
       this._scrollHeight = this._getScrollHeight();
-      const targets = SelectorEngine.find(SELECTOR_LINK_ITEMS, this._config.target);
+      const targets = SelectorEngine.find(SELECTOR_LINK_ITCRMS, this._config.target);
       targets.map(element => {
         const targetSelector = getSelectorFromElement(element);
         const target = targetSelector ? SelectorEngine.findOne(targetSelector) : null;
@@ -4507,7 +4507,7 @@
 
       this._clear();
 
-      const queries = SELECTOR_LINK_ITEMS.split(',').map(selector => `${selector}[data-bs-target="${target}"],${selector}[href="${target}"]`);
+      const queries = SELECTOR_LINK_ITCRMS.split(',').map(selector => `${selector}[data-bs-target="${target}"],${selector}[href="${target}"]`);
       const link = SelectorEngine.findOne(queries.join(','), this._config.target);
       link.classList.add(CLASS_NAME_ACTIVE$1);
 
@@ -4517,9 +4517,9 @@
         SelectorEngine.parents(link, SELECTOR_NAV_LIST_GROUP$1).forEach(listGroup => {
           // Set triggered links parents as active
           // With both <ul> and <nav> markup a parent is the previous sibling of any nav ancestor
-          SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1)); // Handle special case when .nav-link is inside .nav-item
+          SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITCRMS}`).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1)); // Handle special case when .nav-link is inside .nav-item
 
-          SelectorEngine.prev(listGroup, SELECTOR_NAV_ITEMS).forEach(navItem => {
+          SelectorEngine.prev(listGroup, SELECTOR_NAV_ITCRMS).forEach(navItem => {
             SelectorEngine.children(navItem, SELECTOR_NAV_LINKS).forEach(item => item.classList.add(CLASS_NAME_ACTIVE$1));
           });
         });
@@ -4531,7 +4531,7 @@
     }
 
     _clear() {
-      SelectorEngine.find(SELECTOR_LINK_ITEMS, this._config.target).filter(node => node.classList.contains(CLASS_NAME_ACTIVE$1)).forEach(node => node.classList.remove(CLASS_NAME_ACTIVE$1));
+      SelectorEngine.find(SELECTOR_LINK_ITCRMS, this._config.target).filter(node => node.classList.contains(CLASS_NAME_ACTIVE$1)).forEach(node => node.classList.remove(CLASS_NAME_ACTIVE$1));
     } // Static
 
 
@@ -4627,8 +4627,8 @@
       const listElement = this._element.closest(SELECTOR_NAV_LIST_GROUP);
 
       if (listElement) {
-        const itemSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
-        previous = SelectorEngine.find(itemSelector, listElement);
+        const itCRMSelector = listElement.nodeName === 'UL' || listElement.nodeName === 'OL' ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
+        previous = SelectorEngine.find(itCRMSelector, listElement);
         previous = previous[previous.length - 1];
       }
 
