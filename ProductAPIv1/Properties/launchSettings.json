@@ -4,29 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-<<<<<<<< HEAD:CustomersAPI/Properties/launchSettings.json
-      "applicationUrl": "http://localhost:51471",
-========
       "applicationUrl": "http://localhost:15399",
->>>>>>>> AdminLogin:ProductAPIv1/Properties/launchSettings.json
       "sslPort": 0
     }
   },
   "profiles": {
-<<<<<<<< HEAD:CustomersAPI/Properties/launchSettings.json
-    "CustomersAPI": {
-========
     "ProductAPI": {
->>>>>>>> AdminLogin:ProductAPIv1/Properties/launchSettings.json
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-<<<<<<<< HEAD:CustomersAPI/Properties/launchSettings.json
-      "applicationUrl": "http://localhost:5274",
-========
       "applicationUrl": "http://localhost:5002",
->>>>>>>> AdminLogin:ProductAPIv1/Properties/launchSettings.json
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
