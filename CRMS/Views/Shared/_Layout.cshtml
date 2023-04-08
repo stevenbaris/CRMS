@@ -1,100 +1,81 @@
 ﻿@inject SignInManager<ApplicationUser> _signInManager
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Core CRMS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.rtl.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CRMS.styles.css" asp-append-version="true" />
-    @await RenderSectionAsync("Styles", required: false)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light cebuana-bg-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CRMS APP</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 <a class="navbar-brand navbar-logo" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/svglogo1.svg" alt="Core - CRMS Tool" height="40" />
+                    <img src="~/img/logo2.png" alt="Core - CRMS Tool" height="40" />
                 </a>
                 <button class="navbar-toggler border-light btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon custom-toggler "></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        
-                        @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                        {
+                       
+                            <ul class="navbar-nav flex-grow-1">
+
+                                @if (_signInManager.IsSignedIn(User))
+                        { 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
+                            </li>         
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Create">Create</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index">Role</a>
-                            </li>
-                        }
-                    </ul>
-                    <ul class="navbar-nav my-2 my-lg-0">
-                        @if (_signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout @User.Identity.Name </a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Customization" asp-action="Index">Customization</a>
                             </li>
                         }
-                        else
-                        {
-                         
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Employees" asp-action="Index">Employee</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Customization" asp-action="Index">Customization</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Sales Activity</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="AppointmentPurposes" asp-action="Index">Appointments</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+                            </ul> 
+                            <ul class="navbar-nav my-2 my-lg-0">
+                                @if (_signInManager.IsSignedIn(User))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Employees" asp-action="Logout">Logout @User.Identity.Name </a>
+                                    </li>                       
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="Employees" asp-action="Login">Login</a>
+                                    </li>
+                                }
+                            </ul>
+
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody() <!-- Csharp code where it will render all the view content -->
+        <main role="main" class="pb-3 position-relative">
+            @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - CRMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

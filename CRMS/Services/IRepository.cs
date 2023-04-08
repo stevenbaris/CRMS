@@ -1,6 +1,8 @@
-﻿namespace CRMS.Services
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+
+namespace CRMS.Services
 {
-    public interface IRepository<T>
+    public interface IRepository<T> 
     {
         Task<List<T>> GetAllAsync();
         Task<T> GetbyIdAsync(Guid id);

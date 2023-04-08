@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProductAPI.Model;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
 
 namespace ProductAPI.Data
 {

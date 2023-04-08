@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Data;
@@ -7,7 +8,8 @@ using ProductAPI.Repository;
 
 namespace ProductAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {

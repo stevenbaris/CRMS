@@ -51,13 +51,11 @@ namespace CRMS.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -103,9 +101,141 @@ namespace CRMS.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3298c81c-5d07-4b39-8fa0-15be079c7021"),
+                            AccessFailedCount = 0,
+                            Address = "PJ Lhuiller",
+                            ConcurrencyStamp = "d4dfc9f6-b89b-4826-9a27-307dd0ca3d47",
+                            DOB = new DateTime(2023, 4, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "su@crms.com",
+                            EmailConfirmed = true,
+                            FirstName = "Super",
+                            LastName = "User",
+                            LockoutEnabled = true,
+                            PasswordHash = "AQAAAAEAACcQAAAAEKwhfGjnTfQjtjN2Lb6tp/9esqNv5G0LM/xkTihjZyOeiq1E46amdUXwiHvOu4FBRw==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "su@crms.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("29fadd6d-c7a9-4475-94f2-d79e0d30fb91"),
+                            AccessFailedCount = 0,
+                            Address = "PJ Lhuiller",
+                            ConcurrencyStamp = "09fe6b48-0d68-4549-b2f8-2eedf2ce1b1b",
+                            DOB = new DateTime(2023, 4, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "user@crms.com",
+                            EmailConfirmed = true,
+                            FirstName = "Regular",
+                            LastName = "User",
+                            LockoutEnabled = true,
+                            PasswordHash = "AQAAAAEAACcQAAAAEOwnC27oWLTSMcwP3FG0YIyR+VkYdNbfmlDHXdTAqgoEUhf0BEqGM/97S8A/BkRnOQ==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "user@crms.com"
+                        });
                 });
 
-            modelBuilder.Entity("CRMS.Models.AppointmentPurpose", b =>
+            modelBuilder.Entity("CRMS.Models.Contacts", b =>
+                {
+                    b.Property<Guid>("Contact_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ContactCreatorID")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ContactOwnerID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreateDate")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DOB")
+                        .IsRequired()
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateAssigned")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Contact_Id");
+
+                    b.HasIndex("ContactCreatorID");
+
+                    b.HasIndex("ContactOwnerID");
+
+                    b.ToTable("CONTACTS", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Contact_Id = new Guid("b337a669-b852-4f66-9f3d-9b65b0d5ce2a"),
+                            ContactCreatorID = new Guid("3298c81c-5d07-4b39-8fa0-15be079c7021"),
+                            CreateDate = new DateTime(2023, 4, 8, 8, 29, 57, 128, DateTimeKind.Utc).AddTicks(3305),
+                            DOB = new DateTime(1994, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "charl.legista@gmail.com",
+                            FirstName = "Charl",
+                            Gender = 0,
+                            LastName = "Legista",
+                            PhoneNumber = "09052214812"
+                        },
+                        new
+                        {
+                            Contact_Id = new Guid("6d8948fe-a12b-462f-871e-838514a5069d"),
+                            ContactCreatorID = new Guid("3298c81c-5d07-4b39-8fa0-15be079c7021"),
+                            ContactOwnerID = new Guid("29fadd6d-c7a9-4475-94f2-d79e0d30fb91"),
+                            CreateDate = new DateTime(2023, 4, 3, 8, 29, 57, 128, DateTimeKind.Utc).AddTicks(3388),
+                            DOB = new DateTime(1999, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateAssigned = new DateTime(2023, 4, 5, 8, 29, 57, 128, DateTimeKind.Utc).AddTicks(3352),
+                            Email = "steven.baris14@gmail.com",
+                            FirstName = "Steven",
+                            Gender = 0,
+                            LastName = "Baris",
+                            PhoneNumber = "09123456789"
+                        },
+                        new
+                        {
+                            Contact_Id = new Guid("ef2c8661-9546-4084-99e8-859b4a90ff9c"),
+                            ContactCreatorID = new Guid("29fadd6d-c7a9-4475-94f2-d79e0d30fb91"),
+                            ContactOwnerID = new Guid("29fadd6d-c7a9-4475-94f2-d79e0d30fb91"),
+                            CreateDate = new DateTime(2023, 4, 5, 8, 29, 57, 128, DateTimeKind.Utc).AddTicks(3417),
+                            DOB = new DateTime(1996, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateAssigned = new DateTime(2023, 4, 7, 8, 29, 57, 128, DateTimeKind.Utc).AddTicks(3407),
+                            Email = "cust.no1@gmail.com",
+                            FirstName = "Customer",
+                            Gender = 1,
+                            LastName = "Number1",
+                            PhoneNumber = "09987654321"
+                        });
+                });
+
+            modelBuilder.Entity("CRMS.Models.Customization.AppointmentPurpose", b =>
                 {
                     b.Property<Guid>("Purpose_Id")
                         .ValueGeneratedOnAdd()
@@ -122,32 +252,32 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Purpose_Id = new Guid("94ba0450-a39b-4f6a-a4f5-292792c8c669"),
+                            Purpose_Id = new Guid("d3ba75bc-5de4-478d-8a66-5f2bd2cec4a5"),
                             PurposeName = "Fact-Find"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("f191d001-cb19-471d-9363-331711825f0b"),
+                            Purpose_Id = new Guid("2c2e9c29-ccbc-4b2c-a9ee-81146e2de22d"),
                             PurposeName = "Presentation"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("90f7f41a-c895-4c9d-b151-3fb6f0aabd86"),
+                            Purpose_Id = new Guid("3c769188-8a68-4037-b51a-2fb189497cfb"),
                             PurposeName = "Proposal"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("46ba3f3d-bb0d-418b-b275-d3c2a539a762"),
+                            Purpose_Id = new Guid("f8ba08e6-9cf1-41c3-a5d5-7cc3032dcec6"),
                             PurposeName = "Sales Closing"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("b603a1fe-47ab-410f-9961-b27915aded6f"),
+                            Purpose_Id = new Guid("f01f9eb8-fc9d-47a3-bfb6-8d44e2f43cb3"),
                             PurposeName = "Others"
                         });
                 });
 
-            modelBuilder.Entity("CRMS.Models.CommunicationMethod", b =>
+            modelBuilder.Entity("CRMS.Models.Customization.CommunicationMethod", b =>
                 {
                     b.Property<Guid>("CommunicationMethod_Id")
                         .ValueGeneratedOnAdd()
@@ -164,94 +294,47 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            CommunicationMethod_Id = new Guid("c67f7688-c624-4ece-a762-d465e4090fdf"),
+                            CommunicationMethod_Id = new Guid("191a15fe-8c17-445a-ad9d-2991e279a03e"),
                             CommunicationMethodName = "Facebook"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("643c6512-5104-4ca7-a039-02f8bf0e9910"),
+                            CommunicationMethod_Id = new Guid("16cb0bc3-0917-43bf-b8c9-a066db7bb491"),
                             CommunicationMethodName = "Instagram"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("a9dc8c41-666c-4d43-9d36-a26322f870fe"),
+                            CommunicationMethod_Id = new Guid("fae361ed-0cc7-48cc-a644-e47409de679d"),
                             CommunicationMethodName = "WhatsApp"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("a4f3a312-a3c6-45d5-8a8e-367153d2b0ac"),
+                            CommunicationMethod_Id = new Guid("c392e798-86ea-4d92-83cf-4955897d9b46"),
                             CommunicationMethodName = "Line"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("e2601bb0-81ef-42c3-a700-0a5d726ce5d0"),
+                            CommunicationMethod_Id = new Guid("4faee073-d67e-4a82-922c-6cc814185927"),
                             CommunicationMethodName = "Phone Call"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("58d97bed-0c73-45f5-95eb-f8ff3dcc920f"),
+                            CommunicationMethod_Id = new Guid("98b623df-5371-4865-b2f8-5a226df78824"),
                             CommunicationMethodName = "Test Message"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("58f47347-35f3-4062-bb71-82a267694c0f"),
+                            CommunicationMethod_Id = new Guid("4b617ec1-8f50-4d10-abaf-5ff831595620"),
                             CommunicationMethodName = "Email"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("4678aac8-0810-46ba-a941-b37779e828f0"),
+                            CommunicationMethod_Id = new Guid("bb192721-2f23-4457-8c9e-aae49bd77353"),
                             CommunicationMethodName = "Others"
                         });
                 });
 
-            modelBuilder.Entity("CRMS.Models.Contacts", b =>
-                {
-                    b.Property<Guid>("Contact_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ContactCreatorID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ContactOwnerID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateAssigned")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Gender")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Contact_Id");
-
-                    b.HasIndex("ContactCreatorID");
-
-                    b.ToTable("CONTACTS", (string)null);
-                });
-
-            modelBuilder.Entity("CRMS.Models.Effectivity", b =>
+            modelBuilder.Entity("CRMS.Models.Customization.Effectivity", b =>
                 {
                     b.Property<Guid>("Effectivity_Id")
                         .ValueGeneratedOnAdd()
@@ -268,27 +351,27 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Effectivity_Id = new Guid("184fe740-43e8-4dd0-9152-29c7b2cf85f4"),
+                            Effectivity_Id = new Guid("09f4a7dc-3e62-4c5d-b914-f32901d07a23"),
                             Effectivity_Name = "Not Read"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("647bbac0-b3f6-4744-b124-5b2dd5b9fc46"),
+                            Effectivity_Id = new Guid("ad42a22b-7bbe-405b-87cf-c4a20c79feb7"),
                             Effectivity_Name = "Read but no response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("2f6a48bd-c73e-461e-8b6d-9718d27b4cfb"),
+                            Effectivity_Id = new Guid("c51eef35-b1fa-413d-958a-bc8840f26928"),
                             Effectivity_Name = "Simple Response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("f19b0b7e-46aa-4fd8-9b08-12a512deab38"),
+                            Effectivity_Id = new Guid("86d5f475-1994-4aad-ad38-b4016405acfa"),
                             Effectivity_Name = "Good Engagement"
                         });
                 });
 
-            modelBuilder.Entity("CRMS.Models.EngagementType", b =>
+            modelBuilder.Entity("CRMS.Models.Customization.EngagementType", b =>
                 {
                     b.Property<Guid>("EType_Id")
                         .ValueGeneratedOnAdd()
@@ -305,47 +388,47 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            EType_Id = new Guid("7c64668d-c996-4182-a86f-ccb067bffefd"),
+                            EType_Id = new Guid("790dbbbf-0ba3-4592-86c8-836c6cab6460"),
                             EngagementName = "Congratulations"
                         },
                         new
                         {
-                            EType_Id = new Guid("b8ac4535-9e75-46d2-9228-5e5602c3bc1e"),
+                            EType_Id = new Guid("5ef89411-83c3-4fac-9f9d-bb1e665fd2d1"),
                             EngagementName = "Birthday"
                         },
                         new
                         {
-                            EType_Id = new Guid("aabb222b-76a2-432e-ab8b-2f7f8f0aeb8b"),
+                            EType_Id = new Guid("12b11e9c-f21e-4227-9c0f-f49748ba134e"),
                             EngagementName = "Anniversary"
                         },
                         new
                         {
-                            EType_Id = new Guid("68f26ff1-f03b-491c-8e53-8172b6def7eb"),
+                            EType_Id = new Guid("24293c33-f2d7-4c9a-8e11-e9db5e5eda44"),
                             EngagementName = "Holiday"
                         },
                         new
                         {
-                            EType_Id = new Guid("ed0b8343-c65b-4de7-b0ca-64fffe91c414"),
+                            EType_Id = new Guid("7315d6e7-394b-4d0b-8a63-d467908b5cf0"),
                             EngagementName = "Discount"
                         },
                         new
                         {
-                            EType_Id = new Guid("ed690734-1bda-4180-8caa-692e20181b05"),
+                            EType_Id = new Guid("2158254d-b77a-46ff-b1c8-8dd1c1b9052b"),
                             EngagementName = "Company News"
                         },
                         new
                         {
-                            EType_Id = new Guid("c0ae4de5-6f93-429f-ba5e-dc6a90658f97"),
+                            EType_Id = new Guid("af8f7919-f4ae-400c-87f3-adb24e9b35fe"),
                             EngagementName = "New Product"
                         },
                         new
                         {
-                            EType_Id = new Guid("1193f49d-be8a-4721-a75d-2cc42aac5a65"),
+                            EType_Id = new Guid("7e99f307-8575-47a8-a536-0efb24329cee"),
                             EngagementName = "Others"
                         });
                 });
 
-            modelBuilder.Entity("CRMS.Models.LeadStatus", b =>
+            modelBuilder.Entity("CRMS.Models.Customization.LeadStatus", b =>
                 {
                     b.Property<Guid>("LeadStatus_Id")
                         .ValueGeneratedOnAdd()
@@ -362,33 +445,80 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            LeadStatus_Id = new Guid("c2f44fda-f681-4919-8146-fc34c140432a"),
+                            LeadStatus_Id = new Guid("fd24cec1-f933-48b2-b781-b64adbfd0b98"),
                             LeadStatusName = "Contacted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("2d419c85-4b2d-4454-b3fb-0485e5620096"),
+                            LeadStatus_Id = new Guid("25093e02-9a84-49d8-a43d-ec3f78224b63"),
                             LeadStatusName = "Met"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("243488a8-f9ce-49d7-935c-1f9e02899017"),
+                            LeadStatus_Id = new Guid("415448d8-ed1e-418a-8bd9-5e8883d6c779"),
                             LeadStatusName = "Proposal Generated"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("970b5c04-567b-4f9d-9e4d-6d9410db3804"),
+                            LeadStatus_Id = new Guid("3c485316-e5c2-4787-92ff-40373b84e8d4"),
                             LeadStatusName = "Application Submitted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("d06e04f0-771f-41be-90f0-182ef4654316"),
+                            LeadStatus_Id = new Guid("c9421ef5-5fe4-466b-af82-1ce5925c8f75"),
                             LeadStatusName = "Policy Issued"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("584bba83-9d7e-45e5-9faf-c985cbc66d2e"),
+                            LeadStatus_Id = new Guid("e690baf4-c476-48f1-a1ec-98e13cec9368"),
                             LeadStatusName = "Lead is Dead"
+                        });
+                });
+
+            modelBuilder.Entity("CRMS.Models.Customization.Source", b =>
+                {
+                    b.Property<Guid>("Source_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SourceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Source_Id");
+
+                    b.ToTable("LEADS_SOURCES", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Source_Id = new Guid("f83c544b-2483-4c6f-825b-dca08d514380"),
+                            SourceName = "Referral"
+                        },
+                        new
+                        {
+                            Source_Id = new Guid("cc2865b0-4cab-4fdf-82a8-c901aa84fa0d"),
+                            SourceName = "Friend"
+                        },
+                        new
+                        {
+                            Source_Id = new Guid("3866c319-dd60-4a10-b8ad-4d5f25916a18"),
+                            SourceName = "Compony-Generated"
+                        },
+                        new
+                        {
+                            Source_Id = new Guid("ae0684b2-b30d-43fd-9604-776413ee7f79"),
+                            SourceName = "Social Media"
+                        },
+                        new
+                        {
+                            Source_Id = new Guid("17e9cae5-67aa-482b-a5c1-53aaf940327e"),
+                            SourceName = "Webinar"
+                        },
+                        new
+                        {
+                            Source_Id = new Guid("87950063-698c-4959-8344-ba26ac5f05e5"),
+                            SourceName = "Others"
                         });
                 });
 
@@ -411,53 +541,6 @@ namespace CRMS.Migrations
                         .HasFilter("[ContactId] IS NOT NULL");
 
                     b.ToTable("ROLLING TRANSACTIONS", (string)null);
-                });
-
-            modelBuilder.Entity("CRMS.Models.Source", b =>
-                {
-                    b.Property<Guid>("Source_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("SourceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Source_Id");
-
-                    b.ToTable("LEADS_SOURCES", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Source_Id = new Guid("22916c8b-1b19-4045-8977-8089a78e64c0"),
-                            SourceName = "Referral"
-                        },
-                        new
-                        {
-                            Source_Id = new Guid("788f63ca-11b5-44ec-b796-dbb73e63ad66"),
-                            SourceName = "Friend"
-                        },
-                        new
-                        {
-                            Source_Id = new Guid("75f2b6b5-ff1e-45cc-b98b-f33c0790c7ca"),
-                            SourceName = "Compony-Generated"
-                        },
-                        new
-                        {
-                            Source_Id = new Guid("38d600e9-cccd-45ff-8b92-597b592b186b"),
-                            SourceName = "Social Media"
-                        },
-                        new
-                        {
-                            Source_Id = new Guid("ee9f6d22-24b8-4afd-8341-aa3f10c72ad5"),
-                            SourceName = "Webinar"
-                        },
-                        new
-                        {
-                            Source_Id = new Guid("8bbc315c-ec27-446d-bb06-42eb9b87608b"),
-                            SourceName = "Others"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -486,6 +569,22 @@ namespace CRMS.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("40368af9-c08f-4bfd-8dad-d529b7f4d5da"),
+                            ConcurrencyStamp = "7f08463d-8f1f-401b-b8ac-82ef7aa95577",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("92d989ba-61b8-4b4a-887c-b554564212a6"),
+                            ConcurrencyStamp = "eca50876-7697-404b-82d7-9b6ec5b12f47",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -593,12 +692,22 @@ namespace CRMS.Migrations
 
             modelBuilder.Entity("CRMS.Models.Contacts", b =>
                 {
-                    b.HasOne("CRMS.Models.ApplicationUser", "User")
-                        .WithMany("Contacts")
+                    b.HasOne("CRMS.Models.ApplicationUser", "Creator")
+                        .WithMany()
                         .HasForeignKey("ContactCreatorID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
                         .HasConstraintName("FK_ContactCreator");
 
-                    b.Navigation("User");
+                    b.HasOne("CRMS.Models.ApplicationUser", "Owner")
+                        .WithMany("Contacts")
+                        .HasForeignKey("ContactOwnerID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasConstraintName("FK_ContactOwner");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CRMS.Models.RollingTransactions", b =>

@@ -52,7 +52,7 @@ namespace CRMS.Controllers
 
                     // login the user automatically
                     // await _signInManager.SignInAsync(userModel, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User");
 
                 }
                 foreach (var error in result.Errors)
@@ -70,7 +70,7 @@ namespace CRMS.Controllers
             return View(users);
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             var user = _unitOfWork.User.GetUser(id);
             var roles = _unitOfWork.Role.GetRoles();
@@ -80,7 +80,7 @@ namespace CRMS.Controllers
             var roleItems = roles.Select(role =>
                 new SelectListItem(
                     role.Name,
-                    role.Id,
+                    role.Id.ToString(),
                     userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
 
             var vm = new EditUserViewModel
@@ -92,7 +92,7 @@ namespace CRMS.Controllers
             return View(vm);
         }
 
-        [HttpPost]
+        //[HttpPost]
         //public async Task<IActionResult> OnPostAsync(EditUserViewModel data)
         //{
         //    var user = _unitOfWork.User.GetUser(data.User.Id);

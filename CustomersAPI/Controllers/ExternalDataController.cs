@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomersAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ExternalDataController : ControllerBase

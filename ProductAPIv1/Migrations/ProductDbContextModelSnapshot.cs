@@ -22,6 +22,137 @@ namespace ProductAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("ProductAPI.Model.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -29,7 +160,6 @@ namespace ProductAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Benefits")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProductDescription")
@@ -47,53 +177,181 @@ namespace ProductAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("76e32497-8c10-4289-9208-3efa0d17955d"),
+                            Id = new Guid("e6384c23-b667-4f1c-ac3b-2a055c42a7af"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Cash Assistance Due to Food Poisoning",
                             ProductDescription = "CL Personal Accident Nano Insurance covers loss for Accidental Death, Disablement, or Dismemberment, and Cash Assistance due to Food Poisoning.",
                             ProductName = "CL Personal Accident Nano"
                         },
                         new
                         {
-                            Id = new Guid("743dc7d2-b13e-46f1-b616-e09d21bbdfa6"),
+                            Id = new Guid("61709f6f-4ff1-4761-935a-2d0e2864f355"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Accidental Burial Benefit, Cash Assistance Benefit, Fire Cash Assistance",
                             ProductDescription = "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
                             ProductName = "CL Personal Accident Nano Plus"
                         },
                         new
                         {
-                            Id = new Guid("b7b1e29a-ce86-4447-8027-499bce9a19c9"),
+                            Id = new Guid("be7203da-17ff-4e82-9771-cc6c684594f0"),
                             Benefits = "Earthquake, Typhoon, Flood, Windstorm, Volcanic Eruption and other Acts of Nature, Extended Coverage, BOWTAP, BWD, SL and other water related damages, Vandalism/Spontaneous Combustion, All Other Losses",
                             ProductDescription = "CL MicroEnterpriseProtekis a Property Insurance Program specially designed for Cebuana Lhuillier clients. It covers loss “ALL Risks” of physical loss, destruction of or damage to the property of the insured and wholly attributable to any sudden and unforeseen cause, except as hereinafter excluded, occurring during the currency of the policy.",
                             ProductName = "CL MicroEnterpriseProtek"
                         },
                         new
                         {
-                            Id = new Guid("304387bc-7b3d-4ce1-a79e-80654c918c5f"),
+                            Id = new Guid("21d7802b-4427-4191-9d09-0aa81cf07df4"),
                             Benefits = "Death Benefit, Accident or Sickness Emergency Cash Assistance, Accidental Dismemberment and/or Disablement, Murder and Unprovoked Assault and Residential Fire Reconstruction cash assistance",
                             ProductDescription = "For as low as P50, each certificate is valid for four (4) months from the date of issuance and can be availed up to a maximum of 5 certificates per insured.",
                             ProductName = "ProtectMAX"
                         },
                         new
                         {
-                            Id = new Guid("fb573216-02b3-48cf-9bc2-21fd103b5c22"),
+                            Id = new Guid("d4c45f83-506e-4a2b-a535-5313e095cdda"),
                             Benefits = "24/7 Call-a-doc, OP ER One Time use (All causes), Daily Hospital Income Benefit (All Causes)",
                             ProductDescription = "An Individual Personal Accident Insurance specifically designed for Cebuana Lhuillier clients.It covers Accidental Death and Disability (AD&D), Double Indemnity, 24/7 Call-a-doc, OP ER One Time use and Daily Hospital Income Benefit.",
                             ProductName = "CL Health Care"
                         },
                         new
                         {
-                            Id = new Guid("fb805766-8e2d-43b2-a8be-abbf5cafc0c0"),
+                            Id = new Guid("23fb8c9a-fcf8-4a16-8572-9536824311a3"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement",
                             ProductDescription = "Covers Accidental Death and Accidental Dismemberment and/or Disablement Benefit.",
                             ProductName = "CL Personal Accident Basic"
                         },
                         new
                         {
-                            Id = new Guid("f39695f2-3b93-4fbf-b3bb-c6c18e6a6707"),
+                            Id = new Guid("c8a7cc4b-7615-46cf-8f4f-6700719d7325"),
                             Benefits = "The Policy is Effective for one (1) year from the date of issuance or after payment of claim,whichever comes first.",
                             ProductDescription = "covers the medical expenses incurred within a year from the date of issuance or purchase by the InsuredPerson for the treatment of an eligible emergency condition, availment of which caneither be as an Out-Patient in the Emergency Room Department or as an In-Patient of aHospital via cash assistance.",
                             ProductName = "CL ER Care"
                         });
+                });
+
+            modelBuilder.Entity("ProductAPI.Models.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DOB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+                {
+                    b.HasOne("ProductAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+                {
+                    b.HasOne("ProductAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProductAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+                {
+                    b.HasOne("ProductAPI.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

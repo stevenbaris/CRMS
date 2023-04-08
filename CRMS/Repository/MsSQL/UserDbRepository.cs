@@ -17,7 +17,7 @@ namespace CRMS.Repository.MsSQL
             return _context.Users.ToList();
         }
 
-        public ApplicationUser GetUser(string id)
+        public ApplicationUser GetUser(Guid id)
         {
             return _context.Users.FirstOrDefault(u => u.Id == id);
         }

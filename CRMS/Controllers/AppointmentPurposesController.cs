@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CRMS.Data;
-using CRMS.Models;
 using CRMS.Services;
-
+using CRMS.Models.Customization;
 
 namespace CRMS.Controllers
 {

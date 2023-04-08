@@ -1,0 +1,33 @@
+﻿
+
+
+
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="AllContacts" role="tabpanel" aria-labelledby="AllContacts-tab">
+        <partial name="GetAll/_AllContacts" />
+    </div>
+    
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="tab-pane fade" id="AssignedContacts" role="tabpanel" aria-labelledby="AssignedContacts-tab">
+            <partial name="GetAll/_AssignedContacts" />
+            @*@await Html.PartialAsync("GetAll/_Assigned")*@
+        </div>
+        <div class="tab-pane fade" id="UnassignedContacts" role="tabpanel" aria-labelledby="UnassignedContacts-tab">
+            <partial name="GetAll/_UnassignedContacts" />
+            @*@await Html.PartialAsync("GetAll/_Unassigned")*@
+        </div>
+    }
+    @if (!User.IsInRole("Admin"))
+    {
+    <div class="tab-pane fade" id="AllMyContacts" role="tabpanel" aria-labelledby="AllMyContacts-tab">
+        <partial name="GetAll/_MyAllContacts" />
+        @*@await Html.PartialAsync("GetAll/_MyContacts")*@
+    </div>
+    <div class="tab-pane fade" id="AssignedContacts" role="tabpanel" aria-labelledby="AssignedContacts-tab">
+            <partial name="GetAll/_AssignedContacts" />
+        @*@await Html.PartialAsync("GetAll/_Assigned")*@
+    </div>
+    }
+</div>

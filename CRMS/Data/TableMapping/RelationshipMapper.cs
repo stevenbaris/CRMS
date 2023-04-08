@@ -1,4 +1,5 @@
 ﻿using CRMS.Models;
+using CRMS.Models.Customization;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Data.TableMapping
@@ -42,17 +43,19 @@ namespace CRMS.Data.TableMapping
 
 
             //RELATIONSHIP
-            modelBuilder.Entity<Contacts>()
-                .HasOne<ApplicationUser>(contact => contact.User)
-                .WithMany(AppUser => AppUser.Contacts)
-                .HasForeignKey(contact => contact.ContactOwnerID)
-                .HasConstraintName("FK_ContactOwner");
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Contacts)
+                .WithOne(c => c.Owner)
+                .HasForeignKey(c => c.ContactOwnerID)
+                .HasConstraintName("FK_ContactOwner")
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Contacts>()
-                .HasOne<ApplicationUser>(contact => contact.User)
-                .WithMany(AppUser => AppUser.Contacts)
-                .HasForeignKey(contact => contact.ContactCreatorID)
-                .HasConstraintName("FK_ContactCreator");
+                .HasOne(c => c.Creator)
+                .WithMany()
+                .HasForeignKey(c => c.ContactCreatorID)
+                .HasConstraintName("FK_ContactCreator")
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<RollingTransactions>()
                 .HasOne<Contacts>(transact => transact.Contacts)

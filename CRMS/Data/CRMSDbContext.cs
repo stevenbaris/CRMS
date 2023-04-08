@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using CRMS.Models.Customization;
 
 namespace CRMS.Data
 {
