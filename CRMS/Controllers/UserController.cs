@@ -1,13 +1,9 @@
-﻿using CRMS.ViewModels;
-using CRMS.Models;
+﻿using CRMS.Models;
 using CRMS.Repository;
+using CRMS.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using static System.Formats.Asn1.AsnWriter;
-using Microsoft.AspNetCore.Authorization;
-using CRMS.Data;
 
 namespace CRMS.Controllers
 {
@@ -22,7 +18,6 @@ namespace CRMS.Controllers
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
-
             _signInManager = signInManager;
         }
 
@@ -187,7 +182,8 @@ namespace CRMS.Controllers
             {
                 ViewBag.ErrorMessage = $"User cannot be found";
                 return View("Not Found");
-            } else
+            }
+            else
             {
                 var result = await _userManager.DeleteAsync(user);
 

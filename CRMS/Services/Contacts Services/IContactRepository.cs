@@ -2,7 +2,7 @@
 
 namespace CRMS.Services.Contacts_Services
 {
-    public interface IContactRepository: IRepository<Contacts>
+    public interface IContactRepository : IRepository<Contacts>
     {
         //ADMIN
         Task<List<Contacts>> GetContactsWithOwnerAsync();

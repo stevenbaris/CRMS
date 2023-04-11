@@ -1,8 +1,11 @@
 ﻿using CRMS.Models;
+using CRMS.Models.Customization;
+using CRMS.Repository;
 using CRMS.Services.Contacts_Services;
+using CRMS.ViewComponents.Contacts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CRMS.Controllers
@@ -10,7 +13,7 @@ namespace CRMS.Controllers
     public class ContactsController : Controller
     {
         private readonly IContactRepository _contactRepository;
-        private readonly IContactRepository _users;
+        private readonly IUserRepository _userRepository;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -37,6 +40,7 @@ namespace CRMS.Controllers
                     model.AllContacts = await _contactRepository.GetAllAsync();
                     model.AssignedContacts = await _contactRepository.GetContactsWithOwnerAsync();
                     model.UnassignedContacts = await _contactRepository.GetContactsWithoutOwnerAsync();
+                    model.AppUsers = await _userManager.Users.ToListAsync();
                 }
                 else
                 {
@@ -45,6 +49,7 @@ namespace CRMS.Controllers
                     model.AllContacts = await _contactRepository.GetAllMyContactsAsync(Guid.Parse(userId));
                     model.MyContacts = await _contactRepository.GetMyCreatedContactsAsync(Guid.Parse(userId));
                     model.AssignedContacts = await _contactRepository.GetMyAssignedContactsAsync(Guid.Parse(userId));
+                    model.AppUsers = await _userManager.Users.ToListAsync();
                 }
             }
 
@@ -52,34 +57,97 @@ namespace CRMS.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Details(Guid id)
         {
-            return PartialView("_CreateModal.cshtml");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Contacts contact)
-        {
-            if (ModelState.IsValid)
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            if (contact == null)
             {
-                var todo = _contactRepository.CreateAsync(contact);
-                return RedirectToAction("Index");
+                return NotFound();
             }
-            return PartialView("_CreateModal.cshtml", contact);
+
+            return View(contact);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Update(Guid contactGuid)
+        public async Task<IActionResult> Create()
         {
-            var contact = await _contactRepository.GetbyIdAsync(contactGuid);
-            return PartialView("_EditModal.cshtml", contact);
+            var userId = User.Identity?.Name;
+            Guid.TryParse(userId, out Guid userIdGuid);
+
+            var contact = new Contacts
+            {
+                ContactCreatorID = userIdGuid,
+                CreateDate = DateTime.Now,
+            };
+
+            var appUsers = await _userManager.Users.ToListAsync();
+
+            IndexViewModel model = new IndexViewModel
+            {
+                Contacts = contact,
+                AppUsers = appUsers
+            };
+
+            return View("Index", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Contacts contact)
+        public async Task<IActionResult> Create(IndexViewModel iviewmodel)
         {
-            var con = await _contactRepository.UpdateAsync(contact);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _contactRepository.CreateAsync(iviewmodel.Contacts);
+                return RedirectToAction("Index");
+            }
+            //return ViewComponent("CreateContacts", iviewmodel);
+            return PartialView("~/Views/Contacts/_CreateModal.cshtml", iviewmodel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            if (contact != null) { 
+
+                IndexViewModel model = new IndexViewModel
+                {
+                    Contacts = contact,
+                    AppUsers = await _userManager.Users.ToListAsync()
+                
+                };
+
+                if (model == null)
+                {
+                    return NotFound();
+                }
+                //return ViewComponent("UpdateContacts", contactGuid);
+                return PartialView("~/Views/Contacts/_EditModal.cshtml", model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Guid id,IndexViewModel iviewModel)
+        {
+            if (id != iviewModel.Contacts.Contact_Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _contactRepository.UpdateAsync(iviewModel.Contacts);
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw new Exception();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return PartialView("~/Views/Contacts/_EditModal.cshtml", iviewModel);
         }
 
         [HttpGet]
@@ -108,40 +176,38 @@ namespace CRMS.Controllers
 
 
 
+        //[HttpGet]
+        //public async Task<IActionResult> Index1()
+        //{
+        //    //If Signed-IN
+        //    if (_signInManager.IsSignedIn(User))
+        //    {
+        //        if (User.IsInRole("Admin"))
+        //        {
+        //            //Go to AllContacts
+        //            return RedirectToAction("AllContacts");
+        //        }
+        //        else
+        //        {
+        //            // Go to AllMyContacts
+        //            return RedirectToAction("AllMyContacts");
+        //        }
+        //    }
+        //    //If NOT Signed-IN
+        //    return RedirectToAction("Login", "User");
+        //}
 
+        //[HttpGet]
+        //public async Task<IActionResult> AllContacts()
+        //{
+        //    var model= await _contactRepository.GetAllAsync();
+        //    return PartialView("~/Views/Contacts/GetAll/_AllContacts.cshtml", model);
+        //}
 
-        [HttpGet]
-        public async Task<IActionResult> Index1()
-        {
-            //If Signed-IN
-            if (_signInManager.IsSignedIn(User))
-            {
-                if (User.IsInRole("Admin"))
-                {
-                    //Go to AllContacts
-                    return RedirectToAction("AllContacts");
-                }
-                else
-                {
-                    // Go to AllMyContacts
-                    return RedirectToAction("AllMyContacts");
-                }
-            }
-            //If NOT Signed-IN
-            return RedirectToAction("Login", "User");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AllContacts()
-        {
-            var model= await _contactRepository.GetAllAsync();
-            return PartialView("GetAll/_AllContacts.cshtml", model);
-        }
-
-        public async Task<IActionResult> AllMyContacts(Guid userGuid)
-        {
-            var model = await _contactRepository.GetAllMyContactsAsync(userGuid);
-            return PartialView("GetAll/_AllContacts.cshtml", model);
-        }
+        //public async Task<IActionResult> AllMyContacts(Guid userGuid)
+        //{
+        //    var model = await _contactRepository.GetAllMyContactsAsync(userGuid);
+        //    return PartialView("~/Views/Contacts/GetAll/_AllContacts.cshtml", model);
+        //}
     }
 }

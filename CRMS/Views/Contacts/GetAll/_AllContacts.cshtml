@@ -1,8 +1,7 @@
-﻿
-Note: Sample Data Only. Coded in the HTML, not in DB. This is the AllEmployees View
+﻿@model IndexViewModel
 <br />
 <br />
-<table class="table table-bordered table-overflow-auto-w100">
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
     <thead class="header-bg-light text-uppercase">
         <tr>
             <th scope="col">Full Name</th>
@@ -18,17 +17,25 @@ Note: Sample Data Only. Coded in the HTML, not in DB. This is the AllEmployees V
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Dell</td>
-            <td>Otto</td>
-            <td></td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td></td>
-        </tr>
+        @foreach (var contact in Model.AllContacts)
+        {
+         <tr>
+            <td><a href="@Url.Action("Details", "Contacts", new { id = contact.Contact_Id })">@contact.FullName</a></td>
+            <td>@contact.Email</td>
+            <td>@contact.PhoneNumber</td>
+            <td>@contact.Gender</td>
+            <td>@contact.DOB</td>
+            <td>@(contact.Owner?.FirstName + " " + contact.Owner?.LastName ?? "N/A")</td>
+            <td>@contact.DateAssigned</td>
+            <td>@(contact.Creator?.FirstName + " " + contact.Creator?.LastName ?? "N/A")</td>
+            <td>@contact.CreateDate</td>
+            <td>
+                <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditModal" onclick="document.getElementById('EditModal').style.display='block'">Edit</a>
+                <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#DeleteModal" onclick="document.getElementById('DeleteModal').style.display='block'">Delete</a>
+            </td>
+         </tr>
+        }
     </tbody>
 </table>
+<partial name="_EditModal"  />
+<partial name="_DeleteModal" />

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CRMS.Data;
+﻿using CRMS.Models.Customization;
 using CRMS.Services;
-using CRMS.Models.Customization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
@@ -19,31 +13,31 @@ namespace CRMS.Controllers
         {
             _methodsRepo = methods;
         }
-
+        //"~/Views/Customization/Components/CommsMethod/CommunicationMethods/Index.cshtml",
         // GET: CommunicationMethods
         public async Task<IActionResult> Index()
         {
-            return View(await _methodsRepo.GetAllAsync());
-                          
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Index.cshtml", await _methodsRepo.GetAllAsync());
+
         }
 
         // GET: CommunicationMethods/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var communicationMethod = await _methodsRepo.GetbyIdAsync(id);
-                
+
             if (communicationMethod == null)
             {
                 return NotFound();
             }
 
-            return View(communicationMethod);
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Details.cshtml", communicationMethod);
         }
 
         // GET: CommunicationMethods/Create
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Create.cshtml");
         }
 
         // POST: CommunicationMethods/Create
@@ -59,18 +53,18 @@ namespace CRMS.Controllers
                 await _methodsRepo.CreateAsync(communicationMethod);
                 return RedirectToAction(nameof(Index));
             }
-            return View(communicationMethod);
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Create.cshtml", communicationMethod);
         }
 
         // GET: CommunicationMethods/Edit/5
         public async Task<IActionResult> Edit(Guid id)
-        { 
+        {
             var communicationMethod = await _methodsRepo.GetbyIdAsync(id);
             if (communicationMethod == null)
             {
                 return NotFound();
             }
-            return View(communicationMethod);
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Edit.cshtml", communicationMethod);
         }
 
         // POST: CommunicationMethods/Edit/5
@@ -84,7 +78,7 @@ namespace CRMS.Controllers
             {
                 try
                 {
-                    
+
                     await _methodsRepo.UpdateAsync(communicationMethod);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -100,7 +94,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(communicationMethod);
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Edit.cshtml", communicationMethod);
         }
 
         // GET: CommunicationMethods/Delete/5
@@ -112,7 +106,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(communicationMethod);
+            return View("~/Views/Customization/Components/CommsMethod/CommunicationMethods/Delete.cshtml", communicationMethod);
         }
 
         // POST: CommunicationMethods/Delete/5
@@ -129,13 +123,13 @@ namespace CRMS.Controllers
             {
                 await _methodsRepo.DeleteAsync(id);
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool CommunicationMethodExists(Guid id)
         {
-          return (_methodsRepo.GetbyIdAsync(id) is not null);
+            return (_methodsRepo.GetbyIdAsync(id) is not null);
         }
     }
 }

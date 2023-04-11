@@ -17,7 +17,7 @@ namespace CRMS.Services.SqlRepositories
         {
             _dBcontext.RollingTransactions.Add(transactions);
             await _dBcontext.SaveChangesAsync();
-            return transactions; 
+            return transactions;
         }
 
         public async Task<RollingTransactions> DeleteAsync(Guid id)

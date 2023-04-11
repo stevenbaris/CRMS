@@ -3,8 +3,11 @@
 public class IndexViewModel
 {
     public bool IsAdmin { get; set; }
-    public List<Contacts>? AllContacts { get; set; }
-    public List<Contacts>? MyContacts { get; set; }
-    public List<Contacts>? UnassignedContacts { get; set; }
-    public List<Contacts>? AssignedContacts { get; set; }
+    public Contacts? Contacts { get; set; } = new Contacts();
+    public List<Contacts>? AllContacts { get; set; } = new List<Contacts>();
+    public List<Contacts>? MyContacts { get; set; } = new List<Contacts>();
+    public List<Contacts>? UnassignedContacts { get; set; } = new List<Contacts>();
+    public List<Contacts>? AssignedContacts { get; set; } = new List<Contacts>();
+    public List<ApplicationUser> AppUsers { get; set; } = new List<ApplicationUser>();
+
 }

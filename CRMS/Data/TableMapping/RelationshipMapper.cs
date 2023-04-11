@@ -1,5 +1,7 @@
 ﻿using CRMS.Models;
 using CRMS.Models.Customization;
+using CRMS.Models.Records;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Data.TableMapping
@@ -41,6 +43,16 @@ namespace CRMS.Data.TableMapping
                 .ToTable("ROLLING TRANSACTIONS")
                 .HasKey(transact => transact.RollingTransactions_ID);
 
+            modelBuilder.Entity<IdentityUserRole<Guid>>()
+                .ToTable("AspNetUserRoles")
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            modelBuilder.Entity<Appointments>()
+                .ToTable("APPOINTMENTS")
+                .HasKey(ap => ap.Appointment_Id);
+
+
+
 
             //RELATIONSHIP
             modelBuilder.Entity<ApplicationUser>()
@@ -63,12 +75,34 @@ namespace CRMS.Data.TableMapping
                 .HasForeignKey<RollingTransactions>(transact => transact.ContactId)
                 .HasConstraintName("FK_TransactionsOfContact");
 
+            modelBuilder.Entity<Appointments>()
+                .HasOne<Contacts>(ap => ap.prospect)
+                .WithMany()
+                .HasForeignKey(ap => ap.ContactId)
+                .HasConstraintName("FK_AppointmentProspect");
+
+            modelBuilder.Entity<Appointments>()
+                .HasOne<AppointmentPurpose>(purpose => purpose.AppointmentPurpose)
+                .WithMany()
+                .HasForeignKey(purpose => purpose.PurposeId)
+                .HasConstraintName("FK_AppointmentPurpose");
+
+            modelBuilder.Entity<Appointments>()
+               .HasOne<ApplicationUser>(apCreator => apCreator.User)
+               .WithMany()
+               .HasForeignKey(apCreator => apCreator.CreatedBy)
+               .HasConstraintName("FK_AppointmentCreator");
+
 
 
             //COLUMN PROPERTIES
             modelBuilder.Entity<RollingTransactions>()
                 .Property(trans => trans.TransacationTotal)
                 .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Contacts>()
+                .Property(con => con.Email)
+                .IsRequired();
 
         }
     }

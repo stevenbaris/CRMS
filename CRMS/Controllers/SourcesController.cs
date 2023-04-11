@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CRMS.Data;
+﻿using CRMS.Models.Customization;
 using CRMS.Services;
-using CRMS.Models.Customization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
@@ -23,8 +17,8 @@ namespace CRMS.Controllers
         // GET: Sources
         public async Task<IActionResult> Index()
         {
-            return View(await _sourceRepository.GetAllAsync());
-                         
+            return View("~/Views/Customization/Components/leadSource/Sources/Index.cshtml", await _sourceRepository.GetAllAsync());
+
         }
 
         // GET: Sources/Details/5
@@ -36,13 +30,13 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(source);
+            return View("~/Views/Customization/Components/leadSource/Sources/Details.cshtml", source);
         }
 
         // GET: Sources/Create
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Customization/Components/leadSource/Sources/Create.cshtml");
         }
 
         // POST: Sources/Create
@@ -56,7 +50,7 @@ namespace CRMS.Controllers
                 await _sourceRepository.CreateAsync(source);
                 return RedirectToAction(nameof(Index));
             }
-            return View(source);
+            return View("~/Views/Customization/Components/leadSource/Sources/Create.cshtml", source);
         }
 
         // GET: Sources/Edit/5
@@ -68,7 +62,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            return View(source);
+            return View("~/Views/Customization/Components/leadSource/Sources/Edit.cshtml", source);
         }
 
         // POST: Sources/Edit/5
@@ -95,7 +89,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(source);
+            return View("~/Views/Customization/Components/leadSource/Sources/Edit.cshtml", source);
         }
 
         // GET: Sources/Delete/5
@@ -107,7 +101,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(source);
+            return View("~/Views/Customization/Components/leadSource/Sources/Delete.cshtml", source);
         }
 
         // POST: Sources/Delete/5
@@ -124,13 +118,13 @@ namespace CRMS.Controllers
             {
                 await _sourceRepository.DeleteAsync(id);
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool SourceExists(Guid id)
         {
-          return (_sourceRepository.GetbyIdAsync(id) is not null);
+            return (_sourceRepository.GetbyIdAsync(id) is not null);
         }
     }
 }

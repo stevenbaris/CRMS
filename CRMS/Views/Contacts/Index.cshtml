@@ -1,70 +1,105 @@
 ﻿@model IndexViewModel
-@{
-    ViewData["Title"] = "Contacts";
-}
 
-
-<header>
-    <div>
-        <h3 class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-controls="dropdown-menu" aria-expanded="false" id="ContactsDD">Contacts</h3>
-        <ul class="dropdown-menu" aria-labelledby="ContactsDD">
-            <li><a class="dropdown-item" href="#" data-value="Contacts" aria-selected="true">Contacts</a></li>
-            @*<li class="disabled "><a class="dropdown-item" href="#" data-value="Companies">Companies</a></li>*@
-        </ul>
-            
-        <p id="record_count"># Records</p>
+    <header>
+         <div>
+        <h3>Contacts</h3>
+        <p id="contact-count"># Records</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" data-toggle="modal" data-target="#createContactModal" onclick="document.getElementById('id01').style.display='block'">+ New Contact</button>
-            <partial name="_CreateModal" />
-        </div>
-    </div>
-
-
-
-    <br />
-    <div class="tab-container">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="AllContacts-tab" data-bs-toggle="tab" data-bs-target="#AllContacts" type="button" role="tab" aria-controls="AllContacts" aria-selected="true">All Contacts</button>
-            </li>
+            <button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" data-toggle="modal" data-target="#CreateModal" onclick="document.getElementById('CreateModal').style.display='block'">+ New Contact</button>
+            <partial name="_CreateModal" model="Model"/>
+            @*@await Html.PartialAsync("~/Views/Contacts/_CreateModal.cshtml")*@
+            @*@await Component.InvokeAsync("CreateContacts")*@
+           
             
+            
+            </div>
+        </div>
+    </header>
+
+
+
+    
+    <div class="tab-container">
+        <br />
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" id="All-tab" data-bs-toggle="tab" href="#All-content">All Contacts</a>
+            </li>
             @if (User.IsInRole("Admin"))
             {
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="AssignedContacts-tab" data-bs-toggle="tab" data-bs-target="#AssignedContacts" type="button" role="tab" aria-controls="AssignedContacts" aria-selected="false">Assigned</button>
+                <li class="nav-item">
+                    <a class="nav-link" id="Assigned-tab" data-bs-toggle="tab" href="#Assigned-content">Assigned</a>
                 </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="UnassignedContacts-tab" data-bs-toggle="tab" data-bs-target="#UnassignedContacts" type="button" role="tab" aria-controls="UnassignedContacts" aria-selected="false">Unassigned</button>
+                <li class="nav-item">
+                    <a class="nav-link" id="Unassigned-tab" data-bs-toggle="tab" href="#Unassigned-content">Unassigned</a>
                 </li>
-                
             }
-            @if (!User.IsInRole("Admin"))
+            else
             {
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="AllMyContacts-tab" data-bs-toggle="tab" data-bs-target="#AllMyContacts" type="button" role="tab" aria-controls="AllMyContacts" aria-selected="false">My Contacts</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="AssignedContacts-tab" data-bs-toggle="tab" data-bs-target="#AssignedContacts" type="button" role="tab" aria-controls="AssignedContacts" aria-selected="false">Assigned</button>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="My-tab" data-bs-toggle="tab" href="#My">My Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Assigned-tab" data-bs-toggle="tab" href="#Assigned-content">Assigned</a>
+                </li>
             }
         </ul>
     </div>
-</header>
 
-<partial name="_Tab-Content" />
+
+
+    <div class="tab-content">
+    <div class="tab-pane container active" id="All-content"><partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" /></div>
+        @if (User.IsInRole("Admin"))
+        {
+        <div class="tab-pane container fade" id="Assigned-content">
+            <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane container fade" id="Unassigned-content">
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        }
+        else
+        {
+        <div class="tab-pane container fade" id="My-content"> 
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane container fade" id="Assigned-content">
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        }
+
+    </div>
+
+
+
+
+
 
 @section Scripts{
-    <script>
-        $(function () {
-            // Set the initial value of the h3 element to the default selected item
-            var defaultText = $('#employeeDD .dropdown-menu a[data-value="Employee Access"]').text();
-            $('#employeeDD .dropdown-toggle').text(defaultText);
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-            // Update the text of the h3 element when a dropdown item is selected
-            $('#employeeDD .dropdown-menu a').click(function () {
-                var selectedText = $(this).text();
-                $('#employeeDD .dropdown-toggle').text(selectedText);
-            });
-        });
+    <script>
+        //$(document).ready(function () {
+        //    // Get the initial count from the "data-count" attribute of the "All" tab
+        //    var count = $('#AllContacts-tab').data('count');
+
+        //    // Update the count in the p tag
+        //    $('#contact-count').text(count + ' Records Found');
+
+        //    // Listen for tab changes
+        //    $('.nav-link').on('shown.bs.tab', function (event) {
+        //        // Get the count from the "data-count" attribute of the active tab
+        //        var activeTab = $(event.target).attr('id');
+        //        count = $('#' + activeTab).data('count');
+
+        //        // Update the count in the p tag
+        //        $('#contact-count').text(count + ' Records Found');
+        //    });
+        //});
+
+
     </script>
 }

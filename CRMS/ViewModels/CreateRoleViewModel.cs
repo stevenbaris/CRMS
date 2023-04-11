@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Build.Framework;
+﻿using Microsoft.Build.Framework;
 
 namespace CRMS.ViewModels
 {

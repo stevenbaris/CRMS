@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CRMS.Data;
+﻿using CRMS.Models.Customization;
 using CRMS.Services;
-using CRMS.Models.Customization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
@@ -24,8 +18,8 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var purposesList = await _purposesRepository.GetAllAsync();
-            return View("~/Views/ManageLists/AppointmentPurposes/Index.cshtml", purposesList);
-                     
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Index.cshtml", purposesList);
+
         }
 
         // GET: AppointmentPurposes/Details/5
@@ -37,13 +31,13 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View("~/Views/ManageLists/AppointmentPurposes/Details.cshtml", appointmentPurpose);
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Details.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Create
         public IActionResult Create()
         {
-            return View("~/Views/ManageLists/AppointmentPurposes/Create.cshtml");
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Create.cshtml");
         }
 
         // POST: AppointmentPurposes/Create
@@ -57,7 +51,7 @@ namespace CRMS.Controllers
                 await _purposesRepository.CreateAsync(appointmentPurpose);
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/ManageLists/AppointmentPurposes/Create.cshtml", appointmentPurpose);
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Create.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Edit/5
@@ -68,7 +62,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            return View("~/Views/ManageLists/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
         }
 
         // POST: AppointmentPurposes/Edit/5
@@ -88,7 +82,7 @@ namespace CRMS.Controllers
                 try
                 {
                     await _purposesRepository.UpdateAsync(appointmentPurpose);
-                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -103,7 +97,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View("~/Views/ManageLists/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
         }
 
         // GET: AppointmentPurposes/Delete/5
@@ -115,7 +109,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View("~/Views/ManageLists/AppointmentPurposes/Delete.cshtml", appointmentPurpose);
+            return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Delete.cshtml", appointmentPurpose);
         }
 
         // POST: AppointmentPurposes/Delete/5
@@ -132,14 +126,14 @@ namespace CRMS.Controllers
             {
                 await _purposesRepository.DeleteAsync(id);
             }
-            
-            
+
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool AppointmentPurposeExists(Guid id)
         {
-          return (_purposesRepository.GetbyIdAsync(id) is not null);
+            return (_purposesRepository.GetbyIdAsync(id) is not null);
         }
     }
 }

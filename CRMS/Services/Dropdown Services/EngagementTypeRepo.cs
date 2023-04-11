@@ -38,7 +38,7 @@ namespace CRMS.Services.SqlRepositories
 
         public async Task<EngagementType> GetbyIdAsync(Guid id)
         {
-          
+
             return await _dBcontext.EngagementTypes.FindAsync(id);
         }
 

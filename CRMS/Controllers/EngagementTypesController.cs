@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CRMS.Data;
+﻿using CRMS.Models.Customization;
 using CRMS.Services;
-using CRMS.Models.Customization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
@@ -23,8 +17,8 @@ namespace CRMS.Controllers
         // GET: EngagementTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _engagementTypeRepo.GetAllAsync());
-                          
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Index.cshtml", await _engagementTypeRepo.GetAllAsync());
+
         }
 
         // GET: EngagementTypes/Details/5
@@ -36,13 +30,13 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(engagementType);
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Details.cshtml", engagementType);
         }
 
         // GET: EngagementTypes/Create
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Create.cshtml");
         }
 
         // POST: EngagementTypes/Create
@@ -56,7 +50,7 @@ namespace CRMS.Controllers
                 await _engagementTypeRepo.CreateAsync(engagementType);
                 return RedirectToAction(nameof(Index));
             }
-            return View(engagementType);
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Create.cshtml", engagementType);
         }
 
         // GET: EngagementTypes/Edit/5
@@ -67,7 +61,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            return View(engagementType);
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Edit.cshtml", engagementType);
         }
 
         // POST: EngagementTypes/Edit/5
@@ -94,7 +88,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(engagementType);
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Edit.cshtml", engagementType);
         }
 
         // GET: EngagementTypes/Delete/5
@@ -106,7 +100,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(engagementType);
+            return View("~/Views/Customization/Components/EngagementType/EngagementTypes/Delete.cshtml", engagementType);
         }
 
         // POST: EngagementTypes/Delete/5
@@ -123,13 +117,13 @@ namespace CRMS.Controllers
             {
                 await _engagementTypeRepo.DeleteAsync(id);
             }
-            
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool EngagementTypeExists(Guid id)
         {
-          return (_engagementTypeRepo.GetbyIdAsync(id) is not null);
+            return (_engagementTypeRepo.GetbyIdAsync(id) is not null);
         }
     }
 }

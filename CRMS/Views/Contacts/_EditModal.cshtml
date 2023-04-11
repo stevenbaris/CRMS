@@ -1,69 +1,138 @@
-﻿
-<div class="w3-container">
-    <div id="id01" class="w3-modal">
+﻿@model IndexViewModel
+
+<div class="w3-container m-1">
+    <div id="EditModal" class="w3-modal">
         <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
             <div class="w3-center">
                 <br>
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                <h3>Update Contact</h3>
+                <span onclick="document.getElementById('EditModal').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                <h2>Update Contact</h2>
             </div>
 
-            <form class="w3-container" action="/action_page.php">
+            <form id="contactForm" class="w3-container" asp-controller="Contacts" asp-action="Create" data-ajax="true" data-ajax-method="post">
                 <div class="w3-section">
-                    <div>
-                        <label for="firstName">First Name:</label>
-                        <input type="text" id="firstName" name="firstName" required>
+                    @Html.HiddenFor(model => model.Contacts.Contact_Id)
+                    <div class="form-group">
+                        <label asp-for="Contacts.FirstName" class="control-label">First Name:</label>
+                        <input asp-for="Contacts.FirstName" class="form-control" placeholder="Ex. Juan" />
+                        <span asp-validation-for="Contacts.FirstName" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" id="lastName" name="lastName" required>
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.LastName" class="control-label">Last Name:</label>
+                        <input asp-for="Contacts.LastName" class="form-control" placeholder="Ex. Dela Cruz" />
+                        <span asp-validation-for="Contacts.LastName" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.Email" class="control-label">Email:</label>
+                        <input asp-for="Contacts.Email" class="form-control" placeholder="Ex. juandelacruz@crms.com" />
+                        <span asp-validation-for="Contacts.Email" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="phoneNumber">Phone Number:</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.PhoneNumber" class="control-label">Phone Number:</label>
+                        <input asp-for="Contacts.PhoneNumber" class="form-control" placeholder="Ex. 09XXXXXXXX" />
+                        <span asp-validation-for="Contacts.PhoneNumber" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="gender">Gender:</label>
-                        <select id="gender" name="gender">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.Gender" class="control-label">Gender:</label>
+                        <select asp-for="Contacts.Gender" class="form-control">
+                            <option>-- Select Gender --</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
-                            <option value="NonBinary">Non-binary</option>
+                            <option value="Other">Other</option>
                         </select>
+                        <span asp-validation-for="Contacts.Gender" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="dob">Date of Birth:</label>
-                        <input type="date" id="dob" name="dob">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.DOB" class="control-label">Date of Birth:</label>
+                        <input asp-for="Contacts.DOB" class="form-control" required />
+                        <span asp-validation-for="Contacts.DOB" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="contactOwnerID">Contact Owner ID:</label>
-                        <input type="text" id="contactOwnerID" name="contactOwnerID">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.ContactOwnerID" class="control-label">Contact Owner:</label>
+                        <select asp-for="Contacts.ContactOwnerID" class="form-control">
+                            @*asp-items="ViewBag.UserList"*@
+                            @foreach (var user in Model.AppUsers)
+                            {
+                                <option value="@user.Id">@String.Concat(user.FirstName +" "+ user.LastName)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Contacts.ContactOwnerID" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="dateAssigned">Date Assigned:</label>
-                        <input type="date" id="dateAssigned" name="dateAssigned">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.DateAssigned" class="control-label">Date Assigned:</label>
+                        <input asp-for="Contacts.DateAssigned" class="form-control" />
+                        <span asp-validation-for="Contacts.DateAssigned" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="contactCreatorID">Contact Creator ID:</label>
-                        <input type="text" id="contactCreatorID" name="contactCreatorID">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.ContactCreatorID" class="control-label">Contact Creator:</label>
+                        @*<input type="hidden" asp-for="Contacts.ContactCreatorID" class="form-control" value="@Model.Contacts.ContactCreatorID" readonly />*@
+                        @*<input class="form-control" value="@String.Concat(Model.AppUsers.FirstOrDefault(u => u.Id == Model.Contacts.ContactCreatorID)?.FirstName, ' ', Model.AppUsers.FirstOrDefault(u => u.Id == Model.Contacts.ContactCreatorID)?.LastName)" readonly />*@
+                        <select asp-for="Contacts.ContactOwnerID" class="form-control">
+                            @*asp-items="ViewBag.UserList"*@
+                            @foreach (var user in Model.AppUsers)
+                            {
+                                <option value="@user.Id">@String.Concat(user.FirstName +" "+ user.LastName)</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Contacts.ContactCreatorID" class="text-danger"></span>
                     </div>
-                    <div>
-                        <label for="createDate">Create Date:</label>
-                        <input type="date" id="createDate" name="createDate">
+
+                    <div class="form-group">
+                        <label asp-for="Contacts.CreateDate" class="control-label">Create Date:</label>
+                        <input type="text" class="form-control" value="@DateTime.Today.ToShortDateString()" readonly />
+                        <input asp-for="Contacts.CreateDate" type="hidden" class="form-control" value="@DateTime.UtcNow" readonly />
+                        @*@Html.DisplayFor(model => model.Contacts.CreateDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @*<input asp-for="Contacts.CreateDate" class="form-control" required />*@
+                        <span asp-validation-for="Contacts.CreateDate" class="text-danger"></span>
                     </div>
-                </div>
+
+
+                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                        <button type="submit" class="w3-button w3-right w3-green">SAVE</button>
+                        <button onclick="document.getElementById('EditModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                    </div>
             </form>
-
-            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                <button type="button" class="w3-button w3-right w3-green">SAVE</button>
-                <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
-                @*<span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>*@
-            </div>
-
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var contactId;
+            $(".edit-btn").click(function () {
+                contactId = $(this).data("contact-id");
+
+                $.get("/Contacts/Update/" + contactId, function (data) {
+                    $("#contactForm").html(data);
+                    $("#EditModal").modal("show");
+                });
+            });
+
+            $("#contactForm").submit(function (e) {
+                e.preventDefault();
+
+                var formData = $(this).serialize();
+
+                $.ajax({
+                    url: "/Contacts/Update/"+ contactId,
+                    type: "POST",
+                    data: formData,
+                    success: function (data) {
+                        $("#myModal .modal-body").html(data);
+                        $("#myModal").modal("hide");
+                    }
+                });
+            });
+        });
+    </script>
+}

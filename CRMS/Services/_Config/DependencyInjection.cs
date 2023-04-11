@@ -1,12 +1,11 @@
 ﻿using CRMS.Data;
 using CRMS.Models;
 using CRMS.Models.Customization;
-using CRMS.Repository.MsSQL;
 using CRMS.Repository;
+using CRMS.Repository.MsSQL;
 using CRMS.Services.Contacts_Services;
 using CRMS.Services.SqlRepositories;
 using Microsoft.AspNetCore.Identity;
-using System.Drawing.Printing;
 
 namespace CRMS.Services._Config
 {
@@ -46,9 +45,9 @@ namespace CRMS.Services._Config
                     .AddScoped<IRepository<LeadStatus>, LeadStatusRepo>()
                     .AddScoped<IRepository<Source>, SourcesRepo>()
 
-                //CONTACTS
+                    //CONTACTS
                     .AddScoped<IContactRepository, ContactRepo>()
-                    
+
 
 
 

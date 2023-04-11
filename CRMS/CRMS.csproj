@@ -44,14 +44,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Account Services\" />
     <Folder Include="Services\Employees Services\" />
     <Folder Include="Services\Records\" />
     <Folder Include="ViewModels\Account\" />
-    <Folder Include="ViewModels\Customization\" />
     <Folder Include="ViewModels\Employees\" />
     <Folder Include="ViewModels\Dashboard\" />
-    <Folder Include="ViewModels\Records\" />
   </ItemGroup>
 
 </Project>

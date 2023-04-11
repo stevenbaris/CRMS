@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CRMS.Data;
+﻿using CRMS.Models.Customization;
 using CRMS.Services;
-using CRMS.Models.Customization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
@@ -23,7 +17,7 @@ namespace CRMS.Controllers
         // GET: Effectivities
         public async Task<IActionResult> Index()
         {
-            return View(await _effectivityRepository.GetAllAsync());
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Index.cshtml", await _effectivityRepository.GetAllAsync());
         }
 
         // GET: Effectivities/Details/5
@@ -35,13 +29,13 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(effectivity);
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Details.cshtml", effectivity);
         }
 
         // GET: Effectivities/Create
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Create.cshtml");
         }
 
         // POST: Effectivities/Create
@@ -57,7 +51,7 @@ namespace CRMS.Controllers
                 await _effectivityRepository.CreateAsync(effectivity);
                 return RedirectToAction(nameof(Index));
             }
-            return View(effectivity);
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Create.cshtml", effectivity);
         }
 
         // GET: Effectivities/Edit/5
@@ -68,7 +62,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            return View(effectivity);
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Edit.cshtml", effectivity);
         }
 
         // POST: Effectivities/Edit/5
@@ -83,7 +77,7 @@ namespace CRMS.Controllers
                 try
                 {
                     await _effectivityRepository.UpdateAsync(effectivity);
-                    
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -98,7 +92,7 @@ namespace CRMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(effectivity);
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Edit.cshtml", effectivity);
         }
 
         // GET: Effectivities/Delete/5
@@ -110,7 +104,7 @@ namespace CRMS.Controllers
                 return NotFound();
             }
 
-            return View(effectivity);
+            return View("~/Views/Customization/Components/Effectivity/Effectivities/Delete.cshtml",effectivity);
         }
 
         // POST: Effectivities/Delete/5
@@ -132,7 +126,7 @@ namespace CRMS.Controllers
 
         private bool EffectivityExists(Guid id)
         {
-          return (_effectivityRepository.GetbyIdAsync(id) is not null);
+            return (_effectivityRepository.GetbyIdAsync(id) is not null);
         }
     }
 }

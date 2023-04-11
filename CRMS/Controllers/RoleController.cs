@@ -2,16 +2,15 @@
 using CRMS.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
     public class RoleController : Controller
     {
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole<Guid>> roleManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager)
+        public RoleController(RoleManager<IdentityRole<Guid>> roleManager)
         {
             this.roleManager = roleManager;
         }
@@ -27,7 +26,7 @@ namespace CRMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityRole identityRole = new IdentityRole
+                IdentityRole<Guid> identityRole = new IdentityRole<Guid>
                 {
                     Name = model.RoleName
                 };
@@ -67,18 +66,10 @@ namespace CRMS.Controllers
 
             var model = new EditRoleViewModel
             {
-                Id = role.Id,
+                Id = role.Id.ToString(),
                 RoleName = role.Name
             };
 
-            // Retrieve all the Users
-            foreach (var user in userManager.Users.ToList())
-            {
-                if (await userManager.IsInRoleAsync(user, role.Name))
-                {
-                    model.Users.Add(user.UserName);
-                }
-            }
             return View(model);
         }
 
@@ -102,12 +93,7 @@ namespace CRMS.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("ListRoles");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
+                    return RedirectToAction("Index");
                 }
 
                 return View(model);
@@ -146,4 +132,3 @@ namespace CRMS.Controllers
 
 
 
-        

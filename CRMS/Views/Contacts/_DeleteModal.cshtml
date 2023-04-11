@@ -1,36 +1,26 @@
-﻿@model Contacts
+﻿
+
 
 <div class="w3-container">
-    <div id="id01" class="w3-modal">
+    <div id="DeleteModal" class="w3-modal">
         <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
             <div class="w3-center">
-                <br>
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
-                <h3>Delete Contact</h3>
-            </div>
-            <div>
-            <hr />
-            <p>Are you sure you want to remove this contact?</p>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.FullName)
-                </dt>
-            </div>
-            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-
-                <form asp-action="Delete">
-                    <input type="hidden" asp-for="Contact_Id" />
-                    <input type="submit" value="Delete" class="w3-button w3-right w3-red" />
-                    <a asp-action="Index">Back to List</a>
-                </form>
-                @*<button type="button" class="w3-button w3-right w3-red">Delete</button>*@
-                
-                <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-teal">Cancel</button>
+                <span onclick="document.getElementById('DeleteModal').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
             </div>
 
+            <form class="w3-container" asp-controller="Contacts" asp-action="ConfirmDelete">
+                <div class="w3-section">
+                    <div class="w3-container  w3-padding-16 ">
+                        <h3 class="w3-center">Are you sure you want to delete this contact?</h3>
+                        
+                        <button type="submit" class="w3-button w3-right w3-green">DELETE</button>
+                        <button onclick="document.getElementById('DeleteModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-    </div>
+    
 
 

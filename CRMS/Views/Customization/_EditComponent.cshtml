@@ -1,0 +1,69 @@
+﻿
+<div class="w3-container">
+    <div id="EditComponent" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+            <div class="w3-center">
+                <br>
+                <span onclick="document.getElementById('EditComponent').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                <h3>Update Component</h3>
+            </div>
+
+            <form class="w3-container" action="/action_page.php">
+                <div class="w3-section">
+                    <div>
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="phoneNumber">Phone Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                    </div>
+                    <div>
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="NonBinary">Non-binary</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob">
+                    </div>
+                    <div>
+                        <label for="contactOwnerID">Contact Owner ID:</label>
+                        <input type="text" id="contactOwnerID" name="contactOwnerID">
+                    </div>
+                    <div>
+                        <label for="dateAssigned">Date Assigned:</label>
+                        <input type="date" id="dateAssigned" name="dateAssigned">
+                    </div>
+                    <div>
+                        <label for="contactCreatorID">Contact Creator ID:</label>
+                        <input type="text" id="contactCreatorID" name="contactCreatorID">
+                    </div>
+                    <div>
+                        <label for="createDate">Create Date:</label>
+                        <input type="date" id="createDate" name="createDate">
+                    </div>
+                </div>
+            </form>
+
+            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                <button type="button" class="w3-button w3-right w3-green">SAVE</button>
+                <button onclick="document.getElementById('EditComponent').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                @*<span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>*@
+            </div>
+
+        </div>
+    </div>
+</div>

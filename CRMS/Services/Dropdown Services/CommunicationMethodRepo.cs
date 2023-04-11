@@ -22,7 +22,7 @@ namespace CRMS.Services.SqlRepositories
 
         public async Task<CommunicationMethod> DeleteAsync(Guid id)
         {
-           var method = await GetbyIdAsync(id);
+            var method = await GetbyIdAsync(id);
             if (method != null)
             {
                 _dBcontext.CommunicationMethods.Remove(method);

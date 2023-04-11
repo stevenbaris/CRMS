@@ -17,7 +17,7 @@ namespace CRMS.Services.SqlRepositories
         //CREATE
         public async Task<Contacts> CreateAsync(Contacts contact)
         {
-            _dBcontext.Contacts.Add(contact);   
+            _dBcontext.Contacts.Add(contact);
             await _dBcontext.SaveChangesAsync();
             return contact;
         }
@@ -41,8 +41,8 @@ namespace CRMS.Services.SqlRepositories
             await _dBcontext.SaveChangesAsync();
             return contact;
         }
-        
-        
+
+
         //GET ONE BY ID
         public async Task<Contacts> GetbyIdAsync(Guid id)
         {
@@ -55,16 +55,18 @@ namespace CRMS.Services.SqlRepositories
         //ADMIN - GET ALL
         public async Task<List<Contacts>> GetAllAsync()
         {
-           return await _dBcontext.Contacts
-                .Include(c=> c.Creator) 
-                .Include(c=> c.Owner)
-                .ToListAsync();
+            return await _dBcontext.Contacts
+                 .Include(c => c.Creator)
+                 .Include(c => c.Owner)
+                 .ToListAsync();
         }
 
         //ADMIN - WITH OWNERS
         public async Task<List<Contacts>> GetContactsWithOwnerAsync()
         {
-            return await  _dBcontext.Contacts
+            return await _dBcontext.Contacts
+               .Include(c => c.Creator)
+               .Include(c => c.Owner)
                .Where(c => c.ContactOwnerID != null)
                .ToListAsync();
         }
@@ -73,6 +75,8 @@ namespace CRMS.Services.SqlRepositories
         public async Task<List<Contacts>> GetContactsWithoutOwnerAsync()
         {
             return await _dBcontext.Contacts
+                .Include(c => c.Creator)
+                .Include(c => c.Owner)
                .Where(c => c.ContactOwnerID == null)
                .ToListAsync();
         }
@@ -81,6 +85,8 @@ namespace CRMS.Services.SqlRepositories
         public async Task<List<Contacts>> GetAllMyContactsAsync(Guid userGuid)
         {
             return await _dBcontext.Contacts
+                .Include(c => c.Creator)
+                .Include(c => c.Owner)
                 .Where(c => c.ContactCreatorID == userGuid || (c.ContactOwnerID == userGuid && c.ContactCreatorID != userGuid))
                 .ToListAsync();
         }
@@ -90,6 +96,7 @@ namespace CRMS.Services.SqlRepositories
         {
             return await _dBcontext.Contacts
                 .Include(c => c.Creator)
+                .Include(c => c.Owner)
                 .Where(c => c.ContactCreatorID == userGuid)
                 .ToListAsync();
         }
@@ -98,11 +105,13 @@ namespace CRMS.Services.SqlRepositories
         public async Task<List<Contacts>> GetMyAssignedContactsAsync(Guid userGuid)
         {
             return await _dBcontext.Contacts
+                .Include(c => c.Creator)
+                .Include(c => c.Owner)
                .Where(c => c.ContactOwnerID == userGuid && c.ContactCreatorID != userGuid)
                .ToListAsync();
         }
 
-      
+
 
 
     }

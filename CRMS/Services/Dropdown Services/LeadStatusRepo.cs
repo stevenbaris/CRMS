@@ -24,7 +24,7 @@ namespace CRMS.Services.SqlRepositories
         public async Task<LeadStatus> DeleteAsync(Guid id)
         {
             var status = await GetbyIdAsync(id);
-            if (status != null) 
+            if (status != null)
             {
                 _dBcontext.Statuses.Remove(status);
                 await _dBcontext.SaveChangesAsync();

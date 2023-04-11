@@ -2,12 +2,12 @@
 using CRMS.Models.Customization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Web.Helpers;
 
 namespace CRMS.Data
 {
     public static class SeedData
     {
+
         public static void SeededData(this ModelBuilder modelBuilder)
         {
             ////EXAMPLE
@@ -78,13 +78,13 @@ namespace CRMS.Data
               new LeadStatus(Guid.NewGuid(), "Lead is Dead")
             };
 
-           
-               
-               
+
+
+
 
             var roles = new List<IdentityRole<Guid>>
             {
-                 
+
                  new IdentityRole<Guid>{Id = Guid.NewGuid(),Name = "Admin", NormalizedName = NormalizeAttribute("Admin") },
                  new IdentityRole<Guid>{Id = Guid.NewGuid(),Name = "User",  NormalizedName = NormalizeAttribute("User") },
             };
@@ -95,7 +95,9 @@ namespace CRMS.Data
                     {
                         Id = Guid.NewGuid(),
                         UserName = "su@crms.com",
+                        NormalizedUserName = "su@crms.com".ToUpper(),
                         Email = "su@crms.com",
+                        NormalizedEmail = "su@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
                         PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Admin123"),
@@ -113,7 +115,9 @@ namespace CRMS.Data
                     {
                         Id = Guid.NewGuid(),
                         UserName = "user@crms.com",
+                        NormalizedUserName = "user@crms.com".ToUpper(),
                         Email = "user@crms.com",
+                        NormalizedEmail = "user@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
                         PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "user123"),
@@ -127,6 +131,16 @@ namespace CRMS.Data
                         TwoFactorEnabled = false,
                         PhoneNumberConfirmed = true,
                     }
+            };
+
+            var userRole = new List<IdentityUserRole<Guid>>
+            {
+                new IdentityUserRole<Guid>
+                {
+                    RoleId = roles[0].Id,
+                    UserId = user[0].Id,
+                }
+
             };
 
             var contact = new List<Contacts>
@@ -182,6 +196,7 @@ namespace CRMS.Data
             modelBuilder.Entity<IdentityRole<Guid>>().HasData(roles);
             modelBuilder.Entity<ApplicationUser>().HasData(user);
             modelBuilder.Entity<Contacts>().HasData(contact);
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(userRole);
         }
         private static string NormalizeAttribute(string attribute)
         {

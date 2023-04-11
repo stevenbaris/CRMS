@@ -1,11 +1,10 @@
 ﻿using CRMS.Data.TableMapping;
 using CRMS.Models;
+using CRMS.Models.Customization;
+using CRMS.Models.Records;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CRMS.Models.Customization;
 
 namespace CRMS.Data
 {
@@ -24,9 +23,9 @@ namespace CRMS.Data
             var db = _appConfig.GetConnectionString("DB");
             var userName = _appConfig.GetConnectionString("UserName");
             var password = _appConfig.GetConnectionString("Password");
-            
+
             string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true";
-            
+
             optionsBuilder.UseSqlServer(connectionString);
 
 
@@ -43,11 +42,12 @@ namespace CRMS.Data
         public DbSet<AppointmentPurpose> Purposes { get; set; }
         public DbSet<CommunicationMethod> CommunicationMethods { get; set; }
         public DbSet<Effectivity> Effectivity { get; set; }
-        public DbSet<EngagementType> EngagementTypes { get; set;}
+        public DbSet<EngagementType> EngagementTypes { get; set; }
         public DbSet<Source> Sources { get; set; }
         public DbSet<LeadStatus> Statuses { get; set; }
         public DbSet<Contacts> Contacts { get; set; }
         public DbSet<RollingTransactions> RollingTransactions { get; set; }
+        public DbSet<Appointments> Appointments { get; set; }
 
 
     }
