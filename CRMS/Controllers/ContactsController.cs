@@ -3,10 +3,13 @@ using CRMS.Models.Customization;
 using CRMS.Repository;
 using CRMS.Services.Contacts_Services;
 using CRMS.ViewComponents.Contacts;
+using CRMS.ViewModels.Contact;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+
 
 namespace CRMS.Controllers
 {
@@ -107,13 +110,14 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Update(Guid id)
         {
             var contact = await _contactRepository.GetbyIdAsync(id);
-            if (contact != null) { 
+            if (contact != null)
+            {
 
                 IndexViewModel model = new IndexViewModel
                 {
                     Contacts = contact,
                     AppUsers = await _userManager.Users.ToListAsync()
-                
+
                 };
 
                 if (model == null)
@@ -127,7 +131,7 @@ namespace CRMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Guid id,IndexViewModel iviewModel)
+        public async Task<IActionResult> Update(Guid id, IndexViewModel iviewModel)
         {
             if (id != iviewModel.Contacts.Contact_Id)
             {
@@ -157,6 +161,7 @@ namespace CRMS.Controllers
             return PartialView("_DeleteModal", contact);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> ConfirmDelete(Guid guid)
         {
@@ -173,41 +178,179 @@ namespace CRMS.Controllers
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> ViewAll()
+        {
+            return View(await _contactRepository.GetAllAsync());
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+        {
+            var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+            var userId = user.Id;
+
+            var contact = new Contacts
+            {
+                Contact_Id = Guid.NewGuid(),
+                CreateDate = DateTime.Now,
+                ContactCreatorID = userId
+            };
+            var users = await _userManager.Users.ToListAsync();
+            var creatorList = users.Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FirstName + " " + u.LastName
+            });
+            ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", contact.Creator);
+            ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", contact.Owner);
+
+            return View(contact);
+        }
+
+       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(Contacts contact)
+        {
+            if (ModelState.IsValid)
+            {
+                await _contactRepository.CreateAsync(contact);
+                return RedirectToAction(nameof(ViewAll));
+            }
+            var users = await _userManager.Users.ToListAsync();
+            var creatorList = users.Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FirstName + " " + u.LastName
+            });
+            ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", contact.Creator);
+            ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", contact.Owner);
+            return View(contact);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            //IndexViewModel model = new IndexViewModel
+            //{
+            //    Contacts = await _contactRepository.GetbyIdAsync(id),
+            //    AppUsers = await _userManager.Users.ToListAsync()
+            //};
+            var model = await _contactRepository.GetbyIdAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+            var users = await _userManager.Users.ToListAsync();
+            var creatorList = users.Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FirstName + " " + u.LastName
+            });
+            ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", model.Creator);
+            ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", model.Owner);
+            return View(model);
+        }
+
+        // POST: Effectivities/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, Contacts model)
+        {
+            if (id != model.Contact_Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                
+                try
+                {
+                    var entity = await _contactRepository.GetbyIdAsync(model.Contact_Id);
+
+                    if (entity == null)
+                    {
+                        return NotFound();
+                    }
+                    await _contactRepository.UpdateAsync(model);
 
 
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw new Exception();
+                }
+                return RedirectToAction(nameof(ViewAll));
+            }
+            var users = await _userManager.Users.ToListAsync();
+            var creatorList = users.Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FirstName + " " + u.LastName
+            });
+            ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", model.Creator);
+            ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", model.Owner);
+            return View(model);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Index1()
-        //{
-        //    //If Signed-IN
-        //    if (_signInManager.IsSignedIn(User))
-        //    {
-        //        if (User.IsInRole("Admin"))
-        //        {
-        //            //Go to AllContacts
-        //            return RedirectToAction("AllContacts");
-        //        }
-        //        else
-        //        {
-        //            // Go to AllMyContacts
-        //            return RedirectToAction("AllMyContacts");
-        //        }
-        //    }
-        //    //If NOT Signed-IN
-        //    return RedirectToAction("Login", "User");
-        //}
+        public async Task<IActionResult> Remove(Guid id)
+        {
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+            ViewBag.ContactId = id;
+            return View(contact);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AllContacts()
-        //{
-        //    var model= await _contactRepository.GetAllAsync();
-        //    return PartialView("~/Views/Contacts/GetAll/_AllContacts.cshtml", model);
-        //}
+        // POST: AppointmentPurposes/Delete/5
+        [HttpPost]
+        public async Task<IActionResult> RemoveConfirmed(Guid id)
+        {
+            if (_contactRepository == null)
+            {
+                return Problem("Entity set 'CRMSDbContext'  is null.");
+            }
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            if (contact != null)
+            {
+                await _contactRepository.DeleteAsync(id);
+            }
 
-        //public async Task<IActionResult> AllMyContacts(Guid userGuid)
-        //{
-        //    var model = await _contactRepository.GetAllMyContactsAsync(userGuid);
-        //    return PartialView("~/Views/Contacts/GetAll/_AllContacts.cshtml", model);
-        //}
+
+            return RedirectToAction(nameof(ViewAll));
+        }
+
+
+        public async Task<IActionResult> ContactDetail(Guid id)
+        {
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            DetailsViewModel model = new DetailsViewModel
+            {
+                Contacts = contact,
+
+            };
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
     }
 }

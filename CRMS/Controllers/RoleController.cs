@@ -7,12 +7,13 @@ namespace CRMS.Controllers
 {
     public class RoleController : Controller
     {
-        private readonly RoleManager<IdentityRole<Guid>> roleManager;
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RoleController(RoleManager<IdentityRole<Guid>> roleManager)
+        public RoleController(RoleManager<IdentityRole<Guid>> roleManager, UserManager<ApplicationUser> userManager)
         {
-            this.roleManager = roleManager;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -31,7 +32,7 @@ namespace CRMS.Controllers
                     Name = model.RoleName
                 };
 
-                IdentityResult result = await roleManager.CreateAsync(identityRole);
+                IdentityResult result = await _roleManager.CreateAsync(identityRole);
 
                 if (result.Succeeded)
                 {
@@ -48,7 +49,7 @@ namespace CRMS.Controllers
 
         public IActionResult Index()
         {
-            var roles = roleManager.Roles;
+            var roles = _roleManager.Roles;
             return View(roles);
         }
 
@@ -56,7 +57,7 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             // Find the role by Role ID
-            var role = await roleManager.FindByIdAsync(id);
+            var role = await _roleManager.FindByIdAsync(id);
 
             if (role == null)
             {
@@ -77,7 +78,7 @@ namespace CRMS.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditRoleViewModel model)
         {
-            var role = await roleManager.FindByIdAsync(model.Id);
+            var role = await _roleManager.FindByIdAsync(model.Id);
 
             if (role == null)
             {
@@ -89,7 +90,7 @@ namespace CRMS.Controllers
                 role.Name = model.RoleName;
 
                 // Update the Role using UpdateAsync
-                var result = await roleManager.UpdateAsync(role);
+                var result = await _roleManager.UpdateAsync(role);
 
                 if (result.Succeeded)
                 {
@@ -102,7 +103,7 @@ namespace CRMS.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await roleManager.FindByIdAsync(id);
+            var user = await _roleManager.FindByIdAsync(id);
 
             if (user == null)
             {
@@ -111,7 +112,7 @@ namespace CRMS.Controllers
             }
             else
             {
-                var result = await roleManager.DeleteAsync(user);
+                var result = await _roleManager.DeleteAsync(user);
 
                 if (result.Succeeded)
                 {

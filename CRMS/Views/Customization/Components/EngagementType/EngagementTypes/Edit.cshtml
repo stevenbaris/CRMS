@@ -5,31 +5,38 @@
     Layout = "~/Views/Customization/z_CustomizationLayout.cshtml";
 }
 
-<h1>Edit</h1>
 
-<h4>EngagementType</h4>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Engagement</li>
+        <li class="breadcrumb-item">Engagement Type</li>
+        <li class="breadcrumb-item active" aria-current="page">Update</li>
+    </ol>
+</nav>
+
+<h3>Modify</h3>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EType_Id" />
-            <div class="form-group">
-                <label asp-for="EngagementName" class="control-label"></label>
-                <input asp-for="EngagementName" class="form-control" />
-                <span asp-validation-for="EngagementName" class="text-danger"></span>
+            <span asp-validation-for="EngagementName" class="text-danger"></span>
+            <div class="d-flex form-group justify-content-between ">
+                <label asp-for="EngagementName" class="control-label flex-fill"></label>
+                <input asp-for="EngagementName" class="form-control flex-fill" />
+                
+                <input type="submit" value="Save" class="btn w3-green w3-hover-black mx-5">
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
         </form>
-    </div>
 </div>
 
 <div>
+    <br />
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@section Scripts1 {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -2,27 +2,102 @@
     Layout = "_Layout";
 }
 
-<div class="d-flex align-items-start">
-    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a asp-controller="Role" asp-action="Index" class="nav-link active" >Roles</a>
-        <a asp-controller="AppointmentPurposes" asp-action="Index" class="nav-link" >Purpose</a>
-        <a asp-controller="CommunicationMethods" asp-action="Index" class="nav-link" >Communication Method</a>
-        <a asp-controller="EngagementTypes" asp-action="Index" class="nav-link" >Engagement Types</a>
-        <a asp-controller="Effectivities" asp-action="Index" class="nav-link" >Effectivity</a>
-        <a asp-controller="LeadStatus" asp-action="Index" class="nav-link" >Lead Status</a>
-        <a asp-controller="Sources" asp-action="Index" class="nav-link" >Lead Source</a>
+
+<div class="d-flex">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white cebuana-bg-blue" style="width: 200px; min-height: 100vh; max-height:100% position:sticky">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <span class="fs-4">CRMS - Sales</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column flex-grow-1">
+            <p class="navbar-vertical-label">Home</p>
+            <li class="nav-item">
+                <a href="#" class="nav-link text-white text-white active" >
+                    Dashboard
+                </a>
+            </li>
+            <p class="navbar-vertical-label">Management</p>
+            <li>
+                <a href="#" class="nav-link text-white text-white">
+                    Employees
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white text-white">
+                    Contacts
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white icon-link text-white">
+                    Companies
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white text-white">
+                    Leads
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white text-white">
+                    Engagements Tracking
+                </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-white text-white">
+                    Appointments
+                </a>
+            </li>
+
+            
+
+
+        </ul>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container">
+            <main role="main" class="pb-3 position-relative">
+                <div class="my-3">
+                    <h2>Customization</h2>
+                </div>
+                <div >
+                    <div class="w3-bar cebuana-bg-blue">
+                        <a asp-controller="Role" asp-action="Index" class="w3-bar-item w3-button text-white" >Roles</a>
+                        <a asp-controller="AppointmentPurposes" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="purpose">Purpose</a>
+                        <a asp-controller="CommunicationMethods" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="communication">Communication Method</a>
+                        <a asp-controller="EngagementTypes" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="engagement">Engagement Types</a>
+                        <a asp-controller="Effectivities" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="effectivity">Effectivity</a>
+                        <a asp-controller="LeadStatus" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="lead-status">Lead Status</a>
+                        <a asp-controller="Sources" asp-action="Index"class="w3-bar-item w3-button text-white" data-tab="lead-source">Lead Source</a>
+                    </div>
+                                  
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
         
     </div>
-    <div class="container">
-        <main role="main" class="pb-3 position-relative">
-            <div class="border-bottom">
-                <h3>Customize Properties</h3>
-                <p># of Records Found</p>
-            </div>
-            @RenderBody()
-        </main>
-    </div>
 </div>
+
+
+
 @section Scripts{
-    @await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts1", required: false)
+    <script>
+        $(function () {
+            // Listen for click events on the navigation links
+            $('.nav-link').on('click', function () {
+                // Remove the active class from all links
+                $('.nav-link').removeClass('active');
+                // Add the active class to the clicked link
+                $(this).addClass('active');
+                // Get the value of the data-tab attribute 
+                var tab = $(this).data('tab');
+                // Set the ID of the content section to the data-tab attribute
+                //$('#content').attr('id', tab);
+                //and show the corresponding tab
+                $('#' + tab).show().siblings().hide();
+            });
+        });
+    </script>
 }

@@ -38,7 +38,7 @@ body {
 
 .navbar-logo {
     padding: 0;
-    margin: -0px;
+    margin: -5px;
 }
 
 
@@ -158,4 +158,14 @@ ul.dropdown-menu {
     -webkit-transform: translate(0, 0);
     -ms-transform: translate(0, 0);
     transform: translate(0, 0);
+}
+
+.navbar-vertical-label {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .64rem;
+    color: var(--phoenix-navbar-vertical-label-color);
+    margin-bottom: .5rem;
+    margin-top: 1.5rem;
+    padding-left: .5rem;
 }

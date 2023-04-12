@@ -1,22 +1,25 @@
-﻿@model IEnumerable<CRMS.Models.Customization.CommunicationMethod>
+﻿
+@model IEnumerable<CRMS.Models.Customization.CommunicationMethod>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Customization/z_CustomizationLayout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Engagement</li>
+        <li class="breadcrumb-item active" aria-current="page">Communication Method</li>
+    </ol>
+</nav>
+<div class="d-flex justify-content-start">
+    <h3 class="flex-grow-1">Communication Methods</h3>
+    <p class="me-5"><a asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a></p>
+</div>
+<table class="table w3-centered">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CommunicationMethodName)
-            </th>
-            <th></th>
+        <tr >
+            <th >Name</th>
+            <th >Action</th>
         </tr>
     </thead>
     <tbody>
@@ -25,10 +28,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CommunicationMethodName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CommunicationMethod_Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CommunicationMethod_Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CommunicationMethod_Id">Delete</a>
+            <td class="d-flex justify-content-evenly">
+                <a asp-action="Edit" asp-route-id="@item.CommunicationMethod_Id" class="w3-button w3-green w3-hover-black">Edit</a> 
+                <a asp-action="Delete" asp-route-id="@item.CommunicationMethod_Id" class="w3-button w3-red w3-hover-black">Delete</a>
             </td>
         </tr>
 }

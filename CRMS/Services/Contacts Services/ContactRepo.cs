@@ -47,6 +47,7 @@ namespace CRMS.Services.SqlRepositories
         public async Task<Contacts> GetbyIdAsync(Guid id)
         {
             return await _dBcontext.Contacts
+                .AsNoTracking()
                 .Include(c => c.Owner)
                 .Include(c => c.Creator)
                 .SingleOrDefaultAsync(c => c.Contact_Id == id);
@@ -56,6 +57,7 @@ namespace CRMS.Services.SqlRepositories
         public async Task<List<Contacts>> GetAllAsync()
         {
             return await _dBcontext.Contacts
+                 .AsNoTracking()
                  .Include(c => c.Creator)
                  .Include(c => c.Owner)
                  .ToListAsync();

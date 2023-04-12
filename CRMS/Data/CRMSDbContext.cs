@@ -26,7 +26,8 @@ namespace CRMS.Data
 
             string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true";
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
 
             base.OnConfiguring(optionsBuilder);

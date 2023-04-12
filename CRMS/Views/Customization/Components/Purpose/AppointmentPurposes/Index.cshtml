@@ -4,19 +4,21 @@
     ViewData["Title"] = "Purpose";
     Layout = "~/Views/Customization/z_CustomizationLayout.cshtml";
 }
-
-<h1>Appointment: @ViewBag.Title</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Appointments</li>
+        <li class="breadcrumb-item active" aria-current="page">Purpose</li>
+    </ol>
+</nav>
+<div class="d-flex justify-content-start">
+    <h3 class="flex-grow-1">Purpsoe</h3>
+    <p class="me-5"><a asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a></p>
+</div>
+<table class="table w3-centered">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PurposeName)
-            </th>
-            <th></th>
+            <th>Name</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -25,11 +27,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PurposeName)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Purpose_Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Purpose_Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Purpose_Id">Delete</a>
-            </td>
+                <td class="d-flex justify-content-evenly">
+                    <a asp-action="Edit" asp-route-id="@item.Purpose_Id" class="w3-button w3-green w3-hover-black">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Purpose_Id" class="w3-button w3-red w3-hover-black">Delete</a>
+                </td>
         </tr>
 }
     </tbody>
