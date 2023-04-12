@@ -1,6 +1,6 @@
 ﻿using Microsoft.Build.Framework;
 
-namespace CRMS.ViewModels
+namespace CRMS.ViewModels.Role
 {
     public class CreateRoleViewModel
     {

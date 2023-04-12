@@ -1,6 +1,7 @@
 ﻿using Microsoft.Build.Framework;
+using System.ComponentModel;
 
-namespace CRMS.ViewModels
+namespace CRMS.ViewModels.Role
 {
     public class EditRoleViewModel
     {
@@ -11,6 +12,7 @@ namespace CRMS.ViewModels
         public string Id { get; set; }
 
         [Required]
+        [DisplayName("Role Name")]
         public string RoleName { get; set; }
 
         public List<string> Users { get; set; }

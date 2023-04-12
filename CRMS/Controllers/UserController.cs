@@ -1,6 +1,6 @@
 ﻿using CRMS.Models;
 using CRMS.Repository;
-using CRMS.ViewModels;
+using CRMS.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,7 +27,7 @@ namespace CRMS.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(RegisterUserViewModel userViewModel)
+        public async Task<IActionResult> Create(CreateUserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
