@@ -1,0 +1,134 @@
+﻿@model IEnumerable<IndexUserViewModel>
+@{
+    ViewData["Title"] = "UserIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section Styles{
+     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/filter-control/utils.min.js"></script>
+}
+
+<header>
+    <div>
+        <h1 style="font-weight:800">Employees</h1>
+        @*<p></a>int Count</p>*@
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" asp-controller="User" asp-action="Create">+ New Employee</a>
+        </div>
+    </div>
+
+    <div>
+        <table id="table" class="table"
+               data-toggle="table"
+               data-search="true"
+               data-filter-control="true">
+            <thead>
+                <tr>
+                    <th data-field="firstname" data-filter-control="input" data-sortable="true">First Name</th>
+                    <th data-field="lastName" data-filter-control="input" data-sortable="true">Last Name</th>
+                    <th data-field="email" data-filter-control="input" data-sortable="true">Email</th>
+                    <th data-field="role" data-filter-control="input" data-sortable="true">Role</th>
+                    <th data-field="note" data-sortable="true">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @string.Join(" , ", item.Role.ToList())
+                        </td>
+                        <td>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @*<div class="tab-container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="AllEmployees-tab" data-bs-toggle="tab" data-bs-target="#AllEmployees" type="button" role="tab" aria-controls="AllEmployees" aria-selected="true">All Employees</button>
+    </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" id="WithAccess-tab" data-bs-toggle="tab" data-bs-target="#WithAccess" type="button" role="tab" aria-controls="WithAccess" aria-selected="false">W/ Access</button>
+    </li>
+    <li class="nav-item" role="presentation">
+    <button class="nav-link" id="WithoutAccess-tab" data-bs-toggle="tab" data-bs-target="#WithoutAccess" type="button" role="tab" aria-controls="WithoutAccess" aria-selected="false">W/o Access</button>
+    </li>
+    </ul>
+    </div>*@
+</header>
+@*<partial name="_EmployeesTablePartial" />*@
+
+@*<style>
+    .modal-dialog {
+        height: 100vh !important;
+        display: flex;
+    }
+
+    .modal-content {
+        margin: auto !important;
+        height: fit-content !important;
+    }
+
+</style>*@
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">+ New Employee</button>
+
+
+<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">New Employee</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a button type="button" class="btn btn-primary" asp-controller="Employees" asp-action="Create">Understood</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+@*-----New Line-----*@
+
+
+
+
+@section Scripts{
+    <script>
+        $(function () {
+            // Set the initial value of the h3 element to the default selected item
+            var defaultText = $('#employeeDD .dropdown-menu a[data-value="Employee Access"]').text();
+            $('#employeeDD .dropdown-toggle').text(defaultText);
+            // Update the text of the h3 element when a dropdown item is selected
+            $('#employeeDD .dropdown-menu a').click(function () {
+                var selectedText = $(this).text();
+                $('#employeeDD .dropdown-toggle').text(selectedText);
+            });
+        });
+
+    </script>
+}

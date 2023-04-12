@@ -1,0 +1,36 @@
+﻿@*@model CreateEmployeesViewModel*@
+
+@*<form asp-controller="Employees" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <div>
+        <label asp-for="@Model.Employees.FirstName"></label>
+        <input asp-for="@Model.Employees.FirstName" />
+        <span asp-validation-for="@Model.Employees.FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Employees.LastName"></label>
+        <input asp-for="@Model.Employees.LastName" />
+        <span asp-validation-for="@Model.Employees.LastName"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Employees.Email"></label>
+        <input asp-for="@Model.Employees.Email" />
+        <span asp-validation-for="@Model.Employees.Email"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Employees.RoleName" class="control-label"></label>
+        <select asp-for="@Model.Employees.RoleName" class="form-control" asp-items="ViewBag.Roles"></select>
+    </div>
+    <div>
+        <label asp-for="@Model.Employees.Password"></label>
+        <input asp-for="@Model.Employees.Password" />
+        <span asp-validation-for="@Model.Employees.Password"></span>
+    </div>
+    <div>
+        <label asp-for="@Model.Employees.ConfirmPassword"></label>
+        <input asp-for="@Model.Employees.ConfirmPassword" />
+        <span asp-validation-for="@Model.Employees.ConfirmPassword"></span>
+    </div>
+    <button type="submit">Register</button>
+</form>*@

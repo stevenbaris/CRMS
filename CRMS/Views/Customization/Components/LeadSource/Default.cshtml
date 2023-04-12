@@ -1,0 +1,27 @@
+﻿@model List<Source>
+
+<br />
+<a asp-controller="Sources" asp-action="Create" class="w3-button w3-left w3-green">+ New Source</a>
+<br />
+<br />
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+    <thead class="header-bg-light text-uppercase">
+        <tr>
+            <th scope="col">Lead Source</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var src in Model)
+        {
+            <tr>
+                <td>@src.SourceName</td>
+                <td>
+                    <a asp-controller="Sources" asp-action="Edit" asp-route-id="@src.Source_Id" class="btn btn-sm btn-success">Edit</a>
+
+                    <a asp-controller="Sources" asp-action="Delete" asp-route-id="@src.Source_Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

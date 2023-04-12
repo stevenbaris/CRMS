@@ -1,0 +1,27 @@
+﻿@model List<AppointmentPurpose>
+
+<br />
+<a asp-controller="AppointmentPurposes" asp-action="Create" class="w3-button w3-left w3-green">+ New Purpose</a>
+<br />
+<br />
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+    <thead class="header-bg-light text-uppercase">
+        <tr>
+            <th scope="col">Purpose</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var purpose in Model)
+        {
+            <tr>
+                <td>@purpose.PurposeName</td>
+                <td>
+                    <a asp-controller="AppointmentPurposes" asp-action="Edit" asp-route-id="@purpose.Purpose_Id" class="btn btn-sm btn-success">Edit</a>
+
+                    <a asp-controller="AppointmentPurposes" asp-action="Delete" asp-route-id="@purpose.Purpose_Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

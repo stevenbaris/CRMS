@@ -1,0 +1,105 @@
+﻿@model IndexViewModel
+
+    <header>
+         <div>
+        <h3>Contacts</h3>
+        <p id="contact-count"># Records</p>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" data-toggle="modal" data-target="#CreateModal" onclick="document.getElementById('CreateModal').style.display='block'">+ New Contact</button>
+            <partial name="_CreateModal" model="Model"/>
+            @*@await Html.PartialAsync("~/Views/Contacts/_CreateModal.cshtml")*@
+            @*@await Component.InvokeAsync("CreateContacts")*@
+           
+            
+            
+            </div>
+        </div>
+    </header>
+
+
+
+    
+    <div class="tab-container">
+        <br />
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active" id="All-tab" data-bs-toggle="tab" href="#All-content">All Contacts</a>
+            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" id="Assigned-tab" data-bs-toggle="tab" href="#Assigned-content">Assigned</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Unassigned-tab" data-bs-toggle="tab" href="#Unassigned-content">Unassigned</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" id="My-tab" data-bs-toggle="tab" href="#My">My Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Assigned-tab" data-bs-toggle="tab" href="#Assigned-content">Assigned</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+    <div class="tab-content">
+    <div class="tab-pane container active" id="All-content"><partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" /></div>
+        @if (User.IsInRole("Admin"))
+        {
+        <div class="tab-pane container fade" id="Assigned-content">
+            <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane container fade" id="Unassigned-content">
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        }
+        else
+        {
+        <div class="tab-pane container fade" id="My-content"> 
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane container fade" id="Assigned-content">
+        <partial name="~/Views/Contacts/Contact_List/_All_List.cshtml" model="Model" />
+        </div>
+        }
+
+    </div>
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        //$(document).ready(function () {
+        //    // Get the initial count from the "data-count" attribute of the "All" tab
+        //    var count = $('#AllContacts-tab').data('count');
+
+        //    // Update the count in the p tag
+        //    $('#contact-count').text(count + ' Records Found');
+
+        //    // Listen for tab changes
+        //    $('.nav-link').on('shown.bs.tab', function (event) {
+        //        // Get the count from the "data-count" attribute of the active tab
+        //        var activeTab = $(event.target).attr('id');
+        //        count = $('#' + activeTab).data('count');
+
+        //        // Update the count in the p tag
+        //        $('#contact-count').text(count + ' Records Found');
+        //    });
+        //});
+
+
+    </script>
+}

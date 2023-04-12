@@ -1,0 +1,63 @@
+﻿@model LoginUserViewModel
+
+<!-- Section: Design Block -->
+<body class="background-radial-gradient overflow-hidden">
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+        <div class="row gx-lg-5 align-items-center mb-5">
+            <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                <div class="h-100 d-flex align-items-center justify-content-center">
+                    <img src="~/img/logo2.png" alt="Core - CRMS Tool" height="350" />
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 mb-5 mb-lg-0 position-relative" style="color: hsl(204, 41%, 15%)">
+
+                <div class="card bg-glass" style="border-radius: 1rem; ">
+                    <form asp-controller="User" asp-action="Login" method="post">
+                        <div class="card-body px-4 py-5 px-md-5">
+
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            <div class="h-100 d-flex align-items-center justify-content-center">
+                                <h2 class="fw-bold mb-5" style="color: hsl(204, 41%, 15%)">Login</h2>
+                            </div>
+
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3" asp-for="UserName">Email address</label>
+                                <input type="email" id="form3Example3" class="form-control" asp-for="UserName" style="border-radius: 1rem; " />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example4" asp-for="Password">Password</label>
+                                <input type="password" id="form3Example4" class="form-control" asp-for="Password" style="border-radius: 1rem; " />
+                            </div>
+
+                            <div class="mb-4">
+                                <input class="form-check-input" type="checkbox" value="" id="form2Example3" asp-for="RememberMe" />
+                                <label class="form-check-label" for="form2Example3" asp-for="RememberMe">
+                                    Remember me
+                                </label>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit" style="border-radius: 1rem; ">Login</button>
+                            </div>
+                            <br />
+                            <div class="h-100 d-flex align-items-center justify-content-center">
+                                <br />
+                                <p class="text-center mb-5" style="color: hsl(204, 41%, 15%)">
+                                    For reset or reactivation concern on your account,
+                                    contact the development team
+                                </p>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

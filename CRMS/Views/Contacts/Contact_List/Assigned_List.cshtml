@@ -1,0 +1,44 @@
+﻿@model IndexViewModel
+<br/>
+<br />
+<div>
+    <table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+        <thead class="header-bg-light text-uppercase">
+            <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Contact Owner ID</th>
+                <th scope="col">Date Assigned</th>
+                <th scope="col">Contact Creator ID</th>
+                <th scope="col">Create Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var contact in Model.AssignedContacts)
+            {
+                <tr>
+                    <td><a asp-controller="Contacts" asp-action="Details" asp-route-id="@contact.Contact_Id">@contact.FullName</a></td>
+                    <td>@contact.Email</td>
+                    <td>@contact.PhoneNumber</td>
+                    <td>@contact.Gender</td>
+                    <td>@contact.DOB</td>
+                    <td>@(contact.Owner?.FirstName + " " + contact.Owner?.LastName ?? "N/A")</td>
+                    <td>@contact.DateAssigned</td>
+                    <td>@(contact.Creator?.FirstName + " " + contact.Creator?.LastName ?? "N/A")</td>
+                    <td>@contact.CreateDate</td>
+                    <td>
+                        <a class="btn btn-sm btn-success edit-btn" data-contact-id="@contact.Contact_Id" data-toggle="modal" data-target="#EditModal" onclick="document.getElementById('EditModal').style.display='block'">Update</a>
+                        <a class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#DeleteModal" onclick="document.getElementById('EditModal').style.display='block'">Delete</a>
+                    </td>
+                </tr>
+            };
+        </tbody>
+    </table>
+</div>
+<partial name="_EditModal" />
+<partial name="_DeleteModal" />

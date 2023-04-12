@@ -1,0 +1,26 @@
+﻿@model List<EngagementType>
+<br />
+<a asp-controller="EngagementTypes" asp-action="Create" class="w3-button w3-left w3-green">+ New Engagement Type</a>
+<br />
+<br />
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+    <thead class="header-bg-light text-uppercase">
+        <tr>
+            <th scope="col">Engagement Type</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eType in Model)
+        {
+            <tr>
+                <td>@eType.EngagementName</td>
+                <td>
+                    <a asp-controller="EngagementTypes" asp-action="Edit" asp-route-id="@eType.EType_Id" class="btn btn-sm btn-success">Edit</a>
+
+                    <a asp-controller="EngagementTypes" asp-action="Delete" asp-route-id=@eType.EType_Id class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

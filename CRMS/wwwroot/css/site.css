@@ -1,0 +1,166 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-family: 'Nunito Sans',Helvetica,Arial, sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
+}
+
+.btn:hover {
+    background-color: #a70000;
+}
+
+.cebuana-bg-blue {
+    background-color: #003A62;
+}
+.cebuana-bg-red {
+    background-color: #a70000;
+}
+
+
+.navbar-logo {
+    padding: 0;
+    margin: -0px;
+}
+
+
+.custom-toggler .navbar-toggler-icon {
+    color: white;
+}
+
+.center-svg {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.vertical-line {
+    border-block-color: #FFFFFF;
+    border-left: 2px #FFFFFF;
+    padding: 5px,5px;
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+/*
+table {
+        width: 100%;
+}
+
+th,*/
+td {
+    padding: 7px;
+    text-align: left;
+}
+
+.table-overflow-auto-w100 {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.header-bg-light {
+    background-color: #f4f4f4;
+}
+
+/* Set default text color for non-selected tabs */
+.tab-container .tabs li a {
+    color: #999;
+}
+
+/* Set active tab text color */
+.tab-container .tabs li.active a {
+    color: #a70000;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.search-input {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius:
+}
+
+.caret-yellow .caret {
+    border-color: yellow;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 5px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 0;
+    border-bottom: 4px solid;
+    border-left: 4px solid;
+    
+}
+
+ul.dropdown-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.modal-dialog-slideout {
+    -webkit-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog-slideout {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.background-radial-gradient {
+    background-color: hsl(204, 41%, 15%);
+    background-image: radial-gradient(650px circle at 0% 0%, hsl(204, 41%, 35%) 15%, hsl(204, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(204, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(204, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(204, 41%, 20%) 75%, hsl(204, 41%, 19%) 80%, transparent 100%);
+}
+
+.bg-glass {
+    background-color: hsla(0, 0%, 100%, 0.9) !important;
+    backdrop-filter: saturate(200%) blur(25px);
+}

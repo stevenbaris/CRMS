@@ -1,0 +1,41 @@
+﻿@*@model IndexViewModel*@
+
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="AllContacts" role="tabpanel" aria-labelledby="AllContacts-tab">
+        @*@await Component.InvokeAsync("_AllContacts")*@
+        @*@await Html.PartialAsync("GetAll/_AllContacts", Model, null)*@
+        <partial name="~/Views/Contacts/GetAll/_AllContacts.cshtml" model="Model" />
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="tab-pane fade" id="AssignedContacts" role="tabpanel" aria-labelledby="AssignedContacts-tab">
+            @*@await Component.InvokeAsync("_AssignedContacts")*@
+            @*@await Html.PartialAsync("GetAll/_AssignedContacts", Model, null)*@
+            <partial name="~/Views/Contacts/GetAll/_AssignedContacts.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane fade" id="UnassignedContacts" role="tabpanel" aria-labelledby="UnassignedContacts-tab">
+            @*@await Component.InvokeAsync("_UnassignedContacts")*@
+            @*@await Html.PartialAsync("GetAll/_UnassignedContacts", Model, null)*@
+            <partial name="~/Views/Contacts/GetAll/_UnassignedContacts.cshtml" model="Model" />
+        </div>
+    }
+    @if (!User.IsInRole("Admin"))
+    {
+        <div class="tab-pane fade" id="AllMyContacts" role="tabpanel" aria-labelledby="AllMyContacts-tab">
+            @*@await Component.InvokeAsync("_AllMyContacts")*@
+            @*@await Html.PartialAsync("GetAll/MyAllContacts", Model, null)*@
+            <partial name="~/Views/Contacts/GetAll/_MyAllContacts.cshtml" model="Model" />
+        </div>
+        <div class="tab-pane fade" id="AssignedContacts" role="tabpanel" aria-labelledby="AssignedContacts-tab">
+            @*@await Component.InvokeAsync("_AssignedContacts")*@
+            @*@await Html.PartialAsync("GetAll/_AssignedContacts", Model, null)*@
+            <partial name="~/Views/Contacts/GetAll/_AssignedContacts.cshtml" model="Model" />
+        </div>
+    }
+</div>
+
+@*<partial name="GetAll/_AllContacts" />*@
+@*@await Html.PartialAsync("GetAll/_AllContacts", Model, null)*@
+
+
