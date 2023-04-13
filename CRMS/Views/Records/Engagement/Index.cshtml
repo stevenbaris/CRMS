@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRMS.Models.Customization.CommunicationMethod>
+﻿@model List<Engagement>
 @{
     
 }
@@ -16,20 +16,52 @@
 <table class="table w3-centered">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Action</th>
+            <th>Engagement Date</th>
+            <th>For Contact</th>
+            <th>Topic</th>
+            <th>Description</th>
+            <th>Reason</th>@*Engagement Type*@
+            <th>Method</th>@*Communication Method*@
+            <th>Remarks</th>@*Effectivity*@
+            <th>Created By</th>
+            <th>Creation Date</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var engagement in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CommunicationMethodName)
+                    @Html.DisplayFor(modelItem => engagement.Engagement_Date)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.Contacts.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.Topic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.Engagement_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.EngagementType.EngagementName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.CommunicationMethod.CommunicationMethodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.Effectivity.Effectivity_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => string.Concat(engagement.User.FirstName + " " + engagement.User.LastName))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => engagement.CreatedDate)
+                </td>
+
                 <td class="d-flex justify-content-evenly">
-                    <a asp-action="Edit" asp-route-id="@item.CommunicationMethod_Id" class="w3-button w3-green w3-hover-black">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.CommunicationMethod_Id" class="w3-button w3-red w3-hover-black">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-green w3-hover-black">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-red w3-hover-black">Delete</a>
                 </td>
             </tr>
         }

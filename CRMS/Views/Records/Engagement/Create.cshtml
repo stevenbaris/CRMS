@@ -1,5 +1,104 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Engagement
 @{
 }
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Engagement</li>
+        <li class="breadcrumb-item active" aria-current="page">Add New Record</li>
+    </ol>
+</nav>
+<h2>New Engagement Record</h2>
+<form id="contactForm" class="w3-container" asp-controller="Contacts" asp-action="Add">
+    <div class="w3-section">
+        <div class="form-group">
+            <label asp-for="Engagement_Date" class="control-label"></label>
+            <input asp-for="Engagement_Date" class="form-control" placeholder="@DateTime.Now" required />
+            <span asp-validation-for="Engagement_Date" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label">Last Name:</label>
+            <input asp-for="LastName" class="form-control" placeholder="Ex. Dela Cruz" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Topic" class="control-label">Topic:</label>
+            <input asp-for="Topic" class="form-control" placeholder="Ex. juandelacruz@crms.com" />
+            <span asp-validation-for="Topic" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Engagement_Description" class="control-label">Phone Number:</label>
+            @if (ViewBag.CreatorList != null)
+            {
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
+                }
+                else
+                {
+                    var ownerList = new List<SelectListItem>();
+                    ownerList.Add(new SelectListItem { Text = User.Identity.Name, Value = User.Identity.Name });
+                    @Html.DropDownListFor(model => model.ContactOwnerID, ownerList, new { @class = "form-control" })
+                }
+            }
+            <span asp-validation-for="Engagement_Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Gender" class="control-label">Gender:</label>
+            <select asp-for="Gender" class="form-control" required>
+                <option>-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DOB" class="control-label">Date of Birth:</label>
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @required = "required"} })
+            <span asp-validation-for="DOB" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ContactOwnerID" class="control-label">Contact Owner:</label>
+            @*<select asp-for="ContactOwnerID" class="form-control"></select>*@
+            @*asp-items="ViewBag.UserList"*@
+            @if (ViewBag.CreatorList != null)
+            {
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
+                }
+                else
+                {
+                    var ownerList = new List<SelectListItem>();
+                    ownerList.Add(new SelectListItem { Text = User.Identity.Name, Value = User.Identity.Name });
+                    @Html.DropDownListFor(model => model.ContactOwnerID, ownerList, new { @class = "form-control" })
+                }
+            }
+
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="DateAssigned" class="control-label">Date Assigned:</label>
+            @Html.EditorFor(model => model.DateAssigned, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            <span asp-validation-for="DateAssigned" class="text-danger"></span>
+        </div>
+
+
+        <br />
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button type="submit" class="w3-button w3-right w3-green">SAVE</button>
+            <button onclick="document.getElementById('CreateModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        </div>
+    </div>
+
+</form>
+<div>
+    <a asp-action="ViewAll">Back to List</a>
+</div>
