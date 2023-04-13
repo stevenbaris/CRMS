@@ -46,4 +46,10 @@
     <Folder Include="ViewModels\Dashboard\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Records\Appointment\Create.cshtml" />
+    <None Include="Views\Records\Appointment\Edit.cshtml" />
+    <None Include="Views\Records\Appointment\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
