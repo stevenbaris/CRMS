@@ -1,0 +1,35 @@
+﻿@model Appointments
+
+<h1>New Appointment</h1>
+
+<form asp-controller="Appointments" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <div>
+        <label asp-for="Appointment_DateTime"></label>
+        <input asp-for="Appointment_DateTime" />
+        <span asp-validation-for="Appointment_DateTime"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SchedStatus" class="control-label"></label>
+        <select asp-for="SchedStatus" class="form-control" asp-items="@Html.GetEnumSelectList<SchedStatus>()"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="PurposeId" class="control-label"></label>
+        <select asp-for="PurposeId" class="form-control" asp-items="ViewBag.PurposeId"></select>
+    </div>
+    <div>
+        <label asp-for="ContactId" class="control-label"></label>
+        <select asp-for="ContactId" class="form-control" asp-items="ViewBag.ContactId"></select>
+    </div>
+
+    <button type="submit">Create</button>
+</form>
+<div>
+    <br /><a asp-action="Index" class="btn btn-dark">Back to Appointment List</a>
+</div>

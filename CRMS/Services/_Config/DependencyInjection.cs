@@ -4,6 +4,7 @@ using CRMS.Models.Customization;
 using CRMS.Models.Records;
 using CRMS.Services.Account_Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Record_Services;
 using CRMS.Services.Records;
 using CRMS.Services.SqlRepositories;
 using Microsoft.AspNetCore.Identity;
@@ -50,6 +51,7 @@ namespace CRMS.Services._Config
                     .AddScoped<IContactRepository, ContactRepo>()
 
                     //RECORDS
+                    .AddScoped<IRepository<Appointments>, AppointmentsRepo>()
                     .AddScoped<IRepository<Engagement>, EngagementRepo>()
 
 

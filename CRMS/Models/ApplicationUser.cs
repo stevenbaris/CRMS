@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using MessagePack;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,6 +30,11 @@ namespace CRMS.Models
         [MinLength(5, ErrorMessage = "The Address is too short")]
         public string Address { get; set; }
 
+        [IgnoreMember]
+        public string FullName
+        {
+            get { return string.Format("{0} {1}", FirstName, LastName); }
+        }
 
         //COMPUTED VALUE
 
