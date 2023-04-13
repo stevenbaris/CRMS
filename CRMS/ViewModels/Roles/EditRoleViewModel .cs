@@ -1,4 +1,6 @@
-﻿using Microsoft.Build.Framework;
+﻿using CRMS.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Framework;
 using System.ComponentModel;
 
 namespace CRMS.ViewModels.Role
@@ -16,5 +18,8 @@ namespace CRMS.ViewModels.Role
         public string RoleName { get; set; }
 
         public List<string> Users { get; set; }
+        public List<ApplicationUser> usersWithRole { get; set; }
+        public IdentityRole<Guid> Roles { get; set; }
+
     }
 }

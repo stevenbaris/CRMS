@@ -65,7 +65,7 @@
                         }
                     </ul>
 
-                       
+
 
                     <ul class="navbar-nav my-2 my-lg-0">
                         @if (_signInManager.IsSignedIn(User))
@@ -106,92 +106,10 @@
             </div>
         </nav>
     </header>
-    
-    <!--  This Here is the SIDEBAR   -->
-    <div>
-        <div class="d-flex">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white cebuana-bg-blue" style="width: 200px; min-height: 100vh; max-height:100% position:sticky">
-                <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-4">CRMS - Sales</span>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column flex-grow-1">
-                 @if (_signInManager.IsSignedIn(User))
-                {
-                    if (User.IsInRole("Admin"))
-                    {
-                        <p class="navbar-vertical-label">Management</p>
-                        <li>
-                            <a asp-area="" asp-controller="User" asp-action="Index" class="nav-link text-white text-white">
-                                Employees
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Contacts" asp-action="Index" class="nav-link text-white text-white">
-                                Contacts
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Customization" asp-action="Index" class="nav-link text-white text-white">
-                                Customization
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <p class="navbar-vertical-label">Home</p>
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link text-white text-white active">
-                                Dashboard
-                            </a>
-                        </li>
-
-                        <p class="navbar-vertical-label">Management</p>
-                        <li>
-                            <a asp-area="" asp-controller="Contacts" asp-action="Index" class="nav-link text-white text-white">
-                                Contacts
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link text-white icon-link text-white">
-                                Companies
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Leads" asp-action="Index" class="nav-link text-white text-white">
-                                Leads
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Engagement" asp-action="Index" class="nav-link text-white text-white">
-                                Engagements Tracking
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Appointments" asp-action="Index" class="nav-link text-white text-white">
-                                Appointments
-                            </a>
-                        </li>
-                    }
-                }
-
-                </ul>
-            </div>
-
-            <div class="container-fluid">
-                <main role="main" class="pb-3 position-relative">
-                    @RenderBody()
-                </main>
-            </div>
-        </div>
-    
+    <div class="container-fluid">
+        <main role="main" class="pb-3 position-relative">
+            @RenderBody()
+        </main>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

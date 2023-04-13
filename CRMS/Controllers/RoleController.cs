@@ -1,5 +1,4 @@
 ﻿using CRMS.Models;
-using CRMS.ViewModels;
 using CRMS.ViewModels.Role;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,7 @@ namespace CRMS.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Customization/Components/Roles/Roles/Create.cshtml");
         }
 
         [HttpPost]
@@ -45,13 +44,13 @@ namespace CRMS.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            return View(model);
+            return View("~/Views/Customization/Components/Roles/Roles/Create.cshtml", model);
         }
 
         public IActionResult Index()
         {
             var roles = _roleManager.Roles;
-            return View(roles);
+            return View("~/Views/Customization/Components/Roles/Roles/Index.cshtml", roles);
         }
 
         [HttpGet]
@@ -69,10 +68,12 @@ namespace CRMS.Controllers
             var model = new EditRoleViewModel
             {
                 Id = role.Id.ToString(),
-                RoleName = role.Name
+                RoleName = role.Name,
+                Users = new List<string>()
             };
 
-            return View(model);
+
+            return View("~/Views/Customization/Components/Roles/Roles/Edit.cshtml", model);
         }
 
         // This action responds to HttpPost and receives EditRoleViewModel
@@ -98,36 +99,43 @@ namespace CRMS.Controllers
                     return RedirectToAction("Index");
                 }
 
-                return View(model);
+                return View("~/Views/Customization/Components/Roles/Roles/Edit.cshtml", model);
             }
         }
 
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var user = await _roleManager.FindByIdAsync(id);
+            var roles = await _roleManager.FindByIdAsync(id.ToString());
 
-            if (user == null)
+            if (roles == null)
             {
                 ViewBag.ErrorMessage = $"User cannot be found";
                 return View("Not Found");
             }
             else
             {
-                var result = await _roleManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-
-                return View("Index");
+                return View("~/Views/Customization/Components/Roles/Roles/Delete.cshtml", roles);
             }
         }
+
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            if (_roleManager.Roles == null)
+            {
+                return Problem("Entity set 'CRMSDbContext'  is null.");
+            }
+            var roleToRemove = await _roleManager.FindByIdAsync(id.ToString());
+            if (roleToRemove != null)
+            {
+                await _roleManager.DeleteAsync(roleToRemove);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
     }
 }
 

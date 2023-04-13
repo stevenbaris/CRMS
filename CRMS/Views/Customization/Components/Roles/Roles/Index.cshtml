@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IdentityRole<Guid>>
+
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Customization/z_CustomizationLayout.cshtml";
+}
+
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Account</li>
+        <li class="breadcrumb-item active" aria-current="page">Roles</li>
+    </ol>
+</nav>
+<div class="d-flex justify-content-start">
+    <h3 class="flex-grow-1">Roles</h3>
+    <p class="me-5"><a asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a></p>
+</div>
+<table class="table w3-centered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model)
+        {
+            <tr>
+                <td>@role.Name</td>
+                
+                <td class="d-flex justify-content-evenly">
+                    <a asp-action="Edit" asp-route-id="@role.Id" class="w3-button w3-green w3-hover-black">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@role.Id" class="w3-button w3-red w3-hover-black">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

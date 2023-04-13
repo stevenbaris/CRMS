@@ -18,7 +18,7 @@ public HomeController(SignInManager<ApplicationUser> signinManager)
             {
                 if (User.IsInRole("Admin"))
                 {
-                    return RedirectToAction("Index", "Employees");
+                    return RedirectToAction("Index", "User");
                 }
                 else
                 {
@@ -26,6 +26,17 @@ public HomeController(SignInManager<ApplicationUser> signinManager)
                 }
             }
             return RedirectToAction("Login", "User");
+        }
+
+
+        public IActionResult Marketing()
+        {
+            return View();
+        }
+
+        public IActionResult CustomerService()
+        {
+            return View();
         }
     }
 }

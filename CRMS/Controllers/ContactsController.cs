@@ -1,8 +1,6 @@
 ﻿using CRMS.Models;
-using CRMS.Models.Customization;
-using CRMS.Repository;
+using CRMS.Services;
 using CRMS.Services.Contacts_Services;
-using CRMS.ViewComponents.Contacts;
 using CRMS.ViewModels.Contact;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +21,13 @@ namespace CRMS.Controllers
         public ContactsController(
             IContactRepository contactRepository,
             SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IUserRepository userRepository)
         {
             _contactRepository = contactRepository;
             _signInManager = signInManager;
             _userManager = userManager;
+            _userRepository = userRepository;
         }
 
         [HttpGet]

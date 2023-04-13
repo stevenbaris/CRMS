@@ -1,6 +1,7 @@
 ﻿using CRMS.Models;
 
-namespace CRMS.Repository
+
+namespace CRMS.Services
 {
     public interface IUserRepository
     {

@@ -1,7 +1,7 @@
 ﻿using CRMS.Data;
 using CRMS.Models;
 
-namespace CRMS.Repository.MsSQL
+namespace CRMS.Services.Account_Services
 {
     public class UserDBRepository : IUserRepository
     {

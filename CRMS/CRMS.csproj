@@ -8,19 +8,15 @@
 
   <ItemGroup>
     <Compile Remove="Documentation\**" />
-    <Compile Remove="Views\Account\**" />
     <Compile Remove="Views\ManageLeads\**" />
     <Compile Remove="Views\ManageUsers\**" />
     <Content Remove="Documentation\**" />
-    <Content Remove="Views\Account\**" />
     <Content Remove="Views\ManageLeads\**" />
     <Content Remove="Views\ManageUsers\**" />
     <EmbeddedResource Remove="Documentation\**" />
-    <EmbeddedResource Remove="Views\Account\**" />
     <EmbeddedResource Remove="Views\ManageLeads\**" />
     <EmbeddedResource Remove="Views\ManageUsers\**" />
     <None Remove="Documentation\**" />
-    <None Remove="Views\Account\**" />
     <None Remove="Views\ManageLeads\**" />
     <None Remove="Views\ManageUsers\**" />
   </ItemGroup>

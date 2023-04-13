@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CRMS.Repository
+namespace CRMS.Services
 {
     public interface IRoleRepository
     {

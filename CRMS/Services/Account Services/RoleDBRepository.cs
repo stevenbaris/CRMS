@@ -1,7 +1,7 @@
 ﻿using CRMS.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace CRMS.Repository
+namespace CRMS.Services.Account_Services
 {
     public class RoleDBRepository : IRoleRepository
     {
