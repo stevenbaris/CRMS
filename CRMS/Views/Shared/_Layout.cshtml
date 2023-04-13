@@ -122,7 +122,8 @@
                     {
                         <p class="navbar-vertical-label">Management</p>
                         <li>
-                            <a asp-area="" asp-controller="User" asp-action="Index" class="nav-link text-white text-white">
+                                <a  class="nav-link text-white text-white">
+                                    @*asp-area="" asp-controller="User" asp-action="Index"*@
                                 Employees
                             </a>
                         </li>
@@ -141,34 +142,34 @@
                     {
                         <p class="navbar-vertical-label">Home</p>
                         <li class="nav-item">
-                            <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link text-white text-white active">
+                            <a  asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link text-white text-white active">
                                 Dashboard
                             </a>
                         </li>
 
                         <p class="navbar-vertical-label">Management</p>
                         <li>
-                            <a asp-area="" asp-controller="Contacts" asp-action="Index" class="nav-link text-white text-white">
+                            <a  asp-area="" asp-controller="Contacts" asp-action="Index" class="nav-link text-white text-white">
                                 Contacts
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link text-white icon-link text-white">
+                        <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link text-white icon-link text-white">
                                 Companies
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Leads" asp-action="Index" class="nav-link text-white text-white">
+                            <a  asp-area="" asp-controller="Leads" asp-action="Index" class="nav-link text-white text-white">
                                 Leads
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Engagement" asp-action="Index" class="nav-link text-white text-white">
+                            <a  asp-area="" asp-controller="Engagement" asp-action="Index" class="nav-link text-white text-white">
                                 Engagements Tracking
                             </a>
                         </li>
                         <li>
-                            <a asp-area="" asp-controller="Appointments" asp-action="Index" class="nav-link text-white text-white">
+                            <a  asp-area="" asp-controller="Appointments" asp-action="Index" class="nav-link text-white text-white">
                                 Appointments
                             </a>
                         </li>
@@ -178,8 +179,8 @@
                 </ul>
             </div>
 
-            <div class="container-fluid">
-                <main role="main" class="pb-3 position-relative">
+            <div class="w3-responsive flex-fill">
+                <main role="main" class="pb-3">
                     @RenderBody()
                 </main>
             </div>

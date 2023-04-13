@@ -1,82 +1,164 @@
-﻿@model DetailsViewModel
+﻿
+@section Styles{
 <style>
-    .tablink {
-        background-color: #555;
-        color: white;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        font-size: 17px;
-        width: 25%;
-    }
-
-        .tablink:hover {
-            background-color: #777;
+        .contact-details {
+          display: flex;
+          height: 100vh;
         }
 
-    /* Style the tab content (and add height:100% for full page content) */
-    .tabcontent {
-        color: white;
-        display: none;
-        padding: 100px 20px;
-        height: 100%;
-    }
+        .left-section {
+          position: sticky;
+          top: 0;
+          width: 30%;
+          height: 100%;
+          background-color: #f2f2f2;
+        }
+
+        .right-section {
+          width: 70%;
+          height: 100%;
+          overflow: auto;
+        }
+
+        .tabs {
+          background-color: #ddd;
+          overflow: hidden;
+        }
+
+        .tablinks {
+          background-color: #ccc;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 10px 20px;
+          float: left;
+        }
+
+        .tablinks.active {
+          background-color: #bbb;
+        }
+
+        .tabcontent {
+          display: none;
+          padding: 20px;
+        }
+
+        .tabcontent.active {
+          display: block;
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #ccc; /* default background color */
+        }
+
+        .pic-initials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
 </style>
-<div class="container-fluid">
-    
-    <div>
-        <h1>Details</h1>
+}
+<div class="contact-details">
+    <div class="left-section">
+        <!-- Contact details will be displayed here -->
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Contacts</li>
+                <li class="breadcrumb-item active" aria-current="page">Details</li>
+            </ol>
+        </nav>
 
-        <div>
-            <h4>CommunicationMethod</h4>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Contacts.FullName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Contacts.FullName)
-                </dd>
-            </dl>
+        <a asp-controller="Contacts" asp-action="ViewAll">Back</a>
+
+        <div class="profile-pic">
+            <div class="pic-initials">
+                <!-- Name initials will be displayed here -->
+            </div>
+            Name , Position, Company
         </div>
-            
         <div>
-            <a asp-action="Edit" asp-route-id="@Model?.Contacts.Contact_Id">Edit</a> |
-            <a asp-action="Index">Back to List</a>
+            Created Date
+            Pipeline: Sales
+            Stage
         </div>
+        <hr />
+        <div>
+            About this Contact:
 
+            Contact details
+        </div>
     </div>
-    
-
-
-    <div>
-        <h3>Details</h3>
-            <button class="tablink" onclick="openPage('Home', this, 'red')">Home</button>
-            <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">News</button>
-            <button class="tablink" onclick="openPage('Contact', this, 'blue')">Contact</button>
-            <button class="tablink" onclick="openPage('About', this, 'orange')">About</button>
-
-            <div id="Home" class="tabcontent">
-                <h3>Home</h3>
-                <p>Home is where the heart is..</p>
+    <div class="right-section">
+        <div class="tabs">
+            <button class="tablinks active" onclick="openTab(event, 'appointments')">Appointments</button>
+            <button class="tablinks" onclick="openTab(event, 'engagement-records')">Engagement Records</button>
+            <button class="tablinks" onclick="openTab(event, 'leads')">Leads</button>
+        </div>
+        <div class="tabcontent active" id="appointments">
+            <!-- Appointments content will be displayed here -->
+            11111
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
-
-            <div id="News" class="tabcontent">
-                <h3>News</h3>
-                <p>Some news this fine day!</p>
+        </div>
+        <div class="tabcontent" id="engagement-records">
+            <!-- Engagement Records content will be displayed here -->
+            4444
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
-
-            <div id="Contact" class="tabcontent">
-                <h3>Contact</h3>
-                <p>Get in touch, or swing by for a cup of coffee.</p>
+        </div>
+        <div class="tabcontent" id="leads">
+            <!-- Leads content will be displayed here -->
+            3333333
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
-
-            <div id="About" class="tabcontent">
-                <h3>About</h3>
-                <p>Who we are and what we do.</p>
-            </div>
+        </div>
     </div>
-    
 </div>
+
+@section Scripts{
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+    <script>
+        var initials = "AB"; // replace with the user's name initials
+        var colors = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#6c757d', '#343a40', '#007bff', '#6c757d', '#28a745', '#ffc107', '#dc3545', '#17a2b8']; // add more colors as needed
+        var randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.querySelector('.profile-pic').style.backgroundColor = randomColor;
+        document.querySelector('.pic-initials').innerHTML = initials;
+
+
+    </script>
+}

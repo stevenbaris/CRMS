@@ -9,16 +9,48 @@
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
     
 }
+<div class="w3-container xm">
 
-<h1>View All</h1>
+    <h1>View All</h1>
 
-<p>
-    <a asp-action="Add">Create New</a>
-</p>
-<br />
-<div class="w3-container">
+    <p><a asp-action="Add">Create New</a></p>
+
+    <br />
+
+
+    <div>
+        <!-- Search form -->
+        <form method="get" class="form-inline mb-3">
+            <div class="form-group mr-3">
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search" class="form-control ml-2" value="@ViewBag.Search">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Dropdown filter -->
+        <div class="form-group mb-3">
+            <label for="owner">Filter by owner:</label>
+            <select name="owner" id="owner" class="form-control ml-2" onchange="filterByOwner()">
+                <option value="">All</option>
+                @foreach (var owner in Model.Select(c => c.Owner).Distinct())
+                {
+                    <option value="@owner?.Id">@String.Concat(owner?.FirstName+ " "+owner?.LastName) </option>
+                }
+            </select>
+        </div>
+
+
+        <div class="w3-responsive">
+            <table class="w3-table-all w3-card-4 w3-centered w3-hoverable mx-3" id="contacts-table">
+                ...
+            </table>
+        </div>
+    </div>
+</div>
+
     <div class="w3-responsive">
-        <table class="w3-table-all w3-card-4 w3-centered w3-hoverable " id="contacts-table">
+        <table class="w3-table-all w3-card-4 w3-centered w3-hoverable mx-3" id="contacts-table">
             <thead class="text-uppercase">
                 <tr>
                 <th scope="col" style="white-space:nowrap" class="data-rank sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Full Name">Full Name</th>
@@ -56,26 +88,51 @@
         </tbody>
     </table>
     </div>
-   @* <div>
-        <table class="w3-table-all w3-centered w3-hoverable " id="allcontacts-table">
-            <thead class="text-uppercase bg-secondary">
-                <tr>
-                    <th scope="col" style="white-space:nowrap" class="sticky-column">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var contact in Model)
-                {
-                    <tr>
-                        <td style="white-space:nowrap" class="sticky-column">
-                            <a asp-action="Edit" asp-route-id="@contact.Contact_Id" class="btn btn-sm btn-warning">Edit </a> |
-                            
-                            <a asp-action="Remove" asp-route-id="@contact.Contact_Id" class="btn btn-sm btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>*@
+   </div>
+
 </div>
 
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Filtering by Owner
+        function filterByOwner() {
+            var selectedOwner = document.getElementById("owner").value.toLowerCase();
+            var table = document.getElementById("contacts-table");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var ownerCell = rows[i].getElementsByTagName("td")[5];
+                if (ownerCell) {
+                    var ownerName = ownerCell.textContent.toLowerCase();
+                    if (selectedOwner === "" || ownerName.indexOf(selectedOwner) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        // Searching the table
+        var searchInput = document.getElementById("search");
+        searchInput.addEventListener("keyup", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+            var table = document.getElementById("contacts-table");
+            var rows = table.getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var fullNameCell = rows[i].getElementsByTagName("td")[0];
+                if (fullNameCell) {
+                    var fullName = fullNameCell.textContent.toLowerCase();
+                    if (fullName.indexOf(searchTerm) > -1) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        });
+
+    </script>
+}

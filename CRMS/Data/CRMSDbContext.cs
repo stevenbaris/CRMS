@@ -49,6 +49,8 @@ namespace CRMS.Data
         public DbSet<Contacts> Contacts { get; set; }
         public DbSet<RollingTransactions> RollingTransactions { get; set; }
         public DbSet<Appointments> Appointments { get; set; }
+        public DbSet<Engagement> Engagements { get; set; }
+        
 
 
     }

@@ -1,4 +1,5 @@
-﻿using CRMS.Models.Customization;
+﻿using CRMS.Exceptions;
+using CRMS.Models.Customization;
 using CRMS.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,7 @@ namespace CRMS.Controllers
             var appointmentPurpose = await _purposesRepository.GetbyIdAsync(id);
             if (appointmentPurpose == null)
             {
-                return NotFound();
+                throw new RecordNotFoundException($"AppointmentPurpose with id {id} not found.");
             }
 
             return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Details.cshtml", appointmentPurpose);
@@ -60,7 +61,7 @@ namespace CRMS.Controllers
             var appointmentPurpose = await _purposesRepository.GetbyIdAsync(id);
             if (appointmentPurpose == null)
             {
-                return NotFound();
+                throw new RecordNotFoundException($"AppointmentPurpose with id {id} not found.");
             }
             return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Edit.cshtml", appointmentPurpose);
         }
@@ -114,19 +115,17 @@ namespace CRMS.Controllers
 
         // POST: AppointmentPurposes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_purposesRepository == null)
             {
-                return Problem("Entity set 'CRMSDbContext'  is null.");
+                throw new RepositoryNullException("Repository is null.");
             }
             var appointmentPurpose = await _purposesRepository.GetbyIdAsync(id);
             if (appointmentPurpose != null)
             {
                 await _purposesRepository.DeleteAsync(id);
             }
-
 
             return RedirectToAction(nameof(Index));
         }

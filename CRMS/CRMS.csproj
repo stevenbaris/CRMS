@@ -41,7 +41,6 @@
 
   <ItemGroup>
     <Folder Include="Services\Employees Services\" />
-    <Folder Include="Services\Records\" />
     <Folder Include="ViewModels\Account\" />
     <Folder Include="ViewModels\Employees\" />
     <Folder Include="ViewModels\Dashboard\" />

@@ -51,6 +51,10 @@ namespace CRMS.Data.TableMapping
                 .ToTable("APPOINTMENTS")
                 .HasKey(ap => ap.Appointment_Id);
 
+            modelBuilder.Entity<Engagement>()
+                .ToTable("ENGAGEMENTS")
+                .HasKey(en => en.Engagement_Id);
+
 
 
 
@@ -92,6 +96,38 @@ namespace CRMS.Data.TableMapping
                .WithMany()
                .HasForeignKey(apCreator => apCreator.CreatedBy)
                .HasConstraintName("FK_AppointmentCreator");
+
+            modelBuilder.Entity<Engagement>()
+               .HasOne<EngagementType>(en => en.EngagementType)
+               .WithMany()
+               .HasForeignKey(en => en.ETypeId)
+               .HasConstraintName("FK_EngagementType");
+
+            modelBuilder.Entity<Engagement>()
+              .HasOne<Effectivity>(en => en.Effectivity)
+              .WithMany()
+              .HasForeignKey(en => en.EffectivityId)
+              .HasConstraintName("FK_Effectivity");
+
+            modelBuilder.Entity<Engagement>()
+              .HasOne<CommunicationMethod>(en => en.CommunicationMethod)
+              .WithMany()
+              .HasForeignKey(en => en.CommsMethodId)
+              .HasConstraintName("FK_CommunicationMethod");
+
+            modelBuilder.Entity<Engagement>()
+              .HasOne<Contacts>(en => en.Contacts)
+              .WithMany()
+              .HasForeignKey(en => en.ContactId)
+              .HasConstraintName("FK_Contacts");
+
+            modelBuilder.Entity<Engagement>()
+              .HasOne<ApplicationUser>(en => en.User)
+              .WithMany()
+              .HasForeignKey(en => en.CreatedById)
+              .HasConstraintName("FK_Creator");
+
+
 
 
 
