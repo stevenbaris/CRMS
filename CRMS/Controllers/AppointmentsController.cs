@@ -30,11 +30,11 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var appointmentIndex = await _appointments.GetAllAsync();
-            var eMSDbContext = await _context.Appointments.Include(ur => ur.prospect)
+            var CRMSDbContext = await _context.Appointments.Include(ur => ur.prospect)
                 .Include(ur => ur.AppointmentPurpose)
                 .Include(ur => ur.User)
                 .ToListAsync();
-            return View("~/Views/Records/Appointment/Index.cshtml" , eMSDbContext);
+            return View("~/Views/Records/Appointment/Index.cshtml" , CRMSDbContext);
             //return View("~/Views/Records/Appointment/Index.cshtml", await eMSDbContext.ToListAsync());
         }
 
