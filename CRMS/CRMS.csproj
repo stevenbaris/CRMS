@@ -65,7 +65,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Employees Services\" />
     <Folder Include="ViewModels\Account\" />
     <Folder Include="ViewModels\Employees\" />
     <Folder Include="ViewModels\Dashboard\" />

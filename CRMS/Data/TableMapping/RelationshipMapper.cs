@@ -55,6 +55,10 @@ namespace CRMS.Data.TableMapping
                 .ToTable("ENGAGEMENTS")
                 .HasKey(en => en.Engagement_Id);
 
+            modelBuilder.Entity<Product>()
+               .ToTable("PRODUCTS")
+               .HasKey(prod => prod.Product_Id);
+
 
 
 
