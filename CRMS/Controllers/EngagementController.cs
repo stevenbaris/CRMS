@@ -140,7 +140,7 @@ namespace CRMS.Controllers
             return View("~/Views/Records/Engagement/Edit.cshtml", engagement);
         }
 
-        public async Task<IActionResult> Remove(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var engagement = await _engagementRepo.GetbyIdAsync(id);
             if (engagement == null)
@@ -153,7 +153,7 @@ namespace CRMS.Controllers
 
         
         [HttpPost]
-        public async Task<IActionResult> RemoveConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_engagementRepo == null)
             {
