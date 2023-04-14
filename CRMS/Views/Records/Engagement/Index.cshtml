@@ -53,15 +53,15 @@
                     @Html.DisplayFor(modelItem => engagement.Effectivity.Effectivity_Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => string.Concat(engagement.User.FirstName + " " + engagement.User.LastName))
+                    @Html.DisplayFor(modelItem => engagement.User.FullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => engagement.CreatedDate)
                 </td>
 
                 <td class="d-flex justify-content-evenly">
-                    <a asp-action="Edit" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-green w3-hover-black">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-red w3-hover-black">Delete</a>
+                    <a asp-controller="Engagement" asp-action="Edit" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-green w3-hover-black">Edit</a>
+                    <a asp-controller="Engagement" asp-action="Delete" asp-route-id="@engagement.Engagement_Id" class="w3-button w3-red w3-hover-black">Delete</a>
                 </td>
             </tr>
         }

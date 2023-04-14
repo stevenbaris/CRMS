@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Engagement
+
+<div class="w3-container d-flex justify-content-center align-items-center">
+    <div class="w3-container ">
+        <form class="w3-container " asp-controller="Engagement" asp-action="RemoveConfirmed">
+            <input type="hidden" asp-for="Engagement_Id" />
+            <div class="w3-section w3-card " style="max-width:600px">
+                <div class="w3-container  w3-padding-16 ">
+                    <h3 class="w3-center">Are you sure you want to delete this engagement record?</h3>
+                    
+                    <button type="submit" value="DELETE" class="w3-button w3-right w3-green">DELETE</button>
+                    <a asp-action="Index" type="button" class="w3-button w3-red">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

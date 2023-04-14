@@ -1,5 +1,80 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Engagement
 @{
 }
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Engagement</li>
+        <li class="breadcrumb-item active" aria-current="page">Update Record</li>
+    </ol>
+</nav>
+<h2>New Engagement Record</h2>
+<form id="contactForm" class="w3-container" asp-controller="Engagement" asp-action="Edit" method="post">
+    <div class="w3-section">
+        <input type="hidden" asp-for="Engagement_Id" />
+        <input type="hidden" asp-for="CreatedById" />
+        <input type="hidden" asp-for="CreatedDate" />
+        <div class="form-group">
+            <label asp-for="Engagement_Date" class="control-label"></label>
+            <input asp-for="Engagement_Date" class="form-control" placeholder="@DateTime.Now" required />
+            <span asp-validation-for="Engagement_Date" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ContactId" class="control-label">Last Name:</label>
+            @if (ViewBag.EngagementTypeList != null)
+            {
+                @Html.DropDownListFor(model => model.ContactId, (IEnumerable<SelectListItem>)ViewBag.ContactsList, "Select Contact for this Engagement", new { @class = "form-control" })
+            }
+            <span asp-validation-for="ContactId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Topic" class="control-label">Topic:</label>
+            <input asp-for="Topic" class="form-control" placeholder="Ex. juandelacruz@crms.com" />
+            <span asp-validation-for="Topic" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Engagement_Description" class="control-label">Phone Number:</label>
+            <input asp-for="Engagement_Description" class="form-control" placeholder="Ex. 09XXXXXXXX" />
+            <span asp-validation-for="Engagement_Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ETypeId" class="control-label">Reason:</label>
+            @if (ViewBag.EngagementTypeList != null)
+            {
+                @Html.DropDownListFor(model => model.ETypeId, (IEnumerable<SelectListItem>)ViewBag.EngagementTypeList, "-- Engagement Reason --", new { @class = "form-control" })
+            }
+            <span asp-validation-for="ETypeId" class="text-danger"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="CommsMethodId" class="control-label">Date of Birth:</label>
+            @if (ViewBag.EngagementTypeList != null)
+            {
+                @Html.DropDownListFor(model => model.CommsMethodId, (IEnumerable<SelectListItem>)ViewBag.CommsMethodList, "-- Communication Method --", new { @class = "form-control" })
+            }
+            <span asp-validation-for="CommsMethodId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EffectivityId" class="control-label">Date Assigned:</label>
+            @if (ViewBag.EngagementTypeList != null)
+            {
+                @Html.DropDownListFor(model => model.EffectivityId, (IEnumerable<SelectListItem>)ViewBag.EffectivityList, "-- REMARKS --", new { @class = "form-control" })
+            }
+            <span asp-validation-for="EffectivityId" class="text-danger"></span>
+        </div>
+
+
+        <br />
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button type="submit" class="w3-button w3-right w3-green">SAVE</button>
+            <button asp-controller="Engagement" asp-action="Index" class="w3-button w3-red">Cancel</button>
+        </div>
+    </div>
+
+</form>

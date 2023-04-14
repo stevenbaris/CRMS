@@ -8,17 +8,42 @@
 
   <ItemGroup>
     <Compile Remove="Documentation\**" />
+    <Compile Remove="Views\Contacts\Components\**" />
+    <Compile Remove="Views\Contacts\Contact_List\**" />
+    <Compile Remove="Views\Contacts\GetAll\**" />
     <Compile Remove="Views\ManageLeads\**" />
     <Compile Remove="Views\ManageUsers\**" />
+    <Compile Remove="Views\Shared\Component\**" />
     <Content Remove="Documentation\**" />
+    <Content Remove="Views\Contacts\Components\**" />
+    <Content Remove="Views\Contacts\Contact_List\**" />
+    <Content Remove="Views\Contacts\GetAll\**" />
     <Content Remove="Views\ManageLeads\**" />
     <Content Remove="Views\ManageUsers\**" />
+    <Content Remove="Views\Shared\Component\**" />
     <EmbeddedResource Remove="Documentation\**" />
+    <EmbeddedResource Remove="Views\Contacts\Components\**" />
+    <EmbeddedResource Remove="Views\Contacts\Contact_List\**" />
+    <EmbeddedResource Remove="Views\Contacts\GetAll\**" />
     <EmbeddedResource Remove="Views\ManageLeads\**" />
     <EmbeddedResource Remove="Views\ManageUsers\**" />
+    <EmbeddedResource Remove="Views\Shared\Component\**" />
     <None Remove="Documentation\**" />
+    <None Remove="Views\Contacts\Components\**" />
+    <None Remove="Views\Contacts\Contact_List\**" />
+    <None Remove="Views\Contacts\GetAll\**" />
     <None Remove="Views\ManageLeads\**" />
     <None Remove="Views\ManageUsers\**" />
+    <None Remove="Views\Shared\Component\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Contacts\Index.cshtml" />
+    <Content Remove="Views\Contacts\removemodal.cshtml" />
+    <Content Remove="Views\Contacts\_CreateModal.cshtml" />
+    <Content Remove="Views\Contacts\_DeleteModal.cshtml" />
+    <Content Remove="Views\Contacts\_EditModal.cshtml" />
+    <Content Remove="Views\Contacts\_Tab-Content.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

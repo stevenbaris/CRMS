@@ -1,4 +1,5 @@
 ﻿@model Contacts
+@inject SignInManager<ApplicationUser> _signinManager
 
 <h2>New Contact</h2>
 <form id="contactForm" class="w3-container" asp-controller="Contacts" asp-action="Add" >
@@ -51,17 +52,20 @@
             <label asp-for="ContactOwnerID" class="control-label">Contact Owner:</label>
             @*<select asp-for="ContactOwnerID" class="form-control"></select>*@
                 @*asp-items="ViewBag.UserList"*@
-                @if (ViewBag.CreatorList != null)
+            @if (ViewBag.OwnerList != null || ViewBag.CurrentUser != null)
                 {
                 @if (User.IsInRole("Admin"))
                 {
-                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "-- Select Owner --", new { @class = "form-control" })
                 }
                 else
                 {
-                    var ownerList = new List<SelectListItem>();
-                    ownerList.Add(new SelectListItem { Text = User.Identity.Name, Value = User.Identity.Name });
-                    @Html.DropDownListFor(model => model.ContactOwnerID, ownerList, new { @class = "form-control" })
+                    @*var ownerList = new List<SelectListItem>();
+                    var user = await _signinManager.UserManager.GetUserAsync(User);
+                    var userID = user.Id.ToString();
+                    var userFName = user.FullName;
+                    ownerList.Add(new SelectListItem { Text = userFName, Value = userID });*@
+                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.CurrentUser, "-- Select Owner --", new { @class = "form-control" })
                 }
                 }
             

@@ -1,5 +1,68 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Engagement
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Leads</li>
+        <li class="breadcrumb-item">Sources</li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    </ol>
+</nav>
+<h3>Create </h3>
+<hr />
+<div class="row">
+    <h4>Engagement</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Engagement_Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Engagement_Date)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Contacts.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Contacts.FullName)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Topic)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Topic)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Engagement_Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Engagement_Description)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EngagementType.EngagementName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CommunicationMethod.CommunicationMethodName)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Effectivity.Effectivity_Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Effectivity.Effectivity_Name)
+        </dd>
+    </dl>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Engagement_Id" >Edit</a> |
+    <a asp-action="Index" class="w3-button w3-red w3-hover-black">Cancel</a>
+</div>

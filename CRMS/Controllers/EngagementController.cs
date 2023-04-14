@@ -46,7 +46,7 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var engagement = await _engagementRepo.GetAllAsync();
-            return View(engagement);
+            return View("~/Views/Records/Engagement/Index.cshtml", engagement);
 
         }
 
@@ -57,7 +57,7 @@ namespace CRMS.Controllers
             {
                 throw new RecordNotFoundException($"Engagement with id {id} not found.");
             }
-            return View(engagement);
+            return View("~/Views/Records/Engagement/Details.cshtml",engagement);
         }
 
         // GET: Engagement/Create
@@ -68,7 +68,7 @@ namespace CRMS.Controllers
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
             ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
             
-            return View();
+            return View("~/Views/Records/Engagement/Create.cshtml");
         }
 
         // POST: Engagement/Create
@@ -84,7 +84,7 @@ namespace CRMS.Controllers
                 await _engagementRepo.CreateAsync(engagement);
                 return RedirectToAction(nameof(Index));
             }
-            return View(engagement);
+            return View("~/Views/Records/Engagement/Create.cshtml", engagement);
         }
 
 
@@ -102,7 +102,7 @@ namespace CRMS.Controllers
             ViewData["EffectivityList"] = new SelectList(await _effectivityRepo.GetAllAsync(), "Effectivity_Id", "Effectivity_Name");
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
             ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
-            return View(model);
+            return View("~/Views/Records/Engagement/Edit.cshtml", model);
         }
 
         [HttpPost]
@@ -137,18 +137,18 @@ namespace CRMS.Controllers
             ViewData["EffectivityList"] = new SelectList(await _effectivityRepo.GetAllAsync(), "Effectivity_Id", "Effectivity_Name");
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
             ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
-            return View(engagement);
+            return View("~/Views/Records/Engagement/Edit.cshtml", engagement);
         }
 
         public async Task<IActionResult> Remove(Guid id)
         {
-            var contact = await _engagementRepo.GetbyIdAsync(id);
-            if (contact == null)
+            var engagement = await _engagementRepo.GetbyIdAsync(id);
+            if (engagement == null)
             {
                 return NotFound();
             }
-            //ViewBag.ContactId = id;
-            return View(contact);
+            //ViewBag.Engagement_Id = id;
+            return View("~/Views/Records/Engagement/Delete.cshtml", engagement);
         }
 
         

@@ -8,8 +8,9 @@
     </ol>
 </nav>
 <h2>New Engagement Record</h2>
-<form id="contactForm" class="w3-container" asp-controller="Contacts" asp-action="Add">
+<form id="contactForm" class="w3-container" asp-controller="Engagement" asp-action="Create">
     <div class="w3-section">
+
         <div class="form-group">
             <label asp-for="Engagement_Date" class="control-label"></label>
             <input asp-for="Engagement_Date" class="form-control" placeholder="@DateTime.Now" required />
@@ -17,88 +18,62 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="LastName" class="control-label">Last Name:</label>
-            <input asp-for="LastName" class="form-control" placeholder="Ex. Dela Cruz" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
+            <label asp-for="ContactId" class="control-label">For Contact:</label>
+            @if (ViewBag.ContactsList != null)
+            {
+                @*<select asp-for="deptID" class="form-control" asp-items="ViewBag.ContactsList"></select>*@
+                @Html.DropDownListFor(model => model.ContactId, (IEnumerable<SelectListItem>)ViewBag.ContactsList, "-- Select Contact --", new { @class = "form-control", @required = "required"  })
+            }
+           <span asp-validation-for="ContactId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="Topic" class="control-label">Topic:</label>
-            <input asp-for="Topic" class="form-control" placeholder="Ex. juandelacruz@crms.com" />
+            <input asp-for="Topic" class="form-control" placeholder="Ex. First Meeting - KYC" required />
             <span asp-validation-for="Topic" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Engagement_Description" class="control-label">Phone Number:</label>
-            @if (ViewBag.CreatorList != null)
-            {
-                @if (User.IsInRole("Admin"))
-                {
-                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
-                }
-                else
-                {
-                    var ownerList = new List<SelectListItem>();
-                    ownerList.Add(new SelectListItem { Text = User.Identity.Name, Value = User.Identity.Name });
-                    @Html.DropDownListFor(model => model.ContactOwnerID, ownerList, new { @class = "form-control" })
-                }
-            }
+            <label asp-for="Engagement_Description" class="control-label">Description</label>
+            <input asp-for="Engagement_Description" class="form-control" placeholder="Ex. Getting to know the prospect" required />
             <span asp-validation-for="Engagement_Description" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Gender" class="control-label">Gender:</label>
-            <select asp-for="Gender" class="form-control" required>
-                <option>-- Select Gender --</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="DOB" class="control-label">Date of Birth:</label>
-            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @required = "required"} })
-            <span asp-validation-for="DOB" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ContactOwnerID" class="control-label">Contact Owner:</label>
-            @*<select asp-for="ContactOwnerID" class="form-control"></select>*@
-            @*asp-items="ViewBag.UserList"*@
-            @if (ViewBag.CreatorList != null)
-            {
-                @if (User.IsInRole("Admin"))
-                {
-                    @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
-                }
-                else
-                {
-                    var ownerList = new List<SelectListItem>();
-                    ownerList.Add(new SelectListItem { Text = User.Identity.Name, Value = User.Identity.Name });
-                    @Html.DropDownListFor(model => model.ContactOwnerID, ownerList, new { @class = "form-control" })
-                }
+            <label asp-for="ETypeId" class="control-label">Reason:</label>
+            @if (ViewBag.EngagementTypeList != null)
+            { 
+                @Html.DropDownListFor(model => model.ETypeId, (IEnumerable<SelectListItem>)ViewBag.EngagementTypeList, "-- Engagement Reason --", new { @class = "form-control", @required = "required" })
             }
+            <span asp-validation-for="ETypeId" class="text-danger"></span>
+        </div>
 
-            <span class="text-danger"></span>
+       
+
+        <div class="form-group">
+            <label asp-for="CommsMethodId" class="control-label">Communication Method:</label>
+            @if (ViewBag.CommsMethodList != null)
+            { 
+                @Html.DropDownListFor(model => model.CommsMethodId, (IEnumerable<SelectListItem>)ViewBag.CommsMethodList, "-- Communication Method --", new { @class = "form-control", @required = "required" })
+            }
+            <span asp-validation-for="CommsMethodId" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="DateAssigned" class="control-label">Date Assigned:</label>
-            @Html.EditorFor(model => model.DateAssigned, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-            <span asp-validation-for="DateAssigned" class="text-danger"></span>
+            <label asp-for="EffectivityId" class="control-label">Remarks:</label>
+            @if (ViewBag.EffectivityList != null)
+            {
+                @Html.DropDownListFor(model => model.EffectivityId, (IEnumerable<SelectListItem>)ViewBag.EffectivityList, "-- REMARKS --", new { @class = "form-control", @required = "required" })
+            }
+            <span asp-validation-for="EffectivityId" class="text-danger"></span>
         </div>
 
 
         <br />
         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button type="submit" class="w3-button w3-right w3-green">SAVE</button>
-            <button onclick="document.getElementById('CreateModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+            <button asp-controller="Engagement" asp-action="Index" class="w3-button w3-red">Cancel</button>
         </div>
     </div>
 
 </form>
-<div>
-    <a asp-action="ViewAll">Back to List</a>
-</div>

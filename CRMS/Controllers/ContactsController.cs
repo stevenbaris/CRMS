@@ -203,8 +203,14 @@ namespace CRMS.Controllers
                 Value = u.Id.ToString(),
                 Text = u.FirstName + " " + u.LastName
             });
+            var currentUser = users.Where(u=>u.Id == userId).Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FullName
+            });
             ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", contact.Creator);
             ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", contact.Owner);
+            ViewData["CurrentUser"] = new SelectList(currentUser, "Value", "Text", contact.Owner);
 
             return View(contact);
         }
@@ -310,7 +316,7 @@ namespace CRMS.Controllers
             return View(contact);
         }
 
-        // POST: AppointmentPurposes/Delete/5
+        
         [HttpPost]
         public async Task<IActionResult> RemoveConfirmed(Guid id)
         {

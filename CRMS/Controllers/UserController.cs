@@ -52,7 +52,7 @@ namespace CRMS.Controllers
                 return View(userViewModel);
             }
 
-            return RedirectToAction(actionName: "Index", controllerName: "Employees");
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
         [HttpGet]

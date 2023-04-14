@@ -80,8 +80,8 @@
                     <td style="white-space:nowrap">@(contact.Creator?.FirstName + " " + contact.Creator?.LastName ?? "N/A")</td>
                     <td style="white-space:nowrap">@contact.CreateDate</td>
                         <td style="white-space:nowrap">
-                        <a asp-action="Edit" asp-route-id="@contact.Contact_Id">Edit </a> |
-                        <a asp-action="Remove" asp-route-id="@contact.Contact_Id" class="btn btn-sm btn-danger" >Delete</a>
+                        <a asp-action="Edit" asp-route-id="@contact.Contact_Id" class="w3-button w3-green w3-hover-black">Edit </a> |
+                        <a asp-action="Remove" asp-route-id="@contact.Contact_Id" class="w3-button w3-red w3-hover-black">Delete</a>
                     </td>
                 </tr>
             }

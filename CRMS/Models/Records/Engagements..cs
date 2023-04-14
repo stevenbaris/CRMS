@@ -8,7 +8,7 @@ namespace CRMS.Models.Records
     public class Engagement
     {
 
-        public Guid Engagement_Id { get; set; }  = Guid.NewGuid();
+        public Guid Engagement_Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [DisplayName("Engagement Date")]

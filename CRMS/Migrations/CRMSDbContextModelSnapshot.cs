@@ -105,11 +105,11 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("84d3ddf2-bd16-4a62-994c-fe1d5aba3fe1"),
+                            Id = new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"),
                             AccessFailedCount = 0,
                             Address = "PJ Lhuiller",
-                            ConcurrencyStamp = "550845de-7737-44e3-a3f4-b9a0b877f3a9",
-                            DOB = new DateTime(2023, 4, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "0af21859-34f6-441c-8d08-ee04a199ef73",
+                            DOB = new DateTime(2023, 4, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "su@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Super",
@@ -117,7 +117,7 @@ namespace CRMS.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SU@CRMS.COM",
                             NormalizedUserName = "SU@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFEiwAD5xRm802wWM6u3bhwiIJbuNxlamzO29tuENHvxHFSau4SiiqqZ7sEypghojw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMpw3U+T+4gSam8htYQAwDrURQ0s+3XDn3clxs1s1b8H4obad/m9RbCRP310CpJwAQ==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -125,11 +125,11 @@ namespace CRMS.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3b547b7b-f063-44b9-b8ba-856c1deddc41"),
+                            Id = new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"),
                             AccessFailedCount = 0,
                             Address = "PJ Lhuiller",
-                            ConcurrencyStamp = "ce264be7-91ba-487b-91a0-677395807962",
-                            DOB = new DateTime(2023, 4, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "d66df6b5-bd02-4b80-a5dd-017d096c52e5",
+                            DOB = new DateTime(2023, 4, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "user@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Regular",
@@ -137,7 +137,7 @@ namespace CRMS.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "USER@CRMS.COM",
                             NormalizedUserName = "USER@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEhSry6yr6Lb4Es+v2ihtBkh3Ap54ieMkwGs0UtkBYnfx3iClOcI/x+4iO498wiCSQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMyZDBVo2W4sswoOg++l4BycyBNEXJTO8JcMFI+wKj01/opqNvFoF/Nwh/G4+dPBXA==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -199,9 +199,9 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Contact_Id = new Guid("83a8aed0-5998-4779-a0ef-6a70b51a72d4"),
-                            ContactCreatorID = new Guid("84d3ddf2-bd16-4a62-994c-fe1d5aba3fe1"),
-                            CreateDate = new DateTime(2023, 4, 8, 18, 24, 46, 86, DateTimeKind.Utc).AddTicks(1736),
+                            Contact_Id = new Guid("4d8a837f-14c2-43ec-830b-7078fcf0de5e"),
+                            ContactCreatorID = new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"),
+                            CreateDate = new DateTime(2023, 4, 14, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4304),
                             DOB = new DateTime(1994, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "charl.legista@gmail.com",
                             FirstName = "Charl",
@@ -211,12 +211,12 @@ namespace CRMS.Migrations
                         },
                         new
                         {
-                            Contact_Id = new Guid("d2911a8d-c650-4141-94a5-fbf705a49cf1"),
-                            ContactCreatorID = new Guid("84d3ddf2-bd16-4a62-994c-fe1d5aba3fe1"),
-                            ContactOwnerID = new Guid("3b547b7b-f063-44b9-b8ba-856c1deddc41"),
-                            CreateDate = new DateTime(2023, 4, 3, 18, 24, 46, 86, DateTimeKind.Utc).AddTicks(1756),
+                            Contact_Id = new Guid("f73874c8-465e-4e0a-a572-cfc8a9c892e2"),
+                            ContactCreatorID = new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"),
+                            ContactOwnerID = new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"),
+                            CreateDate = new DateTime(2023, 4, 9, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4325),
                             DOB = new DateTime(1999, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateAssigned = new DateTime(2023, 4, 5, 18, 24, 46, 86, DateTimeKind.Utc).AddTicks(1744),
+                            DateAssigned = new DateTime(2023, 4, 11, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4315),
                             Email = "steven.baris14@gmail.com",
                             FirstName = "Steven",
                             Gender = 0,
@@ -225,12 +225,12 @@ namespace CRMS.Migrations
                         },
                         new
                         {
-                            Contact_Id = new Guid("ad50001d-1fd0-4534-9508-29e80287c176"),
-                            ContactCreatorID = new Guid("3b547b7b-f063-44b9-b8ba-856c1deddc41"),
-                            ContactOwnerID = new Guid("3b547b7b-f063-44b9-b8ba-856c1deddc41"),
-                            CreateDate = new DateTime(2023, 4, 5, 18, 24, 46, 86, DateTimeKind.Utc).AddTicks(1762),
+                            Contact_Id = new Guid("339b1364-289a-4e3c-a030-92aa414629af"),
+                            ContactCreatorID = new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"),
+                            ContactOwnerID = new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"),
+                            CreateDate = new DateTime(2023, 4, 11, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4331),
                             DOB = new DateTime(1996, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateAssigned = new DateTime(2023, 4, 7, 18, 24, 46, 86, DateTimeKind.Utc).AddTicks(1761),
+                            DateAssigned = new DateTime(2023, 4, 13, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4330),
                             Email = "cust.no1@gmail.com",
                             FirstName = "Customer",
                             Gender = 1,
@@ -256,27 +256,27 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Purpose_Id = new Guid("da99752d-08d9-4ef0-a6e4-ce487259a1fb"),
+                            Purpose_Id = new Guid("4bb2b44c-2eba-4b86-8c83-fa03203e99cd"),
                             PurposeName = "Fact-Find"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("25e4728e-a8f3-4466-8c29-a6a383479585"),
+                            Purpose_Id = new Guid("3f43fd45-d33b-40de-a76b-b9fff8746e40"),
                             PurposeName = "Presentation"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("bcfab40d-0598-452f-beed-48359e35b497"),
+                            Purpose_Id = new Guid("96e9b481-3fc2-46c0-bfe7-61b19114b108"),
                             PurposeName = "Proposal"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("e0d02e62-546b-4b03-a6d8-16ccf0aa5343"),
+                            Purpose_Id = new Guid("ef9fddbc-2daf-4844-8278-00aa0a944a9e"),
                             PurposeName = "Sales Closing"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("5eb69a76-c5dd-4822-a56e-82fdd868a93b"),
+                            Purpose_Id = new Guid("833c5c52-7a96-4093-833a-13a6c261c7b5"),
                             PurposeName = "Others"
                         });
                 });
@@ -298,42 +298,42 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            CommunicationMethod_Id = new Guid("57c1a456-e15a-4f84-acc4-d75786abb659"),
+                            CommunicationMethod_Id = new Guid("38a3e506-8857-443e-b7da-8240a5dd13ff"),
                             CommunicationMethodName = "Facebook"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("e6f76b03-fa87-4cf2-85f4-b266148e1cee"),
+                            CommunicationMethod_Id = new Guid("9b9cc17e-1820-492b-96df-ec53fe5cb710"),
                             CommunicationMethodName = "Instagram"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("af28c14c-9ca9-4b1f-bc7b-444a59180d02"),
+                            CommunicationMethod_Id = new Guid("67fa3ed9-2040-4996-b731-2a080a699e53"),
                             CommunicationMethodName = "WhatsApp"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("d15cef8f-35c5-4d4d-9186-a2d9300c6c33"),
+                            CommunicationMethod_Id = new Guid("be257324-0fc7-4a28-a39a-e0ccf7f5313b"),
                             CommunicationMethodName = "Line"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("ed493ee1-6d49-4471-a5f1-8b3580a79f2c"),
+                            CommunicationMethod_Id = new Guid("4ed9f580-b0f1-4a97-a96b-5e2c81d65407"),
                             CommunicationMethodName = "Phone Call"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("2a1d81f5-ba15-479d-bf59-f39538525a8f"),
+                            CommunicationMethod_Id = new Guid("b22a9a76-9d25-4a91-95a3-9417e46d7bcb"),
                             CommunicationMethodName = "Test Message"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("16ef823e-e015-4551-9bc0-9a9826611f35"),
+                            CommunicationMethod_Id = new Guid("7f5914f1-0fed-4727-80a8-36004a5b4c67"),
                             CommunicationMethodName = "Email"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("78d3accc-d07d-4635-a20f-25b8aa635ce6"),
+                            CommunicationMethod_Id = new Guid("7ea3917f-6bff-4e83-8af0-fb3ec74748b7"),
                             CommunicationMethodName = "Others"
                         });
                 });
@@ -355,22 +355,22 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Effectivity_Id = new Guid("74c620e9-f4bb-4c76-80cc-22ffef60e3f1"),
+                            Effectivity_Id = new Guid("ea283e72-3a9d-48c2-b0f8-83ae67300c80"),
                             Effectivity_Name = "Not Read"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("29107401-13af-4681-bb13-b27ea66816f7"),
+                            Effectivity_Id = new Guid("da322339-efda-4155-88a3-92ea5e177167"),
                             Effectivity_Name = "Read but no response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("1e138c9d-3a4e-49cf-b538-258c2b756d03"),
+                            Effectivity_Id = new Guid("ae9872e6-9113-46e0-b9ed-f60fcf0967e1"),
                             Effectivity_Name = "Simple Response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("72308380-7145-4f34-b9db-4183d53fa697"),
+                            Effectivity_Id = new Guid("75b00347-7f6f-4c88-8da4-df9b36709508"),
                             Effectivity_Name = "Good Engagement"
                         });
                 });
@@ -392,42 +392,42 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            EType_Id = new Guid("0adcca05-230a-4342-8f90-89caefb87396"),
+                            EType_Id = new Guid("c66ffe5d-8542-4be9-b2ff-084834578bf4"),
                             EngagementName = "Congratulations"
                         },
                         new
                         {
-                            EType_Id = new Guid("364afaed-7310-4305-93dc-4e989d665868"),
+                            EType_Id = new Guid("88a85a8a-6f70-4e78-abaf-de0025482d03"),
                             EngagementName = "Birthday"
                         },
                         new
                         {
-                            EType_Id = new Guid("bf273959-811f-4bb7-9009-8d696180cb7a"),
+                            EType_Id = new Guid("af9642a7-b579-4257-b227-e17cdb059b17"),
                             EngagementName = "Anniversary"
                         },
                         new
                         {
-                            EType_Id = new Guid("361adbbc-31e1-4614-a03e-6df584b4e2e4"),
+                            EType_Id = new Guid("042a7ae1-1657-44b4-8dd6-c691a142d043"),
                             EngagementName = "Holiday"
                         },
                         new
                         {
-                            EType_Id = new Guid("a28b47ba-505d-42ef-ada2-572ffa5c01bd"),
+                            EType_Id = new Guid("fffc4bce-8836-4fbe-a9a0-1d15977d39d6"),
                             EngagementName = "Discount"
                         },
                         new
                         {
-                            EType_Id = new Guid("04e9b149-4cfc-4e2b-9160-3caf0f08af7d"),
+                            EType_Id = new Guid("d42abfe7-6daa-4a5c-9186-d4b7ee41f01e"),
                             EngagementName = "Company News"
                         },
                         new
                         {
-                            EType_Id = new Guid("cb1d89d5-6372-4a88-b000-f103e5246205"),
+                            EType_Id = new Guid("757b1137-4a04-4083-9f5d-809496c8fb94"),
                             EngagementName = "New Product"
                         },
                         new
                         {
-                            EType_Id = new Guid("28b0aef6-a9b7-4590-a0c5-0280e55eebc5"),
+                            EType_Id = new Guid("cea87af8-37e4-4fa4-9127-e4ae0bc1ec10"),
                             EngagementName = "Others"
                         });
                 });
@@ -449,32 +449,32 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            LeadStatus_Id = new Guid("30e5d123-c2e2-434d-a0b8-ffa48546991f"),
+                            LeadStatus_Id = new Guid("505f3543-8ce3-4068-9f5c-e4696defab41"),
                             LeadStatusName = "Contacted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("7eefe913-5603-470b-9172-40cbcb0db350"),
+                            LeadStatus_Id = new Guid("73166078-703a-49cb-ab7f-c8988a7e4118"),
                             LeadStatusName = "Met"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("be745c28-48e7-4a4e-83f3-8c084f4cc1c4"),
+                            LeadStatus_Id = new Guid("1cef44d3-24f2-4da4-b2c5-1176e04b81cf"),
                             LeadStatusName = "Proposal Generated"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("fa4e7be5-3311-4761-a9e1-98362cfa80e0"),
+                            LeadStatus_Id = new Guid("a72742f1-f21e-4839-abdd-f790c61c5ccc"),
                             LeadStatusName = "Application Submitted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("3675979a-8589-4985-90f5-7783aaba8076"),
+                            LeadStatus_Id = new Guid("cb90b4c5-6224-49a1-81d7-c0c049c9358f"),
                             LeadStatusName = "Policy Issued"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("87304a95-0848-4f24-b977-680fa4ead45e"),
+                            LeadStatus_Id = new Guid("86ccffe8-4124-45b6-9535-11eaaea71cbe"),
                             LeadStatusName = "Lead is Dead"
                         });
                 });
@@ -496,34 +496,124 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Source_Id = new Guid("6d959845-173c-4689-88d0-f2b240901f2e"),
+                            Source_Id = new Guid("790ba781-6ebc-4b14-974a-e21b1a5d3e2a"),
                             SourceName = "Referral"
                         },
                         new
                         {
-                            Source_Id = new Guid("7552d403-bccc-470c-b476-0e94126435a1"),
+                            Source_Id = new Guid("4d682473-76f7-4e4c-9949-2dfeddccd72e"),
                             SourceName = "Friend"
                         },
                         new
                         {
-                            Source_Id = new Guid("44d5b7de-b1a4-4d21-bc73-7d422296b723"),
+                            Source_Id = new Guid("906eb2b7-e542-4fb1-8843-1603bbfec86f"),
                             SourceName = "Compony-Generated"
                         },
                         new
                         {
-                            Source_Id = new Guid("4ad90723-5544-42da-8790-5332fdcdf988"),
+                            Source_Id = new Guid("c1763c7f-f32a-4b29-9661-edc7a8dc103d"),
                             SourceName = "Social Media"
                         },
                         new
                         {
-                            Source_Id = new Guid("25c9a3b6-3e71-462d-abc5-59b464fa41e2"),
+                            Source_Id = new Guid("4bab5c80-928b-466f-b2fe-75dba618a194"),
                             SourceName = "Webinar"
                         },
                         new
                         {
-                            Source_Id = new Guid("cc064b8d-8379-4eef-a5a8-afa70fb095ee"),
+                            Source_Id = new Guid("e1ef97c7-e561-4bc3-91dc-e4549dc0c6ec"),
                             SourceName = "Others"
                         });
+                });
+
+            modelBuilder.Entity("CRMS.Models.Records.Appointments", b =>
+                {
+                    b.Property<Guid>("Appointment_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Appointment_DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ContactId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("PurposeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SchedStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("Appointment_Id");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("PurposeId");
+
+                    b.ToTable("APPOINTMENTS", (string)null);
+                });
+
+            modelBuilder.Entity("CRMS.Models.Records.Engagement", b =>
+                {
+                    b.Property<Guid>("Engagement_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CommsMethodId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ContactId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ETypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EffectivityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Engagement_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Engagement_Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Topic")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Engagement_Id");
+
+                    b.HasIndex("CommsMethodId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("ETypeId");
+
+                    b.HasIndex("EffectivityId");
+
+                    b.ToTable("ENGAGEMENTS", (string)null);
                 });
 
             modelBuilder.Entity("CRMS.Models.RollingTransactions", b =>
@@ -577,15 +667,15 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8f15d049-10a4-45e8-b47c-5781de36b76c"),
-                            ConcurrencyStamp = "4067af35-7b5f-4359-ba3e-39d4319eafcf",
+                            Id = new Guid("83b60ffa-7c56-4d9f-8b01-1c5b51b6eba0"),
+                            ConcurrencyStamp = "d9c3ecb9-1c1a-441b-8b8f-9a213d0338dd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("22077764-7261-4755-8265-d923ae96d0da"),
-                            ConcurrencyStamp = "2d5e7ccc-0d38-46ac-b0d4-27f4fd5bd1e5",
+                            Id = new Guid("57ada34e-61ad-4198-9022-ef59fe5a3ff5"),
+                            ConcurrencyStamp = "cf30eeab-1a01-4ddd-9889-cbbd49fe08de",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -677,8 +767,8 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("84d3ddf2-bd16-4a62-994c-fe1d5aba3fe1"),
-                            RoleId = new Guid("8f15d049-10a4-45e8-b47c-5781de36b76c")
+                            UserId = new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"),
+                            RoleId = new Guid("83b60ffa-7c56-4d9f-8b01-1c5b51b6eba0")
                         });
                 });
 
@@ -719,6 +809,84 @@ namespace CRMS.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("CRMS.Models.Records.Appointments", b =>
+                {
+                    b.HasOne("CRMS.Models.Contacts", "prospect")
+                        .WithMany()
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AppointmentProspect");
+
+                    b.HasOne("CRMS.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AppointmentCreator");
+
+                    b.HasOne("CRMS.Models.Customization.AppointmentPurpose", "AppointmentPurpose")
+                        .WithMany()
+                        .HasForeignKey("PurposeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_AppointmentPurpose");
+
+                    b.Navigation("AppointmentPurpose");
+
+                    b.Navigation("User");
+
+                    b.Navigation("prospect");
+                });
+
+            modelBuilder.Entity("CRMS.Models.Records.Engagement", b =>
+                {
+                    b.HasOne("CRMS.Models.Customization.CommunicationMethod", "CommunicationMethod")
+                        .WithMany()
+                        .HasForeignKey("CommsMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CommunicationMethod");
+
+                    b.HasOne("CRMS.Models.Contacts", "Contacts")
+                        .WithMany()
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Contacts");
+
+                    b.HasOne("CRMS.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Creator");
+
+                    b.HasOne("CRMS.Models.Customization.EngagementType", "EngagementType")
+                        .WithMany()
+                        .HasForeignKey("ETypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_EngagementType");
+
+                    b.HasOne("CRMS.Models.Customization.Effectivity", "Effectivity")
+                        .WithMany()
+                        .HasForeignKey("EffectivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Effectivity");
+
+                    b.Navigation("CommunicationMethod");
+
+                    b.Navigation("Contacts");
+
+                    b.Navigation("Effectivity");
+
+                    b.Navigation("EngagementType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CRMS.Models.RollingTransactions", b =>

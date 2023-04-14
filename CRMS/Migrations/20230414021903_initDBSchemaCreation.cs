@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CRMS.Migrations
 {
-    public partial class initDbSchemawContacts : Migration
+    public partial class initDBSchemaCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -238,12 +239,12 @@ namespace CRMS.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<int>(type: "int", nullable: true),
-                    DOB = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ContactOwnerID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DateAssigned = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ContactCreatorID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    ContactCreatorID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -260,6 +261,92 @@ namespace CRMS.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "APPOINTMENTS",
+                columns: table => new
+                {
+                    Appointment_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Appointment_DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SchedStatus = table.Column<int>(type: "int", nullable: false),
+                    PurposeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_APPOINTMENTS", x => x.Appointment_Id);
+                    table.ForeignKey(
+                        name: "FK_AppointmentCreator",
+                        column: x => x.CreatedBy,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppointmentProspect",
+                        column: x => x.ContactId,
+                        principalTable: "CONTACTS",
+                        principalColumn: "Contact_Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppointmentPurpose",
+                        column: x => x.PurposeId,
+                        principalTable: "APPOINTMENT_PURPOSES",
+                        principalColumn: "Purpose_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ENGAGEMENTS",
+                columns: table => new
+                {
+                    Engagement_Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Engagement_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Topic = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Engagement_Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ETypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EffectivityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CommsMethodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ContactId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ENGAGEMENTS", x => x.Engagement_Id);
+                    table.ForeignKey(
+                        name: "FK_CommunicationMethod",
+                        column: x => x.CommsMethodId,
+                        principalTable: "ENGAGEMENT_COMMUNICATION METHODS",
+                        principalColumn: "CommunicationMethod_Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Contacts",
+                        column: x => x.ContactId,
+                        principalTable: "CONTACTS",
+                        principalColumn: "Contact_Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Creator",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Effectivity",
+                        column: x => x.EffectivityId,
+                        principalTable: "ENGAGEMENT_EFFECTIVITY",
+                        principalColumn: "Effectivity_Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EngagementType",
+                        column: x => x.ETypeId,
+                        principalTable: "ENGAGEMENT_ENGAGEMENT-TYPES",
+                        principalColumn: "EType_Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -285,11 +372,11 @@ namespace CRMS.Migrations
                 columns: new[] { "Purpose_Id", "PurposeName" },
                 values: new object[,]
                 {
-                    { new Guid("280e236d-aecc-4535-8f12-e32c9f5b8aca"), "Proposal" },
-                    { new Guid("91185bb8-e1dc-4086-84c0-1bd262d49952"), "Sales Closing" },
-                    { new Guid("a73e3e80-1ca1-4184-b42c-117e2683edca"), "Presentation" },
-                    { new Guid("b334d4f6-461b-499b-84de-2b24aaebb2cf"), "Fact-Find" },
-                    { new Guid("d0b463fd-9886-4c79-83a6-5068bdd27f49"), "Others" }
+                    { new Guid("3f43fd45-d33b-40de-a76b-b9fff8746e40"), "Presentation" },
+                    { new Guid("4bb2b44c-2eba-4b86-8c83-fa03203e99cd"), "Fact-Find" },
+                    { new Guid("833c5c52-7a96-4093-833a-13a6c261c7b5"), "Others" },
+                    { new Guid("96e9b481-3fc2-46c0-bfe7-61b19114b108"), "Proposal" },
+                    { new Guid("ef9fddbc-2daf-4844-8278-00aa0a944a9e"), "Sales Closing" }
                 });
 
             migrationBuilder.InsertData(
@@ -297,8 +384,8 @@ namespace CRMS.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("8792a412-a1d5-4b4a-919c-7327f14780e1"), "9b112166-f6df-48e7-abe6-babe36c6a7bd", "User", null },
-                    { new Guid("fa61d82e-a3fc-4271-a880-06ca42ed294e"), "4ae98d4d-764f-4cab-8d09-079b45dfc94c", "Admin", null }
+                    { new Guid("57ada34e-61ad-4198-9022-ef59fe5a3ff5"), "cf30eeab-1a01-4ddd-9889-cbbd49fe08de", "User", "USER" },
+                    { new Guid("83b60ffa-7c56-4d9f-8b01-1c5b51b6eba0"), "d9c3ecb9-1c1a-441b-8b8f-9a213d0338dd", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -306,8 +393,8 @@ namespace CRMS.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("775b50f9-b147-4b01-a82c-c897506603c7"), 0, "PJ Lhuiller", "07390163-46bd-4933-82c8-ed10f23ff23f", new DateTime(2023, 4, 8, 0, 0, 0, 0, DateTimeKind.Local), "su@crms.com", true, "Super", "User", true, null, null, null, "AQAAAAEAACcQAAAAEDDKlDt0Lv8dYz9P4aX2S/7RW5tyktxVFMVTd38sVwBD9/xyScvYKNocXJ1AVAkosg==", null, true, "", false, "su@crms.com" },
-                    { new Guid("a65582f0-df4b-4204-8b07-704e66360daf"), 0, "PJ Lhuiller", "87c0312e-d36b-4722-afa6-38756a8aeca2", new DateTime(2023, 4, 8, 0, 0, 0, 0, DateTimeKind.Local), "user@crms.com", true, "Regular", "User", true, null, null, null, "AQAAAAEAACcQAAAAEC8ilH7gsb+SuuHli9X+m8nKpVIviKqvZB3wMPHOoiLlymb+WDLyL0NgoEgoBIS+BA==", null, true, "", false, "user@crms.com" }
+                    { new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"), 0, "PJ Lhuiller", "d66df6b5-bd02-4b80-a5dd-017d096c52e5", new DateTime(2023, 4, 14, 0, 0, 0, 0, DateTimeKind.Local), "user@crms.com", true, "Regular", "User", true, null, "USER@CRMS.COM", "USER@CRMS.COM", "AQAAAAEAACcQAAAAEMyZDBVo2W4sswoOg++l4BycyBNEXJTO8JcMFI+wKj01/opqNvFoF/Nwh/G4+dPBXA==", null, true, "", false, "user@crms.com" },
+                    { new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"), 0, "PJ Lhuiller", "0af21859-34f6-441c-8d08-ee04a199ef73", new DateTime(2023, 4, 14, 0, 0, 0, 0, DateTimeKind.Local), "su@crms.com", true, "Super", "User", true, null, "SU@CRMS.COM", "SU@CRMS.COM", "AQAAAAEAACcQAAAAEMpw3U+T+4gSam8htYQAwDrURQ0s+3XDn3clxs1s1b8H4obad/m9RbCRP310CpJwAQ==", null, true, "", false, "su@crms.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -315,14 +402,14 @@ namespace CRMS.Migrations
                 columns: new[] { "CommunicationMethod_Id", "CommunicationMethodName" },
                 values: new object[,]
                 {
-                    { new Guid("1bd4b881-b780-467f-8f67-935ed8e8a6d9"), "Facebook" },
-                    { new Guid("3be13dc5-2519-4b3c-81e1-1f996749fdbc"), "Email" },
-                    { new Guid("3f59417e-0699-423b-a4fc-2ed96d4fb379"), "Phone Call" },
-                    { new Guid("5782af8a-a74c-43ce-99fb-bdb8c4c0c209"), "WhatsApp" },
-                    { new Guid("5abde515-a1d5-49e0-b8ab-17d5baed2a93"), "Test Message" },
-                    { new Guid("74f40398-8459-4f42-900b-2f77fea12e9d"), "Others" },
-                    { new Guid("9436869e-79c5-4f8d-9685-ea1010815e88"), "Line" },
-                    { new Guid("e1f23061-ee21-42ab-bc10-ea3d154e9f55"), "Instagram" }
+                    { new Guid("38a3e506-8857-443e-b7da-8240a5dd13ff"), "Facebook" },
+                    { new Guid("4ed9f580-b0f1-4a97-a96b-5e2c81d65407"), "Phone Call" },
+                    { new Guid("67fa3ed9-2040-4996-b731-2a080a699e53"), "WhatsApp" },
+                    { new Guid("7ea3917f-6bff-4e83-8af0-fb3ec74748b7"), "Others" },
+                    { new Guid("7f5914f1-0fed-4727-80a8-36004a5b4c67"), "Email" },
+                    { new Guid("9b9cc17e-1820-492b-96df-ec53fe5cb710"), "Instagram" },
+                    { new Guid("b22a9a76-9d25-4a91-95a3-9417e46d7bcb"), "Test Message" },
+                    { new Guid("be257324-0fc7-4a28-a39a-e0ccf7f5313b"), "Line" }
                 });
 
             migrationBuilder.InsertData(
@@ -330,10 +417,10 @@ namespace CRMS.Migrations
                 columns: new[] { "Effectivity_Id", "Effectivity_Name" },
                 values: new object[,]
                 {
-                    { new Guid("59ab2491-a778-4777-a035-3419c4bc52eb"), "Read but no response" },
-                    { new Guid("5df580a9-fe4e-4165-9614-a787c6b8db84"), "Simple Response" },
-                    { new Guid("db61e122-d0d7-405a-a2c6-06b6af18a14b"), "Not Read" },
-                    { new Guid("f9ff0128-6839-4c4e-814f-d9246e52f2c7"), "Good Engagement" }
+                    { new Guid("75b00347-7f6f-4c88-8da4-df9b36709508"), "Good Engagement" },
+                    { new Guid("ae9872e6-9113-46e0-b9ed-f60fcf0967e1"), "Simple Response" },
+                    { new Guid("da322339-efda-4155-88a3-92ea5e177167"), "Read but no response" },
+                    { new Guid("ea283e72-3a9d-48c2-b0f8-83ae67300c80"), "Not Read" }
                 });
 
             migrationBuilder.InsertData(
@@ -341,14 +428,14 @@ namespace CRMS.Migrations
                 columns: new[] { "EType_Id", "EngagementName" },
                 values: new object[,]
                 {
-                    { new Guid("3dfb98b4-810c-43e8-9e0c-6ab301472378"), "Discount" },
-                    { new Guid("546a1ba0-bb7c-44f2-aec8-bb2831959ad5"), "Birthday" },
-                    { new Guid("7b8d16e5-f16b-4ace-9ce5-c71d26bf7a1d"), "New Product" },
-                    { new Guid("7e861260-be53-4acf-affb-24339d4ba04d"), "Holiday" },
-                    { new Guid("bf24de0b-968f-4ffd-99fa-808b2f199b20"), "Congratulations" },
-                    { new Guid("f4cb8f9a-40b0-444d-bad2-23939b249091"), "Anniversary" },
-                    { new Guid("f69b6225-422a-481b-86f4-08e2e36dcde3"), "Others" },
-                    { new Guid("fab25155-bdd9-4935-a2ee-7d38e5a0642b"), "Company News" }
+                    { new Guid("042a7ae1-1657-44b4-8dd6-c691a142d043"), "Holiday" },
+                    { new Guid("757b1137-4a04-4083-9f5d-809496c8fb94"), "New Product" },
+                    { new Guid("88a85a8a-6f70-4e78-abaf-de0025482d03"), "Birthday" },
+                    { new Guid("af9642a7-b579-4257-b227-e17cdb059b17"), "Anniversary" },
+                    { new Guid("c66ffe5d-8542-4be9-b2ff-084834578bf4"), "Congratulations" },
+                    { new Guid("cea87af8-37e4-4fa4-9127-e4ae0bc1ec10"), "Others" },
+                    { new Guid("d42abfe7-6daa-4a5c-9186-d4b7ee41f01e"), "Company News" },
+                    { new Guid("fffc4bce-8836-4fbe-a9a0-1d15977d39d6"), "Discount" }
                 });
 
             migrationBuilder.InsertData(
@@ -356,12 +443,12 @@ namespace CRMS.Migrations
                 columns: new[] { "Source_Id", "SourceName" },
                 values: new object[,]
                 {
-                    { new Guid("177bb019-dc15-4b89-8960-e3fe98bfc687"), "Social Media" },
-                    { new Guid("308168e8-cd74-478c-a735-11746def6c83"), "Friend" },
-                    { new Guid("404be604-0f5a-4320-ab98-0080513cbeea"), "Webinar" },
-                    { new Guid("7c6417cc-6271-4ce3-a456-efaae122c138"), "Compony-Generated" },
-                    { new Guid("a9698b4f-b1fd-4f98-a1c6-8b270bcfb17f"), "Others" },
-                    { new Guid("ee87c2ed-7896-49cc-9b39-2c0e23b6b31c"), "Referral" }
+                    { new Guid("4bab5c80-928b-466f-b2fe-75dba618a194"), "Webinar" },
+                    { new Guid("4d682473-76f7-4e4c-9949-2dfeddccd72e"), "Friend" },
+                    { new Guid("790ba781-6ebc-4b14-974a-e21b1a5d3e2a"), "Referral" },
+                    { new Guid("906eb2b7-e542-4fb1-8843-1603bbfec86f"), "Compony-Generated" },
+                    { new Guid("c1763c7f-f32a-4b29-9661-edc7a8dc103d"), "Social Media" },
+                    { new Guid("e1ef97c7-e561-4bc3-91dc-e4549dc0c6ec"), "Others" }
                 });
 
             migrationBuilder.InsertData(
@@ -369,13 +456,43 @@ namespace CRMS.Migrations
                 columns: new[] { "LeadStatus_Id", "LeadStatusName" },
                 values: new object[,]
                 {
-                    { new Guid("5ca59b0e-2349-4b44-b5f9-23aae1e1bd84"), "Met" },
-                    { new Guid("5d5ca464-24eb-4b57-886d-de5f0f50e054"), "Policy Issued" },
-                    { new Guid("930d6e6f-740f-4190-a41c-3a95290d9403"), "Contacted" },
-                    { new Guid("b3bad378-34a8-4cb1-8ab2-9ca6f3cacf9b"), "Lead is Dead" },
-                    { new Guid("dff4d3f7-8902-4cb1-9e95-836f5db6da40"), "Application Submitted" },
-                    { new Guid("ff34c516-dfb8-40b1-a381-58d80209563d"), "Proposal Generated" }
+                    { new Guid("1cef44d3-24f2-4da4-b2c5-1176e04b81cf"), "Proposal Generated" },
+                    { new Guid("505f3543-8ce3-4068-9f5c-e4696defab41"), "Contacted" },
+                    { new Guid("73166078-703a-49cb-ab7f-c8988a7e4118"), "Met" },
+                    { new Guid("86ccffe8-4124-45b6-9535-11eaaea71cbe"), "Lead is Dead" },
+                    { new Guid("a72742f1-f21e-4839-abdd-f790c61c5ccc"), "Application Submitted" },
+                    { new Guid("cb90b4c5-6224-49a1-81d7-c0c049c9358f"), "Policy Issued" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { new Guid("83b60ffa-7c56-4d9f-8b01-1c5b51b6eba0"), new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381") });
+
+            migrationBuilder.InsertData(
+                table: "CONTACTS",
+                columns: new[] { "Contact_Id", "ContactCreatorID", "ContactOwnerID", "CreateDate", "DOB", "DateAssigned", "Email", "FirstName", "Gender", "LastName", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { new Guid("339b1364-289a-4e3c-a030-92aa414629af"), new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"), new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"), new DateTime(2023, 4, 11, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4331), new DateTime(1996, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 13, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4330), "cust.no1@gmail.com", "Customer", 1, "Number1", "09987654321" },
+                    { new Guid("4d8a837f-14c2-43ec-830b-7078fcf0de5e"), new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"), null, new DateTime(2023, 4, 14, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4304), new DateTime(1994, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "charl.legista@gmail.com", "Charl", 0, "Legista", "09052214812" },
+                    { new Guid("f73874c8-465e-4e0a-a572-cfc8a9c892e2"), new Guid("eb2a3620-e987-4d20-aebd-677ce35ee381"), new Guid("b305efa2-74c3-4fa8-923d-82704ef86928"), new DateTime(2023, 4, 9, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4325), new DateTime(1999, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 11, 2, 19, 3, 142, DateTimeKind.Utc).AddTicks(4315), "steven.baris14@gmail.com", "Steven", 0, "Baris", "09123456789" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_APPOINTMENTS_ContactId",
+                table: "APPOINTMENTS",
+                column: "ContactId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_APPOINTMENTS_CreatedBy",
+                table: "APPOINTMENTS",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_APPOINTMENTS_PurposeId",
+                table: "APPOINTMENTS",
+                column: "PurposeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -427,6 +544,31 @@ namespace CRMS.Migrations
                 column: "ContactOwnerID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ENGAGEMENTS_CommsMethodId",
+                table: "ENGAGEMENTS",
+                column: "CommsMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ENGAGEMENTS_ContactId",
+                table: "ENGAGEMENTS",
+                column: "ContactId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ENGAGEMENTS_CreatedById",
+                table: "ENGAGEMENTS",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ENGAGEMENTS_EffectivityId",
+                table: "ENGAGEMENTS",
+                column: "EffectivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ENGAGEMENTS_ETypeId",
+                table: "ENGAGEMENTS",
+                column: "ETypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ROLLING TRANSACTIONS_ContactId",
                 table: "ROLLING TRANSACTIONS",
                 column: "ContactId",
@@ -437,7 +579,7 @@ namespace CRMS.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "APPOINTMENT_PURPOSES");
+                name: "APPOINTMENTS");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -455,13 +597,7 @@ namespace CRMS.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ENGAGEMENT_COMMUNICATION METHODS");
-
-            migrationBuilder.DropTable(
-                name: "ENGAGEMENT_EFFECTIVITY");
-
-            migrationBuilder.DropTable(
-                name: "ENGAGEMENT_ENGAGEMENT-TYPES");
+                name: "ENGAGEMENTS");
 
             migrationBuilder.DropTable(
                 name: "LEADS_SOURCES");
@@ -473,7 +609,19 @@ namespace CRMS.Migrations
                 name: "ROLLING TRANSACTIONS");
 
             migrationBuilder.DropTable(
+                name: "APPOINTMENT_PURPOSES");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "ENGAGEMENT_COMMUNICATION METHODS");
+
+            migrationBuilder.DropTable(
+                name: "ENGAGEMENT_EFFECTIVITY");
+
+            migrationBuilder.DropTable(
+                name: "ENGAGEMENT_ENGAGEMENT-TYPES");
 
             migrationBuilder.DropTable(
                 name: "CONTACTS");
