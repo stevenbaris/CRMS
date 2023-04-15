@@ -30,10 +30,10 @@ namespace CRMS.Controllers
                 .Include(ur => ur.status)
                 .Include(ur => ur.source)
                 .Include(ur => ur.User)
-                //.include for products
+                .Include(ur => ur.product)
                 .ToListAsync();
             return View("~/Views/Records/Leads/Index.cshtml", CRMSDbContext);
-            //return View("~/Views/Records/Appointment/Index.cshtml", await eMSDbContext.ToListAsync());
+            //return View("~/Views/Records/Leads/Index.cshtml", await eMSDbContext.ToListAsync());
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -52,6 +52,7 @@ namespace CRMS.Controllers
             ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
             ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
             ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
             //View Data for product
             return View("~/Views/Records/Leads/Create.cshtml");
         }
@@ -69,6 +70,71 @@ namespace CRMS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View("~/Views/Records/Leads/Create.cshtml", leadsCreate);
+        }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var leadsEdit = await _leads.GetbyIdAsync(id);
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
+            ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
+            ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
+            if (leadsEdit == null)
+            {
+                return NotFound();
+            }
+            return View("~/Views/Records/Leads/Edit.cshtml", leadsEdit);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Leads_Id, " +
+            "Leads_DateTime, PrefContactMethod, PrefContactDay, PrefContactTime, CreatedDate, " +
+            "ProspectId, ProductId, StatusId, LeadSourceId, CreatedBy")] Leads leadsEdit)
+        {
+            if (id != leadsEdit.Leads_Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _leads.UpdateAsync(leadsEdit);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RecordLeadsExists(leadsEdit.Leads_Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
+            ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
+            ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
+            return View("~/Views/Records/Leads/Edit.cshtml", leadsEdit);
+        }
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var leadPurpose = await _leads.GetbyIdAsync(id);
+            if (leadPurpose != null)
+            {
+                await _leads.DeleteAsync(id);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool RecordLeadsExists(Guid id)
+        {
+            return (_leads.GetbyIdAsync(id) is not null);
         }
 
     }

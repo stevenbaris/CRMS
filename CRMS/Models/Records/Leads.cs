@@ -23,9 +23,14 @@ namespace CRMS.Models.Records
         public Guid ProspectId { get; set; }
 
         [Required]
+        public Guid ProductId { get; set; }
+
+        [Required]
         public Guid StatusId { get; set; }
+
         [Required]
         public Guid LeadSourceId { get; set; }
+
         [Required]
         public Guid CreatedBy { get; set; }
 
@@ -33,17 +38,20 @@ namespace CRMS.Models.Records
         public LeadStatus? status { get; set; }
         public Source? source { get; set; }
         public ApplicationUser? User { get; set; }
+        public Product? product { get; set; }
 
         public Leads() { }
 
-        public Leads(Guid leads_Id, DateTime leads_DateTime, string? prefContactMethod, string? prefContactDay, string? prefContactTime, Guid prospectId, Guid statusId, Guid leadSourceId, Guid createdBy)
+        public Leads(Guid leads_Id, DateTime leads_DateTime, string? prefContactMethod, string? prefContactDay, string? prefContactTime, DateTime createdDate, Guid prospectId, Guid productId, Guid statusId, Guid leadSourceId, Guid createdBy)
         {
             Leads_Id = leads_Id;
             Leads_DateTime = leads_DateTime;
             PrefContactMethod = prefContactMethod;
             PrefContactDay = prefContactDay;
             PrefContactTime = prefContactTime;
+            CreatedDate = createdDate;
             ProspectId = prospectId;
+            ProductId = productId;
             StatusId = statusId;
             LeadSourceId = leadSourceId;
             CreatedBy = createdBy;

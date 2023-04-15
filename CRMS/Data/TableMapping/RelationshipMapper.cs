@@ -159,6 +159,12 @@ namespace CRMS.Data.TableMapping
               .HasForeignKey(lCreator => lCreator.CreatedBy)
               .HasConstraintName("FK_LeadsCreator");
 
+            modelBuilder.Entity<Leads>()
+              .HasOne<Product>(product => product.product)
+              .WithMany()
+              .HasForeignKey(product => product.ProductId)
+              .HasConstraintName("FK_LeadsProduct");
+
 
 
 

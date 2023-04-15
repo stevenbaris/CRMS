@@ -37,7 +37,7 @@ namespace CRMS.Controllers
             return View("~/Views/Records/Appointment/Index.cshtml" , CRMSDbContext);
             //return View("~/Views/Records/Appointment/Index.cshtml", await eMSDbContext.ToListAsync());
         }
-
+       
         public async Task<IActionResult> Details(Guid id)
         {
             var appointmentDetails = await _appointments.GetbyIdAsync(id);
