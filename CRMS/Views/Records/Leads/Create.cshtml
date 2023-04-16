@@ -1,0 +1,55 @@
+﻿@model Leads
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>New Leads</h1>
+
+<form asp-controller="Leads" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger">
+    </div>
+    <div>
+        <label asp-for="Leads_DateTime"></label>
+        <input asp-for="Leads_DateTime" />
+        <span asp-validation-for="Leads_DateTime"></span>
+    </div>
+    <div>
+        <label asp-for="PrefContactMethod"></label>
+        <input asp-for="PrefContactMethod" />
+        <span asp-validation-for="PrefContactMethod"></span>
+    </div>
+    <div>
+        <label asp-for="PrefContactDay"></label>
+        <input asp-for="PrefContactDay" />
+        <span asp-validation-for="PrefContactDay"></span>
+    </div>
+    <div>
+        <label asp-for="PrefContactTime"></label>
+        <input asp-for="PrefContactTime" />
+        <span asp-validation-for="PrefContactTime"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProspectId" class="control-label"></label>
+        <select asp-for="ProspectId" class="form-control" asp-items="ViewBag.ProspectId"></select>
+    </div>
+    <div>
+        <label asp-for="StatusId" class="control-label"></label>
+        <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+    </div>
+    <div>
+        <label asp-for="LeadSourceId" class="control-label"></label>
+        <select asp-for="LeadSourceId" class="form-control" asp-items="ViewBag.LeadSourceId"></select>
+    </div>
+    <div>
+        <label asp-for="ProductId" class="control-label"></label>
+        <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
+    </div>
+
+    <button type="submit">Create</button>
+</form>
+<div>
+    <br /><a asp-action="Index" class="btn btn-dark">Back to Appointment List</a>
+</div>

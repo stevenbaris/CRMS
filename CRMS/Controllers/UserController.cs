@@ -52,7 +52,7 @@ namespace CRMS.Controllers
                 return View(userViewModel);
             }
 
-            return RedirectToAction(actionName: "Index", controllerName: "Home");
+            return RedirectToAction(actionName: "Index", controllerName: "User");
         }
 
         [HttpGet]
@@ -78,12 +78,12 @@ namespace CRMS.Controllers
             }
 
             var user = new ApplicationUser
-
             {
                 UserName = createUserViewModel.Email,
                 Email = createUserViewModel.Email,
                 FirstName = createUserViewModel.FirstName,
-                LastName = createUserViewModel.LastName
+                LastName = createUserViewModel.LastName,
+                Address = createUserViewModel.Address,
             };
 
             var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
@@ -97,7 +97,7 @@ namespace CRMS.Controllers
             //Add Role
             await _userManager.AddToRoleAsync(user, createUserViewModel.RoleName);
 
-            return RedirectToAction(actionName: "Index", controllerName: "Employees");
+            return RedirectToAction(actionName: "Index", controllerName: "User");
         }
 
         public async Task<IActionResult> Index()
@@ -148,16 +148,16 @@ namespace CRMS.Controllers
 
             ViewBag.Roles = list;
 
-            var roleItems = roles.Select(role =>
-                new SelectListItem(
-                    role.Name,
-                    role.Id.ToString(),
-                    userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
+            //var roleItems = roles.Select(role =>
+            //    new SelectListItem(
+            //        role.Name,
+            //        role.Id,
+            //        userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
 
             var vm = new EditUserViewModel
             {
                 User = user,
-                Roles = roleItems
+                //Roles = roleItems
             };
 
             return View(vm);
@@ -182,24 +182,24 @@ namespace CRMS.Controllers
             var rolesToAdd = new List<string>();
             var rolesToDelete = new List<string>();
 
-            foreach (var role in data.Roles)
-            {
-                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
-                if (role.Selected)
-                {
-                    if (assignedInDb == null)
-                    {
-                        rolesToAdd.Add(role.Text);
-                    }
-                }
-                else
-                {
-                    if (assignedInDb != null)
-                    {
-                        rolesToDelete.Add(role.Text);
-                    }
-                }
-            }
+            //foreach (var role in data.Roles)
+            //{
+            //    var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
+            //    if (role.Selected)
+            //    {
+            //        if (assignedInDb == null)
+            //        {
+            //            rolesToAdd.Add(role.Text);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (assignedInDb != null)
+            //        {
+            //            rolesToDelete.Add(role.Text);
+            //        }
+            //    }
+            //}
 
             if (rolesToAdd.Any())
             {

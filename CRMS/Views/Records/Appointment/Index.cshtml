@@ -5,17 +5,18 @@
 
 }
 @section Styles{
-     <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/filter-control/utils.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.21.4/extensions/filter-control/utils.min.js"></script>
+    
 }
 
 <header>
-    <div>
-        <h1 style="font-weight:800">Appointment</h1>
-        @*<p></a>int Count</p>*@
+    <div id="create">
+       
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" asp-controller="Appointments" asp-action="Create">+ New Appointment</a>
         </div>
@@ -23,19 +24,33 @@
 
     <div>
         <table id="table" class="table"
+               data-toolbar="#create"
                data-toggle="table"
                data-search="true"
-               data-filter-control="true">
+               data-filter-control="true"
+
+               @*For which column show*@
+               data-show-columns="true"
+               data-minimum-count-columns="2"
+     
+               @*refresh function*@
+               data-show-refresh="true"
+
+               @*pagination function*@
+               data-pagination="true"
+               data-show-pagination-switch="true"
+               data-page-list="[10, 25, 50, 100, all]"
+               >
             <thead>
                 <tr>
-                    <th data-field="ContactId" data-filter-control="input" data-sortable="true">Prospect</th>
-                    <th data-field="SchedStatus" data-filter-control="input" data-sortable="true">Status</th>
-                    <th data-field="Appointment_DateTime" data-filter-control="input" data-sortable="true">Scheduled Date and Time</th>
-                    <th data-field="PurposeId" data-filter-control="input" data-sortable="true">Purpose</th>
-                    <th data-field="Description" data-filter-control="input" data-sortable="true">Description</th>
-                    <th data-field="CreatedDate" data-filter-control="input" data-sortable="true">Appointment Created</th>
-                    <th data-field="CreatedBy" data-filter-control="input" data-sortable="true">Agent</th>
-                    <th data-field="note" data-sortable="true">Action</th>
+                    <th data-field="column1" data-filter-control="input" data-sortable="true">Prospect</th>
+                    <th data-field="column2" data-filter-control="input" data-sortable="true">Status</th>
+                    <th data-field="column3" data-filter-control="input" data-sortable="true">Scheduled Date and Time</th>
+                    <th data-field="column4" data-filter-control="input" data-sortable="true">Purpose</th>
+                    <th data-field="column5" data-filter-control="input" data-sortable="true">Description</th>
+                    <th data-field="column6" data-filter-control="input" data-sortable="true">Appointment Created</th>
+                    <th data-field="column7" data-filter-control="input" data-sortable="true">Agent</th>
+                    <th data-field="note"">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,3 +87,4 @@
             </tbody>
         </table>
     </div>
+</header>

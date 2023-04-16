@@ -59,6 +59,10 @@ namespace CRMS.Data.TableMapping
                .ToTable("PRODUCTS")
                .HasKey(prod => prod.Product_Id);
 
+            modelBuilder.Entity<Leads>()
+                .ToTable("LEADS")
+                .HasKey(en => en.Leads_Id);
+
 
 
 
@@ -137,6 +141,36 @@ namespace CRMS.Data.TableMapping
               .WithMany()
               .HasForeignKey(en => en.CreatedById)
               .HasConstraintName("FK_Creator");
+
+            modelBuilder.Entity<Leads>()
+                 .HasOne<Contacts>(ap => ap.prospect)
+                 .WithMany()
+                 .HasForeignKey(ap => ap.ProspectId)
+                 .HasConstraintName("FK_LeadsProspect");
+
+            modelBuilder.Entity<Leads>()
+                .HasOne<LeadStatus>(status => status.status)
+                .WithMany()
+                .HasForeignKey(status => status.StatusId)
+                .HasConstraintName("FK_LeadsStatus");
+
+            modelBuilder.Entity<Leads>()
+               .HasOne<Source>(source => source.source)
+               .WithMany()
+               .HasForeignKey(source => source.LeadSourceId)
+               .HasConstraintName("FK_LeadsSource");
+
+            modelBuilder.Entity<Leads>()
+              .HasOne<ApplicationUser>(lCreator => lCreator.User)
+              .WithMany()
+              .HasForeignKey(lCreator => lCreator.CreatedBy)
+              .HasConstraintName("FK_LeadsCreator");
+
+            modelBuilder.Entity<Leads>()
+              .HasOne<Product>(product => product.product)
+              .WithMany()
+              .HasForeignKey(product => product.ProductId)
+              .HasConstraintName("FK_LeadsProduct");
 
 
 

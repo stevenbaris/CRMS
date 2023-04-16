@@ -58,6 +58,7 @@ namespace CRMS.Services._Config
                     //RECORDS
                     .AddScoped<IRepository<Appointments>, AppointmentsRepo>()
                     .AddScoped<IRepository<Engagement>, EngagementRepo>()
+                    .AddScoped<IRepository<Leads>, LeadsRepo>()
 
                                      ;
 
