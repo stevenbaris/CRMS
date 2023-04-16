@@ -2,12 +2,17 @@
 using CRMS.Models;
 using CRMS.Models.Customization;
 using CRMS.Models.Records;
+using CRMS.Services._BackgroundServices;
+using CRMS.Services._BackgroundServices.Token;
 using CRMS.Services.Account_Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Products_Services;
 using CRMS.Services.Record_Services;
 using CRMS.Services.Records;
 using CRMS.Services.SqlRepositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Identity.Client;
+using NuGet.Protocol;
 
 namespace CRMS.Services._Config
 {
@@ -54,10 +59,41 @@ namespace CRMS.Services._Config
                     .AddScoped<IRepository<Appointments>, AppointmentsRepo>()
                     .AddScoped<IRepository<Engagement>, EngagementRepo>()
 
+                                     ;
+
+            return Services;
+        }
+        public static IServiceCollection APIBackgroundServices(
+            this IServiceCollection Services, 
+            IConfiguration _configuration)
+        {
+            Services
+                   .AddHttpClient()
+
+                   //.AddSingleton<ITokenStorage, InMemoryTokenStorage>()
+                   .AddTransient<IRepository<Product>, ProductsRepo>()
+                   
+                   .AddScoped<IProductConfidentialClientApplication>(provider => 
+                   {
+                       var clientId = _configuration["Oath2Product:ClientId"];
+                       var clientSecret = _configuration["Oath2Product:Secret"];
+                       var tenantId = _configuration["Oath2Product:TenantId"];
+                       var authority = $"https://login.microsoftonline.com/{tenantId}";
 
 
+                       var app = ConfidentialClientApplicationBuilder
+                           .Create(clientId)
+                           .WithClientSecret(clientSecret)
+                           .WithAuthority(new Uri(authority))
+                           .Build();
 
-                    ;
+                       return (IProductConfidentialClientApplication)app;
+                   })
+
+                   .AddScoped<IHostedService, ProductsAPI>()
+
+
+            ;
 
             return Services;
         }

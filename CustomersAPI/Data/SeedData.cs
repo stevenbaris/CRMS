@@ -1,4 +1,5 @@
 ﻿using CustomersAPI.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace CustomersAPI.Data
@@ -88,9 +89,54 @@ namespace CustomersAPI.Data
                 new Transactions(Guid.NewGuid(), new DateTime(2022, 12, 20),9929.75M, cust[17].Customer_Id),
 
             };
-            
+
+            var user = new List<ApplicationUser>
+            {
+                  new ApplicationUser
+                    {
+                        Id = Guid.NewGuid(),
+                        UserName = "su@crms.com",
+                        NormalizedUserName = "su@crms.com".ToUpper(),
+                        Email = "su@crms.com",
+                        NormalizedEmail = "su@crms.com".ToUpper(),
+                        AccessFailedCount = 0,
+                        EmailConfirmed = true,
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Admin123"),
+                        SecurityStamp = string.Empty,
+                        FirstName = "Super",
+                        LastName= "User",
+                        DOB = DateTime.Now.Date,
+                        CityAddress = "Makati",
+
+                        LockoutEnabled = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = true,
+                    },
+                  new ApplicationUser
+                    {
+                        Id = Guid.NewGuid(),
+                        UserName = "user@crms.com",
+                        NormalizedUserName = "user@crms.com".ToUpper(),
+                        Email = "user@crms.com",
+                        NormalizedEmail = "user@crms.com".ToUpper(),
+                        AccessFailedCount = 0,
+                        EmailConfirmed = true,
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "user123"),
+                        SecurityStamp = string.Empty,
+                        FirstName = "Regular",
+                        LastName= "User",
+                        DOB = DateTime.Now.Date,
+                        CityAddress = "Makati",
+
+                        LockoutEnabled = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = true,
+                    }
+            };
+
             modelBuilder.Entity<Customer>().HasData(cust);
             modelBuilder.Entity<Transactions>().HasData(transact);
+            modelBuilder.Entity<ApplicationUser>().HasData(user);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace ProductAPI.Configuration
 
         public static IServiceCollection AddRepoService(this IServiceCollection Services)
         {
-            //REPOSTORY PATTER
+            //REPOSTORY PATTERN
             Services.AddScoped<IProductRepository, ProductDBRepository>();
             Services.AddScoped<IAuthRepository, AuthorizationRepo>();
 

@@ -105,7 +105,7 @@ namespace CRMS.Data
                         FirstName = "Super",
                         LastName= "User",
                         DOB = DateTime.Now.Date,
-                        Address = "PJ Lhuiller",
+                        CityAddress = "Makati",
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -125,7 +125,28 @@ namespace CRMS.Data
                         FirstName = "Regular",
                         LastName= "User",
                         DOB = DateTime.Now.Date,
-                        Address = "PJ Lhuiller",
+                        CityAddress = "Makati",
+
+                        LockoutEnabled = true,
+                        TwoFactorEnabled = false,
+                        PhoneNumberConfirmed = true,
+                    },
+
+                  new ApplicationUser
+                    {
+                        Id = Guid.NewGuid(),
+                        UserName = "SYSTEM",
+                        NormalizedUserName = "SYSTEM".ToUpper(),
+                        Email = "sys@crms.com",
+                        NormalizedEmail = "sys@crms.com".ToUpper(),
+                        AccessFailedCount = 0,
+                        EmailConfirmed = true,
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "$y$t3M"),
+                        SecurityStamp = string.Empty,
+                        FirstName = "SYSTEM",
+                        LastName= "CRMS",
+                        DOB = DateTime.Now.Date,
+                        CityAddress = "Makati",
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -155,7 +176,10 @@ namespace CRMS.Data
                     Gender = GenderType.Male,
                     DOB = new DateTime(1994, 05, 10),
                     ContactCreatorID = user[0].Id,
-                    CreateDate = DateTime.UtcNow
+                    CreateDate = DateTime.Now,
+                    UpdateDate = DateTime.Now,
+                    UpdatedBy = user[2].Id
+
                 },
                 new Contacts
                 {
@@ -167,9 +191,11 @@ namespace CRMS.Data
                     Gender = GenderType.Male,
                     DOB = new DateTime(1999, 09, 12),
                     ContactOwnerID = user[1].Id,
-                    DateAssigned = DateTime.UtcNow.AddDays(-3),
+                    DateAssigned = DateTime.Now.AddDays(-3),
                     ContactCreatorID = user[0].Id,
-                    CreateDate = DateTime.UtcNow.AddDays(-5)
+                    CreateDate = DateTime.Now.AddDays(-5),
+                    UpdateDate = DateTime.Now,
+                    UpdatedBy = user[2].Id
                 },
                 new Contacts
                 {
@@ -181,9 +207,11 @@ namespace CRMS.Data
                     Gender = GenderType.Female,
                     DOB = new DateTime(1996, 01, 22),
                     ContactOwnerID = user[1].Id,
-                    DateAssigned = DateTime.UtcNow.AddDays(-1),
+                    DateAssigned = DateTime.Now.AddDays(-1),
                     ContactCreatorID = user[1].Id,
-                    CreateDate = DateTime.UtcNow.AddDays(-3)
+                    CreateDate = DateTime.Now.AddDays(-3),
+                    UpdateDate = DateTime.Now,
+                    UpdatedBy = user[2].Id
                 }
             };
 

@@ -77,6 +77,13 @@ namespace CRMS.Data.TableMapping
                 .HasConstraintName("FK_ContactCreator")
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Contacts>()
+                .HasOne(c => c.Updater)
+                .WithMany()
+                .HasForeignKey(c => c.UpdatedBy)
+                .HasConstraintName("FK_ContactUpdater")
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<RollingTransactions>()
                 .HasOne<Contacts>(transact => transact.Contacts)
                 .WithOne(contact => contact.Transactions)

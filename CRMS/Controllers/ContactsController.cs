@@ -195,7 +195,9 @@ namespace CRMS.Controllers
             {
                 Contact_Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
-                ContactCreatorID = userId
+                ContactCreatorID = userId,
+                UpdateDate = DateTime.Now,
+                UpdatedBy = userId,
             };
             var users = await _userManager.Users.ToListAsync();
             var creatorList = users.Select(u => new SelectListItem
@@ -261,9 +263,7 @@ namespace CRMS.Controllers
             return View(model);
         }
 
-        // POST: Effectivities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Contacts model)
@@ -284,6 +284,10 @@ namespace CRMS.Controllers
                     {
                         return NotFound();
                     }
+
+                    var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+                    model.UpdateDate = DateTime.Now;
+                    model.Updater = user;
                     await _contactRepository.UpdateAsync(model);
 
 

@@ -1,4 +1,5 @@
 using CRMS.Data;
+using CRMS.Services._BackgroundServices;
 using CRMS.Services._Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,10 @@ builder.Services.AddDbContext<CRMSDbContext>();
 builder.Services
     .AddIdentityWithOptions()
     .AddScopedInjections();
+    //.APIBackgroundServices(builder.Configuration);
+
+
+
 
 
 var app = builder.Build();
