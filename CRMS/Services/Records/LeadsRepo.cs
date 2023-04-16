@@ -32,7 +32,13 @@ namespace CRMS.Services.Records
 
         public async Task<List<Leads>> GetAllAsync()
         {
-            return await _dBcontext.Leads.ToListAsync();
+            return await _dBcontext.Leads
+                .Include(ur => ur.prospect)
+                .Include(ur => ur.status)
+                .Include(ur => ur.source)
+                .Include(ur => ur.User)
+                .Include(ur => ur.product)
+                .ToListAsync();
         }
 
         public async Task<Leads> GetbyIdAsync(Guid id)

@@ -1,4 +1,5 @@
 ﻿using CRMS.Models;
+using CRMS.Models.Records;
 using CRMS.Services;
 using CRMS.Services.Contacts_Services;
 using CRMS.ViewModels.Contact;
@@ -15,6 +16,9 @@ namespace CRMS.Controllers
     {
         private readonly IContactRepository _contactRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IRepository<Leads> _leadsRepo;
+        private readonly IRepository<Engagement> _engagementsRepo;
+        private readonly IRepository<Appointments> _appointmentsRepo;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -22,12 +26,18 @@ namespace CRMS.Controllers
             IContactRepository contactRepository,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            IRepository<Leads> leadsRepo,
+            IRepository<Engagement> engagementsRepo,
+            IRepository<Appointments> appointmentsRepo)
         {
             _contactRepository = contactRepository;
             _signInManager = signInManager;
             _userManager = userManager;
             _userRepository = userRepository;
+            _leadsRepo = leadsRepo;
+            _engagementsRepo = engagementsRepo;
+            _appointmentsRepo = appointmentsRepo;
         }
 
         [HttpGet]
@@ -351,6 +361,15 @@ namespace CRMS.Controllers
             DetailsViewModel model = new DetailsViewModel
             {
                 Contacts = contact,
+                ListLeads = (await _leadsRepo.GetAllAsync())
+                    .Where(l => l.ProspectId == contact.Contact_Id)
+                    .ToList(),
+                ListAppointments = (await _appointmentsRepo.GetAllAsync())
+                    .Where(a => a.ContactId == contact.Contact_Id)
+                    .ToList(),
+                ListEngagement = (await _engagementsRepo.GetAllAsync())
+                    .Where(e => e.ContactId == contact.Contact_Id)
+                    .ToList()
 
             };
 
@@ -358,6 +377,18 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
+
+            var nameParts = contact.FullName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var firstNameInitial = nameParts[0].Substring(0, 1);
+            var lastNameInitial = nameParts[nameParts.Length - 1].Substring(0, 1);
+
+            // Combine the initials into a single string
+            var initials = $"{firstNameInitial}{lastNameInitial}".ToUpper();
+
+            // Set the initials as a ViewData property
+            ViewData["ContactInitials"] = initials;
+
 
             return View(model);
         }

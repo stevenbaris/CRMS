@@ -79,52 +79,7 @@ namespace CRMS.Data
             };
 
 
-            //var product = new List<Product>
-            //{
-            //     new Product(Guid.NewGuid(), "CL Personal Accident Nano",
-            //       "CL Personal Accident Nano Insurance covers loss for Accidental Death," +
-            //   " Disablement, or Dismemberment, and Cash Assistance due to Food Poisoning.",
-            //       "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, " +
-            //       "Cash Assistance Due to Food Poisoning"),
-            //   new Product(Guid.NewGuid(), "CL Personal Accident Nano Plus",
-            //       "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, " +
-            //       "Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
-            //       "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Accidental Burial Benefit, " +
-            //       "Cash Assistance Benefit, Fire Cash Assistance"
-            //   ),
-            //   new Product(Guid.NewGuid(), "CL MicroEnterpriseProtek",
-            //       "CL MicroEnterpriseProtekis a Property Insurance Program specially designed for Cebuana Lhuillier clients. " +
-            //       "It covers loss “ALL Risks” of physical loss, destruction of or damage to the property of the insured and wholly attributable to any " +
-            //       "sudden and unforeseen cause, except as hereinafter excluded, occurring during the currency of the policy.",
-            //       "Earthquake, Typhoon, Flood, Windstorm, Volcanic Eruption and other Acts of Nature, Extended Coverage, BOWTAP, BWD, SL and other water related damages, " +
-            //       "Vandalism/Spontaneous Combustion, All Other Losses"
-            //   ),
-            //   new Product(Guid.NewGuid(),
-            //       "ProtectMAX",
-            //       "For as low as P50, each certificate is valid for four (4) months from the date of issuance and can be availed up to a " +
-            //       "maximum of 5 certificates per insured.",
-            //       "Death Benefit, Accident or Sickness Emergency Cash Assistance, Accidental Dismemberment and/or Disablement, Murder and Unprovoked Assault and " +
-            //       "Residential Fire Reconstruction cash assistance"
-            //   ),
-            //    new Product(
-            //        Guid.NewGuid(),
-            //        "CL Health Care",
-            //        "An Individual Personal Accident Insurance specifically designed for Cebuana Lhuillier clients.It covers Accidental Death and Disability (AD&D), Double Indemnity, " +
-            //        "24/7 Call-a-doc, OP ER One Time use and Daily Hospital Income Benefit.",
-            //        "24/7 Call-a-doc, OP ER One Time use (All causes), Daily Hospital Income Benefit (All Causes)"
-            //    ),
-            //     new Product(Guid.NewGuid(),
-            //         "CL Personal Accident Basic",
-            //         "Covers Accidental Death and Accidental Dismemberment and/or Disablement Benefit.",
-            //         "Accidental Death, Accidental Dismemberment and/or Disablement"
-            //     ),
-            //     new Product(Guid.NewGuid(),
-            //         "CL ER Care",
-            //         "covers the medical expenses incurred within a year from the date of issuance or purchase by the InsuredPerson for the treatment of an eligible " +
-            //         "emergency condition, availment of which caneither be as an Out-Patient in the Emergency Room Department or as an In-Patient of aHospital via cash assistance.",
-            //         "The Policy is Effective for one (1) year from the date of issuance or after payment of claim,whichever comes first."
-            //     )
-            //};
+           
 
             var roles = new List<IdentityRole<Guid>>
             {
@@ -258,6 +213,54 @@ namespace CRMS.Data
                     UpdatedBy = user[2].Id
                 }
             };
+
+            //var product = new List<Product>
+            //{
+            //     new Product(Guid.NewGuid(), "CL Personal Accident Nano",
+            //       "CL Personal Accident Nano Insurance covers loss for Accidental Death," +
+            //   " Disablement, or Dismemberment, and Cash Assistance due to Food Poisoning.",
+            //       "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, " +
+            //       "Cash Assistance Due to Food Poisoning",user[2].Id,DateTime.Now
+            //       ),
+            //   new Product(Guid.NewGuid(), "CL Personal Accident Nano Plus",
+            //       "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, " +
+            //       "Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
+            //       "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Accidental Burial Benefit, " +
+            //       "Cash Assistance Benefit, Fire Cash Assistance",user[2].Id,DateTime.Now
+            //   ),
+            //   new Product(Guid.NewGuid(), "CL MicroEnterpriseProtek",
+            //       "CL MicroEnterpriseProtekis a Property Insurance Program specially designed for Cebuana Lhuillier clients. " +
+            //       "It covers loss “ALL Risks” of physical loss, destruction of or damage to the property of the insured and wholly attributable to any " +
+            //       "sudden and unforeseen cause, except as hereinafter excluded, occurring during the currency of the policy.",
+            //       "Earthquake, Typhoon, Flood, Windstorm, Volcanic Eruption and other Acts of Nature, Extended Coverage, BOWTAP, BWD, SL and other water related damages, " +
+            //       "Vandalism/Spontaneous Combustion, All Other Losses",user[2].Id,DateTime.Now
+            //   ),
+            //   new Product(Guid.NewGuid(),
+            //       "ProtectMAX",
+            //       "For as low as P50, each certificate is valid for four (4) months from the date of issuance and can be availed up to a " +
+            //       "maximum of 5 certificates per insured.",
+            //       "Death Benefit, Accident or Sickness Emergency Cash Assistance, Accidental Dismemberment and/or Disablement, Murder and Unprovoked Assault and " +
+            //       "Residential Fire Reconstruction cash assistance",user[2].Id,DateTime.Now
+            //   ),
+            //    new Product(
+            //        Guid.NewGuid(),
+            //        "CL Health Care",
+            //        "An Individual Personal Accident Insurance specifically designed for Cebuana Lhuillier clients.It covers Accidental Death and Disability (AD&D), Double Indemnity, " +
+            //        "24/7 Call-a-doc, OP ER One Time use and Daily Hospital Income Benefit.",
+            //        "24/7 Call-a-doc, OP ER One Time use (All causes), Daily Hospital Income Benefit (All Causes)",user[2].Id,DateTime.Now
+            //    ),
+            //     new Product(Guid.NewGuid(),
+            //         "CL Personal Accident Basic",
+            //         "Covers Accidental Death and Accidental Dismemberment and/or Disablement Benefit.",
+            //         "Accidental Death, Accidental Dismemberment and/or Disablement",user[2].Id,DateTime.Now
+            //     ),
+            //     new Product(Guid.NewGuid(),
+            //         "CL ER Care",
+            //         "covers the medical expenses incurred within a year from the date of issuance or purchase by the InsuredPerson for the treatment of an eligible " +
+            //         "emergency condition, availment of which caneither be as an Out-Patient in the Emergency Room Department or as an In-Patient of aHospital via cash assistance.",
+            //         "The Policy is Effective for one (1) year from the date of issuance or after payment of claim,whichever comes first.",user[2].Id,DateTime.Now
+            //     )
+            //};
 
             modelBuilder.Entity<AppointmentPurpose>().HasData(purpose);
             modelBuilder.Entity<CommunicationMethod>().HasData(methods);

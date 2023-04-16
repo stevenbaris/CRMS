@@ -50,7 +50,7 @@
                     <th data-field="column5" data-filter-control="input" data-sortable="true">Description</th>
                     <th data-field="column6" data-filter-control="input" data-sortable="true">Appointment Created</th>
                     <th data-field="column7" data-filter-control="input" data-sortable="true">Agent</th>
-                    <th data-field="note"">Action</th>
+                    <th data-field="note">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,7 +79,7 @@
                             @Html.DisplayFor(modelItem => item.User.FullName)
                         </td>
                         <td>
-                            <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@item.Appointment_Id">Edit</a> |
+                            <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@item.Appointment_Id">Edit</a>
                             <a asp-controller="Appointments" asp-action="Delete" asp-route-id="@item.Appointment_Id">Delete</a>
                         </td>
                     </tr>

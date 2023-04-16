@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CRMS.Models
@@ -14,29 +15,35 @@ namespace CRMS.Models
 
         [Required]
         [MinLength(2, ErrorMessage = "The last name is too short")]
+        
         public string? LastName { get; set; }
 
         [Required]
         [EmailAddress]
+        [DisplayName("Email Address")]
         public string? Email { get; set; }
 
 
         [Required]
         [RegularExpression(@"^(09|\+639)\d{9}$", ErrorMessage = "Incorrect format. Use +639XXXXXXXXX or 09XXXXXXXXX")]
+        [DisplayName("Phone Number")]
         public string? PhoneNumber { get; set; }
 
 
         [Required]
+        [DisplayName("Gender")]
         public GenderType? Gender { get; set; }
 
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Date of Birth")]
         public DateTime? DOB { get; set; }
 
 
 
+        [DisplayName("Contact Owner")]
         public Guid? ContactOwnerID { get; set; } //Foreign Key: UserID from Application User
 
 
@@ -46,6 +53,7 @@ namespace CRMS.Models
 
 
         [Required]
+        [DisplayName("Contact Creator")]
         public Guid? ContactCreatorID { get; set; } //Foreign Key: UserID from Application User
 
 

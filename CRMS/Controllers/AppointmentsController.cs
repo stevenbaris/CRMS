@@ -8,33 +8,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CRMS.Models;
+using CRMS.Services.Contacts_Services;
 
 namespace CRMS.Controllers
 {
     public class AppointmentsController : Controller
     {
         private readonly IRepository<Appointments> _appointments;
+        private readonly IContactRepository _contacts;
         private readonly CRMSDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         public AppointmentsController(
             IRepository<Appointments> appointments,
-            CRMSDbContext context, 
-            UserManager<ApplicationUser> userManager)
+            CRMSDbContext context,
+            UserManager<ApplicationUser> userManager,
+            IContactRepository contacts)
 
         {
             _appointments = appointments;
             _context = context;
-            _userManager = userManager; 
+            _userManager = userManager;
+            _contacts = contacts;
         }
 
         public async Task<IActionResult> Index()
         {
             var appointmentIndex = await _appointments.GetAllAsync();
-            var CRMSDbContext = await _context.Appointments.Include(ur => ur.prospect)
-                .Include(ur => ur.AppointmentPurpose)
-                .Include(ur => ur.User)
-                .ToListAsync();
-            return View("~/Views/Records/Appointment/Index.cshtml" , CRMSDbContext);
+            //var CRMSDbContext = await _context.Appointments.Include(ur => ur.prospect)
+            //    .Include(ur => ur.AppointmentPurpose)
+            //    .Include(ur => ur.User)
+            //    .ToListAsync();
+            return View("~/Views/Records/Appointment/Index.cshtml" , appointmentIndex);
             //return View("~/Views/Records/Appointment/Index.cshtml", await eMSDbContext.ToListAsync());
         }
        
@@ -49,11 +53,21 @@ namespace CRMS.Controllers
             return View("~/Views/Customization/Components/Purpose/AppointmentPurposes/Details.cshtml", appointmentDetails);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid? Id)
         {
+
             ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            if (Id != null)
+            {
+                var contact = await _contacts.GetbyIdAsync(Id.Value);
+                ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
+            }
+            else
+            {
+                ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            }
             return View("~/Views/Records/Appointment/Create.cshtml");
+
         }
 
         [HttpPost]

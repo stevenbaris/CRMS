@@ -2,70 +2,62 @@
 
 @{
     ViewData["Title"] = "Index";
-    
-
 }
+
 @section Styles{
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
-    
 }
-<div class="w3-container xm">
 
+<div class="w3-container">
     <h1>View All</h1>
-
     <p><a asp-action="Add">Create New</a></p>
-
     <br />
-
-
-        <div class="w3-responsive">
-            <table class="w3-table-all w3-card-4 w3-centered w3-hoverable mx-3" id="contacts-table">
-                ...
-            </table>
-        </div>
-    </div>
 </div>
 
+<div>
     <div class="w3-responsive">
         <table class="w3-table-all w3-card-4 w3-centered w3-hoverable mx-3" id="contacts-table">
             <thead class="text-uppercase">
                 <tr>
-                <th scope="col" style="white-space:nowrap" class="data-rank sorting" tabindex="0" rowspan="1" colspan="1" aria-label="Full Name">Full Name</th>
-                <th scope="col" style="white-space:nowrap">Email</th>
-                <th scope="col" style="white-space:nowrap">Phone Number</th>
-                <th scope="col" style="white-space:nowrap">Gender</th>
-                <th scope="col" style="white-space:nowrap">Date of Birth</th>
-                <th scope="col" style="white-space:nowrap">Contact Owner ID</th>
-                <th scope="col" style="white-space:nowrap">Date Assigned</th>
-                <th scope="col" style="white-space:nowrap">Contact Creator ID</th>
-                <th scope="col" style="white-space:nowrap">Create Date</th>
+                    <th scope="col" style="white-space:nowrap">Full Name</th>
+                    <th scope="col" style="white-space:nowrap">Email</th>
+                    <th scope="col" style="white-space:nowrap">Phone Number</th>
+                    <th scope="col" style="white-space:nowrap">Gender</th>
+                    <th scope="col" style="white-space:nowrap">Date of Birth</th>
+                    <th scope="col" style="white-space:nowrap">Contact Owner ID</th>
+                    <th scope="col" style="white-space:nowrap">Date Assigned</th>
+                    <th scope="col" style="white-space:nowrap">Contact Creator ID</th>
+                    <th scope="col" style="white-space:nowrap">Create Date</th>
                     <th scope="col" style="white-space:nowrap" class="fixed-column">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var contact in Model)
-            {
-            
-                <tr>
-                    <td style="white-space:nowrap"><a href="@Url.Action("ContactDetail", "Contacts", new { id = contact.Contact_Id })">@contact.FullName</a></td>
-                    <td style="white-space:nowrap">@contact.Email</td>
-                    <td style="white-space:nowrap">@contact.PhoneNumber</td>
-                    <td style="white-space:nowrap">@contact.Gender</td>
-                    <td style="white-space:nowrap">@contact.DOB</td>
-                    <td style="white-space:nowrap">@(contact.Owner?.FirstName + " " + contact.Owner?.LastName ?? "N/A")</td>
-                    <td style="white-space:nowrap">@contact.DateAssigned</td>
-                    <td style="white-space:nowrap">@(contact.Creator?.FirstName + " " + contact.Creator?.LastName ?? "N/A")</td>
-                    <td style="white-space:nowrap">@contact.CreateDate</td>
-                        <td style="white-space:nowrap">
-                        <a asp-action="Edit" asp-route-id="@contact.Contact_Id" class="w3-button w3-green w3-hover-black">Edit </a> |
-                        <a asp-action="Remove" asp-route-id="@contact.Contact_Id" class="w3-button w3-red w3-hover-black">Delete</a>
-                    </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+       
+            <tbody>
+                @foreach (var contact in Model)
+                {
+                    <tr>
+                        <td style="white-space:nowrap">
+                            <a href="@Url.Action("ContactDetail", "Contacts", new { id = contact.Contact_Id })">@contact.FullName</a>
+                        </td>
+                        <td style="white-space:nowrap">@contact.Email</td>
+                        <td style="white-space:nowrap">@contact.PhoneNumber</td>
+                        <td style="white-space:nowrap">@contact.Gender</td>
+                        <td style="white-space:nowrap">@contact.DOB</td>
+                        <td style="white-space:nowrap">
+                            @(contact.Owner?.FirstName + " " + contact.Owner?.LastName ?? "N/A")
+                        </td>
+                        <td style="white-space:nowrap">@contact.DateAssigned</td>
+                        <td style="white-space:nowrap">
+                            @(contact.Creator?.FirstName + " " + contact.Creator?.LastName ?? "N/A")
+                        </td>
+                        <td style="white-space:nowrap">@contact.CreateDate</td>
+                        <td style="white-space:nowrap">
+                            <a asp-action="Edit" asp-route-id="@contact.Contact_Id" class="w3-button w3-green w3-hover-black">Edit </a> 
+                            <a asp-action="Remove" asp-route-id="@contact.Contact_Id" class="w3-button w3-red w3-hover-black">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-   </div>
-
 </div>
-
