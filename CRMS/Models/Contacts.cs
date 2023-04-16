@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CRMS.Models
@@ -14,29 +15,35 @@ namespace CRMS.Models
 
         [Required]
         [MinLength(2, ErrorMessage = "The last name is too short")]
+        
         public string? LastName { get; set; }
 
         [Required]
         [EmailAddress]
+        [DisplayName("Email Address")]
         public string? Email { get; set; }
 
 
         [Required]
         [RegularExpression(@"^(09|\+639)\d{9}$", ErrorMessage = "Incorrect format. Use +639XXXXXXXXX or 09XXXXXXXXX")]
+        [DisplayName("Phone Number")]
         public string? PhoneNumber { get; set; }
 
 
         [Required]
+        [DisplayName("Gender")]
         public GenderType? Gender { get; set; }
 
 
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayName("Date of Birth")]
         public DateTime? DOB { get; set; }
 
 
 
+        [DisplayName("Contact Owner")]
         public Guid? ContactOwnerID { get; set; } //Foreign Key: UserID from Application User
 
 
@@ -46,6 +53,7 @@ namespace CRMS.Models
 
 
         [Required]
+        [DisplayName("Contact Creator")]
         public Guid? ContactCreatorID { get; set; } //Foreign Key: UserID from Application User
 
 
@@ -53,6 +61,14 @@ namespace CRMS.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? CreateDate { get; set; }
+
+
+        
+        public Guid? UpdatedBy { get; set; } //Foreign Key: UserID from Application User
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? UpdateDate { get; set; }
 
         //Computed property
         [IgnoreMember]
@@ -64,14 +80,19 @@ namespace CRMS.Models
         //FOREIGN ENTITY
         public ApplicationUser? Creator { get; set; }
         public ApplicationUser? Owner { get; set; }
+        public ApplicationUser? Updater { get; set; }
         public RollingTransactions? Transactions { get; set; }
 
 
         //CONSTRUCTORS
         public Contacts() { }
 
-        public Contacts(string firstName, string lastName, string email, string phoneNumber, GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned, Guid? contactCreatorID, DateTime? createDate)
+        public Contacts(
+            Guid contact_Id, string? firstName, string? lastName, string? email, string? phoneNumber, 
+            GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned, 
+            Guid? contactCreatorID, DateTime? createDate, Guid? updatedBy, DateTime? updateDate)
         {
+            Contact_Id = contact_Id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -82,6 +103,8 @@ namespace CRMS.Models
             DateAssigned = dateAssigned;
             ContactCreatorID = contactCreatorID;
             CreateDate = createDate;
+            UpdatedBy = updatedBy;
+            UpdateDate = updateDate;
         }
     }
 

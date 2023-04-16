@@ -32,7 +32,7 @@ namespace CRMS.Controllers
                 .Include(ur => ur.User)
                 .Include(ur => ur.product)
                 .ToListAsync();
-            return View("~/Views/Records/Leads/Index.cshtml", CRMSDbContext);
+            return View("~/Views/Records/Leads/Index.cshtml", leadsIndex);
             //return View("~/Views/Records/Leads/Index.cshtml", await eMSDbContext.ToListAsync());
         }
 

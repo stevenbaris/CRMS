@@ -52,7 +52,7 @@ namespace CRMS.Controllers
                 return View(userViewModel);
             }
 
-            return RedirectToAction(actionName: "Index", controllerName: "User");
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
         [HttpGet]
@@ -83,7 +83,7 @@ namespace CRMS.Controllers
                 Email = createUserViewModel.Email,
                 FirstName = createUserViewModel.FirstName,
                 LastName = createUserViewModel.LastName,
-                Address = createUserViewModel.Address,
+                CityAddress = createUserViewModel.Address,
             };
 
             var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
@@ -103,17 +103,32 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
 
-            await Task.Delay(3000);
-            var users = await _userManager.Users.Select(user => new IndexUserViewModel
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Role = _userManager.GetRolesAsync(user).Result
-            }).ToListAsync();
+            //var users = await _userManager.Users.Select(async user => new IndexUserViewModel
+            //{
+            //    Id = user.Id,
+            //    FirstName = user.FirstName,
+            //    LastName = user.LastName,
+            //    Email = user.Email,
+            //    Role = (await _userManager.GetRolesAsync(user)).ToList
+            //}).ToListAsync();
 
-            return View(users);
+            var users = await _userManager.Users.ToListAsync();
+            var usersWithRoles = new List<IndexUserViewModel>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var userViewModel = new IndexUserViewModel
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Role = roles.ToList()
+                };
+                usersWithRoles.Add(userViewModel);
+            }
+            return View(usersWithRoles);
         }
 
         public async Task<IActionResult> IndexRole(string sortOrder)

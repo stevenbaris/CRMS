@@ -54,6 +54,7 @@ namespace CRMS.Models.Records
 
     public enum SchedStatus
     {
+        Upcoming,
         MetInPerson,
         MetOnline,
         Cancelled,

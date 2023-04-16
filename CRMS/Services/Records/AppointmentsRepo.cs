@@ -33,7 +33,10 @@ namespace CRMS.Services.Record_Services
 
         public async Task<List<Appointments>> GetAllAsync()
         {
-            return await _dBcontext.Appointments.ToListAsync();
+            return await _dBcontext.Appointments.Include(ur => ur.prospect)
+                .Include(ur => ur.AppointmentPurpose)
+                .Include(ur => ur.User)
+                .ToListAsync(); 
         }
 
         public async Task<Appointments> GetbyIdAsync(Guid id)

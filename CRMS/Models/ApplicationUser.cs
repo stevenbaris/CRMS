@@ -27,8 +27,10 @@ namespace CRMS.Models
 
 
         [Required]
-        [MinLength(5, ErrorMessage = "The Address is too short")]
-        public string Address { get; set; }
+        [MinLength(5, ErrorMessage = "The CityAddress is too short")]
+        public string? CityAddress { get; set; }
+
+
 
         [IgnoreMember]
         public string FullName
