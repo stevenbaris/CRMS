@@ -83,7 +83,7 @@ namespace CRMS.Controllers
                 Email = createUserViewModel.Email,
                 FirstName = createUserViewModel.FirstName,
                 LastName = createUserViewModel.LastName,
-                Address = createUserViewModel.Address,
+                CityAddress = createUserViewModel.Address,
             };
 
             var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
