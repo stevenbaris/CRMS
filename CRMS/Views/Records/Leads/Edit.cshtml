@@ -1,63 +1,138 @@
 ﻿@model Leads
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Lead";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<h1><b>Edit Employee Record</b></h1>
-
-<h4>Update the respected field/s</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-controller="Leads" asp-action="Edit" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<header style="padding: 30px;">
+    <h1 style="font-weight:700">Edit Lead</h1>
+    <hr />
+    <br />
+    <form class="row g-3 needs-validation" novalidate asp-controller="Leads" asp-action="Edit" method="post">
             <input type="hidden" asp-for="Leads_Id" />
             <input type="hidden" asp-for="CreatedBy" />
             <input type="hidden" asp-for="CreatedDate" />
-            <div>
-                <label asp-for="Leads_DateTime"></label>
-                <input asp-for="Leads_DateTime" />
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="Leads_DateTime" class="form-control" required>
+                <label asp-for="Leads_DateTime">Lead Schedule</label>
                 <span asp-validation-for="Leads_DateTime"></span>
+                <div class="invalid-feedback">
+                    Date and Time are required!
+                </div>
             </div>
-            <div>
-                <label asp-for="PrefContactMethod"></label>
-                <input asp-for="PrefContactMethod" />
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.ProspectId, (IEnumerable<SelectListItem>)ViewBag.ProspectId, "-- Select Prospect--", new { @class = "form-control", @required = "required"  })
+                <label asp-for="ProspectId">Prospect</label>
+                <span asp-validation-for="ProspectId"></span>
+                <div class="invalid-feedback">
+                    Please choose a Prospect!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="PrefContactMethod" class="form-control" placeholder=" " required>
+                <label asp-for="PrefContactMethod">Preferred Contact Method</label>
                 <span asp-validation-for="PrefContactMethod"></span>
+                <div class="invalid-feedback">
+                    Preference is required!
+                </div>
             </div>
-            <div>
-                <label asp-for="PrefContactDay"></label>
-                <input asp-for="PrefContactDay" />
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="PrefContactDay" class="form-control" placeholder=" " required>
+                <label asp-for="PrefContactDay">Preferred Contact Day</label>
                 <span asp-validation-for="PrefContactDay"></span>
+                <div class="invalid-feedback">
+                    Preference is required!
+                </div>
             </div>
-            <div>
-                <label asp-for="PrefContactTime"></label>
-                <input asp-for="PrefContactTime" />
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="PrefContactTime" class="form-control" placeholder=" " required>
+                <label asp-for="PrefContactTime">Preferred Contact Time</label>
                 <span asp-validation-for="PrefContactTime"></span>
+                <div class="invalid-feedback">
+                    Preference is required!
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ProspectId" class="control-label"></label>
-                <select asp-for="ProspectId" class="form-control" asp-items="ViewBag.ProspectId"></select>
-            </div>
-            <div>
-                <label asp-for="StatusId" class="control-label"></label>
-                <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
-            </div>
-            <div>
-                <label asp-for="LeadSourceId" class="control-label"></label>
-                <select asp-for="LeadSourceId" class="form-control" asp-items="ViewBag.LeadSourceId"></select>
-            </div>
-            <div>
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
-            </div>
-            <button type="submit">Edit</button>
-        </form>
-    </div>
+        </div>
 
-    <div>
-        <br /><a asp-action="Index" class="btn btn-dark">Back to Appointment List</a>
-    </div>
-</div>
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.StatusId, (IEnumerable<SelectListItem>)ViewBag.StatusId, "-- Select Status --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="StatusId">Status</label>
+                <span asp-validation-for="StatusId"></span>
+                <div class="invalid-feedback">
+                    Please choose a Status!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.LeadSourceId, (IEnumerable<SelectListItem>)ViewBag.LeadSourceId, "-- Select Lead Source --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="LeadSourceId">Lead Source</label>
+                <span asp-validation-for="LeadSourceId"></span>
+                <div class="invalid-feedback">
+                    Please choose a Lead Source!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductId, "-- Select Product --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="ProductId">Product</label>
+                <span asp-validation-for="ProductId"></span>
+                <div class="invalid-feedback">
+                    Please choose a Purpose!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn btn-primary">Edit</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+
+    </form>
+</header>
 
 
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>

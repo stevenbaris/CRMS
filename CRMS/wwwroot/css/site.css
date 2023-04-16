@@ -20,7 +20,7 @@ html {
 
 body {
     margin-bottom: 60px;
-    font-family: 'Nunito Sans',Helvetica,Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     /*font-family: 'Poppins', sans-serif;*/
 }
 
@@ -29,7 +29,10 @@ body {
 }
 
 .cebuana-bg-blue {
-    background-color: #003A62;
+    background-color: #002756;
+}
+.cebuana-bg-blue-secondary {
+    background-color: #00447C;
 }
 .cebuana-bg-red {
     background-color: #a70000;
@@ -121,7 +124,7 @@ td {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius:
+    border-radius: 1px;
 }
 
 .caret-yellow .caret {
@@ -170,10 +173,11 @@ ul.dropdown-menu {
     padding-left: .5rem;
 }
 .background-radial-gradient {
-    background-color: hsl(204, 41%, 15%);
-    background-image: radial-gradient(650px circle at 0% 0%, hsl(204, 41%, 35%) 15%, hsl(204, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(204, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(204, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(204, 41%, 20%) 75%, hsl(204, 41%, 19%) 80%, transparent 100%);
+    background-color: hsl(213, 41%, 15%);
+    background-image: radial-gradient(650px circle at 0% 0%, hsl(213, 41%, 35%) 15%, hsl(213, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(213, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(213, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(213, 41%, 20%) 75%, hsl(213, 41%, 19%) 80%, transparent 100%);
 }
 
 .bg-glass {
     background-color: hsla(0, 0%, 100%, 0.9) !important;
     backdrop-filter: saturate(200%) blur(25px);
+}

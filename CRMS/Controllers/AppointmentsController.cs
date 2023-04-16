@@ -69,6 +69,8 @@ namespace CRMS.Controllers
                 await _appointments.CreateAsync(appointmentCreate);
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
+            ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
             return View("~/Views/Records/Appointment/Create.cshtml", appointmentCreate);
         }
 
