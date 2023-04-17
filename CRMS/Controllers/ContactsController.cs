@@ -191,7 +191,20 @@ namespace CRMS.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewAll()
         {
-            return View(await _contactRepository.GetAllAsync());
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return View(await _contactRepository.GetAllAsync());
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    return View(await _contactRepository.GetAllMyContactsAsync(Guid.Parse(userId)));
+                }
+            }
+            return RedirectToAction("Login","User");
 
         }
 

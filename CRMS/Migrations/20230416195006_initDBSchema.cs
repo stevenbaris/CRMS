@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CRMS.Migrations
 {
-    public partial class InitDBSchema : Migration
+    public partial class initDBSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -453,11 +453,11 @@ namespace CRMS.Migrations
                 columns: new[] { "Purpose_Id", "PurposeName" },
                 values: new object[,]
                 {
-                    { new Guid("41228384-e3f8-4262-bce3-29a2bfcf2184"), "Fact-Find" },
-                    { new Guid("5a20cc0a-c08a-4ad3-af60-34f90dae28a5"), "Proposal" },
-                    { new Guid("ef5f0c6f-13e0-4afe-bc74-d413bf06b957"), "Presentation" },
-                    { new Guid("f053d0c1-89df-402f-8653-8df552a021d0"), "Sales Closing" },
-                    { new Guid("f3109f45-38e3-46ed-a354-d02cc7a87a6d"), "Others" }
+                    { new Guid("27e12145-648f-42bd-a07d-061fb3b7a6a7"), "Fact-Find" },
+                    { new Guid("98b4e42b-29ea-41b4-a708-a12e4d557e95"), "Sales Closing" },
+                    { new Guid("a7363c54-3d12-4489-940d-bc37ceb557e1"), "Others" },
+                    { new Guid("a7495e8a-edd8-4fe8-81b0-77e27b3334aa"), "Presentation" },
+                    { new Guid("b0f2ffee-4b24-46ab-b7e1-c0dae2535650"), "Proposal" }
                 });
 
             migrationBuilder.InsertData(
@@ -465,8 +465,8 @@ namespace CRMS.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("3f89c180-6c2b-4b9e-90ef-27699bd419cd"), "ea1580e3-cfd4-4375-9538-a2c81458c55a", "Admin", "ADMIN" },
-                    { new Guid("9da17b33-3bd1-4b80-895a-7013029048ad"), "c569e2f0-0547-4469-a89d-57a346bd73ba", "User", "USER" }
+                    { new Guid("2f27f58a-382d-42d6-8e7e-c3f64dea0b9a"), "5144952b-5cad-4be8-b514-c9e2bd42e574", "Admin", "ADMIN" },
+                    { new Guid("3e76ae20-2614-4b40-a962-f55555087bae"), "44ce48c0-b315-44fb-a737-936a24f458e4", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -474,9 +474,9 @@ namespace CRMS.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "CityAddress", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("9cf30f3d-cf3a-4380-97a1-11b90e51ee3c"), 0, "Makati", "f7342abb-7002-4f41-ae6b-2f05aa6b1a65", new DateTime(2023, 4, 16, 0, 0, 0, 0, DateTimeKind.Local), "su@crms.com", true, "Super", "User", true, null, "SU@CRMS.COM", "SU@CRMS.COM", "AQAAAAEAACcQAAAAEIE4HFDOfgz3DBLo+S5/XLgA4nWYh6Tojj9yPL6WUYV5xRnYoTiepKG4Jc3t2fBB0Q==", null, true, "", false, "su@crms.com" },
-                    { new Guid("a226f636-d8ba-49d2-8e33-b5f4b752e3e2"), 0, "Makati", "66aaedb4-f884-4bfd-bbe7-3d93cb37bbe9", new DateTime(2023, 4, 16, 0, 0, 0, 0, DateTimeKind.Local), "user@crms.com", true, "Regular", "User", true, null, "USER@CRMS.COM", "USER@CRMS.COM", "AQAAAAEAACcQAAAAEMWI3MaO8kIhFVqx+CwNgJXfLesHWaXIChwafCJwXaMZ3iXRki6SYHuty7pUy5ZUDA==", null, true, "", false, "user@crms.com" },
-                    { new Guid("f5ac9055-835f-44a3-82fe-2cbc72137772"), 0, "Makati", "aa6ee692-6142-43cc-8182-69aa82e0bcd7", new DateTime(2023, 4, 16, 0, 0, 0, 0, DateTimeKind.Local), "sys@crms.com", true, "SYSTEM", "CRMS", true, null, "SYS@CRMS.COM", "SYSTEM", "AQAAAAEAACcQAAAAEH1Be7ixodyW1zKyMkoCEkT3IIJmQGq1vTC/KDh9qUc11DSR3ZuGKEKBEAr31IimPw==", null, true, "", false, "SYSTEM" }
+                    { new Guid("0cd247a9-1ffe-4701-98b2-59f8d914d428"), 0, "Makati", "182eb692-3faa-4f99-a626-8c11b493fdc0", new DateTime(2023, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), "su@crms.com", true, "Super", "User", true, null, "SU@CRMS.COM", "SU@CRMS.COM", "AQAAAAEAACcQAAAAEBoZy2FRB7dOSupsrc2KeVLq9J7C0/06qLyZXChFEIIzYh0OQmM4CrH203MffzOXPw==", null, true, "", false, "su@crms.com" },
+                    { new Guid("0de1f25e-9466-4e0f-8ee8-e31342a61ae3"), 0, "Makati", "34d8ad02-0348-477e-84e1-d32f0c897a80", new DateTime(2023, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), "user@crms.com", true, "Regular", "User", true, null, "USER@CRMS.COM", "USER@CRMS.COM", "AQAAAAEAACcQAAAAEFhbEu/dg3Tuhn4ruNH5tGS7vkMyGmIx/HF5AD21KfFtJvlNzBy/AZh8foHyGZoFgQ==", null, true, "", false, "user@crms.com" },
+                    { new Guid("be8108c2-10df-4a36-94d0-28c59ba26f6f"), 0, "Makati", "75e25c42-d642-4eab-a82d-3ae8a84df889", new DateTime(2023, 4, 17, 0, 0, 0, 0, DateTimeKind.Local), "sys@crms.com", true, "SYSTEM", "CRMS", true, null, "SYS@CRMS.COM", "SYSTEM", "AQAAAAEAACcQAAAAEIGXEQUF0kNDifPMKLs/793vOBa8RQtp8nLsbhZBnbEt3E/HfcZaAk9qsmnZC7FUmg==", null, true, "", false, "SYSTEM" }
                 });
 
             migrationBuilder.InsertData(
@@ -484,14 +484,14 @@ namespace CRMS.Migrations
                 columns: new[] { "CommunicationMethod_Id", "CommunicationMethodName" },
                 values: new object[,]
                 {
-                    { new Guid("180b0185-3a36-4c57-a2fd-832875cf9ff5"), "WhatsApp" },
-                    { new Guid("2bf7c7fc-ceee-4798-98eb-bf6e6c39efad"), "Facebook" },
-                    { new Guid("320b3134-4045-462e-9008-9eebada89818"), "Others" },
-                    { new Guid("46785ae7-d8b7-4897-b34e-811ca9be2a45"), "Instagram" },
-                    { new Guid("62e3258a-ad0f-4aca-bce4-78105ead0411"), "Test Message" },
-                    { new Guid("cbf939c3-2f64-4df8-b28f-ab4e80276d06"), "Phone Call" },
-                    { new Guid("d26077d7-1b2b-4408-8bb1-839cf2c08b31"), "Line" },
-                    { new Guid("e8e47d6f-bec2-4d84-bcc5-d2c8b3cb0032"), "Email" }
+                    { new Guid("49910645-e8bb-4477-bcf5-6961c76ee9aa"), "WhatsApp" },
+                    { new Guid("5712d76f-3b52-49eb-953b-86a35885c1ca"), "Instagram" },
+                    { new Guid("751811bb-dd5f-49b7-bee3-e79d7e031957"), "Test Message" },
+                    { new Guid("7a158181-2cb7-4027-93df-88fd0e7af42e"), "Email" },
+                    { new Guid("a43a2215-cadd-4329-8f0f-0e3cf2975a1a"), "Facebook" },
+                    { new Guid("a9501733-b1e8-4262-b736-8c2ccfbd82de"), "Line" },
+                    { new Guid("d1d9438b-ab8b-4916-8234-9be248c0075f"), "Others" },
+                    { new Guid("f5c2a3ee-68fc-4829-814a-0e4d68eaf8a2"), "Phone Call" }
                 });
 
             migrationBuilder.InsertData(
@@ -499,10 +499,10 @@ namespace CRMS.Migrations
                 columns: new[] { "Effectivity_Id", "Effectivity_Name" },
                 values: new object[,]
                 {
-                    { new Guid("02863c2e-7023-4499-b3e3-cab73e121c37"), "Read but no response" },
-                    { new Guid("2848552c-49da-4887-9c7d-71c888865f75"), "Simple Response" },
-                    { new Guid("754fdd10-3c03-4ac8-866f-247085861747"), "Good Engagement" },
-                    { new Guid("936e0886-cfc5-439e-8fda-e75c3fc8a775"), "Not Read" }
+                    { new Guid("1b337aa3-8b2b-4f6b-94bc-e8e96fe3f1e9"), "Not Read" },
+                    { new Guid("1c0d88fe-7b56-4d53-8b4a-ad41ae912961"), "Good Engagement" },
+                    { new Guid("3f429b6f-33e2-4ffc-99df-81f6cf645009"), "Read but no response" },
+                    { new Guid("facb73ff-5526-40ca-be28-fdc4ca7f6728"), "Simple Response" }
                 });
 
             migrationBuilder.InsertData(
@@ -510,14 +510,14 @@ namespace CRMS.Migrations
                 columns: new[] { "EType_Id", "EngagementName" },
                 values: new object[,]
                 {
-                    { new Guid("0402c92c-4687-4c64-a31d-43a1e34de5ff"), "Company News" },
-                    { new Guid("19cbea79-1979-41bf-bb9b-4a364c6ba73a"), "Others" },
-                    { new Guid("28bda113-b507-45c8-ab74-797f72d1c501"), "Anniversary" },
-                    { new Guid("70295121-2d78-4842-819c-8aa5fe068934"), "Holiday" },
-                    { new Guid("ceef13fe-549d-48a6-a5c1-1df29db224e0"), "Birthday" },
-                    { new Guid("cfcc3043-8a15-4b48-9049-decda517dcd2"), "Congratulations" },
-                    { new Guid("e8809712-c63e-4826-b4bd-60b62e3e0b54"), "Discount" },
-                    { new Guid("f2051c37-e3ca-4556-a00f-d2c5d7af328f"), "New Product" }
+                    { new Guid("0de31afd-d659-4c1a-a8cd-5c27fb19a360"), "Discount" },
+                    { new Guid("1550ba58-0d8d-4153-962a-c5093db7c1b2"), "New Product" },
+                    { new Guid("1b36ae57-6621-40ea-812c-b5116182d8c9"), "Congratulations" },
+                    { new Guid("5e9cbdb7-2823-4ed4-b2fe-cbc0475c5d17"), "Anniversary" },
+                    { new Guid("69baf32f-ac19-4b94-b187-f5c16a3f5b0c"), "Company News" },
+                    { new Guid("b68cd17a-b0f2-4a98-8a4e-2996e37b9d8c"), "Birthday" },
+                    { new Guid("c47497f7-566b-4f0e-9eb5-f1f4860f11f8"), "Holiday" },
+                    { new Guid("ebd43c84-b692-4cee-a81b-d02ec9767f68"), "Others" }
                 });
 
             migrationBuilder.InsertData(
@@ -525,12 +525,12 @@ namespace CRMS.Migrations
                 columns: new[] { "Source_Id", "SourceName" },
                 values: new object[,]
                 {
-                    { new Guid("12874ef1-58d7-4323-a3c7-9b43bdec4464"), "Compony-Generated" },
-                    { new Guid("1dedce90-8118-43dc-bf47-efdd5c13adb0"), "Social Media" },
-                    { new Guid("3a4f702a-1d0e-4a32-b7c5-ba6a50274a81"), "Friend" },
-                    { new Guid("5413cb73-b2ad-4f77-a23f-a1a2c469a3ca"), "Others" },
-                    { new Guid("ad7e5402-1ffd-41ac-a979-f1c8aac887e3"), "Referral" },
-                    { new Guid("f8f81864-79fe-4003-847e-1463b8e8bad2"), "Webinar" }
+                    { new Guid("2a8d07ca-48df-49d9-a99f-016b5460d3f1"), "Others" },
+                    { new Guid("344c3cf8-dd11-4be7-a038-1b9b1c6d6225"), "Social Media" },
+                    { new Guid("432c211e-8d3d-424a-bcd9-944c6a19722c"), "Webinar" },
+                    { new Guid("7788bb4d-3421-4c45-bfe7-8d5c439788c9"), "Compony-Generated" },
+                    { new Guid("bd6cd130-a965-435c-917b-70ae35eb9648"), "Referral" },
+                    { new Guid("f5ff4166-2ca9-4438-815f-7f8e85698ae8"), "Friend" }
                 });
 
             migrationBuilder.InsertData(
@@ -538,27 +538,27 @@ namespace CRMS.Migrations
                 columns: new[] { "LeadStatus_Id", "LeadStatusName" },
                 values: new object[,]
                 {
-                    { new Guid("35bc38d7-6af1-4595-8994-bf1e0272cf4f"), "Lead is Dead" },
-                    { new Guid("681f2506-6cc2-4e3a-a2b3-55ea97fc7649"), "Proposal Generated" },
-                    { new Guid("86013ffa-c100-4041-b76a-c8f1b6d63221"), "Application Submitted" },
-                    { new Guid("952ead42-9668-412c-8bb6-aa45c9017776"), "Contacted" },
-                    { new Guid("d574f87b-75dd-4549-af80-e2aedc3b9cb2"), "Met" },
-                    { new Guid("e54a2cf3-a779-41ed-b798-74969b788853"), "Policy Issued" }
+                    { new Guid("073406cc-5829-4510-97e5-49642b5b01b8"), "Contacted" },
+                    { new Guid("4016a6f4-9688-4ce3-adbd-54801ab95b98"), "Proposal Generated" },
+                    { new Guid("bae12886-507d-466f-8928-7469680d821d"), "Policy Issued" },
+                    { new Guid("bf6676b5-4c03-402c-a5ec-849b8a32f2bf"), "Lead is Dead" },
+                    { new Guid("c5aa33a2-cce6-4455-874b-c195160c320b"), "Application Submitted" },
+                    { new Guid("c87edbd6-bbbf-4bb0-aca7-2c62bf8c85c0"), "Met" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { new Guid("3f89c180-6c2b-4b9e-90ef-27699bd419cd"), new Guid("9cf30f3d-cf3a-4380-97a1-11b90e51ee3c") });
+                values: new object[] { new Guid("2f27f58a-382d-42d6-8e7e-c3f64dea0b9a"), new Guid("0cd247a9-1ffe-4701-98b2-59f8d914d428") });
 
             migrationBuilder.InsertData(
                 table: "CONTACTS",
                 columns: new[] { "Contact_Id", "ContactCreatorID", "ContactOwnerID", "CreateDate", "DOB", "DateAssigned", "Email", "FirstName", "Gender", "LastName", "PhoneNumber", "UpdateDate", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { new Guid("226ee897-ffb0-4da5-8496-4d964a01c662"), new Guid("9cf30f3d-cf3a-4380-97a1-11b90e51ee3c"), new Guid("a226f636-d8ba-49d2-8e33-b5f4b752e3e2"), new DateTime(2023, 4, 11, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(503), new DateTime(1999, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 13, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(472), "steven.baris14@gmail.com", "Steven", 0, "Baris", "09123456789", new DateTime(2023, 4, 16, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(503), new Guid("f5ac9055-835f-44a3-82fe-2cbc72137772") },
-                    { new Guid("c6301106-b64c-41a2-b5cf-6daecec912db"), new Guid("a226f636-d8ba-49d2-8e33-b5f4b752e3e2"), new Guid("a226f636-d8ba-49d2-8e33-b5f4b752e3e2"), new DateTime(2023, 4, 13, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(517), new DateTime(1996, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 15, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(513), "cust.no1@gmail.com", "Customer", 1, "Number1", "09987654321", new DateTime(2023, 4, 16, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(519), new Guid("f5ac9055-835f-44a3-82fe-2cbc72137772") },
-                    { new Guid("c931f1bb-128a-4668-a01e-ceca9344bca0"), new Guid("9cf30f3d-cf3a-4380-97a1-11b90e51ee3c"), null, new DateTime(2023, 4, 16, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(448), new DateTime(1994, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "charl.legista@gmail.com", "Charl", 0, "Legista", "09052214812", new DateTime(2023, 4, 16, 19, 40, 32, 323, DateTimeKind.Local).AddTicks(449), new Guid("f5ac9055-835f-44a3-82fe-2cbc72137772") }
+                    { new Guid("27e4f7e4-e9c3-48af-8645-e9c4e5a30b4c"), new Guid("0de1f25e-9466-4e0f-8ee8-e31342a61ae3"), new Guid("0de1f25e-9466-4e0f-8ee8-e31342a61ae3"), new DateTime(2023, 4, 14, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5644), new DateTime(1996, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 16, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5642), "cust.no1@gmail.com", "Customer", 1, "Number1", "09987654321", new DateTime(2023, 4, 17, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5644), new Guid("be8108c2-10df-4a36-94d0-28c59ba26f6f") },
+                    { new Guid("6766a803-0936-4316-b4ae-202509af9329"), new Guid("0cd247a9-1ffe-4701-98b2-59f8d914d428"), new Guid("0de1f25e-9466-4e0f-8ee8-e31342a61ae3"), new DateTime(2023, 4, 12, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5632), new DateTime(1999, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 4, 14, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5623), "steven.baris14@gmail.com", "Steven", 0, "Baris", "09123456789", new DateTime(2023, 4, 17, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5633), new Guid("be8108c2-10df-4a36-94d0-28c59ba26f6f") },
+                    { new Guid("a7710c8e-6a00-4f5d-b647-1b707210e83b"), new Guid("0cd247a9-1ffe-4701-98b2-59f8d914d428"), null, new DateTime(2023, 4, 17, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5614), new DateTime(1994, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "charl.legista@gmail.com", "Charl", 0, "Legista", "09052214812", new DateTime(2023, 4, 17, 3, 50, 5, 671, DateTimeKind.Local).AddTicks(5615), new Guid("be8108c2-10df-4a36-94d0-28c59ba26f6f") }
                 });
 
             migrationBuilder.CreateIndex(

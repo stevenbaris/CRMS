@@ -15,7 +15,7 @@
         <input type="hidden" asp-for="CreatedDate" />
         <div class="form-group">
             <label asp-for="Engagement_Date" class="control-label"></label>
-            <input asp-for="Engagement_Date" class="form-control" placeholder="@DateTime.Now" required />
+            <input asp-for="Engagement_Date" class="form-control" placeholder="@DateTime.Now" max="@DateTime.Now.ToString("yyyy-MM-dd")" required />
             <span asp-validation-for="Engagement_Date" class="text-danger"></span>
         </div>
 

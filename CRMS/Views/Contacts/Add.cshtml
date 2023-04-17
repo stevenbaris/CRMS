@@ -44,7 +44,7 @@
 
         <div class="form-group">
             <label asp-for="DOB" class="control-label">Date of Birth:</label>
-            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @required = "required"} })
+            @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @required = "required",  max = DateTime.Now.ToString("yyyy-MM-dd")} })
             <span asp-validation-for="DOB" class="text-danger"></span>
         </div>
 
@@ -74,7 +74,7 @@
 
         <div class="form-group">
             <label asp-for="DateAssigned" class="control-label">Date Assigned:</label>
-            @Html.EditorFor(model => model.DateAssigned, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+            @Html.EditorFor(model => model.DateAssigned, new { htmlAttributes = new { @class = "form-control", @required = "required",  max = DateTime.Now.ToString("yyyy-MM-dd") } })
             <span asp-validation-for="DateAssigned" class="text-danger"></span>
         </div>
 
