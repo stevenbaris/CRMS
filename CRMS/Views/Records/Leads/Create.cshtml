@@ -16,7 +16,7 @@
             <div class="form-floating">
                 <input asp-for="Leads_DateTime" class="form-control" required>
                 <label asp-for="Leads_DateTime">Lead Schedule</label>
-                <span asp-validation-for="Leads_DateTime"></span>
+                <span asp-validation-for="Leads_DateTime" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Date and Time are required!
                 </div>
@@ -25,11 +25,11 @@
 
         <div class="col-md-6">
             <div class="form-floating">
-                @Html.DropDownListFor(model => model.ProspectId, (IEnumerable<SelectListItem>)ViewBag.ProspectId, "-- Select Prospect--", new { @class = "form-control", @required = "required"  })
-                <label asp-for="ProspectId">Prospect</label>
-                <span asp-validation-for="ProspectId"></span>
+                @Html.DropDownListFor(model => model.ProspectId, (IEnumerable<SelectListItem>)ViewBag.ProspectId, "-- Select Contact--", new { @class = "form-control", @required = "required"  })
+                <label asp-for="ProspectId">Contact</label>
+                <span asp-validation-for="ProspectId" class="text-danger"></span>
                 <div class="invalid-feedback">
-                    Please choose a Prospect!
+                    Please choose a Contact!
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
             <div class="form-floating">
                 <input asp-for="PrefContactMethod" class="form-control" placeholder=" " required>
                 <label asp-for="PrefContactMethod">Preferred Contact Method</label>
-                <span asp-validation-for="PrefContactMethod"></span>
+                <span asp-validation-for="PrefContactMethod" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Preference is required!
                 </div>
@@ -49,7 +49,7 @@
             <div class="form-floating">
                 <input asp-for="PrefContactDay" class="form-control" placeholder=" " required>
                 <label asp-for="PrefContactDay">Preferred Contact Day</label>
-                <span asp-validation-for="PrefContactDay"></span>
+                <span asp-validation-for="PrefContactDay" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Preference is required!
                 </div>
@@ -60,7 +60,7 @@
             <div class="form-floating">
                 <input asp-for="PrefContactTime" class="form-control" placeholder=" " required>
                 <label asp-for="PrefContactTime">Preferred Contact Time</label>
-                <span asp-validation-for="PrefContactTime"></span>
+                <span asp-validation-for="PrefContactTime" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Preference is required!
                 </div>
@@ -71,7 +71,7 @@
             <div class="form-floating">
                 @Html.DropDownListFor(model => model.StatusId, (IEnumerable<SelectListItem>)ViewBag.StatusId, "-- Select Status --", new { @class = "form-control", @required = "required"  })
                 <label asp-for="StatusId">Status</label>
-                <span asp-validation-for="StatusId"></span>
+                <span asp-validation-for="StatusId" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Please choose a Status!
                 </div>
@@ -82,7 +82,7 @@
             <div class="form-floating">
                 @Html.DropDownListFor(model => model.LeadSourceId, (IEnumerable<SelectListItem>)ViewBag.LeadSourceId, "-- Select Lead Source --", new { @class = "form-control", @required = "required"  })
                 <label asp-for="LeadSourceId">Lead Source</label>
-                <span asp-validation-for="LeadSourceId"></span>
+                <span asp-validation-for="LeadSourceId" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Please choose a Lead Source!
                 </div>
@@ -93,7 +93,7 @@
             <div class="form-floating">
                 @Html.DropDownListFor(model => model.ProductId, (IEnumerable<SelectListItem>)ViewBag.ProductId, "-- Select Product --", new { @class = "form-control", @required = "required"  })
                 <label asp-for="ProductId">Product</label>
-                <span asp-validation-for="ProductId"></span>
+                <span asp-validation-for="ProductId" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Please choose a Purpose!
                 </div>
@@ -102,7 +102,7 @@
 
         <div class="col-12">
             <br />
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn w3-highway-blue">Create</button>
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>
         </div>
 
