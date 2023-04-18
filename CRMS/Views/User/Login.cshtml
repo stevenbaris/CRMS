@@ -20,21 +20,24 @@
                     <form asp-controller="User" asp-action="Login" method="post">
                         <div class="card-body px-4 py-5 px-md-5">
 
+
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="h-100 d-flex align-items-center justify-content-center">
                                 <h2 class="fw-bold mb-5" style="color: hsl(204, 41%, 15%)">Login</h2>
                             </div>
-
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example3" asp-for="UserName">Email address</label>
                                 <input type="email" id="form3Example3" class="form-control" asp-for="UserName" style="border-radius: 1rem; " required />
+                                <span asp-validation-for="UserName"></span>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example4" asp-for="Password">Password</label>
                                 <input type="password" id="form3Example4" class="form-control" asp-for="Password" style="border-radius: 1rem; " required />
+                                <span asp-validation-for="Password"></span>
                             </div>
 
                             <div class="mb-4">
