@@ -5,45 +5,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace CRMS.Services._BackgroundServices
 {
     public class CustomerAPI : BackgroundService
     {
         private readonly HttpClient _httpClient;
-        private readonly IContactRepository _contactRepo;
-        private readonly ITokenStorage _tokenStorage;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfidentialClientApplication _app;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
 
         public CustomerAPI(
             HttpClient httpClient,
-            IContactRepository dbContext,
-            UserManager<ApplicationUser> userManager,
-            ITokenStorage tokenStorage,
             IConfiguration configuration,
-            IConfidentialClientApplication app)
+            IServiceProvider serviceProvider)
         {
             _httpClient = httpClient;
-            _contactRepo = dbContext;
-            _userManager = userManager;
-            _tokenStorage = tokenStorage;
             _configuration = configuration;
-            _app = app;
-
-            var clientId = _configuration["Oath2Customer:ClientId"];
-            var clientSecret = _configuration["Oath2Customer:Secret"];
-            var tenantId = _configuration["Oath2Customer:TenantId"];
-            var authority = "https://login.microsoftonline.com/<your Azure AD tenant ID>";
-            authority = authority.Replace("<your Azure AD tenant ID>", tenantId);
-
-            app = ConfidentialClientApplicationBuilder
-                .Create(clientId)
-                .WithClientSecret(clientSecret)
-                .WithAuthority(authority)
-                .Build();
-
+            _serviceProvider = serviceProvider;
         }
 
 
@@ -51,71 +30,61 @@ namespace CRMS.Services._BackgroundServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Get the CUSTOMER API data
-                var CustomerToken = await GetContactsTokenAsync();
-                var CustomerData = await GetCustomerApiDataAsync(CustomerToken);
+                try
+                {
+                    // Get the CUSTOMER API data
+                    var CustomerToken = await GetTokenAsync();
+                    var CustomerData = await GetCustomerApiDataAsync(CustomerToken);
                
-                // Save new data to the database
-                await SaveNewCustomerDataAsync(CustomerData);
+                    // Save new data to the database
+                    await SYNCNewCustomerDataAsync(CustomerData);
 
-                // Wait for the configured interval before retrieving data again
-                await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
+                    // Wait for the configured interval before retrieving data again
+                    await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error: {ex.Message}");
+
+                    // Wait for a certain amount of time before retrying
+                    await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                }
             }
         }
 
-        private async Task<string> GetContactsTokenAsync()
+        private async Task<string> GetTokenAsync()
         {
-            var storedToken = _tokenStorage.RetrieveContactToken();
+            var _URI = _configuration["CustomerAPI:URI"];
+            var _username = _configuration["CustomerAPI:UserName"];
+            var _password = _configuration["CustomerAPI:Password"];
 
-            if (storedToken != null && !storedToken.IsExpired())
+            var json = JsonConvert.SerializeObject(new
             {
-                return storedToken.AccessToken;
-            }
+                UserName = _username,
+                Password = _password
+            });
 
-            var newToken = await RefreshToken(storedToken);
+            // Send a POST request to the API to get a token
+            var request = new HttpRequestMessage(HttpMethod.Post, _URI+"/signin");
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            _tokenStorage.StoreContactToken(newToken);
+            var response = await _httpClient.SendAsync(request);
+            var responseContent = await response.Content.ReadAsStringAsync();
 
-            return newToken.AccessToken;
+            // Extract the token from the response
+            var token = JsonConvert.DeserializeObject<Tokens>(responseContent);
 
-
-
+            return token.AccessToken;
         }
-
-
-        private async Task<Tokens> RefreshToken(Tokens oldToken)
-        {
-            var clientId = _configuration["Oath2Customer:ClientId"];
-            var clientSecret = _configuration["Oath2Customer:Secret"];
-            var scopes = new string[] { _configuration["Oath2Customer:Scopes"] };
-            var username = _configuration["Oath2Customer:UserName"];
-            var password = _configuration["Oath2Customer:Password"];
-
-
-            var pca = PublicClientApplicationBuilder.Create(clientId)
-                 .WithAuthority(AzureCloudInstance.AzurePublic, AadAuthorityAudience.AzureAdAndPersonalMicrosoftAccount)
-                 .WithRedirectUri("http://localhost:5274/signin")
-                 .Build();
-
-            var result = await pca.AcquireTokenByUsernamePassword(scopes, username, password)
-                .ExecuteAsync();
-
-            var newToken = new Tokens
-            {
-                AccessToken = result.AccessToken,
-                ExpiresIn = result.ExpiresOn,
-            };
-
-
-            return newToken;
-        }
-
 
 
         private async Task<List<Contacts>> GetCustomerApiDataAsync(string token)
         {
+            var _URI = _configuration["CustomerAPI:URI"];
+
             // Send a GET request to the API to get data
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5274/api/v1/Customer");
+            var request = new HttpRequestMessage(HttpMethod.Get, _URI +"/api/v1/Customer/CustomerList");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);
@@ -124,33 +93,54 @@ namespace CRMS.Services._BackgroundServices
             // Deserialize the response content to a list of API data objects
             var data = JsonConvert.DeserializeObject<List<Contacts>>(responseContent);
 
-            // Filter the data to only include new entries
-            var system = await _userManager.FindByNameAsync("SYSTEM");
-            var sysId = system.Id;
-            var lastUpdatedTime = (await _contactRepo.GetAllAsync()).Where(d => d.UpdatedBy == sysId).Max(d => d.UpdateDate);
-            var newData = new List<Contacts>();
-            if (data != null)
-            {
-                if (lastUpdatedTime.HasValue)
-                {
-                    newData = data.Where(d => d.UpdateDate > lastUpdatedTime).ToList();
-                }
-                else
-                {
-                    newData = data;
-                }
-            }
-
-            return newData;
+            return data;
         }
 
 
-        private async Task SaveNewCustomerDataAsync(List<Contacts> data)
+        private async Task SYNCNewCustomerDataAsync(List<Contacts> data)
         {
             // Save the new data to the database
-            foreach (var contact in data)
+            using (var scope = _serviceProvider.CreateScope())
             {
-                await _contactRepo.CreateAsync(contact);
+                var _contactsRepo = scope.ServiceProvider.GetRequiredService<IContactRepository>();
+                var existingContacts = await _contactsRepo.GetAllAsync();
+
+                // Loop through each contact in the incoming data
+                foreach (var contact in data)
+                {
+                    // Try to find the contact in the existing contacts list
+                    var existingContact = existingContacts.FirstOrDefault(p => p.Contact_Id == contact.Contact_Id);
+
+                    if (existingContact == null)
+                    {
+                        // Product does not exist in the database, add it
+                        await _contactsRepo.CreateAsync(contact);
+                    }
+                    else if (existingContact.UpdateDate < contact.UpdateDate)
+                    {
+                        // Product has been updated, update it in the database
+                        existingContact.Contact_Id = contact.Contact_Id;
+                        existingContact.FirstName = contact.FirstName;
+                        existingContact.LastName = contact.LastName;
+                        existingContact.Email = contact.Email;
+                        existingContact.PhoneNumber = contact.PhoneNumber;
+                        existingContact.Gender = contact.Gender;
+                        existingContact.DOB = contact.DOB;
+                        existingContact.CreateDate = contact.CreateDate;
+                        existingContact.UpdateDate = contact.UpdateDate;
+                        
+
+                        await _contactsRepo.UpdateAsync(existingContact);
+                    }
+                }
+
+                // Find any contacts that were deleted
+                var deletedContacts = existingContacts.Where(p => !data.Any(d => d.Contact_Id == p.Contact_Id));
+                foreach (var deletedContact in deletedContacts)
+                {
+                    // Product was deleted, remove it from the database
+                    await _contactsRepo.DeleteAsync(deletedContact.Contact_Id);
+                }
             }
         }
 

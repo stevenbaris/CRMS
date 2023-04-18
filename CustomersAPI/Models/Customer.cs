@@ -7,7 +7,7 @@ namespace CustomersAPI.Models
     public class Customer
     {
 
-        public Guid Customer_Id { get; set; } = Guid.NewGuid();
+        public Guid Contact_Id { get; set; } = Guid.NewGuid();
 
 
         [Required]
@@ -40,12 +40,22 @@ namespace CustomersAPI.Models
 
         [Required]
         [RegularExpression(@"^(09|\+639)\d{9}$", ErrorMessage = "Incorrect format. Use +639XXXXXXXXX or 09XXXXXXXXX")]
-        public string Phone { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
 
 
         [Required]
         [MinLength(5)]
         public string Address { get; set; } = string.Empty;
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? CreateDate { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? UpdateDate { get; set; }
 
 
         public ICollection<Transactions>? Transactions { get; set; }
@@ -58,16 +68,18 @@ namespace CustomersAPI.Models
 
         }
 
-        public Customer(Guid customer_Id, string firstName, string lastName, string gender, DateTime dOB, string email, string phone, string address)
+        public Customer(Guid contact_Id, string firstName, string lastName, string gender, DateTime dOB, string email, string phone, string address, DateTime? createDate, DateTime? updateDate)
         {
-            Customer_Id = customer_Id;
+            Contact_Id = contact_Id;
             FirstName = firstName;
             LastName = lastName;
             Gender = gender;
             DOB = dOB;
             Email = email;
-            Phone = phone;
+            PhoneNumber = phone;
             Address = address;
+            CreateDate = createDate;
+            UpdateDate = updateDate;
         }
     }
 }

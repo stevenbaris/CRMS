@@ -23,15 +23,15 @@ namespace CustomersAPI.Repository
 
             var customersAndOrders = customers.Select(c => new CustomerTransactionDTO
             {
-                CustomerId = c.Customer_Id,
+                CustomerId = c.Contact_Id,
                 FirstName = c.FirstName,
                 LastName = c.LastName,
                 Gender = c.Gender,
                 Email = c.Email,
-                Phone = c.Phone,
+                Phone = c.PhoneNumber,
                 DOB = c.DOB,
 
-                Transactions = orders.Where(o => o.CustomerId == c.Customer_Id).Select(o => new TransactionDTO
+                Transactions = orders.Where(o => o.ContactId == c.Contact_Id).Select(o => new TransactionDTO
                 {
                     TransactionID = o.Transaction_Id,
                     Amount = o.Amount

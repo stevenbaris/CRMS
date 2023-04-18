@@ -181,7 +181,7 @@
                             @Html.DisplayNameFor(model => model.Contacts.ContactCreatorID)
                         </dt>
                         <dd >
-                            @Html.DisplayFor(model => model.Contacts.Creator.FullName)
+                            @(Model.Contacts.ContactCreatorID != null ? Model.Contacts.Creator?.FirstName + " " + Model.Contacts.Creator?.LastName ?? "N/A" : "SYSTEM")
                         </dd>
                     </dl>
 

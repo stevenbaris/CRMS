@@ -1,38 +1,26 @@
 ﻿using CRMS.Models;
 using CRMS.Services._BackgroundServices.Token;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace CRMS.Services._BackgroundServices
 {
     public class ProductsAPI: BackgroundService
     {
         private readonly HttpClient _httpClient;
-        private readonly IRepository<Product> _productRepo;
-        //private readonly ITokenStorage _tokenStorage;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IProductConfidentialClientApplication _app;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
 
         public ProductsAPI(
             HttpClient httpClient,
-            UserManager<ApplicationUser> userManager,
-            //ITokenStorage tokenStorage,
             IConfiguration configuration,
-            IProductConfidentialClientApplication app,
-            IRepository<Product> productRepo)
+            IServiceProvider serviceProvider)
         {
             _httpClient = httpClient;
-            _productRepo = productRepo;
-            _userManager = userManager;
-            //_tokenStorage = tokenStorage;
             _configuration = configuration;
-            _app = app;
+            _serviceProvider = serviceProvider;
 
-           
-            
         }
 
 
@@ -40,30 +28,44 @@ namespace CRMS.Services._BackgroundServices
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                // Get the PRODUCT API data
-                var ProductToken = await GetTokenAsync();
-                var ProductData = await GetProductApiDataAsync(ProductToken);
+                try
+                {
+                    // Get the PRODUCT API data
+                    var ProductToken = await GetTokenAsync();
+                    var ProductData = await GetProductApiDataAsync(ProductToken);
 
-                // Save new data to the database
-                await SaveNewProductDataAsync(ProductData);
+                    // Save new data to the database
+                    await SyncProductDataAsync(ProductData);
 
-                // Wait for the configured interval before retrieving data again
-                await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
+                    // Wait for the configured interval before retrieving data again
+                    await Task.Delay(TimeSpan.FromHours(24), stoppingToken);
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error: {ex.Message}");
+
+                    // Wait for a certain amount of time before retrying
+                    await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                }
             }
         }
 
         private async Task<string> GetTokenAsync()
         {
-            var username = _configuration["Oath2Product:UserName"];
-            var password = _configuration["Oath2Product:Password"];
+            var _username = _configuration["ProductAPI:UserName"];
+            var _password = _configuration["ProductAPI:Password"];
+            var _URI = _configuration["ProductAPI:URI"];
 
+            var json = JsonConvert.SerializeObject(new
+            {
+                UserName = _username,
+                Password = _password
+            });
+            
             // Send a POST request to the API to get a token
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5002/signin");
-            request.Content = new FormUrlEncodedContent(new Dictionary<string, string>
-        {
-            { "username", username },
-            { "password",  password },
-        });
+            var request = new HttpRequestMessage(HttpMethod.Post, _URI+"/signin");
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
             var response = await _httpClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -74,55 +76,11 @@ namespace CRMS.Services._BackgroundServices
             return token.AccessToken;
         }
 
-
-        //private async Task<string> GetProductsTokenAsync()
-        //{
-        //    var storedToken = _tokenStorage.RetrieveProductToken();
-
-        //    if (storedToken != null && !storedToken.IsExpired())
-        //    {
-        //        return storedToken.AccessToken;
-        //    }
-
-        //    var newToken = await RefreshToken(storedToken);
-
-        //    _tokenStorage.StoreProdcutToken(newToken);
-
-        //    return newToken.AccessToken;
-        //}
-
-
-        //private async Task<Tokens> RefreshToken(Tokens oldToken)
-        //{
-        //    var clientId = _configuration["Oath2Product:ClientId"];
-        //    var clientSecret = _configuration["Oath2Product:Secret"];
-        //    var scopes = new string[] { _configuration["Oath2Product:Scopes"] };
-        //    var username = _configuration["Oath2Product:UserName"];
-        //    var password = _configuration["Oath2Product:Password"];
-
-
-        //    var pca = PublicClientApplicationBuilder.Create(clientId)
-        //         .WithAuthority(AzureCloudInstance.AzurePublic, AadAuthorityAudience.AzureAdAndPersonalMicrosoftAccount)
-        //         .WithRedirectUri("http://localhost:5002/signin")
-        //         .Build();
-
-        //    var result = await pca.AcquireTokenByUsernamePassword(scopes, username, password)
-        //        .ExecuteAsync();
-
-        //    var newToken = new Tokens
-        //    {
-        //        AccessToken = result.AccessToken,
-        //        ExpiresIn = result.ExpiresOn,
-        //    };
-
-
-        //    return newToken;
-        //}
-
         private async Task<List<Product>> GetProductApiDataAsync(string token)
         {
+            var _URI = _configuration["ProductAPI:URI"];
             // Send a GET request to the API to get data
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5274/api/v1/Product");
+            var request = new HttpRequestMessage(HttpMethod.Get, _URI+"/api/v1/Product");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);
@@ -131,41 +89,51 @@ namespace CRMS.Services._BackgroundServices
             // Deserialize the response content to a list of API data objects
             var data = JsonConvert.DeserializeObject<List<Product>>(responseContent);
 
-            // Filter the data to only include new entries
-            var system = await _userManager.FindByNameAsync("SYSTEM");
-            var sysId = system.Id;
-            var lastUpdatedTime = (await _productRepo.GetAllAsync()).Where(d => d.UpdatedBy == sysId).Max(d => d.UpdateDate);
-            var newData = new List<Product>();
-            if (data != null)
-            {
-                if (lastUpdatedTime.HasValue)
-                {
-                    newData = data.Where(d => d.UpdateDate > lastUpdatedTime).ToList();
-                }
-                else
-                {
-                    newData = data;
-                }
-            }
-
-            return newData;
+            return data;
         }
 
 
-        private async Task SaveNewProductDataAsync(List<Product> data)
+        private async Task SyncProductDataAsync(List<Product> data)
         {
-            // Save the new data to the database
-            foreach (var product in data)
+            // SYNC remdte data to the lcoal database
+            using (var scope = _serviceProvider.CreateScope())
             {
-                await _productRepo.CreateAsync(product);
+                var _productsRepo = scope.ServiceProvider.GetRequiredService<IRepository<Product>>();
+                var existingProducts = await _productsRepo.GetAllAsync();
+
+                // Loop through each product in the incoming data
+                foreach (var product in data)
+                {
+                    // Try to find the product in the existing products list
+                    var existingProduct = existingProducts.FirstOrDefault(p => p.Product_Id == product.Product_Id);
+
+                    if (existingProduct == null)
+                    {
+                        // Product does not exist in the database, add it
+                        await _productsRepo.CreateAsync(product);
+                    }
+                    else if (existingProduct.Product_Id == product.Product_Id && existingProduct.UpdateDate < product.UpdateDate)
+                    {
+                        // Product has been updated, update it in the database
+                        
+                        existingProduct.ProductName = product.ProductName;
+                        existingProduct.ProductDescription = product.ProductDescription;
+                        existingProduct.Benefits = product.Benefits;
+                        existingProduct.UpdateDate = product.UpdateDate;
+                        await _productsRepo.UpdateAsync(existingProduct);
+                    }
+                }
+
+                // Find any products that were deleted
+                var deletedProducts = existingProducts.Where(p => !data.Any(d => d.Product_Id == p.Product_Id));
+                foreach (var deletedProduct in deletedProducts)
+                {
+                    // Product was deleted, remove it from the database
+                    await _productsRepo.DeleteAsync(deletedProduct.Product_Id);
+                }
             }
         }
 
-
-    }
-
-    public interface IProductConfidentialClientApplication: IConfidentialClientApplication
-    {
 
     }
 }

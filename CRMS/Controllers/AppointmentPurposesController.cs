@@ -1,11 +1,13 @@
 ﻿using CRMS.Exceptions;
 using CRMS.Models.Customization;
 using CRMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRMS.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class AppointmentPurposesController : Controller
     {
         private readonly IRepository<AppointmentPurpose> _purposesRepository;

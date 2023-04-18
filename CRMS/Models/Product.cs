@@ -25,26 +25,23 @@ namespace CRMS.Models
         [StringLength(1000)]
         public string? Benefits { get; set; }
 
-        public Guid? UpdatedBy { get; set; } //Foreign Key: UserID from Application User
+        
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-
-
-        public ApplicationUser? Updater { get; set; }
-
 
 
         public Product() { }
 
-        public Product(Guid product_Id, string? productName, string? productDescription, string? benefits, Guid? updatedBy, DateTime? updateDate)
+        public Product(Guid product_Id, string? productName, string? productDescription, string? benefits, DateTime? createDate, DateTime? updateDate)
         {
             Product_Id = product_Id;
             ProductName = productName;
             ProductDescription = productDescription;
             Benefits = benefits;
-            UpdatedBy = updatedBy;
+            CreateDate = createDate;
             UpdateDate = updateDate;
         }
     }

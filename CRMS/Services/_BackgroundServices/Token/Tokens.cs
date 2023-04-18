@@ -4,11 +4,8 @@ namespace CRMS.Services._BackgroundServices.Token
 {
     public class Tokens
     {
-        [JsonProperty("access_token")]
+        [JsonProperty("token")]
         public string? AccessToken { get; set; }
-
-        [JsonProperty("refresh_token")]
-        public string? RefreshToken { get; set; }
 
         [JsonProperty("expires_in")]
         public DateTimeOffset ExpiresIn { get; set; }

@@ -39,6 +39,10 @@ namespace CRMS.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var user = _userManager.GetUserAsync(User).Result;
+            var contacts = await _contactRepo.GetAllMyContactsAsync(user.Id);
+
+
             var leadSources = (await _leadsRepo.GetAllAsync())
                     .Join((await _leadSourcesRepo.GetAllAsync()), l => l.LeadSourceId, ls => ls.Source_Id, (l, ls) => new { Lead = l, LeadSource = ls })
                     .GroupBy(x => x.LeadSource.SourceName)
@@ -47,43 +51,29 @@ namespace CRMS.Controllers
                     .Take(5)
                     .ToList();
 
-            ViewData["LeadSources"] = leadSources;
-            ViewData["ActivityToday"] = GetTheDaysActivity(DateTime.Now).Result;
-            ViewData["ActivityYesterday"] = GetTheDaysActivity(DateTime.Now.AddDays(-1));
-
-            return View();
-        }
-
-        public async Task<int> GetTheDaysActivity(DateTime? inq_date)
-        {
-            var user = _userManager.GetUserAsync(User).Result;
-
-            var contacts = _contactRepo.GetAllMyContactsAsync(user.Id);
-                
-            var activity = new DashboardActivity
-            {
-                ContactsWithNoLeads = (await _contactRepo.GetAllAsync())
+            var ContactsWithNoLeads = (contacts)
                     .GroupJoin(
                         await _leadsRepo.GetAllAsync(),
                         c => c.Contact_Id,
                         l => l.CreatedBy,
-                        (c, ls) => new { Contact = c, Leads = ls })
-                    .Where(cl => !cl.Leads.Any())
-                    .Count(),
-                NextEngagements = (await _engagementRepo.GetAllAsync()).Where(e=>e.CreatedDate.AddDays(7) == inq_date).Count(),
-                Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime == inq_date),
-            };
+                        (c, ls) => new { Contact = c, Leads = ls });
 
-            var totalActivity = activity.ContactsWithNoLeads + activity.NextEngagements + activity.Appointments;
-            return totalActivity;
+            var NextEngagements =(await _engagementRepo.GetAllAsync()).Where(e => e.CreatedDate.AddDays(7) == DateTime.Now).Count();
+            var Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime == DateTime.Now);
+
+            ViewData["LeadSources"] = leadSources;
+            ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads;
+            ViewData["NextEngagements"] = NextEngagements;
+            ViewData["Appointments"] = Appointments;
+
+            //ViewData["ActivityToday"] = GetTheDaysActivity(DateTime.Now).Result;
+            //ViewData["ActivityYesterday"] = GetTheDaysActivity(DateTime.Now.AddDays(-1));
+
+
+            return View();
         }
 
-        public class DashboardActivity
-        {
-            public int ContactsWithNoLeads { get; set; }
-            public int NextEngagements { get; set; }
-            public int Appointments { get; set; }
-            
-        }
+        
+        
     }
 }

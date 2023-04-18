@@ -52,7 +52,7 @@ namespace CRMS.Models
         public DateTime? DateAssigned { get; set; }
 
 
-        [Required]
+        
         [DisplayName("Contact Creator")]
         public Guid? ContactCreatorID { get; set; } //Foreign Key: UserID from Application User
 

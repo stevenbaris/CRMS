@@ -4,6 +4,8 @@
 <form id="contactForm" class="w3-container" asp-controller="Contacts" asp-action="Edit" >
     <div class="w3-section">
         <input type="hidden" asp-for="Contact_Id" />
+        <input type="hidden" asp-for="CreateDate" />
+        <input type="hidden" asp-for="ContactCreatorID" />
         <div class="form-group">
             <label asp-for="FirstName" class="control-label">First Name:</label>
             <input asp-for="FirstName" class="form-control" placeholder="Ex. Juan" required/>
@@ -49,7 +51,7 @@
             <label asp-for="ContactOwnerID" class="control-label">Contact Owner:</label>
             @if (ViewBag.OwnerList != null)
             {
-                @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "Select Owner", new { @class = "form-control", required="required" })
                 @*<select asp-for="ContactOwnerID" class="form-control" asp-items="ViewBag.OwnerList"></select>*@
                     
 
@@ -66,33 +68,6 @@
             <label asp-for="DateAssigned" class="control-label">Date Assigned:</label>
             <input asp-for="DateAssigned" class="form-control" max="@DateTime.Now.ToString("yyyy-MM-dd")" required />
             <span asp-validation-for="DateAssigned" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ContactCreatorID" class="control-label">Contact Creator:</label>
-            @*<input type="hidden" asp-for="ContactCreatorID" class="form-control" value="@Model.Contacts.ContactCreatorID" readonly />*@
-            @*<input class="form-control" value="@String.Concat(Model.AppUsers.FirstOrDefault(u => u.Id == Model.Contacts.ContactCreatorID)?.FirstName, ' ', Model.AppUsers.FirstOrDefault(u => u.Id == Model.Contacts.ContactCreatorID)?.LastName)" readonly />*@
-            @if (ViewBag.CreatorList != null)
-            {
-                @Html.DropDownListFor(model => model.ContactCreatorID, (IEnumerable<SelectListItem>)ViewBag.CreatorList, "Select Creator", new { @class = "form-control" })
-                @*<select asp-for="ContactOwnerID" class="form-control" asp-items="ViewBag.CreatorList"> </select>*@
-
-               @* @foreach (var user in Model.AppUsers)
-                {
-                    <option value="@user.Id">@String.Concat(user.FirstName +" "+ user.LastName)</option>
-                }*@
-           
-            }
-            <span asp-validation-for="ContactCreatorID" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="CreateDate" class="control-label">Create Date:</label>
-            <input type="text" class="form-control" value="@DateTime.Today.ToShortDateString()" readonly />
-            <input asp-for="CreateDate" type="hidden" class="form-control" value="@DateTime.UtcNow" readonly />
-            @*@Html.DisplayFor(model => model.Contacts.CreateDate, new { htmlAttributes = new { @class = "form-control" } })*@
-            @*<input asp-for="CreateDate" class="form-control" required />*@
-            <span asp-validation-for="CreateDate" class="text-danger"></span>
         </div>
 
         

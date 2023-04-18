@@ -12,9 +12,8 @@ builder.Services.AddDbContext<CRMSDbContext>();
 
 builder.Services
     .AddIdentityWithOptions()
-    .AddScopedInjections();
-    //.APIBackgroundServices(builder.Configuration);
-
+    .AddScopedInjections()
+    .APIBackgroundServices(builder.Configuration);
 
 
 
