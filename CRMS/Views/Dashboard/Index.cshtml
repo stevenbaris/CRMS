@@ -9,9 +9,23 @@
             </a>
             <h3>@ViewBag.ActivityToday</h3> <span>Contacts Today</span>
             <div class="dropdown-divider"></div>
-            <p>Contacts with No Leads: </p>@*@ViewData["ActivityToday"].*@
-            <p>Customer Engagements:</p>@* @ViewData["ActivityToday"].das*@
-            <p>Appointments Today: </p>@*@ViewData["ActivityToday"].Appointments*@
+            <table>
+                <thead><tr></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Contacts with No Leads:</td>
+                        <td>@ViewData["ContactsWithNoLeads"]</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Engagements:</td>
+                        <td>@ViewData["NextEngagements"]</td>
+                    </tr>
+                    <tr>
+                        <td>Appointments Today:</td>
+                        <td>@ViewData["Appointments"]</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="card p-3" style="max-width:20rem;">

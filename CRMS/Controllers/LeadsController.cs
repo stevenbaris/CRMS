@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CRMS.Controllers
 {
@@ -14,25 +15,44 @@ namespace CRMS.Controllers
         private readonly IRepository<Leads> _leads;
         private readonly CRMSDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public LeadsController(IRepository<Leads> leads, CRMSDbContext context, UserManager<ApplicationUser> userManager)
+        public LeadsController(IRepository<Leads> leads, CRMSDbContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _leads = leads;
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-       public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var leadsIndex = await _leads.GetAllAsync();
-            var CRMSDbContext = await _context.Leads
-                .Include(ur => ur.prospect)
-                .Include(ur => ur.status)
-                .Include(ur => ur.source)
-                .Include(ur => ur.User)
-                .Include(ur => ur.product)
-                .ToListAsync();
-            return View("~/Views/Records/Leads/Index.cshtml", leadsIndex);
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return View("~/Views/Records/Leads/Index.cshtml", leadsIndex);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var myLeads = leadsIndex.Where(l => l.CreatedBy == Guid.Parse(userId));
+                    return View("~/Views/Records/Leads/Index.cshtml", myLeads);
+                }
+            }
+
+
+            //var leadsIndex = await _leads.GetAllAsync();
+            //var CRMSDbContext = await _context.Leads
+            //    .Include(ur => ur.prospect)
+            //    .Include(ur => ur.status)
+            //    .Include(ur => ur.source)
+            //    .Include(ur => ur.User)
+            //    .Include(ur => ur.product)
+            //    .ToListAsync();
+            return RedirectToAction("Index", "Home");
             //return View("~/Views/Records/Leads/Index.cshtml", await eMSDbContext.ToListAsync());
         }
 

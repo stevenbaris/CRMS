@@ -41,9 +41,10 @@ namespace CRMS.Controllers
         {
             var user = _userManager.GetUserAsync(User).Result;
             var contacts = await _contactRepo.GetAllMyContactsAsync(user.Id);
+            var leads = (await _leadsRepo.GetAllAsync()).Where(lead => lead.CreatedBy == user.Id);
 
 
-            var leadSources = (await _leadsRepo.GetAllAsync())
+            var leadSources = (await _leadsRepo.GetAllAsync()).Where(lead=>lead.CreatedBy ==  user.Id)
                     .Join((await _leadSourcesRepo.GetAllAsync()), l => l.LeadSourceId, ls => ls.Source_Id, (l, ls) => new { Lead = l, LeadSource = ls })
                     .GroupBy(x => x.LeadSource.SourceName)
                     .Select(g => new { Source = g.Key, Count = g.Count() })
@@ -52,14 +53,14 @@ namespace CRMS.Controllers
                     .ToList();
 
             var ContactsWithNoLeads = (contacts)
-                    .GroupJoin(
-                        await _leadsRepo.GetAllAsync(),
-                        c => c.Contact_Id,
-                        l => l.CreatedBy,
-                        (c, ls) => new { Contact = c, Leads = ls });
+                     .Where(c => !leads.Any(l => l.CreatedBy == c.Contact_Id)).Count();
+    
+            
 
-            var NextEngagements =(await _engagementRepo.GetAllAsync()).Where(e => e.CreatedDate.AddDays(7) == DateTime.Now).Count();
-            var Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime == DateTime.Now);
+
+            
+            var NextEngagements = (await _engagementRepo.GetAllAsync()).Count(e=>e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date);
+            var Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime.Date == DateTime.Now.Date);
 
             ViewData["LeadSources"] = leadSources;
             ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads;

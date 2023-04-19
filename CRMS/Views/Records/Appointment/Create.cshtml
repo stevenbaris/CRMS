@@ -11,7 +11,7 @@
     <hr/>
     <br/>
     <form class="row g-3 needs-validation" novalidate asp-controller="Appointments" asp-action="Create" method="post">
-
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="col-md-5">
             <div class="form-floating">
                 @*<input asp-for="Appointment_DateTime" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>*@

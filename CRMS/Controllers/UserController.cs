@@ -77,7 +77,7 @@ namespace CRMS.Controllers
             {
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, false, false);
 
-                if (result.Succeeded && User.IsInRole("admin"))
+                if (result.Succeeded && User.IsInRole("Admin"))
                 {
                     // Redirect the user to the admin dashboard
                     return RedirectToAction(actionName: "Index", controllerName: "Home");
@@ -285,6 +285,7 @@ namespace CRMS.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

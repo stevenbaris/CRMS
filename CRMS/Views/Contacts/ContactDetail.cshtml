@@ -200,7 +200,7 @@
         <div class="tabcontent active" id="leads">
             <!-- Leads content will be displayed here -->
 
-            <a asp-controller="Leads" asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <a asp-controller="Leads" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
             <br />
             <br />
 
@@ -288,7 +288,7 @@
         </div>
         <div class="tabcontent" id="engagement-records">
             <!-- Engagement Records content will be displayed here -->
-            <a asp-controller="Engagement" asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <a asp-controller="Engagement" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
             <br/>
             <br />
 
@@ -358,7 +358,7 @@
 
         <div class="tabcontent" id="appointments">
             <!-- Appointments content will be displayed here -->
-            <a asp-controller="Appointments" asp-action="Create" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <a asp-controller="Appointments" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
             <br />
             <br />
             @if (!Model.ListAppointments.Where(c => c.ContactId == Model.Contacts.Contact_Id).Any())

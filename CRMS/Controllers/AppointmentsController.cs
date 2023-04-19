@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CRMS.Models;
 using CRMS.Services.Contacts_Services;
+using System.Security.Claims;
 
 namespace CRMS.Controllers
 {
@@ -18,17 +19,20 @@ namespace CRMS.Controllers
         private readonly IContactRepository _contacts;
         private readonly CRMSDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         public AppointmentsController(
             IRepository<Appointments> appointments,
             CRMSDbContext context,
             UserManager<ApplicationUser> userManager,
-            IContactRepository contacts)
+            IContactRepository contacts,
+            SignInManager<ApplicationUser> signInManager)
 
         {
             _appointments = appointments;
             _context = context;
             _userManager = userManager;
             _contacts = contacts;
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -57,16 +61,36 @@ namespace CRMS.Controllers
         {
 
             ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
-            if (Id != null)
+            if (_signInManager.IsSignedIn(User))
             {
-                var contact = await _contacts.GetbyIdAsync(Id.Value);
-                ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
+                if (User.IsInRole("Admin"))
+                {
+                    if (Id != null)
+                    {
+                        var contact = await _contacts.GetbyIdAsync(Id.Value);
+                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+                    }
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userGUID = (Guid.Parse(userId));
+                    if (Id != null)
+                    {
+                        var contact = await _contacts.GetbyIdAsync(Id.Value);
+                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                    }
+                }
             }
-            else
-            {
-                ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
-            }
-            return View("~/Views/Records/Appointment/Create.cshtml");
+            return View("~/Views/Records/Appointment/Create.cshtml")    ;
 
         }
 
@@ -88,11 +112,41 @@ namespace CRMS.Controllers
             return View("~/Views/Records/Appointment/Create.cshtml", appointmentCreate);
         }
 
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid Id, Guid? contactId)
         {
-            var appointmentEdit = await _appointments.GetbyIdAsync(id);
+            var appointmentEdit = await _appointments.GetbyIdAsync(Id);
             ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    if (contactId != null)
+                    {
+                        Guid id = contactId ?? Guid.Empty;
+                        var contact = await _contacts.GetbyIdAsync(id);
+                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+                    }
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userGUID = (Guid.Parse(userId));
+                    if (contactId != null)
+                    {
+                        Guid id = contactId ?? Guid.Empty;
+                        var contact = await _contacts.GetbyIdAsync(id);
+                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                    }
+                }
+            }
             if (appointmentEdit == null)
             {
                 return NotFound();
