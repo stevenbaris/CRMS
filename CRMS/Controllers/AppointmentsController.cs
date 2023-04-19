@@ -38,17 +38,31 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var appointmentIndex = await _appointments.GetAllAsync();
-            //var CRMSDbContext = await _context.Appointments.Include(ur => ur.prospect)
-            //    .Include(ur => ur.AppointmentPurpose)
-            //    .Include(ur => ur.User)
-            //    .ToListAsync();
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return View("~/Views/Records/Appointment/Index.cshtml", appointmentIndex);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var myAppointments = appointmentIndex.Where(l => l.CreatedBy == Guid.Parse(userId));
+                    return View("~/Views/Records/Appointment/Index.cshtml", myAppointments);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+
             return View("~/Views/Records/Appointment/Index.cshtml" , appointmentIndex);
-            //return View("~/Views/Records/Appointment/Index.cshtml", await eMSDbContext.ToListAsync());
+           
         }
        
         public async Task<IActionResult> Details(Guid id)
         {
             var appointmentDetails = await _appointments.GetbyIdAsync(id);
+
             if (appointmentDetails == null)
             {
                 return NotFound();

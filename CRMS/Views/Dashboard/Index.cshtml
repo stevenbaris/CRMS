@@ -3,11 +3,11 @@
     <h3 class="my-4">Dashboard</h3>
     <div class="container-fluid row g-3">
         
-        <div class="card p-3" style="max-width:20rem;">
+        <div class="card p-3 col-md-3" s>
             <a class="dropdown-item fw-bold text-success" href="#!">
                 <span>Activity</span>
             </a>
-            <h3>@ViewBag.ActivityToday</h3> <span>Contacts Today</span>
+            <h2 class="text-warning w3-center">@ViewData["TotalTasks"] </h2> <span class="w3-center">Tasks Today</span>
             <div class="dropdown-divider"></div>
             <table>
                 <thead><tr></tr></thead>
@@ -24,11 +24,15 @@
                         <td>Appointments Today:</td>
                         <td>@ViewData["Appointments"]</td>
                     </tr>
+                    <tr>
+                        <td>Created Contact Target:</td>
+                        <td>10</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="card p-3" style="max-width:20rem;">
+        <div class="card p-3 col-md-2">
             <a class="dropdown-item fw-bold text-warning" href="#!">
                 <span class="fas fa-crown me-1"></span>
                 <span>Top 5 Lead Sources</span>
@@ -60,6 +64,79 @@
                     </tbody>
                 </table>
             }
+        </div>
+
+        <div class="card p-3 w3-center col-md-2" >
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Contacts Created:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsCreated"] </h2> <span>out of 10</span>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Company-Assigned Contacts:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsAssigned"] </h2> <span>Newly Assigned Contacts</span>
+           
+        </div>
+
+        <div class="card p-3 col-md-5">
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Sales Pipeline:</span>
+            </a>
+            
+            <div class="container-fluid row g-3 w3-center">
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Contacted</span></a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Met</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Proposal Generated</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+                <div class="col-md-4 border">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Application Submitted</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Policy Issued</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Dead Lead</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                </div>
+
+            </div>
+           
+
+        </div>
+
+        <div class="card p-3 w3-center col-md-12" >
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Contacts Created:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsCreated"] </h2> <span>out of 10</span>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Company-Assigned Contacts:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsAssigned"] </h2> <span>Newly Assigned Contacts</span>
+
         </div>
     </div>
 

@@ -46,7 +46,22 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var engagement = await _engagementRepo.GetAllAsync();
-            return View("~/Views/Records/Engagement/Index.cshtml", engagement);
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return View("~/Views/Records/Engagement/Index.cshtml", engagement);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var myEngagement = engagement.Where(l => l.CreatedById == Guid.Parse(userId));
+                    return View("~/Views/Records/Engagement/Index.cshtml", myEngagement);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
 
         }
 
