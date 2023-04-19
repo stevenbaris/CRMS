@@ -40,13 +40,22 @@ namespace CRMS.Controllers
 
         public async Task<IActionResult> Index()
         {
+            // FIND THE CURRENT USER
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userGUID = Guid.Parse(userId);
             var contacts = await _contactRepo.GetAllMyContactsAsync(userGUID);
             var leads = (await _leadsRepo.GetAllAsync()).Where(lead => lead.CreatedBy == userGUID);
 
+            // ACTIVITY CARD
+            var ContactsWithNoLeads = (contacts)
+                     .Where(c => !leads.Any(l => l.ProspectId == c.Contact_Id));
+            
+            var NextEngagements = (await _engagementRepo.GetAllAsync()).Where(e=>e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date  && e.CreatedById == userGUID);
+            var Appointments = (await _appointmentRepo.GetAllAsync()).Where(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID && a.SchedStatus == 0);
+            var totalTasks = Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count();
 
-            var leadSources = (await _leadsRepo.GetAllAsync()).Where(lead=>lead.CreatedBy ==  userGUID)
+            //TOP LEAD SOURCE CARD
+            var leadSources = (await _leadsRepo.GetAllAsync()).Where(lead => lead.CreatedBy == userGUID)
                     .Join((await _leadSourcesRepo.GetAllAsync()), l => l.LeadSourceId, ls => ls.Source_Id, (l, ls) => new { Lead = l, LeadSource = ls })
                     .GroupBy(x => x.LeadSource.SourceName)
                     .Select(g => new { Source = g.Key, Count = g.Count() })
@@ -54,12 +63,7 @@ namespace CRMS.Controllers
                     .Take(5)
                     .ToList();
 
-            var ContactsWithNoLeads = (contacts)
-                     .Where(c => !leads.Any(l => l.CreatedBy == c.Contact_Id)).Count();
-            
-            var NextEngagements = (await _engagementRepo.GetAllAsync()).Count(e=>e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date  && e.CreatedById == userGUID);
-            var Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID);
-
+            //CONTACTS CREATED CARD
             var ContactsCreated = (await _contactRepo.GetAllAsync()).Where(c=>c.ContactCreatorID == userGUID && c.CreateDate == DateTime.Now.Date);
             var ContactsAssigned = (await _contactRepo.GetAllAsync()).Where(c => c.ContactCreatorID != userGUID  && c.ContactOwnerID == userGUID && c.DateAssigned == DateTime.Now.Date);
 
@@ -70,11 +74,13 @@ namespace CRMS.Controllers
             var policy_issued = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Policy Issued" && l.CreatedBy == userGUID);
             var dead_lead = (await _leadsRepo.GetAllAsync()).Where(l => l.status.LeadStatusName == "Lead is Dead" && l.CreatedBy == userGUID);
 
+
+
             ViewData["LeadSources"] = leadSources;
-            ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads;
-            ViewData["NextEngagements"] = NextEngagements;
-            ViewData["Appointments"] = Appointments;
-            ViewData["TotalTasks"] = Appointments + Appointments + ContactsWithNoLeads;
+            ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads.Count();
+            ViewData["NextEngagements"] = NextEngagements.Count();
+            ViewData["Appointments"] = Appointments.Count();
+            ViewData["TotalTasks"] = (Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count());
             ViewData["ContactsCreated"] = ContactsCreated.Count();
             ViewData["ContactsAssigned"] = ContactsAssigned.Count();
 
@@ -84,7 +90,11 @@ namespace CRMS.Controllers
             ViewData["application_submitted"] = application_submitted.Count();
             ViewData["policy_issued"] = policy_issued.Count();
             ViewData["dead_lead"] = dead_lead.Count();
-            
+
+            ViewData["AppointmentsList"] = Appointments;
+            ViewData["NextEngagementsList"] = NextEngagements;
+            ViewData["ContactsWithNoLeadsList"] = ContactsWithNoLeads;
+
 
             //ViewData["ActivityToday"] = GetTheDaysActivity(DateTime.Now).Result;
             //ViewData["ActivityYesterday"] = GetTheDaysActivity(DateTime.Now.AddDays(-1));

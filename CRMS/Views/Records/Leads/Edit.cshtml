@@ -106,13 +106,13 @@
         <div class="col-12">
             <br />
             <button type="submit" class="btn btn-primary">Edit</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <button onclick="goBack()" class="btn btn-secondary">Cancel</button>
         </div>
 
     </form>
 </header>
 
-
+@section Scripts{
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -136,3 +136,9 @@
     })()
 
 </script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+}
