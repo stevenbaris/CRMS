@@ -1,10 +1,12 @@
 ﻿using CRMS.Models;
 using CRMS.ViewModels.Role;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRMS.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole<Guid>> _roleManager;

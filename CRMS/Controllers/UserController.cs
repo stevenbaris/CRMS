@@ -8,9 +8,11 @@ using CRMS.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CRMS.Controllers
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class UserController : Controller
     {
         private IUnitOfWork _unitOfWork;
@@ -30,11 +32,21 @@ namespace CRMS.Controllers
             _crmsDbContext = cRMSDbContext;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserViewModel userViewModel)
         {
@@ -54,6 +66,44 @@ namespace CRMS.Controllers
 
             return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> AdminLogin(AdminLoginViewModel userViewModel)
+        {
+            var user = await _userManager.FindByNameAsync(userViewModel.UserName);
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, userViewModel.Password))
+            {
+                var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, false, false);
+                bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+                if (result.Succeeded && isAdmin)
+                {
+                    // Redirect the user to the admin dashboard
+                    return RedirectToAction(actionName: "Index", controllerName: "Home");
+                }
+            }
+
+            // Return an error message indicating that the user does not have access to the admin section
+            ModelState.AddModelError("", "Invalid Administrator credentials");
+            return View();
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(userViewModel);
+            //}
+
+            //var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
+
+            //if (!result.Succeeded)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Invalid login credential.");
+            //    return View(userViewModel);
+            //}
+
+        }
+
 
         [HttpGet]
         public IActionResult Create()
@@ -236,6 +286,7 @@ namespace CRMS.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

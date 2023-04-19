@@ -78,9 +78,6 @@ namespace CRMS.Data
               new LeadStatus(Guid.NewGuid(), "Lead is Dead")
             };
 
-
-           
-
             var roles = new List<IdentityRole<Guid>>
             {
 
@@ -93,16 +90,16 @@ namespace CRMS.Data
                   new ApplicationUser
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "su@crms.com",
-                        NormalizedUserName = "su@crms.com".ToUpper(),
+                        UserName = "SysAdmin",
+                        NormalizedUserName = "SysAdmin".ToUpper(),
                         Email = "su@crms.com",
                         NormalizedEmail = "su@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
                         PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "Admin123"),
                         SecurityStamp = string.Empty,
-                        FirstName = "Super",
-                        LastName= "User",
+                        FirstName = "System",
+                        LastName= "Admin",
                         DOB = DateTime.Now.Date,
                         CityAddress = "Makati",
 
@@ -113,39 +110,38 @@ namespace CRMS.Data
                   new ApplicationUser
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "user@crms.com",
-                        NormalizedUserName = "user@crms.com".ToUpper(),
-                        Email = "user@crms.com",
-                        NormalizedEmail = "user@crms.com".ToUpper(),
+                        UserName = "cgl@crms.com",
+                        NormalizedUserName = "cgl@crms.com".ToUpper(),
+                        Email = "cgl@crms.com",
+                        NormalizedEmail = "cgl@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
-                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "user123"),
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "legista123"),
                         SecurityStamp = string.Empty,
-                        FirstName = "Regular",
-                        LastName= "User",
+                        FirstName = "Charl",
+                        LastName= "Legista",
                         DOB = DateTime.Now.Date,
-                        CityAddress = "Makati",
+                        CityAddress = "Pasay",
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
                         PhoneNumberConfirmed = true,
                     },
-
                   new ApplicationUser
                     {
                         Id = Guid.NewGuid(),
-                        UserName = "SYSTEM",
-                        NormalizedUserName = "SYSTEM".ToUpper(),
-                        Email = "sys@crms.com",
-                        NormalizedEmail = "sys@crms.com".ToUpper(),
+                        UserName = "sbb@crms.com",
+                        NormalizedUserName = "sbb@crms.com".ToUpper(),
+                        Email = "sbb@crms.com",
+                        NormalizedEmail = "sbb@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
-                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "$y$t3M"),
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "barris123"),
                         SecurityStamp = string.Empty,
-                        FirstName = "SYSTEM",
-                        LastName= "CRMS",
+                        FirstName = "Steven",
+                        LastName= "Barris",
                         DOB = DateTime.Now.Date,
-                        CityAddress = "Makati",
+                        CityAddress = "General Trias",
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -163,104 +159,56 @@ namespace CRMS.Data
 
             };
 
-            var contact = new List<Contacts>
-            {
-                new Contacts
-                {
-                    Contact_Id = Guid.NewGuid(),
-                    FirstName = "Charl",
-                    LastName = "Legista",
-                    Email = "charl.legista@gmail.com",
-                    PhoneNumber = "09052214812",
-                    Gender = GenderType.Male,
-                    DOB = new DateTime(1994, 05, 10),
-                    ContactCreatorID = user[0].Id,
-                    CreateDate = DateTime.Now,
-                    UpdateDate = DateTime.Now,
-                    UpdatedBy = user[2].Id
+            //var contact = new List<Contacts>
+            //{
+            //    new Contacts
+            //    {
+            //        Contact_Id = Guid.NewGuid(),
+            //        FirstName = "Charl",
+            //        LastName = "Legista",
+            //        Email = "charl.legista@gmail.com",
+            //        PhoneNumber = "09052214812",
+            //        Gender = GenderType.Male,
+            //        DOB = new DateTime(1994, 05, 10),
+            //        ContactCreatorID = user[0].Id,
+            //        CreateDate = DateTime.Now,
+            //        UpdateDate = DateTime.Now,
+            //        UpdatedBy = user[0].Id
 
-                },
-                new Contacts
-                {
-                    Contact_Id = Guid.NewGuid(),
-                    FirstName = "Steven",
-                    LastName = "Baris",
-                    Email = "steven.baris14@gmail.com",
-                    PhoneNumber = "09123456789",
-                    Gender = GenderType.Male,
-                    DOB = new DateTime(1999, 09, 12),
-                    ContactOwnerID = user[1].Id,
-                    DateAssigned = DateTime.Now.AddDays(-3),
-                    ContactCreatorID = user[0].Id,
-                    CreateDate = DateTime.Now.AddDays(-5),
-                    UpdateDate = DateTime.Now,
-                    UpdatedBy = user[2].Id
-                },
-                new Contacts
-                {
-                    Contact_Id = Guid.NewGuid(),
-                    FirstName = "Customer",
-                    LastName = "Number1",
-                    Email = "cust.no1@gmail.com",
-                    PhoneNumber = "09987654321",
-                    Gender = GenderType.Female,
-                    DOB = new DateTime(1996, 01, 22),
-                    ContactOwnerID = user[1].Id,
-                    DateAssigned = DateTime.Now.AddDays(-1),
-                    ContactCreatorID = user[1].Id,
-                    CreateDate = DateTime.Now.AddDays(-3),
-                    UpdateDate = DateTime.Now,
-                    UpdatedBy = user[2].Id
-                }
-            };
-
-            var product = new List<Product>
-            {
-                 new Product(Guid.NewGuid(), "CL Personal Accident Nano",
-                   "CL Personal Accident Nano Insurance covers loss for Accidental Death," +
-               " Disablement, or Dismemberment, and Cash Assistance due to Food Poisoning.",
-                   "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, " +
-                   "Cash Assistance Due to Food Poisoning", user[2].Id,DateTime.Now
-               ),
-               new Product(Guid.NewGuid(), "CL Personal Accident Nano Plus",
-                   "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, " +
-                   "Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
-                   "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Accidental Burial Benefit, " +
-                   "Cash Assistance Benefit, Fire Cash Assistance", user[2].Id,DateTime.Now
-               ),
-               new Product(Guid.NewGuid(), "CL MicroEnterpriseProtek",
-                   "CL MicroEnterpriseProtekis a Property Insurance Program specially designed for Cebuana Lhuillier clients. " +
-                   "It covers loss “ALL Risks” of physical loss, destruction of or damage to the property of the insured and wholly attributable to any " +
-                   "sudden and unforeseen cause, except as hereinafter excluded, occurring during the currency of the policy.",
-                   "Earthquake, Typhoon, Flood, Windstorm, Volcanic Eruption and other Acts of Nature, Extended Coverage, BOWTAP, BWD, SL and other water related damages, " +
-                   "Vandalism/Spontaneous Combustion, All Other Losses", user[2].Id,DateTime.Now
-               ),
-               new Product(Guid.NewGuid(),
-                   "ProtectMAX",
-                   "For as low as P50, each certificate is valid for four (4) months from the date of issuance and can be availed up to a " +
-                   "maximum of 5 certificates per insured.",
-                   "Death Benefit, Accident or Sickness Emergency Cash Assistance, Accidental Dismemberment and/or Disablement, Murder and Unprovoked Assault and " +
-                   "Residential Fire Reconstruction cash assistance", user[2].Id,DateTime.Now
-               ),
-                new Product(
-                    Guid.NewGuid(),
-                    "CL Health Care",
-                    "An Individual Personal Accident Insurance specifically designed for Cebuana Lhuillier clients.It covers Accidental Death and Disability (AD&D), Double Indemnity, " +
-                    "24/7 Call-a-doc, OP ER One Time use and Daily Hospital Income Benefit.",
-                    "24/7 Call-a-doc, OP ER One Time use (All causes), Daily Hospital Income Benefit (All Causes)", user[2].Id,DateTime.Now
-                ),
-                 new Product(Guid.NewGuid(),
-                     "CL Personal Accident Basic",
-                     "Covers Accidental Death and Accidental Dismemberment and/or Disablement Benefit.",
-                     "Accidental Death, Accidental Dismemberment and/or Disablement", user[2].Id,DateTime.Now
-                 ),
-                 new Product(Guid.NewGuid(),
-                     "CL ER Care",
-                     "covers the medical expenses incurred within a year from the date of issuance or purchase by the InsuredPerson for the treatment of an eligible " +
-                     "emergency condition, availment of which caneither be as an Out-Patient in the Emergency Room Department or as an In-Patient of aHospital via cash assistance.",
-                     "The Policy is Effective for one (1) year from the date of issuance or after payment of claim,whichever comes first.", user[2].Id,DateTime.Now
-                 )
-            };
+            //    },
+            //    new Contacts
+            //    {
+            //        Contact_Id = Guid.NewGuid(),
+            //        FirstName = "Steven",
+            //        LastName = "Baris",
+            //        Email = "steven.baris14@gmail.com",
+            //        PhoneNumber = "09123456789",
+            //        Gender = GenderType.Male,
+            //        DOB = new DateTime(1999, 09, 12),
+            //        ContactOwnerID = user[1].Id,
+            //        DateAssigned = DateTime.Now.AddDays(-3),
+            //        ContactCreatorID = user[0].Id,
+            //        CreateDate = DateTime.Now.AddDays(-5),
+            //        UpdateDate = DateTime.Now,
+            //        UpdatedBy = user[0].Id
+            //    },
+            //    new Contacts
+            //    {
+            //        Contact_Id = Guid.NewGuid(),
+            //        FirstName = "Customer",
+            //        LastName = "Number1",
+            //        Email = "cust.no1@gmail.com",
+            //        PhoneNumber = "09987654321",
+            //        Gender = GenderType.Female,
+            //        DOB = new DateTime(1996, 01, 22),
+            //        ContactOwnerID = user[1].Id,
+            //        DateAssigned = DateTime.Now.AddDays(-1),
+            //        ContactCreatorID = user[1].Id,
+            //        CreateDate = DateTime.Now.AddDays(-3),
+            //        UpdateDate = DateTime.Now,
+            //        UpdatedBy = user[0].Id
+            //    }
+            //};
 
             modelBuilder.Entity<AppointmentPurpose>().HasData(purpose);
             modelBuilder.Entity<CommunicationMethod>().HasData(methods);
@@ -270,9 +218,8 @@ namespace CRMS.Data
             modelBuilder.Entity<LeadStatus>().HasData(status);
             modelBuilder.Entity<IdentityRole<Guid>>().HasData(roles);
             modelBuilder.Entity<ApplicationUser>().HasData(user);
-            modelBuilder.Entity<Contacts>().HasData(contact);
+            //modelBuilder.Entity<Contacts>().HasData(contact);
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(userRole);
-            modelBuilder.Entity<Product>().HasData(product);
         }
         private static string NormalizeAttribute(string attribute)
         {

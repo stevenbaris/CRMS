@@ -46,7 +46,22 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var engagement = await _engagementRepo.GetAllAsync();
-            return View("~/Views/Records/Engagement/Index.cshtml", engagement);
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return View("~/Views/Records/Engagement/Index.cshtml", engagement);
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var myEngagement = engagement.Where(l => l.CreatedById == Guid.Parse(userId));
+                    return View("~/Views/Records/Engagement/Index.cshtml", myEngagement);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -61,13 +76,46 @@ namespace CRMS.Controllers
         }
 
         // GET: Engagement/Create
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(Guid? Id)
         {
             ViewData["EngagementTypeList"] = new SelectList(await _eTypeRepo.GetAllAsync(), "EType_Id", "EngagementName");
             ViewData["EffectivityList"] = new SelectList(await _effectivityRepo.GetAllAsync(), "Effectivity_Id", "Effectivity_Name");
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
-            ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    if (Id != null)
+                    {
+                        Guid id = Id ?? Guid.Empty;
+                        var contact = await _contactRepo.GetbyIdAsync(id);
+                        ViewData["ContactId"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+                    }
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userGUID = (Guid.Parse(userId));
+                    if (Id != null)
+                    {
+                        var contact = await _contactRepo.GetbyIdAsync(Id ?? Guid.Empty);
+                        ViewData["ContactId"] = new SelectList((await _contactRepo.GetAllAsync()).Where(e=>e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
+                    }
+                    else
+                    {
+                        ViewData["ContactId"] = new SelectList((await _contactRepo.GetAllAsync()).Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                    }
+                }
+            }
+
+
+
             
+
             return View("~/Views/Records/Engagement/Create.cshtml");
         }
 
@@ -101,7 +149,19 @@ namespace CRMS.Controllers
             ViewData["EngagementTypeList"] = new SelectList(await _eTypeRepo.GetAllAsync(), "EType_Id", "EngagementName");
             ViewData["EffectivityList"] = new SelectList(await _effectivityRepo.GetAllAsync(), "Effectivity_Id", "Effectivity_Name");
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
-            ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userGUID = (Guid.Parse(userId));
+                    ViewData["ContactsList"] = new SelectList((await _contactRepo.GetAllAsync()).Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                }
+            }
             return View("~/Views/Records/Engagement/Edit.cshtml", model);
         }
 
@@ -136,7 +196,19 @@ namespace CRMS.Controllers
             ViewData["EngagementTypeList"] = new SelectList(await _eTypeRepo.GetAllAsync(), "EType_Id", "EngagementName");
             ViewData["EffectivityList"] = new SelectList(await _effectivityRepo.GetAllAsync(), "Effectivity_Id", "Effectivity_Name");
             ViewData["CommsMethodList"] = new SelectList(await _commsMethodRepo.GetAllAsync(), "CommunicationMethod_Id", "CommunicationMethodName");
-            ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    ViewData["ContactsList"] = new SelectList(await _contactRepo.GetAllAsync(), "Contact_Id", "FullName");
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userGUID = (Guid.Parse(userId));
+                    ViewData["ContactsList"] = new SelectList((await _contactRepo.GetAllAsync()).Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                }
+            }
             return View("~/Views/Records/Engagement/Edit.cshtml", engagement);
         }
 

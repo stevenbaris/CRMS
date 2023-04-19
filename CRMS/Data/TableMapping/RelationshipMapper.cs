@@ -143,10 +143,10 @@ namespace CRMS.Data.TableMapping
               .HasConstraintName("FK_Creator");
 
             modelBuilder.Entity<Leads>()
-                 .HasOne<Contacts>(ap => ap.prospect)
-                 .WithMany()
-                 .HasForeignKey(ap => ap.ProspectId)
-                 .HasConstraintName("FK_LeadsProspect");
+                .HasOne<Contacts>(ap => ap.prospect)
+                .WithMany()
+                .HasForeignKey(ap => ap.ProspectId)
+                .HasConstraintName("FK_LeadsProspect");
 
             modelBuilder.Entity<Leads>()
                 .HasOne<LeadStatus>(status => status.status)
@@ -180,11 +180,6 @@ namespace CRMS.Data.TableMapping
             modelBuilder.Entity<RollingTransactions>()
                 .Property(trans => trans.TransacationTotal)
                 .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<Contacts>()
-                .Property(con => con.Email)
-                .IsRequired();
-
         }
     }
 }

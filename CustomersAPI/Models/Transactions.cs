@@ -19,7 +19,7 @@ namespace CustomersAPI.Models
         [DisplayFormat(DataFormatString = "₱{0:N2}")]
         public Decimal Amount { get; set; }
 
-        public Guid CustomerId { get; set; }
+        public Guid ContactId { get; set; }
         public Customer Customer { get; set; }
 
 
@@ -31,7 +31,7 @@ namespace CustomersAPI.Models
             Transaction_Id = id;
             TransactionDate = transactionDate;
             Amount = amount;
-            CustomerId = customerId;
+            ContactId = customerId;
         }
     }
 }

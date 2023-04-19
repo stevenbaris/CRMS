@@ -33,6 +33,13 @@ namespace CRMS.Services._Config
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
             });
+
+            Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy =>
+                    policy.RequireRole("Admin"));
+            });
+
             return Services;
         }
 
@@ -71,29 +78,10 @@ namespace CRMS.Services._Config
             Services
                    .AddHttpClient()
 
-                   //.AddSingleton<ITokenStorage, InMemoryTokenStorage>()
-                   .AddTransient<IRepository<Product>, ProductsRepo>()
-                   
-                   .AddScoped<IProductConfidentialClientApplication>(provider => 
-                   {
-                       var clientId = _configuration["Oath2Product:ClientId"];
-                       var clientSecret = _configuration["Oath2Product:Secret"];
-                       var tenantId = _configuration["Oath2Product:TenantId"];
-                       var authority = $"https://login.microsoftonline.com/{tenantId}";
+                   .AddScoped<IRepository<Product>, ProductsRepo>()
 
-
-                       var app = ConfidentialClientApplicationBuilder
-                           .Create(clientId)
-                           .WithClientSecret(clientSecret)
-                           .WithAuthority(new Uri(authority))
-                           .Build();
-
-                       return (IProductConfidentialClientApplication)app;
-                   })
-
-                   .AddScoped<IHostedService, ProductsAPI>()
-
-
+                   .AddHostedService<ProductsAPI>()
+                   .AddHostedService<CustomerAPI>()
             ;
 
             return Services;

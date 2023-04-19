@@ -6,6 +6,7 @@ using ProductAPI.DTO;
 using ProductAPI.Models;
 using ProductAPI.Repository;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 namespace ProductAPI.Controllers
@@ -36,6 +37,7 @@ namespace ProductAPI.Controllers
                 if (loginResult.Succeeded)
                 {
                     var token = GenerateJwtToken();
+                    
                     return Ok(new { token });
                 } else
                 {

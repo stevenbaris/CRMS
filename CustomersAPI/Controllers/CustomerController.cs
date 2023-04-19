@@ -8,15 +8,15 @@ namespace CustomersAPI.Controllers
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class ExternalDataController : ControllerBase
+    public class CustomerController : ControllerBase
     {
 
         private readonly ICustomerDBRepository _custDBRepository;
         private readonly CustomerTransactionService _transactionService;
-        private readonly ILogger<ExternalDataController> _logger;
+        private readonly ILogger<CustomerController> _logger;
 
-        public ExternalDataController(ICustomerDBRepository custDBRepository,
-                                     ILogger<ExternalDataController> logger,
+        public CustomerController(ICustomerDBRepository custDBRepository,
+                                     ILogger<CustomerController> logger,
                                      CustomerTransactionService transactionService)
         {
             _custDBRepository = custDBRepository;
@@ -26,7 +26,7 @@ namespace CustomersAPI.Controllers
 
 
         //GET ALL CUSTOMER
-        [HttpGet("Customer")]
+        [HttpGet("CustomerList")]
         public async Task<IActionResult> GetAllCustomers()
         {
             _logger.LogInformation("Request received from user: {user} to get the complete customer list.", User.Identity.Name);
@@ -34,7 +34,7 @@ namespace CustomersAPI.Controllers
         }
 
         //GET ALL CUSTOMERE WITH TRANSACTION LIST
-        [HttpGet("CustomerTransactions")]
+        [HttpGet("CustomerListwithTransactions")]
         public async Task<IActionResult> GetAllTransactions()
         {
             _logger.LogInformation("Request received from user: {user} to get the complete transactions list.", User.Identity.Name);

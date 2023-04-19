@@ -1,16 +1,296 @@
-﻿<div class="dropdown">
-    <h3 class="dropdown-toggle" id="my-dropdown" data-toggle="dropdown">Dashboard <span class="caret"></span></h3>
-    <div class="dropdown-menu" aria-labelledby="my-dropdown">
-        <input type="text" class="search-input" placeholder="Search...">
-        <ul >
-            <li><a class="dropdown-item" href="#" data-value="Employee Access">Option 1</a></li>
-            <li><a href="#">Option 2</a></li>
-            <li><a href="#">Option 3</a></li>
-            <li><a href="#">Option 4</a></li>
-            <li><a href="#">Option 5</a></li>
-        </ul>
+﻿
+<div class="w3-container" style="background-color:aliceblue; min-height:100VH; max-height:100%;">
+    <h3 class="my-4">Dashboard</h3>
+    <div class="container-fluid row g-3">
+        
+        <div class="card p-3 col-md-3" s>
+            <a class="dropdown-item fw-bold text-warning mb-2 w3-center" href="#!">
+                <Strong><h4>ACTIVITY</h4></Strong>
+            </a>
+            <h1 class="text-decoration-underline text-primary w3-center">@ViewData["TotalTasks"] </h1> <span class="w3-center">Tasks Today</span>
+            <div class="dropdown-divider"></div>
+            <table>
+                <thead><tr></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Contacts with No Leads:</td>
+                        <td>@ViewData["ContactsWithNoLeads"]</td>
+                    </tr>
+                    <tr>
+                        <td>Customer Engagements:</td>
+                        <td>@ViewData["NextEngagements"]</td>
+                    </tr>
+                    <tr>
+                        <td>Appointments Today:</td>
+                        <td>@ViewData["Appointments"]</td>
+                    </tr>
+                    <tr>
+                        <td>Target Contacts to Create:</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card p-3 col-md-2">
+            <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
+                <span class="fas fa-crown me-1"></span>
+                <span>Top 5 Lead Sources</span>
+            </a>
+
+            @if (ViewData["LeadSources"] != null)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var source in (IEnumerable<dynamic>)ViewData["LeadSources"])
+                        {
+                            <tr>
+                                <td>@source.Source</td>
+                                <td>(@source.Count)</td>
+                            </tr>
+                        }
+                        @for (int i = ((IEnumerable<dynamic>)ViewData["LeadSources"]).Count(); i < 5; i++)
+                        {
+                            <tr>
+                                <td>Not Available</td>
+                                <td>(0)</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+        </div>
+
+        <div class="card p-3 w3-center col-md-2" >
+            <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
+                <span>Contacts Created:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsCreated"] </h2> <span>out of 10</span>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item fw-bold text-warning mb-3 text-wrap" href="#!">
+                <span>Company-Assigned Contacts:</span>
+            </a>
+            <h2 class="text-info">@ViewData["ContactsAssigned"] </h2> <span>Newly Assigned Contacts</span>
+           
+        </div>
+
+        <div class="card p-3 col-md-5">
+            <a class="dropdown-item fw-bold text-warning mb-4" href="#!">
+                <h5>Sales Pipeline:</h5>
+            </a>
+            
+            <div class="container-fluid row g-3 w3-center">
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Contacted</span></a>
+                    <h2 class="text-info">@ViewData["contacted"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Met</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["met"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Proposal Generated</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["proposal_generated"] </h2>
+                </div>
+                <div class="col-md-4 border">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Application Submitted</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["application_submitted"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Policy Issued</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["policy_issued"] </h2>
+                </div>
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                        <span>Dead Lead</span>
+                    </a>
+                    <h2 class="text-info">@ViewData["dead_lead"] </h2>
+                </div>
+
+            </div>
+           
+
+        </div>
+
+        <div class="card p-3 col-md-12 " >
+            <div class="row g-3">
+            <a class="fw-bold text-success col-md-10" href="#!">
+                <span>Appointments Today</span>
+            </a>
+            <a button class="btn btn-success col-md-2" type="button" asp-controller="Appointments" asp-action="Create">
+                + New
+            </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="container-fluid">
+                @if (ViewData["AppointmentsList"] != null)
+                {
+                    <table class="table table-hover w3-center">
+                        <thead>
+                            <tr>
+                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Status</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Date</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Time</th>
+                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">For Contact:</th>
+                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Purpose</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody class="justify-content-center ">
+                            @foreach (var meeting in (IEnumerable<dynamic>)ViewData["AppointmentsList"])
+                            {
+                                <tr>
+                                    <td  class="text-white text-bg-danger text-center">@meeting.SchedStatus</td>
+                                    <td class="text-center">@meeting.Appointment_DateTime.ToString("MMM dd, yyyy")</td>
+                                    <td class="text-center">@meeting.Appointment_DateTime.ToString("hh:mm tt")</td>
+                                    <td class="text-center">@meeting.prospect.FullName</td>
+                                    <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
+                                    <td class="text-center">@meeting.Description</td>
+                                    
+                                </tr>
+                            }
+                           
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h4 class="text-center">No Results Found</h4>
+                }
+                
+            </div>
+
+        </div>
+
+        <div class="card p-3 col-md-12 ">
+            <div class="row g-3">
+                <a class="fw-bold text-success col-md-10" href="#!">
+                    <span>Engagements Today</span>
+                </a>
+                <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                    + New
+                </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="container-fluid">
+                @if (ViewData["NextEngagementsList"] != null)
+                {
+                    <table class="table table-hover w3-center">
+                        <thead>
+                            <tr>
+                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Suggested Engagement</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Previous Engagement</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Contact</th>
+                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Topic</th>
+                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Details</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Contact Method</th>
+                            </tr>
+                        </thead>
+                        <tbody class="justify-content-center ">
+                            @foreach (var engagement in (IEnumerable<dynamic>)ViewData["NextEngagementsList"])
+                            {
+                                <tr>
+                                    <td class="text-white text-bg-danger text-center">@engagement.Engagement_Date.AddDays(7).Date</td>
+                                    <td class="text-center">@engagement.Engagement_Date.Date</td>
+                                    <td class="text-center">@engagement.Contacts.FullName</td>
+                                    <td class="text-center">@engagement.Topic</td>
+                                    <td class="text-center">@engagement.Engagement_Description</td>
+                                    <td class="text-center">@engagement.CommunicationMethod.CommunicationMethodName</td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <h4 class="text-center">No Results Found</h4>
+                }
+
+            </div>
+
+        </div>
+
+        <div class="card p-3 col-md-12 ">
+            <div class="row g-3">
+                <a class="fw-bold text-success col-md-10" href="#!">
+                    <span>Contacts Without Leads</span>
+                </a>
+                <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                    + New
+                </a>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="container-fluid">
+                @if (ViewData["ContactsWithNoLeadsList"] != null)
+                {
+                    <table class="table table-hover w3-center">
+                        <thead>
+                            <tr>
+                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Leads</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Full Name</th>
+                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Email</th>
+                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Phone Number</th>
+                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Gender</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Date of Birth</th>
+                            </tr>
+                        </thead>
+                        <tbody class="justify-content-center ">
+                            @foreach (var noleads in (IEnumerable<dynamic>)ViewData["ContactsWithNoLeadsList"])
+                            {
+                                <tr>
+                                    <td class="text-white text-bg-danger text-center">No Leads</td>
+                                    <td class="text-center">@noleads.FullName</td>
+                                    <td class="text-center">@noleads.Email</td>
+                                    <td class="text-center">@noleads.PhoneNumber</td>
+                                    <td class="text-center">@noleads.Gender</td>
+                                    <td class="text-center">@noleads.DOB</td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <tbody class="justify-content-center ">
+                        <tr><h4 class="text-center">No Results Found</h4></tr>
+                    </tbody>
+                }
+
+            </div>
+
+        </div>
+
+    
+        
+
+
+
     </div>
 </div>
+
+
+
 
 
 @section Scripts{

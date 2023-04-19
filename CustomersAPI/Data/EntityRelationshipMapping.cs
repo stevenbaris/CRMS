@@ -10,10 +10,10 @@ namespace CustomersAPI.Data
         {
             modelBuilder.Entity<Customer>()
                 .ToTable("CUSTOMERS LIST")
-                .HasKey(pk => pk.Customer_Id);
+                .HasKey(pk => pk.Contact_Id);
 
             modelBuilder.Entity<Customer>()
-                .Property(cust => cust.Phone)
+                .Property(cust => cust.PhoneNumber)
                 .HasAnnotation("RegularExpression", @"^(09|\+639)\d{9}$");
         }
 
@@ -26,8 +26,8 @@ namespace CustomersAPI.Data
             modelBuilder.Entity<Transactions>()
                 .HasOne<Customer>(trans => trans.Customer)
                 .WithMany(cust => cust.Transactions)
-                .HasForeignKey(trans => trans.CustomerId)
-                .HasConstraintName("FK_Customer_ID");
+                .HasForeignKey(trans => trans.ContactId)
+                .HasConstraintName("FK_Contact_Id");
 
             modelBuilder.Entity<Transactions>()
                 .Property(trans => trans.Amount)
