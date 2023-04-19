@@ -1,0 +1,81 @@
+﻿<div>
+    <div class="d-flex">
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white cebuana-bg-blue" style="width: 230px; min-height: 100vh; max-height:100% position:sticky">
+            <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <span class="fs-4">CRMS - Sales</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column flex-grow-1">
+                @*@if (_signInManager.IsSignedIn(User))*@
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <p class="navbar-vertical-label">Management</p>
+                        <li>
+                            <a asp-controller="User" asp-action="Index" class="nav-link text-white text-white">
+                                @*asp-area="" asp-controller="User" asp-action="Index"*@
+                                Employees
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Contacts" asp-action="ViewAll" class="nav-link text-white text-white">
+                                Contacts
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Customization" asp-action="Index" class="nav-link text-white text-white">
+                                Customization
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        @*<p class="navbar-vertical-label">Home</p>*@
+                        <li class="item">
+                            <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link text-white text-white">
+
+                                <i class="fa fa-home caption"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        @*<p class="navbar-vertical-label">Management</p>*@
+                        <li>
+                            <a asp-area="" asp-controller="Contacts" asp-action="ViewAll" class="nav-link text-white text-white">
+                                <i class="bi bi-person-lines-fill"></i> &nbsp; Contacts
+                            </a>
+                        </li>
+                        @*<li>
+                <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link text-white icon-link text-white">
+                Companies
+                </a>
+                </li>*@
+                        <li>
+                            <a asp-area="" asp-controller="Leads" asp-action="Index" class="nav-link text-white text-white">
+                                Leads
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Engagement" asp-action="Index" class="nav-link text-white text-white">
+                                Engagements Tracking
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Appointments" asp-action="Index" class="nav-link text-white text-white">
+                                Appointments
+                            </a>
+                        </li>
+                    }
+                }
+
+            </ul>
+        </div>
+
+        <div class="w3-responsive flex-fill">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+</div>
