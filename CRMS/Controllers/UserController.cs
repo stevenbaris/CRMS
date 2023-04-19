@@ -76,8 +76,9 @@ namespace CRMS.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, userViewModel.Password))
             {
                 var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, false, false);
+                bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 
-                if (result.Succeeded && User.IsInRole("Admin"))
+                if (result.Succeeded && isAdmin)
                 {
                     // Redirect the user to the admin dashboard
                     return RedirectToAction(actionName: "Index", controllerName: "Home");

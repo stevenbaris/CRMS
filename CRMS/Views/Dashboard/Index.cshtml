@@ -88,37 +88,37 @@
                 <div class="col-md-4 border ">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Contacted</span></a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["contacted"] </h2>
                 </div>
                 <div class="col-md-4 border ">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Met</span>
                     </a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["met"] </h2>
                 </div>
                 <div class="col-md-4 border ">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Proposal Generated</span>
                     </a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["proposal_generated"] </h2>
                 </div>
                 <div class="col-md-4 border">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Application Submitted</span>
                     </a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["application_submitted"] </h2>
                 </div>
                 <div class="col-md-4 border ">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Policy Issued</span>
                     </a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["policy_issued"] </h2>
                 </div>
                 <div class="col-md-4 border ">
                     <a class="dropdown-item fw-bold text-secondary" href="#!">
                         <span>Dead Lead</span>
                     </a>
-                    <h2 class="text-info">@ViewData["ContactsAssigned"] </h2>
+                    <h2 class="text-info">@ViewData["dead_lead"] </h2>
                 </div>
 
             </div>
@@ -126,17 +126,25 @@
 
         </div>
 
-        <div class="card p-3 w3-center col-md-12" >
+        <div class="card p-3 col-md-12" >
             <a class="dropdown-item fw-bold text-success" href="#!">
-                <span>Contacts Created:</span>
+                <span>Appointments Today</span>
             </a>
-            <h2 class="text-info">@ViewData["ContactsCreated"] </h2> <span>out of 10</span>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item fw-bold text-success" href="#!">
-                <span>Company-Assigned Contacts:</span>
-            </a>
-            <h2 class="text-info">@ViewData["ContactsAssigned"] </h2> <span>Newly Assigned Contacts</span>
+            <div>
 
+            </div>
+
+        </div>
+
+        <div class="card p-3 col-md-12">
+            <a class="dropdown-item fw-bold text-success" href="#!">
+                <span>Engagements Today</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <div>
+
+            </div>
         </div>
     </div>
 

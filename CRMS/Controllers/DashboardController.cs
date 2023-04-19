@@ -60,8 +60,15 @@ namespace CRMS.Controllers
             var NextEngagements = (await _engagementRepo.GetAllAsync()).Count(e=>e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date  && e.CreatedById == userGUID);
             var Appointments = (await _appointmentRepo.GetAllAsync()).Count(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID);
 
-            var ContactsCreated = (await _contactRepo.GetAllAsync()).Where(c=>c.ContactCreatorID == userGUID);
-            var ContactsAssigned = (await _contactRepo.GetAllAsync()).Where(c => c.ContactCreatorID != userGUID  && c.ContactOwnerID == userGUID);
+            var ContactsCreated = (await _contactRepo.GetAllAsync()).Where(c=>c.ContactCreatorID == userGUID && c.CreateDate == DateTime.Now.Date);
+            var ContactsAssigned = (await _contactRepo.GetAllAsync()).Where(c => c.ContactCreatorID != userGUID  && c.ContactOwnerID == userGUID && c.DateAssigned == DateTime.Now.Date);
+
+            var contacted = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Contacted" && l.CreatedBy == userGUID);
+            var met = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Met" && l.CreatedBy == userGUID);
+            var proposal_generated = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Proposal Generated" && l.CreatedBy == userGUID);
+            var application_submitted = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Application Submitted" && l.CreatedBy == userGUID);
+            var policy_issued = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Policy Issued" && l.CreatedBy == userGUID);
+            var dead_lead = (await _leadsRepo.GetAllAsync()).Where(l => l.status.LeadStatusName == "Lead is Dead" && l.CreatedBy == userGUID);
 
             ViewData["LeadSources"] = leadSources;
             ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads;
@@ -70,6 +77,14 @@ namespace CRMS.Controllers
             ViewData["TotalTasks"] = Appointments + Appointments + ContactsWithNoLeads;
             ViewData["ContactsCreated"] = ContactsCreated.Count();
             ViewData["ContactsAssigned"] = ContactsAssigned.Count();
+
+            ViewData["contacted"] = contacted.Count();
+            ViewData["met"] = met.Count();
+            ViewData["proposal_generated"] = proposal_generated.Count();
+            ViewData["application_submitted"] = application_submitted.Count();
+            ViewData["policy_issued"] = policy_issued.Count();
+            ViewData["dead_lead"] = dead_lead.Count();
+            
 
             //ViewData["ActivityToday"] = GetTheDaysActivity(DateTime.Now).Result;
             //ViewData["ActivityYesterday"] = GetTheDaysActivity(DateTime.Now.AddDays(-1));
