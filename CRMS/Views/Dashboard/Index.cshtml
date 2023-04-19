@@ -3,6 +3,7 @@
     <h3 class="my-4">Dashboard</h3>
     <div class="container-fluid row g-3">
         
+        <!----ACTIVITY CARD--->
         <div class="card p-3 col-md-3" s>
             <a class="dropdown-item fw-bold text-warning mb-2 w3-center" href="#!">
                 <Strong><h4>ACTIVITY</h4></Strong>
@@ -32,6 +33,7 @@
             </table>
         </div>
 
+        <!----TOP 5 LEADS CARD--->
         <div class="card p-3 col-md-2">
             <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
                 <span class="fas fa-crown me-1"></span>
@@ -66,6 +68,7 @@
             }
         </div>
 
+        <!----CONTACTS SOURCE CARD--->
         <div class="card p-3 w3-center col-md-2" >
             <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
                 <span>Contacts Created:</span>
@@ -79,6 +82,7 @@
            
         </div>
 
+        <!----PIPELINE STAGE CARD--->
         <div class="card p-3 col-md-5">
             <a class="dropdown-item fw-bold text-warning mb-4" href="#!">
                 <h5>Sales Pipeline:</h5>
@@ -126,13 +130,14 @@
 
         </div>
 
+        <!----APPOINTMENT LIST CARD--->
         <div class="card p-3 col-md-12 " >
             <div class="row g-3">
             <a class="fw-bold text-success col-md-10" href="#!">
                 <span>Appointments Today</span>
             </a>
             <a button class="btn btn-success col-md-2" type="button" asp-controller="Appointments" asp-action="Create">
-                + New
+                + New Appointment
             </a>
             </div>
             <div class="dropdown-divider"></div>
@@ -177,13 +182,14 @@
 
         </div>
 
+        <!----ENGAGEMENT LIST CARD--->
         <div class="card p-3 col-md-12 ">
             <div class="row g-3">
                 <a class="fw-bold text-success col-md-10" href="#!">
                     <span>Engagements Today</span>
                 </a>
                 <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
-                    + New
+                    + New Engagement
                 </a>
             </div>
             <div class="dropdown-divider"></div>
@@ -228,13 +234,14 @@
 
         </div>
 
+        <!----NO LEADS CARD--->
         <div class="card p-3 col-md-12 ">
             <div class="row g-3">
                 <a class="fw-bold text-success col-md-10" href="#!">
                     <span>Contacts Without Leads</span>
                 </a>
                 <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
-                    + New
+                    + New Leads
                 </a>
             </div>
             <div class="dropdown-divider"></div>
@@ -281,7 +288,7 @@
 
         </div>
 
-    
+        <!----CREATE CONTACTS CARD--->
         
 
 

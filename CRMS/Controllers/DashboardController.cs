@@ -64,7 +64,7 @@ namespace CRMS.Controllers
                     .ToList();
 
             //CONTACTS CREATED CARD
-            var ContactsCreated = (await _contactRepo.GetAllAsync()).Where(c=>c.ContactCreatorID == userGUID && c.CreateDate == DateTime.Now.Date);
+            var ContactsCreated = (await _contactRepo.GetAllAsync()).Where(c=>c.ContactCreatorID == userGUID && c.CreateDate?.Date == DateTime.Now.Date);
             var ContactsAssigned = (await _contactRepo.GetAllAsync()).Where(c => c.ContactCreatorID != userGUID  && c.ContactOwnerID == userGUID && c.DateAssigned == DateTime.Now.Date);
 
             var contacted = (await _leadsRepo.GetAllAsync()).Where(l=>l.status.LeadStatusName == "Contacted" && l.CreatedBy == userGUID);
