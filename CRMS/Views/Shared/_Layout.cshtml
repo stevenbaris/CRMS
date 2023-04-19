@@ -6,20 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] Core CRMS</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CRMS.styles.css" asp-append-version="true" />
     <link rel="shortcut icon" href="/img/favicon.ico" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" />
     <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/css/bootstrap.rtl.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/css/bootstrap.rtl.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/CRMS.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     @*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">*@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-highway.css">
+
 
     @await RenderSectionAsync("Styles", required: false)
 
@@ -109,84 +110,50 @@
     
     <!--  This Here is the SIDEBAR   -->
     <div>
-        <div class="d-flex">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white cebuana-bg-blue" style="width: 280px; min-height: 100vh; max-height:100% position:sticky">
-                <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-4">CRMS - Sales</span>
-                </a>
-                <hr>
-                <ul class="nav nav-pills flex-column flex-grow-1">
-                 @if (_signInManager.IsSignedIn(User))
-                {
-                    if (User.IsInRole("Admin"))
-                    {
-                        <p class="navbar-vertical-label">Management</p>
-                        <li>
-                                <a asp-controller="User" asp-action="Index"  class="nav-link text-white text-white">
-                                    @*asp-area="" asp-controller="User" asp-action="Index"*@
-                                Employees
-                            </a>
-                        </li>
-                        <li>
-                                <a asp-controller="Contacts" asp-action="ViewAll" class="nav-link text-white text-white">
-                                Contacts
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Customization" asp-action="Index" class="nav-link text-white text-white">
-                                Customization
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <p class="navbar-vertical-label">Home</p>
-                        <li class="nav-item">
-                            <a  asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link text-white text-white active">
-                                Dashboard
-                            </a>
-                        </li>
-
-                        <p class="navbar-vertical-label">Management</p>
-                        <li>
-                            <a  asp-area="" asp-controller="Contacts" asp-action="ViewAll" class="nav-link text-white text-white">
-                                Contacts
-                            </a>
-                        </li>
-                        @*<li>
-                        <a asp-area="" asp-controller="Companies" asp-action="Index" class="nav-link text-white icon-link text-white">
-                                Companies
-                            </a>
-                        </li>*@
-                        <li>
-                            <a  asp-area="" asp-controller="Leads" asp-action="Index" class="nav-link text-white text-white">
-                                Leads
-                            </a>
-                        </li>
-                        <li>
-                            <a  asp-area="" asp-controller="Engagement" asp-action="Index" class="nav-link text-white text-white">
-                                Engagements Tracking
-                            </a>
-                        </li>
-                        <li>
-                            <a  asp-area="" asp-controller="Appointments" asp-action="Index" class="nav-link text-white text-white">
-                                Appointments
-                            </a>
-                        </li>
-                    }
-                }
-
-                </ul>
-            </div>
-
-            <div class="w3-responsive flex-fill">
-                <main role="main" class="pb-3">
+        <div class="d-flex" style="position:sticky">
+            <div class="navbarnew" >
+                <ul>
+                    <li>
+                        <a asp-area="" asp-controller="Dashboard" asp-action="Index">
+                            <span class="icon"><i class="bi bi-speedometer2"></i></span>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Contacts" asp-action="ViewAll">
+                            <span class="icon"><i class="bi bi-person-rolodex"></i></span>
+                            <span class="title">Contacts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Leads" asp-action="Index">
+                            <span class="icon"><i class="bi bi-node-plus"></i></span>
+                            <span class="title">Leads</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Engagement" asp-action="Index">
+                            <span class="icon"><i class="bi bi-send"></i></span>
+                            <span class="title">Engagements Tracking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Appointments" asp-action="Index">
+                            <span class="icon"><i class="bi bi-calendar2-date"></i></span>
+                            <span class="title">Appointments</span>
+                        </a>
+                    </li>                             
+                </ul>     
+            </div> 
+            <div class="w3-responsive flex-fill container ">
+                <main role="main" class="p-3">
                     @RenderBody()
                 </main>
             </div>
-        </div>
-    
+        </div>  
     </div>
+    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

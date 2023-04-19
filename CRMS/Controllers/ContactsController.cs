@@ -101,7 +101,7 @@ namespace CRMS.Controllers
                 AppUsers = appUsers
             };
 
-            return View("Index", model);
+            return View("Create", model);
         }
 
         [HttpPost]

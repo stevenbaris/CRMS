@@ -163,16 +163,16 @@ namespace CRMS.Controllers
 
             ViewBag.Roles = list;
 
-            //var roleItems = roles.Select(role =>
-            //    new SelectListItem(
-            //        role.Name,
-            //        role.Id,
-            //        userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
+            var roleItems = roles.Select(role =>
+                new SelectListItem(
+                    role.Name,
+                    role.Id.ToString(),
+                    userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
 
             var vm = new EditUserViewModel
             {
                 User = user,
-                //Roles = roleItems
+                Roles = roleItems
             };
 
             return View(vm);
