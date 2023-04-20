@@ -4,9 +4,13 @@ namespace ProductAPI.Repository
 {
     public interface IProductRepository
     {
-            List<Product> GetAllProducts();
+        Task<List<Product>> GetAllAsync();
 
-            Product AddProduct(Product newProduct);
-        
+        Task<Product> GetbyIdAsync(Guid id);
+        Task<Product> CreateAsync(Product product);
+        Task<Product> UpdateAsync(Product product);
+        Task<Product> DeleteAsync(Guid id);
+
+
     }
 }

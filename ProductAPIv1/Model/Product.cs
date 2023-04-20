@@ -5,9 +5,9 @@ namespace ProductAPI.Model
 {
     public class Product
     {
+        [Key]
         public Guid Product_Id { get; set; }
 
-        [Key]
         [Required]
         [StringLength(50)]
         [DisplayName("Product Name")]
@@ -30,6 +30,9 @@ namespace ProductAPI.Model
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? CreateDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? UpdateDate { get; set; }
 
 

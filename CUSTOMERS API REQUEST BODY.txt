@@ -1,0 +1,24 @@
+CUSTOMERS API REQUEST BODY
+
+CUSTOMERS SIGNIN
+
+{
+  "userName": "su@crms.com",
+  "password": "Admin123",
+  "rememberMe": true
+}
+
+
+CREATE CUSTOMER
+
+{
+
+    "firstName": "Madeline",
+    "lastName": "Baxter",
+    "gender": "Female",
+    "dob": "1975-03-15T00:00:00",
+    "email": "mauris.sagittis@icloud.edu",
+    "phoneNumber": "09123546789",
+    "address": "5234 Crossing Street"
+
+}

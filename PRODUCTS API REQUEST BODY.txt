@@ -1,0 +1,18 @@
+PRODUCTS API REQUEST BODY
+
+PRODUCTS SIGNIN
+
+{
+  "userName": "su@crms.com",
+  "password": "Admin123",
+  "rememberMe": true
+}
+
+
+CREATE PRODUCT
+
+{
+  "productName": "CL Personal Accident Nano Plus",
+  "productDescription": "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
+  "benefits": "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance."
+}

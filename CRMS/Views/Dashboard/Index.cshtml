@@ -4,7 +4,7 @@
     <div class="container-fluid row g-3">
         
         <!----ACTIVITY CARD--->
-        <div class="card p-3 col-md-3" s>
+        <div class="card p-3 col-md-3 col-sm-6" >
             <a class="dropdown-item fw-bold text-warning mb-2 w3-center" href="#!">
                 <Strong><h4>ACTIVITY</h4></Strong>
             </a>
@@ -34,9 +34,9 @@
         </div>
 
         <!----TOP 5 LEADS CARD--->
-        <div class="card p-3 col-md-2">
-            <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
-                <span class="fas fa-crown me-1"></span>
+        <div class="card p-3 col-md-2 col-sm-6">
+            <a class="dropdown-item fw-bold text-warning mb-3 text-wrap w3-center" href="#!">
+                <span class="fas fa-crown me-1 "></span>
                 <span>Top 5 Lead Sources</span>
             </a>
 
@@ -88,38 +88,38 @@
                 <h5>Sales Pipeline:</h5>
             </a>
             
-            <div class="container-fluid row g-3 w3-center">
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+            <div class="container-fluid row g-3 w3-center ">
+                <div class="col-md-4 border">
+                    <a class="fw-bold text-secondary text-wrap" href="#!">
                         <span>Contacted</span></a>
                     <h2 class="text-info">@ViewData["contacted"] </h2>
                 </div>
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                <div class="col-md-4 border  ">
+                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
                         <span>Met</span>
                     </a>
                     <h2 class="text-info">@ViewData["met"] </h2>
                 </div>
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                <div class="col-md-4 border  ">
+                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
                         <span>Proposal Generated</span>
                     </a>
                     <h2 class="text-info">@ViewData["proposal_generated"] </h2>
                 </div>
-                <div class="col-md-4 border">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                <div class="col-md-4 border ">
+                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
                         <span>Application Submitted</span>
                     </a>
                     <h2 class="text-info">@ViewData["application_submitted"] </h2>
                 </div>
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                <div class="col-md-4 border  ">
+                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
                         <span>Policy Issued</span>
                     </a>
                     <h2 class="text-info">@ViewData["policy_issued"] </h2>
                 </div>
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary" href="#!">
+                <div class="col-md-4 border  ">
+                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
                         <span>Dead Lead</span>
                     </a>
                     <h2 class="text-info">@ViewData["dead_lead"] </h2>
@@ -134,7 +134,7 @@
         <div class="card p-3 col-md-12 " >
             <div class="row g-3">
             <a class="fw-bold text-success col-md-10" href="#!">
-                <span>Appointments Today</span>
+                <span>Appointments</span>
             </a>
             <a button class="btn btn-success col-md-2" type="button" asp-controller="Appointments" asp-action="Create">
                 + New Appointment
@@ -153,6 +153,7 @@
                                 <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">For Contact:</th>
                                 <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Purpose</th>
                                 <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Details</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
                             </tr>
                         </thead>
                         <tbody class="justify-content-center ">
@@ -162,9 +163,14 @@
                                     <td  class="text-white text-bg-danger text-center">@meeting.SchedStatus</td>
                                     <td class="text-center">@meeting.Appointment_DateTime.ToString("MMM dd, yyyy")</td>
                                     <td class="text-center">@meeting.Appointment_DateTime.ToString("hh:mm tt")</td>
-                                    <td class="text-center">@meeting.prospect.FullName</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FullName</a>
+                                    </td>
                                     <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
-                                    <td class="text-center">@meeting.Description</td>
+                                    <td class="text-center text-wrap">@meeting.Description</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>
+                                    </td>
                                     
                                 </tr>
                             }
@@ -186,7 +192,7 @@
         <div class="card p-3 col-md-12 ">
             <div class="row g-3">
                 <a class="fw-bold text-success col-md-10" href="#!">
-                    <span>Engagements Today</span>
+                    <span>Engagements</span>
                 </a>
                 <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
                     + New Engagement
@@ -199,24 +205,30 @@
                     <table class="table table-hover w3-center">
                         <thead>
                             <tr>
-                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Suggested Engagement</th>
+                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Today</th>
                                 <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Previous Engagement</th>
                                 <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Contact</th>
                                 <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Topic</th>
                                 <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Details</th>
                                 <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Contact Method</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
                             </tr>
                         </thead>
                         <tbody class="justify-content-center ">
                             @foreach (var engagement in (IEnumerable<dynamic>)ViewData["NextEngagementsList"])
                             {
                                 <tr>
-                                    <td class="text-white text-bg-danger text-center">@engagement.Engagement_Date.AddDays(7).Date</td>
-                                    <td class="text-center">@engagement.Engagement_Date.Date</td>
-                                    <td class="text-center">@engagement.Contacts.FullName</td>
+                                    <td class="text-white text-bg-danger text-center">@engagement.Engagement_Date.AddDays(7).ToString("MMM dd, yyyy")</td>
+                                    <td class="text-center">@engagement.Engagement_Date.ToString("MMM dd, yyyy")</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@engagement.ContactId">@engagement.Contacts.FullName</a>
+                                    </td>
                                     <td class="text-center">@engagement.Topic</td>
-                                    <td class="text-center">@engagement.Engagement_Description</td>
+                                    <td class="text-center text-wrap">@engagement.Engagement_Description</td>
                                     <td class="text-center">@engagement.CommunicationMethod.CommunicationMethodName</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Engagement" asp-action="Create" asp-route-id="@engagement.ContactId">+ Add Record</a>
+                                        </td>
 
                                 </tr>
                             }
@@ -257,6 +269,7 @@
                                 <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Phone Number</th>
                                 <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Gender</th>
                                 <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Date of Birth</th>
+                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
                             </tr>
                         </thead>
                         <tbody class="justify-content-center ">
@@ -264,11 +277,16 @@
                             {
                                 <tr>
                                     <td class="text-white text-bg-danger text-center">No Leads</td>
-                                    <td class="text-center">@noleads.FullName</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@noleads.Contact_Id">@noleads.FullName</a>
+                                        </td>
                                     <td class="text-center">@noleads.Email</td>
                                     <td class="text-center">@noleads.PhoneNumber</td>
                                     <td class="text-center">@noleads.Gender</td>
-                                    <td class="text-center">@noleads.DOB</td>
+                                    <td class="text-center">@noleads.DOB.ToString("MMM dd, yyyy")</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Leads" asp-action="Create" asp-route-Id="@noleads.Contact_Id">+ Create</a>
+                                    </td>
 
                                 </tr>
                             }
@@ -289,16 +307,9 @@
         </div>
 
         <!----CREATE CONTACTS CARD--->
-        
-
-
 
     </div>
 </div>
-
-
-
-
 
 @section Scripts{
     <script>

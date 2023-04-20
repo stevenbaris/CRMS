@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRMS.Migrations
 {
     [DbContext(typeof(CRMSDbContext))]
-    [Migration("20230418194541_initDBSchema04192023")]
-    partial class initDBSchema04192023
+    [Migration("20230420135617_initDBSchema042023")]
+    partial class initDBSchema042023
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,11 +107,11 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cc98972a-f493-4f90-bbfb-88c473bbf526"),
+                            Id = new Guid("b2752db3-d069-4e03-99ef-7a18a81fc33c"),
                             AccessFailedCount = 0,
                             CityAddress = "Makati",
-                            ConcurrencyStamp = "8e8c7740-7109-439b-badc-6f9cb478d4c8",
-                            DOB = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "b29b46e5-3c49-4a85-be1a-027c0cb0c8ca",
+                            DOB = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "su@crms.com",
                             EmailConfirmed = true,
                             FirstName = "System",
@@ -119,7 +119,7 @@ namespace CRMS.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SU@CRMS.COM",
                             NormalizedUserName = "SYSADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECG/5RhdmwZkXU/8MfR6bw3X64bJRMV08iAachBZgW+UiZVkdSPgUobuEmnYACt8aA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH2h5r/mnlxU6BVyxhdz7eVpHJsOBR7lPHUDN2Jdl0B1820i1l0s4NYzcNFgpsfq8Q==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -127,11 +127,11 @@ namespace CRMS.Migrations
                         },
                         new
                         {
-                            Id = new Guid("eb491267-3f69-4194-bf91-c6fc3d191215"),
+                            Id = new Guid("9100ea8c-5aae-488d-a4c7-54648e41e3ab"),
                             AccessFailedCount = 0,
                             CityAddress = "Pasay",
-                            ConcurrencyStamp = "f9be4d49-10a6-4c93-bd48-85f385c6542e",
-                            DOB = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "e829b7f5-7059-489f-b467-5001ac55f7f1",
+                            DOB = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "cgl@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Charl",
@@ -139,7 +139,7 @@ namespace CRMS.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "CGL@CRMS.COM",
                             NormalizedUserName = "CGL@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL10uFMmSBy4kSJw0tLH3U0rJHlxvdIEgAauX2ZuPUtD+sqieqBXwfhfQ0NB1DaqKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGk/ohin01sec0jkJMtw/KS/ZQthrQknxw7xqt4UXc53rxSveIjpI5euRHgeBzQiCQ==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -147,11 +147,11 @@ namespace CRMS.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a6adb108-b7ac-4a1f-b23f-df2a3c2caadc"),
+                            Id = new Guid("34aefe25-7d1c-447f-b112-d9dfc92bfb1d"),
                             AccessFailedCount = 0,
                             CityAddress = "General Trias",
-                            ConcurrencyStamp = "7970bf57-231e-4578-9e92-e30594aff3aa",
-                            DOB = new DateTime(2023, 4, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "eb83706f-9106-4208-acde-bada9feac740",
+                            DOB = new DateTime(2023, 4, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "sbb@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Steven",
@@ -159,7 +159,7 @@ namespace CRMS.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SBB@CRMS.COM",
                             NormalizedUserName = "SBB@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMjUGkGr8wJoJ+tAdmRK7kG6SZrMCZU2a+yMU3kOcPHY10tDqp3sCIwNEhw6YRng7Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH88hwJsOFTSvckEa1Ml0gLwDP3nbTC2bjhLSSC292svfMfGcpAPiu4i35Q5d0gscg==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -192,7 +192,7 @@ namespace CRMS.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -221,6 +221,9 @@ namespace CRMS.Migrations
 
                     b.HasIndex("ContactOwnerID");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("CONTACTS", (string)null);
@@ -243,27 +246,27 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Purpose_Id = new Guid("8df1b675-db9d-44f8-af49-fda73c75b8f4"),
+                            Purpose_Id = new Guid("c54171a7-38e0-4792-8b38-5d0e20c5f3a5"),
                             PurposeName = "Fact-Find"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("817e9ad2-5329-4dd2-b5d0-a80a552aee69"),
+                            Purpose_Id = new Guid("22a2bbf3-7275-4bb8-b2e2-cf73f7717ffc"),
                             PurposeName = "Presentation"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("95e637b2-14c2-4975-a190-ac576cf8990f"),
+                            Purpose_Id = new Guid("5cab6dbe-e7dd-4a7b-beb5-71464a796afa"),
                             PurposeName = "Proposal"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("4a285601-1664-4e42-b056-1e99836239fb"),
+                            Purpose_Id = new Guid("da632312-8aae-42fd-8a76-1b1128d61d3b"),
                             PurposeName = "Sales Closing"
                         },
                         new
                         {
-                            Purpose_Id = new Guid("2bd0dfc7-17d8-45b4-9806-2a6ca086bb05"),
+                            Purpose_Id = new Guid("7e685ded-458f-4e14-8030-6ee733c0d053"),
                             PurposeName = "Others"
                         });
                 });
@@ -285,42 +288,42 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            CommunicationMethod_Id = new Guid("76e020bd-4eb2-403e-8948-6260252281e5"),
+                            CommunicationMethod_Id = new Guid("9507492e-8aa0-4f51-93d9-22f884b02f02"),
                             CommunicationMethodName = "Facebook"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("56f88ccc-84f6-4ad3-a728-92cdd174a197"),
+                            CommunicationMethod_Id = new Guid("bf9c22aa-300f-42eb-96a7-6709eab50c58"),
                             CommunicationMethodName = "Instagram"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("7eb435a6-3450-4205-ad7f-906357e66665"),
+                            CommunicationMethod_Id = new Guid("a4c0c834-7221-4969-be3c-9b4818365069"),
                             CommunicationMethodName = "WhatsApp"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("7c6c095f-29ba-4094-8ea7-80aeb40efbbc"),
+                            CommunicationMethod_Id = new Guid("ae576721-6af3-4864-82bc-b7f2ea026f3f"),
                             CommunicationMethodName = "Line"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("1769c63a-cf97-4572-b0d8-db06b97f9cb7"),
+                            CommunicationMethod_Id = new Guid("df74e244-e95f-4b32-85c2-6e4e14d28ec3"),
                             CommunicationMethodName = "Phone Call"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("b5f6979f-ac6e-4f5b-a412-8b607c56e904"),
+                            CommunicationMethod_Id = new Guid("4b01fc7d-f590-4b45-b336-a99e7a4f32d9"),
                             CommunicationMethodName = "Test Message"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("09282e85-b4f6-406e-8668-23355f5ea017"),
+                            CommunicationMethod_Id = new Guid("0440a9ad-74c3-49df-b403-c1fc5f54ebb9"),
                             CommunicationMethodName = "Email"
                         },
                         new
                         {
-                            CommunicationMethod_Id = new Guid("96db20be-0a89-4b1b-ab83-694520825fe5"),
+                            CommunicationMethod_Id = new Guid("98f6748c-7472-4b7d-bc6a-240449ee3368"),
                             CommunicationMethodName = "Others"
                         });
                 });
@@ -342,22 +345,22 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Effectivity_Id = new Guid("8f07cd13-c805-44c6-86db-ac3a321be2f8"),
+                            Effectivity_Id = new Guid("385c987b-23c9-49df-b274-6954ecd40b77"),
                             Effectivity_Name = "Not Read"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("a9cc6394-f451-41df-982b-19e0098b7257"),
+                            Effectivity_Id = new Guid("b27c6dc3-1be5-4220-8277-9df410060f72"),
                             Effectivity_Name = "Read but no response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("16e8c83c-cab9-40ef-a715-d60f0abcca9d"),
+                            Effectivity_Id = new Guid("c65015f9-0258-4b09-9681-84adb22c29ee"),
                             Effectivity_Name = "Simple Response"
                         },
                         new
                         {
-                            Effectivity_Id = new Guid("a8d68fe9-d5c2-45cf-a2dd-45c1759c78a6"),
+                            Effectivity_Id = new Guid("36412ff8-e66a-4e0e-a8b2-cf80672197b7"),
                             Effectivity_Name = "Good Engagement"
                         });
                 });
@@ -379,42 +382,42 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            EType_Id = new Guid("7379a262-d6bb-45ec-af19-393c6fec8411"),
+                            EType_Id = new Guid("df56c1f8-5a59-4d72-a868-8bd7676c2344"),
                             EngagementName = "Congratulations"
                         },
                         new
                         {
-                            EType_Id = new Guid("165797f8-5b28-428a-8efb-30b9affd13c4"),
+                            EType_Id = new Guid("7a79a460-9a80-41dc-af14-eb8522ac87cd"),
                             EngagementName = "Birthday"
                         },
                         new
                         {
-                            EType_Id = new Guid("64110163-b8a9-4354-901a-47084bffc6e2"),
+                            EType_Id = new Guid("1598b457-3dd4-49b6-85af-e8818bd4fda1"),
                             EngagementName = "Anniversary"
                         },
                         new
                         {
-                            EType_Id = new Guid("03fa829d-d85c-4015-b21f-b2cc52ecbec7"),
+                            EType_Id = new Guid("a80ac9d5-68b5-4491-bfa9-bfc76116d116"),
                             EngagementName = "Holiday"
                         },
                         new
                         {
-                            EType_Id = new Guid("f1ec88e9-da87-4873-a69c-dfdd078a8cfa"),
+                            EType_Id = new Guid("9b3f67d8-6033-4fbd-91e7-9f2bb0b70de1"),
                             EngagementName = "Discount"
                         },
                         new
                         {
-                            EType_Id = new Guid("f88bc26c-4879-4536-b19d-c2735d99c4fa"),
+                            EType_Id = new Guid("b94f86e2-8334-47d2-9bf4-b6a7a9212fbf"),
                             EngagementName = "Company News"
                         },
                         new
                         {
-                            EType_Id = new Guid("3e2c692e-a863-47d0-98f9-68231e9a3e8d"),
+                            EType_Id = new Guid("4230a729-ead0-45a7-b528-b6efdaf51c8f"),
                             EngagementName = "New Product"
                         },
                         new
                         {
-                            EType_Id = new Guid("4e6e4716-139a-4e99-97c4-3d02a98c774c"),
+                            EType_Id = new Guid("66d06953-c8a9-40ff-9461-199ea638ea6f"),
                             EngagementName = "Others"
                         });
                 });
@@ -436,32 +439,32 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            LeadStatus_Id = new Guid("53e46ea3-5003-4144-b645-26dbc661afaa"),
+                            LeadStatus_Id = new Guid("69609f50-1551-45c6-baa9-b9add76b04a8"),
                             LeadStatusName = "Contacted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("2d65f008-2d97-462a-9a6e-9d74c9910fd9"),
+                            LeadStatus_Id = new Guid("f7f3b1ac-832b-49b5-8cc1-f5a3dc105451"),
                             LeadStatusName = "Met"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("205ecae7-17ac-4585-af53-f879c2d017e0"),
+                            LeadStatus_Id = new Guid("6517fca1-8376-4162-a6d6-61d48a1aea43"),
                             LeadStatusName = "Proposal Generated"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("c4a821ae-5df4-4bd8-a5dd-290bf9984e78"),
+                            LeadStatus_Id = new Guid("d57f6aaf-3a2b-4bb4-b690-0e45b7f859f5"),
                             LeadStatusName = "Application Submitted"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("0bd2e914-59be-46e5-aaa8-b62113e6e783"),
+                            LeadStatus_Id = new Guid("85202317-b981-4395-82a7-9467571d4983"),
                             LeadStatusName = "Policy Issued"
                         },
                         new
                         {
-                            LeadStatus_Id = new Guid("1bdebb6f-b816-4379-aed1-b712037478f7"),
+                            LeadStatus_Id = new Guid("e619d762-1877-40bd-ac8a-7af77dd41799"),
                             LeadStatusName = "Lead is Dead"
                         });
                 });
@@ -483,32 +486,32 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Source_Id = new Guid("93032f05-75f6-471b-bd50-00e6d852f38b"),
+                            Source_Id = new Guid("41dede6e-a0eb-4804-ad99-a6321277beff"),
                             SourceName = "Referral"
                         },
                         new
                         {
-                            Source_Id = new Guid("3f704760-5770-4fd1-9ea5-4f50fb94341a"),
+                            Source_Id = new Guid("12e40a52-bcb9-438a-b8a0-c1bb4b4570c7"),
                             SourceName = "Friend"
                         },
                         new
                         {
-                            Source_Id = new Guid("6e830e92-3fa1-4c9f-880d-c28752a4b007"),
+                            Source_Id = new Guid("43e180f4-f78a-4f52-bf12-1cbdbc7a17b2"),
                             SourceName = "Compony-Generated"
                         },
                         new
                         {
-                            Source_Id = new Guid("00612e49-1ef2-4a95-943b-38105716bb7c"),
+                            Source_Id = new Guid("6e6b2889-bbf8-41db-abf3-43d8e3aa88b3"),
                             SourceName = "Social Media"
                         },
                         new
                         {
-                            Source_Id = new Guid("baad7412-25ce-49a6-b648-e65dc3c5cd08"),
+                            Source_Id = new Guid("bb72c256-0430-4229-8909-64384060345d"),
                             SourceName = "Webinar"
                         },
                         new
                         {
-                            Source_Id = new Guid("ea037412-97b7-42bd-aba2-224733f741fc"),
+                            Source_Id = new Guid("1e6b597b-e03b-4b83-a014-ff3654cd1d54"),
                             SourceName = "Others"
                         });
                 });
@@ -737,15 +740,15 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cc50ef39-4da3-49ca-b4a0-815afaa7a80c"),
-                            ConcurrencyStamp = "e1ebc72d-cb41-4ee1-9838-e390de377e01",
+                            Id = new Guid("466bcb61-40b6-4edc-a86e-2d9886f13374"),
+                            ConcurrencyStamp = "0be222e7-5158-4401-b813-8c8c907215d2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("ea40adf4-6bfe-46db-af09-17de28a36e32"),
-                            ConcurrencyStamp = "2bed3195-4663-423b-bbc6-2d48947381e0",
+                            Id = new Guid("c16e5054-5a4c-4e6a-a45d-8ec5931471d0"),
+                            ConcurrencyStamp = "c66f78bf-65fe-453d-99e1-67ad4994df22",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -837,8 +840,8 @@ namespace CRMS.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("cc98972a-f493-4f90-bbfb-88c473bbf526"),
-                            RoleId = new Guid("cc50ef39-4da3-49ca-b4a0-815afaa7a80c")
+                            UserId = new Guid("b2752db3-d069-4e03-99ef-7a18a81fc33c"),
+                            RoleId = new Guid("466bcb61-40b6-4edc-a86e-2d9886f13374")
                         });
                 });
 
