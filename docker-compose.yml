@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: ProductAPIv1/Dockerfile
     ports:
-      - 5126:80
+      - 5999:80
     environment:
       - ConnectionStrings__Server=CapstoneDB
       - ConnectionStrings__DB=ProductsDB
