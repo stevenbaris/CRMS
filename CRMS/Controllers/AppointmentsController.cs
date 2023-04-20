@@ -54,9 +54,6 @@ namespace CRMS.Controllers
             }
 
             return RedirectToAction("Index", "Home");
-
-            return View("~/Views/Records/Appointment/Index.cshtml" , appointmentIndex);
-           
         }
        
         public async Task<IActionResult> Details(Guid id)
