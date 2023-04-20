@@ -34,5 +34,13 @@ namespace CRMS.ViewModels.User
 
         [Display(Name = "Role")]
         public string RoleName { get; set; }
+
+        [Display(Name = "Temporary Password")]
+        public string TempPassword { get; set; }
+        
+        
+        public bool HasChangedPassword { get; set; }
+
+
     }
 }

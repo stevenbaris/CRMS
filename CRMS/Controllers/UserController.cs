@@ -129,14 +129,14 @@ namespace CRMS.Controllers
 
             var user = new ApplicationUser
             {
-                UserName = createUserViewModel.Email,
+                //UserName = createUserViewModel.Email,
                 Email = createUserViewModel.Email,
                 FirstName = createUserViewModel.FirstName,
                 LastName = createUserViewModel.LastName,
                 CityAddress = createUserViewModel.Address,
             };
 
-            var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
+            var result = await _userManager.CreateAsync(user);
 
             if (!result.Succeeded)
             {
@@ -319,6 +319,11 @@ namespace CRMS.Controllers
 
                 return View("Index");
             }
+        }
+
+        public IActionResult GenerateCredentials()
+        {
+            return View();
         }
     }
 }

@@ -66,7 +66,7 @@ namespace CRMS.Controllers
             
             ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
             ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
-            if (Id != null)
+            if (Id == null)
             {
                
                 ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");

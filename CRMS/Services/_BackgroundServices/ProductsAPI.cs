@@ -80,7 +80,7 @@ namespace CRMS.Services._BackgroundServices
         {
             var _URI = _configuration["ProductAPI:URI"];
             // Send a GET request to the API to get data
-            var request = new HttpRequestMessage(HttpMethod.Get, _URI+"/api/v1/Product");
+            var request = new HttpRequestMessage(HttpMethod.Get, _URI+"/api/v1/Product/ProductList");
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var response = await _httpClient.SendAsync(request);

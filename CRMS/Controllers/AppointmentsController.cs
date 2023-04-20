@@ -54,9 +54,6 @@ namespace CRMS.Controllers
             }
 
             return RedirectToAction("Index", "Home");
-
-            return View("~/Views/Records/Appointment/Index.cshtml" , appointmentIndex);
-           
         }
        
         public async Task<IActionResult> Details(Guid id)
@@ -129,42 +126,25 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Edit(Guid Id, Guid? contactId)
         {
             var appointmentEdit = await _appointments.GetbyIdAsync(Id);
-            ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
-            if (_signInManager.IsSignedIn(User))
-            {
-                if (User.IsInRole("Admin"))
-                {
-                    if (contactId != null)
-                    {
-                        Guid id = contactId ?? Guid.Empty;
-                        var contact = await _contacts.GetbyIdAsync(id);
-                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
-                    }
-                    else
-                    {
-                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
-                    }
-                }
-                else
-                {
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var userGUID = (Guid.Parse(userId));
-                    if (contactId != null)
-                    {
-                        Guid id = contactId ?? Guid.Empty;
-                        var contact = await _contacts.GetbyIdAsync(id);
-                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
-                    }
-                    else
-                    {
-                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
-                    }
-                }
-            }
             if (appointmentEdit == null)
             {
                 return NotFound();
             }
+
+            ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
+
+            if (_signInManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+                }
+                else
+                {
+                        ViewData["ContactId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == appointmentEdit.CreatedBy), "Contact_Id", "FullName");
+                }
+            }
+            
             return View("~/Views/Records/Appointment/Edit.cshtml", appointmentEdit);
         }
 

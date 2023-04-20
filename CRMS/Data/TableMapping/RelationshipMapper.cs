@@ -180,6 +180,10 @@ namespace CRMS.Data.TableMapping
             modelBuilder.Entity<RollingTransactions>()
                 .Property(trans => trans.TransacationTotal)
                 .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Contacts>()
+                .HasIndex(c=>c.Email)
+                .IsUnique();
         }
     }
 }

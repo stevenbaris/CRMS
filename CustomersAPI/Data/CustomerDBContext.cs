@@ -36,6 +36,11 @@ namespace CustomersAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Customer>()
+                .HasIndex(c => c.Email)
+                .IsUnique();
+
+
             modelBuilder.CustomerMapping();
             modelBuilder.TransactionMapping();
             modelBuilder.SeededData();
