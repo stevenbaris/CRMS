@@ -20,7 +20,7 @@ html {
 
 body {
     margin-bottom: 60px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Poppins", Helvetica, Arial, sans-serif;
     /*font-family: 'Poppins', sans-serif;*/
 }
 
@@ -192,7 +192,10 @@ ul.dropdown-menu {
 .navbarnew {
     position: static;
     width: 60px;
-    height: 100vh;
+    top: 0;
+    bottom: 0;
+    min-height: 100vh;
+    min-width: 60px;
     background: #002756;
     transition: 0.5s;
     overflow: hidden;
@@ -200,31 +203,31 @@ ul.dropdown-menu {
 }
 
     .navbarnew:hover {
-        width: 310px;
+        min-width: 280px;
     }
 
     .navbarnew ul {
         position: relative;
         top: 0;
-        left: -30px;
-        width: 310px;
+        left: -35px;
+        width: 280px;
     }
 
         .navbarnew ul li {
-            position: static;
-            width: 310px;
+            position: relative;
+            width: 280px;
             list-style: none;
         }
 
             .navbarnew ul li:hover {
                 background: #00447C;
-                width: 310px;
+                width: 280px;
             }
 
             .navbarnew ul li a {
-                position: static;
+                position: relative;
                 display: block;
-                width: 310px;
+                width: 280px;
                 display: flex;
                 text-decoration: none;
                 color: #fff;
@@ -233,9 +236,9 @@ ul.dropdown-menu {
                 .navbarnew ul li a .icon {
                     position: static;
                     display: block;
-                    min-width: 60px;
-                    height: 60px;
-                    line-height: 60px;
+                    min-width: 70px;
+                    height: 70px;
+                    line-height: 70px;
                     text-align: center;
                 }
 
@@ -247,8 +250,15 @@ ul.dropdown-menu {
                     position: static;
                     display: block;
                     padding: 0 10px;
-                    height: 60px;
-                    line-height: 60px;
+                    height: 70px;
+                    line-height: 70px;
                     text-align: start;
                     white-space: nowrap;
                 }
+
+.card {
+    padding: 35px;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+}
