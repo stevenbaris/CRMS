@@ -62,7 +62,7 @@ namespace CRMS.Data
             {
               new Source(Guid.NewGuid(), "Referral"),
               new Source(Guid.NewGuid(), "Friend"),
-              new Source(Guid.NewGuid(), "Compony-Generated"),
+              new Source(Guid.NewGuid(), "Company-Generated"),
               new Source(Guid.NewGuid(), "Social Media"),
               new Source(Guid.NewGuid(), "Webinar"),
               new Source(Guid.NewGuid(), "Others")
