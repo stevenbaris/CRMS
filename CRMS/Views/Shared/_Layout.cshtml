@@ -37,7 +37,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon custom-toggler "></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
                     <!--  This Here is the TOP NAVBAR   -->
                     <ul class="navbar-nav flex-grow-1">
 
@@ -72,23 +72,23 @@
                         @if (_signInManager.IsSignedIn(User))
                         {
                             <div class="dropdown">
-                                <a href="#" class="d-flex navbar-brand align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/img/user_m.svg" alt="" width="32" height="32" class="rounded-circle me-2">
+                                <a href="#" class="d-flex navbar-brand align-items-center text-white text-decoration-none dropdown-toggle " id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/img/uf8za19o.png" alt="" width="40px"  class="rounded-pill me-2">
                                     <strong>@User.Identity.Name</strong>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark cebuana-bg-blue text-small shadow" aria-labelledby="dropdownUser1" style="">
                                     <li>
                                         <div class="container-fluid">
                                             <div class="d-flex align-items-center flex-column p-1">
-                                                <img src="~/img/user_m.svg" alt="User" style="width:80%">
+                                                <img src="~/img/uf8za19o.png" alt="User" style="width:80%"class="rounded-pill mt-4">
                                                 <h4><strong>@User.Identity.Name</strong></h4>
-                                                <p class="title">CEO & Founder, Example</p>
-                                                <p>Harvard University</p>
+                                                @*<p class="title">CEO & Founder, Example</p>
+                                                <p>Harvard University</p>*@
                                             </div>
                                         </div>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#">Manage Profile</a></li>
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="ManageProfile">Manage Profile</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Logout">Log out</a></li>
                                     <li><hr class="dropdown-divider"></li>
@@ -109,9 +109,9 @@
     </header>
     
     <!--  This Here is the SIDEBAR   -->
-    <div>
-        <div class="d-flex">
-            <div class="navbarnew">
+    <div >
+        <div class="d-flex " >
+            <div class="navbarnew" style="height:94vh" >
                 <ul>
                     <li>
                         <a asp-area="" asp-controller="Dashboard" asp-action="Index">
@@ -158,6 +158,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @*<script>
+        const topBarHeight = document.querySelector('.topbar').offsetHeight;
+
+        // set the height of the sidebar dynamically using calc()
+        document.querySelector('.navbarnew').style.height = `calc(100vh - ${topBarHeight}px)`;
+    </script>*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)

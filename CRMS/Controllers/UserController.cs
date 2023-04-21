@@ -1,14 +1,13 @@
-﻿using CRMS.Models;
+﻿using CRMS.Data;
+using CRMS.Models;
 using CRMS.Services;
-using CRMS.ViewModels;
 using CRMS.ViewModels.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using CRMS.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CRMS.Controllers
 {
@@ -321,9 +320,119 @@ namespace CRMS.Controllers
             }
         }
 
-        public IActionResult GenerateCredentials()
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> ManageProfile()
         {
-            return View();
+            if (_signInManager.IsSignedIn(User))
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var AppUser = await _userManager.FindByIdAsync(userId);
+
+                var profileModel = new ManageAccountViewModel
+                {
+                    FirstName = AppUser.FirstName,
+                    LastName = AppUser.LastName,
+                    Address = AppUser.CityAddress,
+                    Email = AppUser.Email,
+                    Username = AppUser.UserName
+                };
+                
+                return View(profileModel);
+            }
+
+            return RedirectToAction("Login");
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> ManageProfile(ManageAccountViewModel MAViewmodel)
+        {
+            try
+            {
+                if (!_signInManager.IsSignedIn(User))
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!Guid.TryParse(userId, out var userGUID))
+                {
+                    return BadRequest("Invalid user ID");
+                }
+
+                var AppUser = await _userManager.FindByIdAsync(userId);
+                if (AppUser == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                AppUser.FirstName = MAViewmodel.FirstName;
+                AppUser.LastName = MAViewmodel.LastName;
+                AppUser.CityAddress = MAViewmodel.Address;
+                AppUser.Email = MAViewmodel.Email;
+                //USERNAME ASSIGNMENT
+                AppUser.UserName = User.IsInRole("Admin") ? MAViewmodel.Username : MAViewmodel.Email;
+
+                //CHECK PASsWORD
+                if (!string.IsNullOrEmpty(MAViewmodel.ExistingPassword) || !string.IsNullOrEmpty(MAViewmodel.NewPassword) || !string.IsNullOrEmpty(MAViewmodel.ConfirmNewPassword))
+                {
+                    if (string.IsNullOrEmpty(MAViewmodel.NewPassword))
+                    {
+                        //ModelState.AddModelError("", "New password is required.");
+                        return View(MAViewmodel);
+                    }
+
+                    if (string.IsNullOrEmpty(MAViewmodel.ConfirmNewPassword))
+                    {
+                        //ModelState.AddModelError("", "Confirm new password is required.");
+                        return View(MAViewmodel);
+                    }
+                    if (string.IsNullOrEmpty(MAViewmodel.ExistingPassword))
+                    {
+                        //ModelState.AddModelError("", "Existing password is required.");
+                        return View(MAViewmodel);
+                    }
+
+                    var verifiedOldPassword = await _userManager.ChangePasswordAsync(AppUser, MAViewmodel.ExistingPassword, MAViewmodel.NewPassword);
+                    if (!verifiedOldPassword.Succeeded)
+                    {
+                        foreach (var error in verifiedOldPassword.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        return View(MAViewmodel);
+                    }
+
+                }
+               
+
+                var updateProfile = await _userManager.UpdateAsync(AppUser);
+
+                if (!updateProfile.Succeeded)
+                {
+                    ModelState.AddModelError("", "Failed to update user profile.");
+                    return View(MAViewmodel);
+                }
+
+
+                TempData["SuccessMessage"] = "SUCCESS! Your profile has been successfully updated.";
+                return RedirectToAction("ManageProfile", "User");
+            }
+
+            catch (Exception ex)
+            {
+                // log the exception
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+
+                
+
+
+            
+               
+          
+        }
+
     }
 }

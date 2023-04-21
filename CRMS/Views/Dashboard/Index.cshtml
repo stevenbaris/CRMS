@@ -141,10 +141,10 @@
             </a>
             </div>
             <div class="dropdown-divider"></div>
-            <div class="container-fluid">
+            <div class="container-fluid overflow-auto">
                 @if (ViewData["AppointmentsList"] != null)
                 {
-                    <table class="table table-hover w3-center">
+                    <table class="table table-hover w3-center overflow-auto">
                         <thead>
                             <tr>
                                 <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Status</th>
@@ -199,10 +199,10 @@
                 </a>
             </div>
             <div class="dropdown-divider"></div>
-            <div class="container-fluid">
+            <div class="container-fluid overflow-auto">
                 @if (ViewData["NextEngagementsList"] != null)
                 {
-                    <table class="table table-hover w3-center">
+                    <table class="table table-hover w3-center overflow-auto">
                         <thead>
                             <tr>
                                 <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Today</th>
@@ -256,11 +256,11 @@
                     + New Leads
                 </a>
             </div>
-            <div class="dropdown-divider"></div>
-            <div class="container-fluid">
+            <div class="dropdown-divider "></div>
+            <div class="container-fluid overflow-auto">
                 @if (ViewData["ContactsWithNoLeadsList"] != null)
                 {
-                    <table class="table table-hover w3-center">
+                    <table class="table table-hover w3-center ">
                         <thead>
                             <tr>
                                 <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Leads</th>
