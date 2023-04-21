@@ -75,6 +75,65 @@
             text-transform: uppercase;
         }
 
+
+        .wrapper {
+            width: 500px;
+            height: 100%;
+            background: #fff;
+            margin: 15px auto 0;
+        }
+
+            .wrapper .title {
+                padding: 30px 20px;
+                text-align: center;
+                font-size: 24px;
+                font-weight: 700;
+                border-bottom: 1px solid #ebedec;
+            }
+
+             .tabs_wrap {
+                padding: 20px;
+                border-bottom: 1px solid #ebedec;
+            }
+
+                 .tabs_wrap ul {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                    justify-content: center;
+                }
+
+                     .tabs_wrap ul li {
+                        width: 135px;
+                        text-align: center;
+                        background: #e9ecf1;
+                        border-right: 1px solid #c1c4c9;
+                        padding: 13px 15px;
+                        cursor: pointer;
+                        -webkit-transition: all 0.2s ease;
+                        -o-transition: all 0.2s ease;
+                        transition: all 0.2s ease;
+                    }
+
+                         .tabs_wrap ul li:first-child {
+                            border-top-left-radius: 25px;
+                            border-bottom-left-radius: 25px;
+                        }
+
+                         .tabs_wrap ul li:last-child {
+                            border-right: 0px;
+                            border-top-right-radius: 25px;
+                            border-bottom-right-radius: 25px;
+                        }
+
+                         .tabs_wrap ul li:hover,
+                         .tabs_wrap ul li.active {
+                            background: #7fc469;
+                            color: #fff;
+                        }
+
 </style>
 }
 
@@ -187,103 +246,109 @@
             </div>
         </div>
         <div class="right-section">
-            <div class="tabs">
-                <button class="tablinks" onclick="openTab(event, 'leads')">Leads</button>
-                <button class="tablinks" onclick="openTab(event, 'engagement-records')">Engagement Records</button>
-                <button class="tablinks" onclick="openTab(event, 'appointments')">Appointments</button>
-            </div>
+            @*-Table-*@
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Leads</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Engagement Records</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Appointments</button>
+                </li>
+            </ul>
 
-            <div class="tabcontent active" id="leads">
-                <!-- Leads content will be displayed here -->
+            @*-Leads Content-*@
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <a asp-controller="Leads" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+                    <br />
+                    <br />
 
-                <a asp-controller="Leads" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
-                <br />
-                <br />
-
-                @if (!Model.ListLeads.Where(c => c.ProspectId == Model.Contacts.Contact_Id).Any())
-                {
-                    <div class="w3-card-4">
-                        <header class="w3-container w3-highway-blue">
-                            <h1>No deals/leads created for this contact</h1>
-                        </header>
-                    </div>
-                }
-                else
-                {
-                    foreach (var leads in Model.ListLeads)
+                    @if (!Model.ListLeads.Where(c => c.ProspectId == Model.Contacts.Contact_Id).Any())
                     {
-                        <div class=" w3-card-4 my-3">
-                            <header class="w3-container w3-highway-blue row g-3 ">
-                                <div class="col-md-8">
-                                    <h1>@leads.status.LeadStatusName</h1>
-                                </div>
-                                <div class="col-md-4">
-                                    <h5 class="text-warning text-end">Close-Win by: @leads.CreatedDate.AddDays(30).ToString("MM-dd-yy")</h5>
-                                </div>
-
-
+                        <div class="w3-card-4">
+                            <header class="w3-container w3-highway-blue">
+                                <h1>No deals/leads created for this contact</h1>
                             </header>
-
-                            <div class="w3-container py-md-2 row g-3">
-                                <div class="col-md-12">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.status.LeadStatusName" disabled>
-                                        <label>Status</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.product.ProductName" disabled>
-                                        <label>Product</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.source.SourceName" disabled>
-                                        <label>Lead Source:</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.CreatedDate" disabled>
-                                        <label>Creation Date</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.PrefContactMethod" disabled>
-                                        <label>Creation Date</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.PrefContactDay" disabled>
-                                        <label>Preferred Contact Time</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-floating">
-                                        <input class="form-control" value="@leads.PrefContactTime" disabled>
-                                        <label>Preferred Contact Time</label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <footer class="w3-container w3-gray  py-2 d-flex justify-content-end">
-                                <a asp-controller="Leads" asp-action="Edit" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-green w3-hover-black">Edit </a>
-                                <a asp-controller="Leads" asp-action="Delete" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-red w3-hover-black">Delete</a>
-                            </footer>
-
                         </div>
                     }
+                    else
+                    {
+                        foreach (var leads in Model.ListLeads)
+                        {
+                            <div class=" w3-card-4 my-3">
+                                <header class="w3-container w3-highway-blue row g-3 ">
+                                    <div class="col-md-8">
+                                        <h1>@leads.status.LeadStatusName</h1>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5 class="text-warning text-end">Close-Win by: @leads.CreatedDate.AddDays(30).ToString("MM-dd-yy")</h5>
+                                    </div>
 
-                }
 
+                                </header>
+
+                                <div class="w3-container py-md-2 row g-3">
+                                    <div class="col-md-12">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.status.LeadStatusName" disabled>
+                                            <label>Status</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.product.ProductName" disabled>
+                                            <label>Product</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.source.SourceName" disabled>
+                                            <label>Lead Source:</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.CreatedDate" disabled>
+                                            <label>Creation Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.PrefContactMethod" disabled>
+                                            <label>Creation Date</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.PrefContactDay" disabled>
+                                            <label>Preferred Contact Time</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-floating">
+                                            <input class="form-control" value="@leads.PrefContactTime" disabled>
+                                            <label>Preferred Contact Time</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <footer class="w3-container w3-gray  py-2 d-flex justify-content-end">
+                                    <a asp-controller="Leads" asp-action="Edit" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-green w3-hover-black">Edit </a>
+                                    <a asp-controller="Leads" asp-action="Delete" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-red w3-hover-black">Delete</a>
+                                </footer>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
             </div>
-
-
         </div>
     </div>
 </header>
@@ -307,13 +372,12 @@
             evt.currentTarget.classList.add("active");
         }
     </script>
+
     <script>
         var initials = '@ViewData["ContactInitials"]'; // replace with the user's name initials
         var colors = ['#002756']; // add more colors as needed
         var randomColor = colors[Math.floor(Math.random() * colors.length)];
         document.querySelector('.profile-pic').style.backgroundColor = randomColor;
         document.querySelector('.pic-initials').innerHTML = initials;
-
-
-    </script>
+    </script> 
 }
