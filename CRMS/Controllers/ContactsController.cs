@@ -88,6 +88,7 @@ namespace CRMS.Controllers
             });
             ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", contact.Creator);
             ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", contact.Owner);
+            //ViewData["OwnerList"] = creatorList;
             ViewData["CurrentUser"] = new SelectList(currentUser, "Value", "Text", contact.Owner);
 
             return View(contact);
@@ -98,6 +99,8 @@ namespace CRMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Contacts contact)
         {
+            var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+            var userId = user.Id;
             if (ModelState.IsValid)
             {
                 await _contactRepository.CreateAsync(contact);
@@ -109,8 +112,14 @@ namespace CRMS.Controllers
                 Value = u.Id.ToString(),
                 Text = u.FirstName + " " + u.LastName
             });
+            var currentUser = users.Where(u => u.Id == userId).Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FullName
+            });
             ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", contact.Creator);
             ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", contact.Owner);
+            ViewData["CurrentUser"] = new SelectList(currentUser, "Value", "Text", contact.Owner);
             return View(contact);
         }
 
@@ -185,34 +194,41 @@ namespace CRMS.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Remove(Guid id)
-        {
-            var contact = await _contactRepository.GetbyIdAsync(id);
-            if (contact == null)
-            {
-                return NotFound();
-            }
-            ViewBag.ContactId = id;
-            return View(contact);
-        }
-
         
-        [HttpPost]
-        public async Task<IActionResult> RemoveConfirmed(Guid id)
+        public async Task<IActionResult> Remove(Guid id)
         {
             if (_contactRepository == null)
             {
                 return Problem("Entity set 'CRMSDbContext'  is null.");
             }
+
             var contact = await _contactRepository.GetbyIdAsync(id);
-            if (contact != null)
+            if (contact == null)
             {
-                await _contactRepository.DeleteAsync(id);
+                return NotFound();
             }
-
-
+            
+            await _contactRepository.DeleteAsync(id);
             return RedirectToAction(nameof(ViewAll));
         }
+
+        
+        //[HttpPost]
+        //public async Task<IActionResult> RemoveConfirmed(Guid id)
+        //{
+        //    if (_contactRepository == null)
+        //    {
+        //        return Problem("Entity set 'CRMSDbContext'  is null.");
+        //    }
+        //    var contact = await _contactRepository.GetbyIdAsync(id);
+        //    if (contact != null)
+        //    {
+        //        await _contactRepository.DeleteAsync(id);
+        //    }
+
+
+        //    return RedirectToAction(nameof(ViewAll));
+        //}
 
 
         public async Task<IActionResult> ContactDetail(Guid id)
