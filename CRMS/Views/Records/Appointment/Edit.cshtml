@@ -6,11 +6,13 @@
 
 }
 
-<header style="padding: 30px;">
-    <h1 style="font-weight:700">Edit Appointment</h1>
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Edit Appointment</h1></center>
     <hr />
+    <p style="color: gray">Appointments > Edit</p>
     <br />
-    <form class="row g-3 needs-validation" novalidate asp-controller="Appointments" asp-action="Edit" method="post">
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="Appointments" asp-action="Edit" method="post">
         <input type="hidden" asp-for="Appointment_Id" />
         <input type="hidden" asp-for="CreatedBy" />
         <input type="hidden" asp-for="CreatedDate" />
@@ -78,7 +80,7 @@
         </div>
 
     </form>
-</header>
+</headerc>
 
 
 <script>

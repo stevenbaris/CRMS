@@ -20,8 +20,18 @@ html {
 
 body {
     margin-bottom: 60px;
-    font-family: "Poppins", Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     /*font-family: 'Poppins', sans-serif;*/
+}
+
+@font-face {
+    font-family: "Poppins";
+    font-weight: 300;
+    src: url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+}
+
+.mydiv {
+    font-family: Poppins;
 }
 
 .btn:hover {
@@ -221,7 +231,7 @@ ul.dropdown-menu {
 
             .navbarnew ul li:hover {
                 background: #00447C;
-                width: 280px;
+                width: 290px;
             }
 
             .navbarnew ul li a {
@@ -256,7 +266,7 @@ ul.dropdown-menu {
                     white-space: nowrap;
                 }
 
-.card {
+.card1 {
     padding: 35px;
     border: 2px solid lightgray;
     border-radius: 20px;

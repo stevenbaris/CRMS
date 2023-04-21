@@ -6,11 +6,13 @@
 
 }
 
-<header style="padding: 30px;">
-    <h1 style="font-weight:700">New Lead</h1>
-    <hr/>
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">New Lead</h1></center>
+    <hr />
+    <p style="color: gray">Leads > Create</p>
     <br/>
-    <form class="row g-3 needs-validation" novalidate asp-controller="Leads" asp-action="Create" method="post">
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="Leads" asp-action="Create" method="post">
 
         <div class="col-md-6">
             <div class="form-floating">

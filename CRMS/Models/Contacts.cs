@@ -113,7 +113,7 @@ namespace CRMS.Models
     {
         Male,
         Female,
-        NonBinary
+        Other
     }
 
 }
