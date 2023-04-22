@@ -220,12 +220,12 @@ ul.dropdown-menu {
         position: relative;
         top: 0;
         left: -35px;
-        width: 280px;
+        width: 290px;
     }
 
         .navbarnew ul li {
             position: relative;
-            width: 280px;
+            width: 290px;
             list-style: none;
         }
 
@@ -237,7 +237,7 @@ ul.dropdown-menu {
             .navbarnew ul li a {
                 position: relative;
                 display: block;
-                width: 280px;
+                width: 290px;
                 display: flex;
                 text-decoration: none;
                 color: #fff;

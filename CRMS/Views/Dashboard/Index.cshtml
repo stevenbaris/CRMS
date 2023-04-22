@@ -1,316 +1,351 @@
-﻿
-<div class="w3-container" style="background-color:aliceblue; min-height:100VH; max-height:100%;">
-    <h3 class="my-4">Dashboard</h3>
-    <div class="container-fluid row g-3">
-        
-        <!----ACTIVITY CARD--->
-        <div class="card p-3 col-md-3 col-sm-6" >
-            <a class="dropdown-item fw-bold text-warning mb-2 w3-center" href="#!">
-                <Strong><h4>ACTIVITY</h4></Strong>
-            </a>
-            <h1 class="text-decoration-underline text-primary w3-center">@ViewData["TotalTasks"] </h1> <span class="w3-center">Tasks Today</span>
-            <div class="dropdown-divider"></div>
-            <table>
-                <thead><tr></tr></thead>
-                <tbody>
-                    <tr>
-                        <td>Contacts with No Leads:</td>
-                        <td>@ViewData["ContactsWithNoLeads"]</td>
-                    </tr>
-                    <tr>
-                        <td>Customer Engagements:</td>
-                        <td>@ViewData["NextEngagements"]</td>
-                    </tr>
-                    <tr>
-                        <td>Appointments Today:</td>
-                        <td>@ViewData["Appointments"]</td>
-                    </tr>
-                    
-                    <tr class="border-top">
-                        <td>Target Contacts to Create:</td>
-                        <td>@ViewData["ToCreate"]</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+﻿<header class="card1">
 
-        <!----TOP 5 LEADS CARD--->
-        <div class="card p-3 col-md-2 col-sm-6">
-            <a class="dropdown-item fw-bold text-warning mb-3 text-wrap w3-center" href="#!">
-                <span class="fas fa-crown me-1 "></span>
-                <span>Top 5 Lead Sources</span>
-            </a>
-
-            @if (ViewData["LeadSources"] != null)
-            {
-                <table>
-                    <thead>
-                        <tr>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var source in (IEnumerable<dynamic>)ViewData["LeadSources"])
-                        {
-                            <tr>
-                                <td>@source.Source</td>
-                                <td>(@source.Count)</td>
-                            </tr>
-                        }
-                        @for (int i = ((IEnumerable<dynamic>)ViewData["LeadSources"]).Count(); i < 5; i++)
-                        {
-                            <tr>
-                                <td>Not Available</td>
-                                <td>(0)</td>
-                            </tr>
-                        }
-
-                    </tbody>
-                </table>
-            }
-        </div>
-
-        <!----CONTACTS SOURCE CARD--->
-        <div class="card p-3 w3-center col-md-2" >
-            <a class="dropdown-item fw-bold text-warning mb-3" href="#!">
-                <span>Contacts Created:</span>
-            </a>
-            <h2 class="text-info">@ViewData["ContactsCreated"] </h2> <span>out of 10</span>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item fw-bold text-warning mb-3 text-wrap" href="#!">
-                <span>Company-Assigned Contacts:</span>
-            </a>
-            <h2 class="text-info">@ViewData["ContactsAssigned"] </h2> <span>Newly Assigned Contacts</span>
-           
-        </div>
-
-        <!----PIPELINE STAGE CARD--->
-        <div class="card p-3 col-md-5">
-            <a class="dropdown-item fw-bold text-warning mb-4" href="#!">
-                <h5>Sales Pipeline:</h5>
-            </a>
-            
-            <div class="container-fluid row g-3 w3-center ">
-                <div class="col-md-4 border">
-                    <a class="fw-bold text-secondary text-wrap" href="#!">
-                        <span>Contacted</span></a>
-                    <h2 class="text-info">@ViewData["contacted"] </h2>
-                </div>
-                <div class="col-md-4 border  ">
-                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
-                        <span>Met</span>
-                    </a>
-                    <h2 class="text-info">@ViewData["met"] </h2>
-                </div>
-                <div class="col-md-4 border  ">
-                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
-                        <span>Proposal Generated</span>
-                    </a>
-                    <h2 class="text-info">@ViewData["proposal_generated"] </h2>
-                </div>
-                <div class="col-md-4 border ">
-                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
-                        <span>Application Submitted</span>
-                    </a>
-                    <h2 class="text-info">@ViewData["application_submitted"] </h2>
-                </div>
-                <div class="col-md-4 border  ">
-                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
-                        <span>Policy Issued</span>
-                    </a>
-                    <h2 class="text-info">@ViewData["policy_issued"] </h2>
-                </div>
-                <div class="col-md-4 border  ">
-                    <a class="dropdown-item fw-bold text-secondary text-wrap" href="#!">
-                        <span>Dead Lead</span>
-                    </a>
-                    <h2 class="text-info">@ViewData["dead_lead"] </h2>
-                </div>
-
-            </div>
-           
-
-        </div>
-
-        <!----APPOINTMENT LIST CARD--->
-        <div class="card p-3 col-md-12 " >
-            <div class="row g-3">
-            <a class="fw-bold text-success col-md-10" href="#!">
-                <span>Appointments</span>
-            </a>
-            <a button class="btn btn-success col-md-2" type="button" asp-controller="Appointments" asp-action="Create">
-                + New Appointment
-            </a>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="container-fluid overflow-auto">
-                @if (ViewData["AppointmentsList"] != null)
-                {
-                    <table class="table table-hover w3-center overflow-auto">
-                        <thead>
-                            <tr>
-                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Status</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Date</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Time</th>
-                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">For Contact:</th>
-                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Purpose</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Details</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="justify-content-center ">
-                            @foreach (var meeting in (IEnumerable<dynamic>)ViewData["AppointmentsList"])
-                            {
-                                <tr>
-                                    <td  class="text-white text-bg-danger text-center">@meeting.SchedStatus</td>
-                                    <td class="text-center">@meeting.Appointment_DateTime.ToString("MMM dd, yyyy")</td>
-                                    <td class="text-center">@meeting.Appointment_DateTime.ToString("hh:mm tt")</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FullName</a>
-                                    </td>
-                                    <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
-                                    <td class="text-center text-wrap">@meeting.Description</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>
-                                    </td>
-                                    
-                                </tr>
-                            }
-                           
-
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <h4 class="text-center">No Results Found</h4>
-                }
-                
-            </div>
-
-        </div>
-
-        <!----ENGAGEMENT LIST CARD--->
-        <div class="card p-3 col-md-12 ">
-            <div class="row g-3">
-                <a class="fw-bold text-success col-md-10" href="#!">
-                    <span>Engagements</span>
-                </a>
-                <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
-                    + New Engagement
-                </a>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="container-fluid overflow-auto">
-                @if (ViewData["NextEngagementsList"] != null)
-                {
-                    <table class="table table-hover w3-center overflow-auto">
-                        <thead>
-                            <tr>
-                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Today</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Previous Engagement</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Contact</th>
-                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Topic</th>
-                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Details</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Contact Method</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="justify-content-center ">
-                            @foreach (var engagement in (IEnumerable<dynamic>)ViewData["NextEngagementsList"])
-                            {
-                                <tr>
-                                    <td class="text-white text-bg-danger text-center">@engagement.Engagement_Date.AddDays(7).ToString("MMM dd, yyyy")</td>
-                                    <td class="text-center">@engagement.Engagement_Date.ToString("MMM dd, yyyy")</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@engagement.ContactId">@engagement.Contacts.FullName</a>
-                                    </td>
-                                    <td class="text-center">@engagement.Topic</td>
-                                    <td class="text-center text-wrap">@engagement.Engagement_Description</td>
-                                    <td class="text-center">@engagement.CommunicationMethod.CommunicationMethodName</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Engagement" asp-action="Create" asp-route-id="@engagement.ContactId">+ Add Record</a>
-                                        </td>
-
-                                </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <h4 class="text-center">No Results Found</h4>
-                }
-
-            </div>
-
-        </div>
-
-        <!----NO LEADS CARD--->
-        <div class="card p-3 col-md-12 ">
-            <div class="row g-3">
-                <a class="fw-bold text-success col-md-10" href="#!">
-                    <span>Contacts Without Leads</span>
-                </a>
-                <a button class="btn btn-success col-md-2" type="button" asp-controller="Leads" asp-action="Create">
-                    + New Leads
-                </a>
-            </div>
-            <div class="dropdown-divider "></div>
-            <div class="container-fluid overflow-auto">
-                @if (ViewData["ContactsWithNoLeadsList"] != null)
-                {
-                    <table class="table table-hover w3-center ">
-                        <thead>
-                            <tr>
-                                <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Leads</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Full Name</th>
-                                <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Email</th>
-                                <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Phone Number</th>
-                                <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Gender</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Date of Birth</th>
-                                <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="justify-content-center ">
-                            @foreach (var noleads in (IEnumerable<dynamic>)ViewData["ContactsWithNoLeadsList"])
-                            {
-                                <tr>
-                                    <td class="text-white text-bg-danger text-center">No Leads</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@noleads.Contact_Id">@noleads.FullName</a>
-                                        </td>
-                                    <td class="text-center">@noleads.Email</td>
-                                    <td class="text-center">@noleads.PhoneNumber</td>
-                                    <td class="text-center">@noleads.Gender</td>
-                                    <td class="text-center">@noleads.DOB.ToString("MMM dd, yyyy")</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Leads" asp-action="Create" asp-route-Id="@noleads.Contact_Id">+ Create</a>
-                                    </td>
-
-                                </tr>
-                            }
-
-
-                        </tbody>
-                    </table>
-                }
-                else
-                {
-                    <tbody class="justify-content-center ">
-                        <tr><h4 class="text-center">No Results Found</h4></tr>
-                    </tbody>
-                }
-
-            </div>
-
-        </div>
-
-        <!----CREATE CONTACTS CARD--->
-
+    <div>
+        <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Dashboard</h1></center>
+        <hr />
+        <p style="color: gray">Dashboard > Index</p>
+        <br />
     </div>
-</div>
+
+    <div class="row g-3">
+
+            <!----ACTIVITY CARD--->
+        <div class="row g-3" style="border: 2px solid lightgray;
+              border-radius: 20px; margin-left: 1px; padding-bottom: 25px; padding-top: 15px;">
+  
+            <div class="col-md-4">
+
+                <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Activity</h3></center>
+                <center><h1 style="color: #002756; margin-bottom: 20px;">@ViewData["TotalTasks"] </h1></center>
+
+                <hr />
+                <center><h5 style="color: #002756">Tasks Today</h5></center>
+
+                <div class="w3-center row g-3 mt-2">
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <h4 style="color: #002756;"> @ViewData["ContactsWithNoLeads"]</h4>
+                            <p style="font-size: 13px; color: gray;">Contacts with No Leads</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <h4 style="color: #002756;"> @ViewData["NextEngagements"]</h4>
+                            <p style="font-size: 13px; color: gray;">Customer Engagements</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <h4 style="color: #002756;"> @ViewData["Appointments"]</h4>
+                            <p style="font-size: 13px; color: gray;">Appointments Today</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <h4 style="color: #002756;">
+                                10</h5>
+                                <p style="font-size: 13px; color: gray;">Target Contacts to Create</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!----TOP 5 LEADS CARD--->
+            <div class="col-md-4" style="border-left: 2px solid lightgray; border-right: 2px solid lightgray;">
+                
+                <center><h3 style="color: #002756"></h3><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px; margin-top: -10px;">Top 5 Lead Sources</h3></center>
+
+                @if (ViewData["LeadSources"] != null)
+                {
+                    <center>
+                    <table>
+                        <thead>
+                            <tr>
+                            </tr>
+                        </thead>
+                            <tbody>
+                            @foreach (var source in (IEnumerable<dynamic>)ViewData["LeadSources"])
+                            {
+                                <tr>
+                                        <td><h5 style="color: gray; margin-bottom:-5px;">@source.Source</h5></td>
+                                        <td><h5 style="color: #002756; margin-bottom:-5px;">@source.Count</h5></td>
+                                </tr>
+                            }
+                            @for (int i = ((IEnumerable<dynamic>)ViewData["LeadSources"]).Count(); i < 5; i++)
+                            {
+                                <tr>
+                                        <td><h5 style="color: gray; margin-bottom:-5px;">Not Available</h5></td>
+                                        <td><h5 style="color: #002756; margin-bottom:-5px;">0</h5></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    </center>
+                }
+            </div>
+
+            <!----CONTACTS SOURCE CARD--->
+            <div class="w3-center col-md-4">
+                <h3 style="color: #002756"></h3><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px; margin-top: -10px;">Contacts Created</h3>
+                <h1 style="color: #002756;">@ViewData["ContactsCreated"] </h1>
+                <span style="color: gray;">Out of 10</span>
+                
+                <div class="dropdown-divider" style="margin-bottom: 30px; margin-top: 30px;"></div>
+
+                <h5 style="color: #002756"></h5><h5 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Company Assigned Contacts</h5>
+                <h1 style="color: #002756;">@ViewData["ContactsAssigned"] </h1>
+                <span style="color: gray;">Newly Assigned Contacts</span>
+
+            </div>
+
+        </div>
+       
+
+            <!----PIPELINE STAGE CARD--->
+            <div style="border: 2px solid lightgray;
+              border-radius: 20px;
+              padding: 20px;">
+            <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 40px;">Sales Pipeline</h3></center>
+
+                    <div class="container-fluid row g-3 w3-center ">
+
+                <div class="col-md-4" style="border-bottom: 2px solid lightgray; margin-bottom: -7px; padding-bottom: 7px;">
+                    <i style="color: #002756" class="bi bi-telephone-outbound fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["contacted"] </h2>
+                    <h5 style="color: gray">Contacted</h5>       
+                    </div>
+
+                <div class="col-md-4" style="border-left: 2px solid lightgray; border-right: 2px solid lightgray; border-bottom: 2px solid lightgray; margin-bottom: -7px; padding-bottom: 7px;">
+                    <i style="color: #002756" class="bi bi-person-square fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["met"] </h2>
+                    <h5 style ="color: gray">Met</h5>
+                    </div>
+
+                <div class="col-md-4" style="border-bottom: 2px solid lightgray; margin-bottom: -7px; padding-bottom: 7px;">
+                    <i style="color: #002756" class="bi bi-file-earmark-ruled fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["proposal_generated"] </h2>
+                    <h5 style="color: gray">Proposal Generated</h5>
+                    </div>
+
+                <div class="col-md-4" style="border-top: 2px solid lightgray; margin-top: 5px; padding-top: 10px;">
+                    <i style="color: #002756" class="bi bi-file-earmark-arrow-up fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["application_submitted"] </h2>
+                    <h5 style="color: gray">Application Submitted</h5>
+                    </div>
+
+                <div class="col-md-4 style=" style="border-left: 2px solid lightgray; border-right: 2px solid lightgray; border-top: 2px solid lightgray; margin-top: 5px; padding-top: 10px;">
+                    <i style="color: #002756" class="bi bi-file-earmark-check fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["policy_issued"] </h2>
+                    <h5 style="color: gray">Policy Issued</h5>
+                    </div>
+
+                <div class="col-md-4" style="border-top: 2px solid lightgray; margin-top: 5px; padding-top: 10px;">
+                    <i style="color: #002756" class="bi bi-slash-circle fa-3x"></i>
+                    <h2 style="color: #002756">@ViewData["dead_lead"] </h2>
+                    <h5 style="color: gray">Dead Lead</h5>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!----APPOINTMENT LIST CARD--->
+        <div class="col-md-12" style=" border: 2px solid lightgray;
+             border-radius: 20px; padding: 20px;">
+                <div class="row g-3">
+                <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Appointments</h3></center>   
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px;">
+                    <a button class="btn w3-highway-blue col-md-2" type="button" asp-controller="Appointments" asp-action="Create">
+                        + New Appointment
+                    </a>
+                </div>
+
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="container-fluid overflow-auto">
+                    @if (ViewData["AppointmentsList"] != null)
+                    {
+                        <table class="table table-hover w3-center overflow-auto">
+                            <thead>
+                                <tr>
+                                    <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Status</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Date</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Time</th>
+                                    <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">For Contact:</th>
+                                    <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Purpose</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Details</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="justify-content-center ">
+                                @foreach (var meeting in (IEnumerable<dynamic>)ViewData["AppointmentsList"])
+                                {
+                                    <tr>
+                                        <td class="text-white text-bg-danger text-center">@meeting.SchedStatus</td>
+                                        <td class="text-center">@meeting.Appointment_DateTime.ToString("MMM dd, yyyy")</td>
+                                        <td class="text-center">@meeting.Appointment_DateTime.ToString("hh:mm tt")</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FullName</a>
+                                        </td>
+                                        <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
+                                        <td class="text-center text-wrap">@meeting.Description</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4 class="text-center">No Results Found</h4>
+                    }
+
+                </div>
+
+            </div>
+
+            <!----ENGAGEMENT LIST CARD--->
+        <div class="col-md-12" style=" border: 2px solid lightgray;
+             border-radius: 20px; padding: 20px;">
+                <div class="row g-3">
+                <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Engagements</h3></center>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style=" margin-bottom: 15px;">
+                    <a button class="btn w3-highway-blue col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                        + New Engagement
+                    </a>
+                </div>
+
+                </div>
+                <div class="dropdown-divider"></div>
+                <div class="container-fluid overflow-auto">
+                    @if (ViewData["NextEngagementsList"] != null)
+                    {
+                        <table class="table table-hover w3-center overflow-auto">
+                            <thead>
+                                <tr>
+                                    <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Today</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Previous Engagement</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Contact</th>
+                                    <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Topic</th>
+                                    <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Details</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Contact Method</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="justify-content-center ">
+                                @foreach (var engagement in (IEnumerable<dynamic>)ViewData["NextEngagementsList"])
+                                {
+                                    <tr>
+                                        <td class="text-white text-bg-danger text-center">@engagement.Engagement_Date.AddDays(7).ToString("MMM dd, yyyy")</td>
+                                        <td class="text-center">@engagement.Engagement_Date.ToString("MMM dd, yyyy")</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@engagement.ContactId">@engagement.Contacts.FullName</a>
+                                        </td>
+                                        <td class="text-center">@engagement.Topic</td>
+                                        <td class="text-center text-wrap">@engagement.Engagement_Description</td>
+                                        <td class="text-center">@engagement.CommunicationMethod.CommunicationMethodName</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Engagement" asp-action="Create" asp-route-id="@engagement.ContactId">+ Add Record</a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <h4 class="text-center">No Results Found</h4>
+                    }
+
+                </div>
+
+            </div>
+
+            <!----NO LEADS CARD--->
+        <div class="col-md-12" style=" border: 2px solid lightgray;
+             border-radius: 20px; padding: 20px;">
+                <div class="row g-3">
+                <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Contacts Without Leads</h3></center>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px;">
+                    <a button class="btn w3-highway-blue col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                        + New Leads
+                    </a>
+                </div>     
+                
+                </div>
+                <div class="dropdown-divider "></div>
+                <div class="container-fluid overflow-auto">
+                    @if (ViewData["ContactsWithNoLeadsList"] != null)
+                    {
+                        <table class="table table-hover w3-center ">
+                            <thead>
+                                <tr>
+                                    <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Leads</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Full Name</th>
+                                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Email</th>
+                                    <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Phone Number</th>
+                                    <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Gender</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Date of Birth</th>
+                                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="justify-content-center ">
+                                @foreach (var noleads in (IEnumerable<dynamic>)ViewData["ContactsWithNoLeadsList"])
+                                {
+                                    <tr>
+                                        <td class="text-white text-bg-danger text-center">No Leads</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@noleads.Contact_Id">@noleads.FullName</a>
+                                        </td>
+                                        <td class="text-center">@noleads.Email</td>
+                                        <td class="text-center">@noleads.PhoneNumber</td>
+                                        <td class="text-center">@noleads.Gender</td>
+                                        <td class="text-center">@noleads.DOB.ToString("MMM dd, yyyy")</td>
+                                        <td class="text-center">
+                                        <a type="button" class="btn w3-highway-blue" asp-controller="Leads" asp-action="Create" asp-route-Id="@noleads.Contact_Id">Create</a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <tbody class="justify-content-center ">
+                            <tr><h4 class="text-center">No Results Found</h4></tr>
+                        </tbody>
+                    }
+
+                </div>
+
+            </div>
+
+            <!----CREATE CONTACTS CARD--->
+
+        </div>
+
+</header>
 
 @section Scripts{
     <script>
