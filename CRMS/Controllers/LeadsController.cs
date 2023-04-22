@@ -64,58 +64,70 @@ namespace CRMS.Controllers
 
         public async Task<IActionResult> Create(Guid? Id)
         {
-            
-            ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
-            ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
-            if (Id == null)
-            {
-               
-                ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
-            }
-            else
-            {
-                var items = _context.Sources
-                .Where(s => s.SourceName == "Company-Generated")
-                .Select(s => new SelectListItem { Text = s.SourceName, Value = s.Source_Id.ToString() })
-                .ToList();
-                ViewData["LeadSourceId"] = new SelectList(items, "Value", "Text");
-            }
+
             ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
-            
-            if (_signInManager.IsSignedIn(User))
-            {
-
-                if (User.IsInRole("Admin"))
+            ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
+            //ViewData["LeadSourceId"]
+                if (Id == null)
                 {
-
-                    if (Id != null)
-                    {
-                        var contactId = Id ?? Guid.Empty; ;
-                        var contact = await _contactRepo.GetbyIdAsync(contactId);
-                        ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
-                    }
-                    else
-                    {
-                        ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
-                    }
+               
+                    ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
                 }
                 else
                 {
-                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                    var userGUID = (Guid.Parse(userId));
-                    if (Id != null)
+                    var contact = await _contactRepo.GetbyIdAsync(Id ?? Guid.Empty);
+                    var contactCreator = contact.ContactCreatorID;
+                    if (contactCreator == null)
                     {
-                        var contactId = Id ?? Guid.Empty; ;
-                        var contact = await _contactRepo.GetbyIdAsync(contactId);
-                        ViewData["ProspectId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
+                        var items = _context.Sources
+                       .Where(s => s.SourceName == "Company-Generated")
+                       .Select(s => new SelectListItem { Text = s.SourceName, Value = s.Source_Id.ToString() })
+                       .ToList();
+                        ViewData["LeadSourceId"] = new SelectList(items, "Value", "Text");
                     }
                     else
                     {
-                        ViewData["ProspectId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                        ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
+                    }
+
+                   
+                }
+            
+            //ViewData["ProspectId"]
+                if (_signInManager.IsSignedIn(User))
+                {
+
+                    if (User.IsInRole("Admin"))
+                    {
+
+                        if (Id != null)
+                        {
+                            var contactId = Id ?? Guid.Empty; ;
+                            var contact = await _contactRepo.GetbyIdAsync(contactId);
+                            ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName", contact.Contact_Id);
+                        }
+                        else
+                        {
+                            ViewData["ProspectId"] = new SelectList(_context.Contacts, "Contact_Id", "FullName");
+                        }
+                    }
+                    else
+                    {
+                        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        var userGUID = (Guid.Parse(userId));
+                        if (Id != null)
+                        {
+                            var contactId = Id ?? Guid.Empty; ;
+                            var contact = await _contactRepo.GetbyIdAsync(contactId);
+                            ViewData["ProspectId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName", contact.Contact_Id);
+                        }
+                        else
+                        {
+                            ViewData["ProspectId"] = new SelectList(_context.Contacts.Where(e => e.ContactOwnerID == userGUID), "Contact_Id", "FullName");
+                        }
                     }
                 }
-            }
-            //View Data for product
+            
             return View("~/Views/Records/Leads/Create.cshtml");
         }
 
@@ -137,9 +149,19 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Edit(Guid id )
         {
             var leadsEdit = await _leads.GetbyIdAsync(id);
-            var leadContact = leadsEdit?.prospect?.ContactCreatorID;
+
+            if (leadsEdit == null)
+            {
+                return NotFound();
+            }
+
+            var leadContactID = leadsEdit?.ProspectId;
+            var LeadContact = await _contactRepo.GetbyIdAsync(leadContactID ?? Guid.Empty);
+            var LeadContactOwner = LeadContact.ContactCreatorID;
             ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
-            if (leadContact != null)
+            ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
+            //LEADSOURCE VIEW DATA
+            if (LeadContactOwner != null)
             {
                 ViewData["LeadSourceId"] = new SelectList(_context.Sources, "Source_Id", "SourceName");
             }
@@ -152,7 +174,7 @@ namespace CRMS.Controllers
                 ViewData["LeadSourceId"] = new SelectList(items, "Value", "Text");
             }
             
-            ViewData["ProductId"] = new SelectList(_context.Products, "Product_Id", "ProductName");
+            //PROSPECT ID VIEW DATA
             if (_signInManager.IsSignedIn(User))
             {
                 if (User.IsInRole("Admin"))
@@ -167,10 +189,7 @@ namespace CRMS.Controllers
                 }
             }
 
-            if (leadsEdit == null)
-            {
-                return NotFound();
-            }
+          
             return View("~/Views/Records/Leads/Edit.cshtml", leadsEdit);
         }
 
