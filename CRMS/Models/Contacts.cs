@@ -8,6 +8,8 @@ namespace CRMS.Models
     {
         //PROPERTIES
         public Guid Contact_Id { get; set; }
+
+
         [Required(ErrorMessage = "This field is required")]
         [MinLength(2, ErrorMessage = "The first name is too short")]
         public string? FirstName { get; set; }

@@ -1,5 +1,6 @@
 ﻿using CRMS.Data;
 using CRMS.Models;
+using CRMS.Models.Customization;
 using CRMS.Models.Records;
 using CRMS.Services;
 using CRMS.Services.Contacts_Services;
@@ -212,7 +213,31 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var leadPurpose = await _leads.GetbyIdAsync(id);
-            if (leadPurpose != null)
+            if (leadPurpose == null)
+            {
+                return NotFound();
+            }
+            //ViewBag.Engagement_Id = id;
+            return View("~/Views/Records/Leads/Delete.cshtml", leadPurpose);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Deleted(Guid id)
+        {
+            if (_leads == null)
+            {
+                return Problem("Entity set 'CRMSDbContext'  is null.");
+            }
+
+            if (id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+
+            var engagement = await _leads.GetbyIdAsync(id);
+
+            if (engagement != null)
             {
                 await _leads.DeleteAsync(id);
             }

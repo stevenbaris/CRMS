@@ -80,6 +80,7 @@ namespace CRMS.Controllers
             ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads.Count();
             ViewData["NextEngagements"] = NextEngagements.Count();
             ViewData["Appointments"] = Appointments.Count();
+            ViewData["ToCreate"] = (10 - ContactsCreated.Count());
             ViewData["TotalTasks"] = (Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count());
             ViewData["ContactsCreated"] = ContactsCreated.Count();
             ViewData["ContactsAssigned"] = ContactsAssigned.Count();

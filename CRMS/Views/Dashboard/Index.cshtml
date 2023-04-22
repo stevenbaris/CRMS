@@ -25,9 +25,10 @@
                         <td>Appointments Today:</td>
                         <td>@ViewData["Appointments"]</td>
                     </tr>
-                    <tr>
+                    
+                    <tr class="border-top">
                         <td>Target Contacts to Create:</td>
-                        <td>10</td>
+                        <td>@ViewData["ToCreate"]</td>
                     </tr>
                 </tbody>
             </table>
@@ -252,7 +253,7 @@
                 <a class="fw-bold text-success col-md-10" href="#!">
                     <span>Contacts Without Leads</span>
                 </a>
-                <a button class="btn btn-success col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                <a button class="btn btn-success col-md-2" type="button" asp-controller="Leads" asp-action="Create">
                     + New Leads
                 </a>
             </div>

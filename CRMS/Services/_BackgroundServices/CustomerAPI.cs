@@ -113,8 +113,20 @@ namespace CRMS.Services._BackgroundServices
 
                     if (existingContact == null)
                     {
+                        var newContact = new Contacts
+                        {
+                        Contact_Id = contact.Contact_Id,
+                        FirstName = contact.FirstName,
+                        LastName = contact.LastName,
+                        Email = contact.Email,
+                        PhoneNumber = contact.PhoneNumber,
+                        Gender = contact.Gender,
+                        DOB = contact.DOB,
+                        CreateDate = contact.CreateDate,
+                        UpdateDate = contact.UpdateDate
+                    };
                         // Product does not exist in the database, add it
-                        await _contactsRepo.CreateAsync(contact);
+                        await _contactsRepo.CreateAsync(newContact);
                     }
                     else if (existingContact.UpdateDate < contact.UpdateDate)
                     {

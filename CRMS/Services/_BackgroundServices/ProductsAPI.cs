@@ -109,8 +109,17 @@ namespace CRMS.Services._BackgroundServices
 
                     if (existingProduct == null)
                     {
+                        var newProduct = new Product
+                        {
+                        Product_Id = product.Product_Id,
+                        ProductName = product.ProductName,
+                        ProductDescription = product.ProductDescription,
+                        Benefits = product.Benefits,
+                        CreateDate = product.CreateDate,
+                        UpdateDate = product.UpdateDate,
+                    };
                         // Product does not exist in the database, add it
-                        await _productsRepo.CreateAsync(product);
+                        await _productsRepo.CreateAsync(newProduct);
                     }
                     else if (existingProduct.Product_Id == product.Product_Id && existingProduct.UpdateDate < product.UpdateDate)
                     {

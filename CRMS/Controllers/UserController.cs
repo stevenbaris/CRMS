@@ -121,6 +121,15 @@ namespace CRMS.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateUserViewModel createUserViewModel)
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            foreach (var role in _roleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            }
+
+            ViewBag.Roles = list;
+
             if (!ModelState.IsValid)
             {
                 return View(createUserViewModel);
@@ -128,7 +137,7 @@ namespace CRMS.Controllers
 
             var user = new ApplicationUser
             {
-                //UserName = createUserViewModel.Email,
+                UserName = createUserViewModel.Email,
                 Email = createUserViewModel.Email,
                 FirstName = createUserViewModel.FirstName,
                 LastName = createUserViewModel.LastName,
@@ -140,6 +149,10 @@ namespace CRMS.Controllers
             if (!result.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Creation failed.");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
                 return View(createUserViewModel);
             }
 
