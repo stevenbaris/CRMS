@@ -76,7 +76,7 @@ namespace CRMS.Controllers
                 UpdateDate = DateTime.Now,
                 UpdatedBy = userId,
             };
-            var users = await _userManager.Users.ToListAsync();
+            var users = (await _userManager.Users.ToListAsync()).Where(u=>!u.isHidden);
             var creatorList = users.Select(u => new SelectListItem
             {
                 Value = u.Id.ToString(),
@@ -145,7 +145,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            var users = await _userManager.Users.ToListAsync();
+            var users = (await _userManager.Users.ToListAsync()).Where(u=>!u.isHidden);
             var creatorList = users.Select(u => new SelectListItem
             {
                 Value = u.Id.ToString(),

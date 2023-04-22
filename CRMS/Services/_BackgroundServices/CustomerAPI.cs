@@ -123,7 +123,9 @@ namespace CRMS.Services._BackgroundServices
                         Gender = contact.Gender,
                         DOB = contact.DOB,
                         CreateDate = contact.CreateDate,
-                        UpdateDate = contact.UpdateDate
+                        UpdateDate = contact.UpdateDate,
+                        IsLocal = false
+                        
                     };
                         // Product does not exist in the database, add it
                         await _contactsRepo.CreateAsync(newContact);
@@ -147,7 +149,7 @@ namespace CRMS.Services._BackgroundServices
                 }
 
                 // Find any contacts that were deleted
-                var deletedContacts = existingContacts.Where(p => !data.Any(d => d.Contact_Id == p.Contact_Id));
+                var deletedContacts = existingContacts.Where(p => !data.Any(d => d.Contact_Id == p.Contact_Id) && !p.IsLocal);
                 foreach (var deletedContact in deletedContacts)
                 {
                     // Product was deleted, remove it from the database

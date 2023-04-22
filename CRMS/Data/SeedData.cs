@@ -102,6 +102,7 @@ namespace CRMS.Data
                         LastName= "Admin",
                         DOB = DateTime.Now.Date,
                         CityAddress = "Makati",
+                        isHidden = true,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -122,6 +123,7 @@ namespace CRMS.Data
                         LastName= "Legista",
                         DOB = DateTime.Now.Date,
                         CityAddress = "Pasay",
+                        isHidden = false,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -142,6 +144,7 @@ namespace CRMS.Data
                         LastName= "Baris",
                         DOB = DateTime.Now.Date,
                         CityAddress = "General Trias",
+                        isHidden = false,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,

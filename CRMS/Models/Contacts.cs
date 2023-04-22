@@ -64,6 +64,8 @@ namespace CRMS.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? CreateDate { get; set; }
 
+        
+        public bool IsLocal { get; set; } = true;
 
         
         public Guid? UpdatedBy { get; set; } //Foreign Key: UserID from Application User
@@ -90,9 +92,9 @@ namespace CRMS.Models
         public Contacts() { }
 
         public Contacts(
-            Guid contact_Id, string? firstName, string? lastName, string? email, string? phoneNumber, 
-            GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned, 
-            Guid? contactCreatorID, DateTime? createDate, Guid? updatedBy, DateTime? updateDate)
+            Guid contact_Id, string? firstName, string? lastName, string? email, string? phoneNumber,
+            GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned,
+            Guid? contactCreatorID, DateTime? createDate, Guid? updatedBy, DateTime? updateDate, bool isLocal = false)
         {
             Contact_Id = contact_Id;
             FirstName = firstName;
@@ -107,6 +109,7 @@ namespace CRMS.Models
             CreateDate = createDate;
             UpdatedBy = updatedBy;
             UpdateDate = updateDate;
+            IsLocal = isLocal;
         }
     }
 
