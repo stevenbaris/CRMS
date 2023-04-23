@@ -197,7 +197,7 @@
                                         <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
                                         <td class="text-center text-wrap">@meeting.Description</td>
                                         <td class="text-center">
-                                            <a asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>
+                                        <a type="button" class="btn w3-highway-blue" asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>
                                         </td>
 
                                     </tr>
@@ -258,7 +258,7 @@
                                         <td class="text-center text-wrap">@engagement.Engagement_Description</td>
                                         <td class="text-center">@engagement.CommunicationMethod.CommunicationMethodName</td>
                                         <td class="text-center">
-                                            <a asp-controller="Engagement" asp-action="Create" asp-route-id="@engagement.ContactId">+ Add Record</a>
+                                        <a type="button" class="btn w3-highway-blue" asp-controller="Engagement" asp-action="Create" asp-route-id="@engagement.ContactId">+ Add Record</a>
                                         </td>
 
                                     </tr>

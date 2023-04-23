@@ -1,180 +1,127 @@
 ﻿@model CreateUserViewModel
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@section Styles{
-    <style>
-        .accordion {
-            background-color: #eee;
-            color: #444;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-            transition: 0.4s;
-        }
+@{
+    ViewData["Title"] = "New Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-            .active, .accordion:hover {
-                background-color: #ccc;
-            }
-
-            .accordion:after {
-                content: '\002B';
-                color: #777;
-                font-weight: bold;
-                float: right;
-                margin-left: 5px;
-            }
-
-        .active:after {
-            content: "\2212";
-        }
-
-        .panel {
-            padding: 0 18px;
-            background-color: white;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-        }
-    </style>
 }
 
-<form asp-controller="User" asp-action="Create" method="post">
-    <div class="row g-3 py-3">
-        <div class="col-md-5">
-            <h1>Add Employee</h1>
-        </div>
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">New Employee</h1></center>
+    <hr />
+    <p style="color: gray">Employees > Create</p>
+    <br />
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="User" asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         
-
-    </div>
-
-    <div asp-validation-summary="ModelOnly" class="text-danger" ></div>
-    <!--BASIC INFORMATION-->
-    <div class="border-bottom bg-white p-2 ">
-        <h4><strong>Basic Information</strong></h4>
-    </div>
-    <div >
-        <div class="row g-3 p-3">
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input asp-for="FirstName" class="form-control" placeholder=" " required>
-                    <label asp-for="FirstName">First Name</label>
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input asp-for="LastName" class="form-control" placeholder=" " required>
-                    <label asp-for="LastName">Last Name</label>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input asp-for="Email" class="form-control" placeholder=" " required>
-                    <label asp-for="Email">Email Address</label>
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-12">
-                <div class="form-floating">
-                    <input asp-for="Address" class="form-control" placeholder=" " required>
-                    <label asp-for="Address">Address</label>
-                    <span asp-validation-for="Address" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
-                </div>
-            </div>
-
-        </div>    
-    </div>
-
-    <!--ROLES-->
-    <div class="border-bottom bg-white p-2 ">
-        <h4><strong>Roles</strong></h4>
-    </div>
-    <div>
-        <div class="row g-3 p-3">
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <select asp-for="RoleName" asp-items="ViewBag.Roles" class="form-control" placeholder=" " required></select>
-                    <label asp-for="RoleName">Role Assignment:</label>
-                    <span asp-validation-for="RoleName" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="FirstName" class="form-control" placeholder=" " required>
+                <label asp-for="FirstName">First Name</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    First Name is required!
                 </div>
             </div>
         </div>
-    </div>
 
-    <!--CREDENTIALS-->
-    <div class="border-bottom bg-white p-2 ">
-        <h4><strong>Password</strong></h4>
-    </div>
-    <div>
-        <div class="row g-3 p-3">
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input asp-for="Password" type="password" class="form-control" placeholder=" " >
-                    <label asp-for="Password">Password</label>
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-floating">
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder=" " >
-                    <label asp-for="ConfirmPassword">Password</label>
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                    <div class="invalid-feedback">
-                        This field is required!
-                    </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="LastName" class="form-control" placeholder=" " required>
+                <label asp-for="LastName">Last Name</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Last Name is required!
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-2 p-3">
-        <button class="btn btn-lg btn-outline-dark btn-success text-white"  type="submit">Register</button>
-    </div>
-</form>
 
-@section Scripts{
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="Email" class="form-control" placeholder=" " required>
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Email is required!
+                </div>
+            </div>
+        </div>
 
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.maxHeight) {
-                    panel.style.maxHeight = null;
-                } else {
-                    panel.style.maxHeight = panel.scrollHeight + "px";
-                }
-            });
-        }
-    </script>
-}
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="Address" class="form-control" placeholder=" " required>
+                <label asp-for="Address">Address</label>
+                <span asp-validation-for="Address" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Address is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.RoleName, (IEnumerable<SelectListItem>)ViewBag.RoleName, "-- Select Role --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="RoleName">Role</label>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Role!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="Password" class="form-control" placeholder=" " required>
+                <label asp-for="Password">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Password is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="ConfirmPassword" class="form-control" placeholder=" " required>
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Confirm Password is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn w3-highway-blue">Create</button>
+            <button onclick="history.go(-1)" class="btn btn-secondary">Cancel</button>
+        </div>
+
+    </form>
+</header>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>

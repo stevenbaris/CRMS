@@ -12,27 +12,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.18.3/extensions/filter-control/utils.min.js"></script>
 }
 
-<header>
+<header class="card1">
     <div>
-        <h1 style="font-weight:800">Employees</h1>
+        <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Employees</h1></center>
+        <hr />
+        <p style="color: gray">Employees > Index</p>
+        <br />
         @*<p></a>int Count</p>*@
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a button class="btn btn-primary me-md-2 cebuana-bg-blue" type="button" asp-controller="User" asp-action="Create">+ New Employee</a>
+            <a button class="btn w3-highway-blue me-md-2" type="button" asp-controller="User" asp-action="Create">+ New Employee</a>
         </div>
+        <br />
     </div>
 
-    <div>
+    <div style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;">
         <table id="table" class="table"
+
                data-toggle="table"
                data-search="true"
-               data-filter-control="true">
+               data-search-align="left"
+               data-filter-control="true"
+               data-buttons-class="primary"
+               data-buttons-align="left"
+               data-toolbar="#toolbar"
+        @*For which column show*@
+               data-show-columns="true"
+               data-minimum-count-columns="2"
+        @*pagination function*@
+               data-pagination="true"
+               data-show-pagination-switch="true"
+               data-page-list="[10, 25, 50, 100, all]">
+
             <thead>
                 <tr>
-                    <th data-field="firstname" data-filter-control="input" data-sortable="true">First Name</th>
-                    <th data-field="lastName" data-filter-control="input" data-sortable="true">Last Name</th>
-                    <th data-field="email" data-filter-control="input" data-sortable="true">Email</th>
-                    <th data-field="role" data-filter-control="select" data-sortable="true">Role</th>
-                    <th data-field="note" data-sortable="true">Action</th>
+                    <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">First Name</th>
+                    <th data-field="column2" data-halign="center" data-align="center" data-sortable="true">Last Name</th>
+                    <th data-field="column3" data-halign="center" data-align="center" data-sortable="true">Email</th>
+                    <th data-field="column4" data-halign="center" data-align="center" data-sortable="true">Role</th>
+                    <th data-field="column5" data-halign="center" data-align="center" data-sortable="true">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +70,14 @@
                             @string.Join(" , ", item.Role.ToList())
                         </td>
                         <td>
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            <div class="d-grid gap-2">
+                                <a type="button" class="btn btn-warning" asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a type="button" class="btn btn-danger" asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </div>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+</header>
