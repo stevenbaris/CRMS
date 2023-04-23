@@ -383,6 +383,11 @@ namespace CRMS.Controllers
                     return NotFound("User not found");
                 }
 
+                if (!ModelState.IsValid)
+                {
+                    return View(MAViewmodel);
+                }
+
                 AppUser.FirstName = MAViewmodel.FirstName;
                 AppUser.LastName = MAViewmodel.LastName;
                 AppUser.CityAddress = MAViewmodel.Address;

@@ -33,7 +33,7 @@ namespace CRMS.Data
               new CommunicationMethod(Guid.NewGuid(), "WhatsApp"),
               new CommunicationMethod(Guid.NewGuid(), "Line"),
               new CommunicationMethod(Guid.NewGuid(), "Phone Call"),
-              new CommunicationMethod(Guid.NewGuid(), "Test Message"),
+              new CommunicationMethod(Guid.NewGuid(), "Text Message"),
               new CommunicationMethod(Guid.NewGuid(), "Email"),
               new CommunicationMethod(Guid.NewGuid(), "Others")
             };
