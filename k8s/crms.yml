@@ -66,7 +66,7 @@ spec:
     spec:
       containers:
       - name: crmsweb
-        image: sigiel07/corecrmsweb:1.0
+        image: sigiel07/corecrmsweb:2.0
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -74,7 +74,7 @@ spec:
         - name: ConnectionStrings__Server
           value: crmsdbserver
         - name: ConnectionStrings__DB
-          value: ProductsDB
+          value: CRMSdb
         - name: ConnectionStrings__UserName
           value: sa
         - name: ConnectionStrings__Password
@@ -99,9 +99,99 @@ spec:
 
 #CUSTOMER API
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: customerapi
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: customerapi
+  template:
+    metadata:
+      labels:
+        app: customerapi
+    spec:
+      containers:
+      - name: customerapi
+        image: sigiel07/customersapi:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: Customerdb
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
 
-
-
-
-#PRODUCT API
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerapi
+  namespace: corecrms
+  labels:
+    app: customerapi
+spec:
+  selector:
+    app: customerapi
+  ports:
+  - name: tcp
+    port: 5274
+    targetPort: 80
+  type: NodePort
+
+
+# PRODUCT API
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: productapi
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: productapi
+  template:
+    metadata:
+      labels:
+        app: productapi
+    spec:
+      containers:
+      - name: productapi
+        image: sigiel07/productapi:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: Productdb
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productapi
+  namespace: corecrms
+  labels:
+    app: productapi
+spec:
+  selector:
+    app: productapi
+  ports:
+  - name: tcp
+    port: 5002
+    targetPort: 80
+  type: NodePort
