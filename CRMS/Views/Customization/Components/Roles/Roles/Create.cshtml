@@ -4,29 +4,55 @@
     Layout = "~/Views/Customization/z_CustomizationLayout.cshtml";
 }
 
-<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">Account</li>
-        <li class="breadcrumb-item">Roles</li>
-        <li class="breadcrumb-item active" aria-current="page">Create</li>
-    </ol>
-</nav>
-
-<h3>Create </h3>
-<hr />
-<div class="row">
-    <form asp-controller="Role" asp-action="Create" method="post">
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <span asp-validation-for="RoleName" class="text-danger"></span>
-        <div class="d-flex form-group justify-content-between ">
-            <label asp-for="RoleName" class="control-label flex-fill"></label>
-            <input asp-for="RoleName" class="form-control flex-fill" required />
-            <input type="submit" value="Save" class="btn w3-green w3-hover-black mx-5">
-        </div>
-  
-    </form>
-</div>
-<div>
+<div class="mt-3">
+    <h2 style="font-weight: bold; font-family: Poppins; color:#002756">New Role</h2>
+    <hr />
+    <p style="color: gray">Customization > Roles > Create</p>
     <br />
-    <a asp-action="Index">Back to List</a>
+    @*<p></a>int Count</p>*@
+    <br />
 </div>
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-12">
+            <div class="form-floating">
+                <input asp-for="RoleName" class="form-control" placeholder=" " required>
+                <label asp-for="RoleName">Role</label>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Role is required!
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn w3-highway-blue">Create</button>
+            <button onclick="history.go(-1)" class="btn btn-secondary">Cancel</button>
+        </div>
+
+    </form>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>

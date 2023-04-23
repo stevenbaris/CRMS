@@ -131,6 +131,9 @@ namespace CRMS.Controllers
             //    Contacts = await _contactRepository.GetbyIdAsync(id),
             //    AppUsers = await _userManager.Users.ToListAsync()
             //};
+            var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+            var userId = user.Id;
+
             var model = await _contactRepository.GetbyIdAsync(id);
 
             if (model == null)
@@ -143,8 +146,14 @@ namespace CRMS.Controllers
                 Value = u.Id.ToString(),
                 Text = u.FirstName + " " + u.LastName
             });
+            var currentUser = users.Where(u => u.Id == userId).Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FullName
+            });
             ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", model.Creator);
             ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", model.Owner);
+            ViewData["CurrentUser"] = new SelectList(currentUser, "Value", "Text", model.Owner);
             return View(model);
         }
 
@@ -153,6 +162,9 @@ namespace CRMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Contacts model)
         {
+            var userr = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+            var userId = userr.Id;
+
             if (id != model.Contact_Id)
             {
                 return NotFound();
@@ -189,8 +201,14 @@ namespace CRMS.Controllers
                 Value = u.Id.ToString(),
                 Text = u.FirstName + " " + u.LastName
             });
+            var currentUser = users.Where(u => u.Id == userId).Select(u => new SelectListItem
+            {
+                Value = u.Id.ToString(),
+                Text = u.FullName
+            });
             ViewData["CreatorList"] = new SelectList(creatorList, "Value", "Text", model.Creator);
             ViewData["OwnerList"] = new SelectList(creatorList, "Value", "Text", model.Owner);
+            ViewData["CurrentUser"] = new SelectList(currentUser, "Value", "Text", model.Owner);
             return View(model);
         }
 

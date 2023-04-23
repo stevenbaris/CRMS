@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 
 namespace CRMS.Controllers
@@ -114,7 +115,8 @@ namespace CRMS.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
-            ViewBag.Roles = list;
+            ViewBag.RoleName = list;
+
             return View();
         }
 
@@ -228,7 +230,7 @@ namespace CRMS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync(EditUserViewModel data)
+        public async Task<IActionResult> Edit(EditUserViewModel data)
         {
             var user = _unitOfWork.User.GetUser(data.User.Id);
             if (user == null)
@@ -246,24 +248,24 @@ namespace CRMS.Controllers
             var rolesToAdd = new List<string>();
             var rolesToDelete = new List<string>();
 
-            //foreach (var role in data.Roles)
-            //{
-            //    var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
-            //    if (role.Selected)
-            //    {
-            //        if (assignedInDb == null)
-            //        {
-            //            rolesToAdd.Add(role.Text);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (assignedInDb != null)
-            //        {
-            //            rolesToDelete.Add(role.Text);
-            //        }
-            //    }
-            //}
+            foreach (var role in data.Roles)
+            {
+                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
+                if (role.Selected)
+                {
+                    if (assignedInDb == null)
+                    {
+                        rolesToAdd.Add(role.Text);
+                    }
+                }
+                else
+                {
+                    if (assignedInDb != null)
+                    {
+                        rolesToDelete.Add(role.Text);
+                    }
+                }
+            }
 
             if (rolesToAdd.Any())
             {
@@ -278,6 +280,7 @@ namespace CRMS.Controllers
             user.FirstName = data.User.FirstName;
             user.LastName = data.User.LastName;
             user.Email = data.User.Email;
+            user.CityAddress = data.User.CityAddress;
 
             _unitOfWork.User.UpdateUser(user);
 
