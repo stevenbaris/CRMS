@@ -2,30 +2,27 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: core_crms
+  name: corecrms
 
 #SQL SERVER
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: CRMSDB_SERVER
+  name: crmsdbserver
+  namespace: corecrms
 spec:
   selector:
     matchLabels:
-      app: CRMSDB_SERVER
+      app: crmsdbserver
   template:
     metadata:
       labels:
-        app: CRMSDB_SERVER
+        app: crmsdbserver
     spec:
       containers:
-      - name: CRMSDB_SERVER
+      - name: crmsdbserver
         image: mcr.microsoft.com/mssql/server:2022-latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - containerPort: 1433
         env:
@@ -38,24 +35,67 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: CRMSDB_SERVER
-  namespace: core_crms
+  name: crmsdbserver
+  namespace: corecrms
   labels:
-    app: CRMSDB_SERVER
+    app: crmsdbserver
 spec:
   selector:
-    app: CRMSDB_SERVER
+    app: crmsdbserver
   ports:
   - name: tcp
     port: 1433
-    targetPort: <Target Port>
+    targetPort: 1433
   type: NodePort
 
 #MVC WEB APP
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crmsweb
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: crmsweb
+  template:
+    metadata:
+      labels:
+        app: crmsweb
+    spec:
+      containers:
+      - name: crmsweb
+        image: sigiel07/corecrmsweb:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: ProductsDB
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
 
-
-
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crmsweb
+  namespace: corecrms
+  labels:
+    app: crmsweb
+spec:
+  selector:
+    app: crmsweb
+  ports:
+  - name: tcp
+    port: 5126
+    targetPort: 80
+  type: NodePort
 
 #CUSTOMER API
 ---
