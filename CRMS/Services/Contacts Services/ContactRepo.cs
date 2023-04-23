@@ -193,7 +193,17 @@ namespace CRMS.Services.SqlRepositories
             }
         }
 
+        public async Task<bool> EmailExistsAsync(string email, Guid? contactId = null)
+        {
+            var query = _dBcontext.Contacts.Where(c => c.Email == email);
 
+            if (contactId != null)
+            {
+                query = query.Where(c => c.Contact_Id != contactId);
+            }
+
+            return await query.AnyAsync();
+        }
 
 
     }

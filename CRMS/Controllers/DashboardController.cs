@@ -50,7 +50,14 @@ namespace CRMS.Controllers
             var ContactsWithNoLeads = (contacts)
                      .Where(c => !leads.Any(l => l.ProspectId == c.Contact_Id));
             
-            var NextEngagements = (await _engagementRepo.GetAllAsync()).Where(e=>e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date  && e.CreatedById == userGUID);
+            var NextEngagements = (await _engagementRepo.GetAllAsync())
+                .Where(e =>  e.CreatedById == userGUID) //e.Engagement_Date.AddDays(7).Date == DateTime.Now.Date &&
+                .GroupBy(e => e.ContactId)
+                .Select(g => g.OrderByDescending(e => e.Engagement_Date)
+                  .FirstOrDefault(e => e.Engagement_Date.Date >= DateTime.Now.AddDays(-7).Date))
+                .Where(e =>  e?.Engagement_Date.Date == DateTime.Now.AddDays(-7).Date)
+                .ToList();
+
             var Appointments = (await _appointmentRepo.GetAllAsync()).Where(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID && a.SchedStatus == 0);
             var totalTasks = Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count();
 
@@ -80,6 +87,7 @@ namespace CRMS.Controllers
             ViewData["ContactsWithNoLeads"] = ContactsWithNoLeads.Count();
             ViewData["NextEngagements"] = NextEngagements.Count();
             ViewData["Appointments"] = Appointments.Count();
+            ViewData["ToCreate"] = (10 - ContactsCreated.Count());
             ViewData["TotalTasks"] = (Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count());
             ViewData["ContactsCreated"] = ContactsCreated.Count();
             ViewData["ContactsAssigned"] = ContactsAssigned.Count();

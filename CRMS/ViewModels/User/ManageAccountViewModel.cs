@@ -45,39 +45,5 @@ namespace CRMS.ViewModels.User
         public string? ConfirmNewPassword { get; set; }
     }
 
-    public class RequiredIfAttribute : ValidationAttribute
-    {
-        private readonly string _propertyName;
-        private readonly object _propertyValue;
-
-        public RequiredIfAttribute(string propertyName, object propertyValue)
-        {
-            _propertyName = propertyName;
-            _propertyValue = propertyValue;
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var property = validationContext.ObjectType.GetProperty(_propertyName);
-            if (property == null)
-            {
-                return new ValidationResult($"Unknown property: {_propertyName}");
-            }
-
-            var propertyValue = property.GetValue(validationContext.ObjectInstance);
-            if (propertyValue == null || !propertyValue.Equals(_propertyValue))
-            {
-                return ValidationResult.Success;
-            }
-
-            if (string.IsNullOrEmpty((string)value))
-            {
-                return new ValidationResult(ErrorMessage);
-            }
-
-            return ValidationResult.Success;
-        }
-    }
-
 
 }

@@ -74,7 +74,8 @@
                             @Html.DisplayFor(modelItem => item.CreatedDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.prospect.FullName)
+                            <a href="@Url.Action("ContactDetail", "Contacts", new { id = item.ProspectId })">@item.prospect.FullName</a>
+                            @*@Html.DisplayFor(modelItem => item.prospect.FullName)*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.source.SourceName)

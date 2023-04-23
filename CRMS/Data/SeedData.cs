@@ -102,6 +102,7 @@ namespace CRMS.Data
                         LastName= "Admin",
                         DOB = DateTime.Now.Date,
                         CityAddress = "Makati",
+                        isHidden = true,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -122,6 +123,7 @@ namespace CRMS.Data
                         LastName= "Legista",
                         DOB = DateTime.Now.Date,
                         CityAddress = "Pasay",
+                        isHidden = false,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,
@@ -136,12 +138,13 @@ namespace CRMS.Data
                         NormalizedEmail = "sbb@crms.com".ToUpper(),
                         AccessFailedCount = 0,
                         EmailConfirmed = true,
-                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "barris123"),
+                        PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "baris123"),
                         SecurityStamp = string.Empty,
                         FirstName = "Steven",
-                        LastName= "Barris",
+                        LastName= "Baris",
                         DOB = DateTime.Now.Date,
                         CityAddress = "General Trias",
+                        isHidden = false,
 
                         LockoutEnabled = true,
                         TwoFactorEnabled = false,

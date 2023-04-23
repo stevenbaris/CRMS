@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CRMS.Models;
 using CRMS.Services.Contacts_Services;
 using System.Security.Claims;
+using CRMS.Services.Records;
 
 namespace CRMS.Controllers
 {
@@ -185,7 +186,32 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var appointmentPurpose = await _appointments.GetbyIdAsync(id);
-            if (appointmentPurpose != null)
+            if (appointmentPurpose == null)
+            {
+                return NotFound();
+            }
+            //ViewBag.Engagement_Id = id;
+            return View("~/Views/Records/Appointment/Delete.cshtml", appointmentPurpose);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Deleted(Guid id)
+        {
+            if (_appointments == null)
+            {
+                return Problem("Entity set 'CRMSDbContext'  is null.");
+            }
+
+            if (id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+
+            var engagement = await _appointments.GetbyIdAsync(id);
+
+            if (engagement != null)
             {
                 await _appointments.DeleteAsync(id);
             }

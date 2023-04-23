@@ -1,0 +1,67 @@
+#Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: core_crms
+
+#SQL SERVER
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: CRMSDB_SERVER
+spec:
+  selector:
+    matchLabels:
+      app: CRMSDB_SERVER
+  template:
+    metadata:
+      labels:
+        app: CRMSDB_SERVER
+    spec:
+      containers:
+      - name: CRMSDB_SERVER
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: CRMSDB_SERVER
+  namespace: core_crms
+  labels:
+    app: CRMSDB_SERVER
+spec:
+  selector:
+    app: CRMSDB_SERVER
+  ports:
+  - name: tcp
+    port: 1433
+    targetPort: <Target Port>
+  type: NodePort
+
+#MVC WEB APP
+---
+
+
+
+
+#CUSTOMER API
+---
+
+
+
+
+#PRODUCT API
+---

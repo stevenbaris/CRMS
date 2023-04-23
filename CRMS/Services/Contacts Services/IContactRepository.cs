@@ -12,6 +12,7 @@ namespace CRMS.Services.Contacts_Services
         Task<List<Contacts>> GetAllMyContactsAsync(Guid userGuid);
         Task<List<Contacts>> GetMyCreatedContactsAsync(Guid userGuid);
         Task<List<Contacts>> GetMyAssignedContactsAsync(Guid userGuid);
+        Task<bool> EmailExistsAsync(string email, Guid? contactId = null);
 
     }
 }

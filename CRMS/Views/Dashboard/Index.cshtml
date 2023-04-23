@@ -46,9 +46,8 @@
 
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <h4 style="color: #002756;">
-                                10</h5>
-                                <p style="font-size: 13px; color: gray;">Target Contacts to Create</p>
+                            <h4 style="color: #002756;">@ViewData["ToCreate"]</h4>
+                            <p style="font-size: 13px; color: gray;">Target Contacts to Create</p>
                         </div>
                     </div>
 
@@ -271,6 +270,7 @@
                     }
                     else
                     {
+                    <tr>No Results Found</tr>
                         <h4 class="text-center">No Results Found</h4>
                     }
 
@@ -285,7 +285,7 @@
                 <center><h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 20px;">Contacts Without Leads</h3></center>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-bottom: 15px;">
-                    <a button class="btn w3-highway-blue col-md-2" type="button" asp-controller="Engagement" asp-action="Create">
+                    <a button class="btn w3-highway-blue col-md-2" type="button" asp-controller="Leads" asp-action="Create">
                         + New Leads
                     </a>
                 </div>     
@@ -295,7 +295,7 @@
                 <div class="container-fluid overflow-auto">
                     @if (ViewData["ContactsWithNoLeadsList"] != null)
                     {
-                        <table class="table table-hover w3-center ">
+                        <table id="table" class="table table-hover w3-center ">
                             <thead>
                                 <tr>
                                     <th data-field="column1" data-halign="center" data-align="center" data-sortable="true">Leads</th>
@@ -333,7 +333,7 @@
                     else
                     {
                         <tbody class="justify-content-center ">
-                            <tr><h4 class="text-center">No Results Found</h4></tr>
+                            <tr><h4> class="text-center">No Results Found</h4></tr>
                         </tbody>
                     }
 
@@ -368,5 +368,10 @@
             });
         });
         
+    </script>
+    <script>
+        $(function () {
+            $('#table').bootstrapTable()
+        })
     </script>
 }

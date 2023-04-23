@@ -8,6 +8,8 @@ namespace CRMS.Models
     {
         //PROPERTIES
         public Guid Contact_Id { get; set; }
+
+
         [Required(ErrorMessage = "This field is required")]
         [MinLength(2, ErrorMessage = "The first name is too short")]
         public string? FirstName { get; set; }
@@ -62,6 +64,8 @@ namespace CRMS.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? CreateDate { get; set; }
 
+        
+        public bool IsLocal { get; set; } = true;
 
         
         public Guid? UpdatedBy { get; set; } //Foreign Key: UserID from Application User
@@ -88,9 +92,9 @@ namespace CRMS.Models
         public Contacts() { }
 
         public Contacts(
-            Guid contact_Id, string? firstName, string? lastName, string? email, string? phoneNumber, 
-            GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned, 
-            Guid? contactCreatorID, DateTime? createDate, Guid? updatedBy, DateTime? updateDate)
+            Guid contact_Id, string? firstName, string? lastName, string? email, string? phoneNumber,
+            GenderType? gender, DateTime? dOB, Guid? contactOwnerID, DateTime? dateAssigned,
+            Guid? contactCreatorID, DateTime? createDate, Guid? updatedBy, DateTime? updateDate, bool isLocal = false)
         {
             Contact_Id = contact_Id;
             FirstName = firstName;
@@ -105,6 +109,7 @@ namespace CRMS.Models
             CreateDate = createDate;
             UpdatedBy = updatedBy;
             UpdateDate = updateDate;
+            IsLocal = isLocal;
         }
     }
 

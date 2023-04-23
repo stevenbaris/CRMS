@@ -30,6 +30,7 @@ namespace CRMS.Models
         [MinLength(5, ErrorMessage = "The CityAddress is too short")]
         public string? CityAddress { get; set; }
 
+        public bool isHidden { get; set; } = false;
 
 
         [IgnoreMember]

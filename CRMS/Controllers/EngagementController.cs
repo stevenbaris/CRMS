@@ -224,14 +224,22 @@ namespace CRMS.Controllers
         }
 
         
-        [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Deleted(Guid id)
         {
             if (_engagementRepo == null)
             {
                 return Problem("Entity set 'CRMSDbContext'  is null.");
             }
+
+            if (id == Guid.Empty)
+            {
+                return NotFound();
+            }
+
+
             var engagement = await _engagementRepo.GetbyIdAsync(id);
+
             if (engagement != null)
             {
                 await _engagementRepo.DeleteAsync(id);

@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //Configure entity framework to connect for a db
-builder.Services.AddDbContext<CRMSDbContext>();
+builder.Services.AddDbContext<CRMSDbContext>(options => options.EnableSensitiveDataLogging());
 
 
 builder.Services

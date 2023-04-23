@@ -2,6 +2,7 @@
 using CRMS.Models.Records;
 using CRMS.Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Records;
 using CRMS.ViewModels.Contact;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -75,7 +76,7 @@ namespace CRMS.Controllers
                 UpdateDate = DateTime.Now,
                 UpdatedBy = userId,
             };
-            var users = await _userManager.Users.ToListAsync();
+            var users = (await _userManager.Users.ToListAsync()).Where(u=>!u.isHidden);
             var creatorList = users.Select(u => new SelectListItem
             {
                 Value = u.Id.ToString(),
@@ -103,8 +104,15 @@ namespace CRMS.Controllers
             var userId = user.Id;
             if (ModelState.IsValid)
             {
-                await _contactRepository.CreateAsync(contact);
-                return RedirectToAction(nameof(ViewAll));
+                if (await _contactRepository.EmailExistsAsync(contact.Email))
+                {
+                    ModelState.AddModelError("Email", "Email already exists.");
+                }
+                else
+                {
+                    await _contactRepository.CreateAsync(contact);
+                    return RedirectToAction(nameof(ViewAll));
+                }
             }
             var users = await _userManager.Users.ToListAsync();
             var creatorList = users.Select(u => new SelectListItem
@@ -140,7 +148,7 @@ namespace CRMS.Controllers
             {
                 return NotFound();
             }
-            var users = await _userManager.Users.ToListAsync();
+            var users = (await _userManager.Users.ToListAsync()).Where(u=>!u.isHidden);
             var creatorList = users.Select(u => new SelectListItem
             {
                 Value = u.Id.ToString(),
@@ -175,19 +183,26 @@ namespace CRMS.Controllers
                 
                 try
                 {
-                    var entity = await _contactRepository.GetbyIdAsync(model.Contact_Id);
-
-                    if (entity == null)
+                    if (await _contactRepository.EmailExistsAsync(model.Email, model.Contact_Id))
                     {
-                        return NotFound();
+                        ModelState.AddModelError("Email", "Email already exists.");
+                        return View(model);
                     }
+                    else
+                    {
+                        var entity = await _contactRepository.GetbyIdAsync(model.Contact_Id);
 
-                    var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
-                    model.UpdateDate = DateTime.Now;
-                    model.Updater = user;
-                    await _contactRepository.UpdateAsync(model);
+                        if (entity == null)
+                        {
+                            return NotFound();
+                        }
 
+                        var user = await _signInManager.UserManager.GetUserAsync((ClaimsPrincipal)User);
+                        model.UpdateDate = DateTime.Now;
+                        model.Updater = user;
+                        await _contactRepository.UpdateAsync(model);
 
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -215,38 +230,32 @@ namespace CRMS.Controllers
         
         public async Task<IActionResult> Remove(Guid id)
         {
-            if (_contactRepository == null)
-            {
-                return Problem("Entity set 'CRMSDbContext'  is null.");
-            }
-
             var contact = await _contactRepository.GetbyIdAsync(id);
             if (contact == null)
             {
                 return NotFound();
             }
-            
-            await _contactRepository.DeleteAsync(id);
-            return RedirectToAction(nameof(ViewAll));
+            //ViewBag.Engagement_Id = id;
+            return View(contact);
         }
 
-        
-        //[HttpPost]
-        //public async Task<IActionResult> RemoveConfirmed(Guid id)
-        //{
-        //    if (_contactRepository == null)
-        //    {
-        //        return Problem("Entity set 'CRMSDbContext'  is null.");
-        //    }
-        //    var contact = await _contactRepository.GetbyIdAsync(id);
-        //    if (contact != null)
-        //    {
-        //        await _contactRepository.DeleteAsync(id);
-        //    }
+
+        [HttpPost, ActionName("Remove")]
+        public async Task<IActionResult> RemoveConfirmed(Guid id)
+        {
+            if (_contactRepository == null)
+            {
+                return Problem("Entity set 'CRMSDbContext'  is null.");
+            }
+            var contact = await _contactRepository.GetbyIdAsync(id);
+            if (contact != null)
+            {
+                await _contactRepository.DeleteAsync(id);
+            }
 
 
-        //    return RedirectToAction(nameof(ViewAll));
-        //}
+            return RedirectToAction(nameof(ViewAll));
+        }
 
 
         public async Task<IActionResult> ContactDetail(Guid id)
