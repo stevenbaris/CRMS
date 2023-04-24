@@ -46,6 +46,14 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var engagement = await _engagementRepo.GetAllAsync();
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
 
             if (_signInManager.IsSignedIn(User))
             {
@@ -59,6 +67,8 @@ namespace CRMS.Controllers
                     var myEngagement = engagement.Where(l => l.CreatedById == Guid.Parse(userId));
                     return View("~/Views/Records/Engagement/Index.cshtml", myEngagement);
                 }
+
+               
             }
 
             return RedirectToAction("Index", "Home");
@@ -130,6 +140,8 @@ namespace CRMS.Controllers
                 engagement.CreatedDate = DateTime.Now;
                 engagement.CreatedById = user.Id;
                 await _engagementRepo.CreateAsync(engagement);
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully created a new engagement record .";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
             return View("~/Views/Records/Engagement/Create.cshtml", engagement);
@@ -190,6 +202,8 @@ namespace CRMS.Controllers
                 {
                     throw new Exception();
                 }
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated an engagement record.";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
 
@@ -243,6 +257,8 @@ namespace CRMS.Controllers
             if (engagement != null)
             {
                 await _engagementRepo.DeleteAsync(id);
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED an engagement record.";
+                TempData.Keep();
             }
             return RedirectToAction(nameof(Index));
         }

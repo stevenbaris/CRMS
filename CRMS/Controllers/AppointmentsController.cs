@@ -39,6 +39,14 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var appointmentIndex = await _appointments.GetAllAsync();
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
 
             if (_signInManager.IsSignedIn(User))
             {
@@ -52,9 +60,12 @@ namespace CRMS.Controllers
                     var myAppointments = appointmentIndex.Where(l => l.CreatedBy == Guid.Parse(userId));
                     return View("~/Views/Records/Appointment/Index.cshtml", myAppointments);
                 }
-            }
 
-            return RedirectToAction("Index", "Home");
+                
+            }
+           
+            return RedirectToAction("Login", "User");
+            
         }
        
         public async Task<IActionResult> Details(Guid id)
@@ -117,6 +128,8 @@ namespace CRMS.Controllers
                 var users = _userManager.GetUserId(HttpContext.User);
                 appointmentCreate.CreatedBy = Guid.Parse(users);
                 await _appointments.CreateAsync(appointmentCreate);
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully created a new appointment .";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
@@ -176,6 +189,8 @@ namespace CRMS.Controllers
                         throw;
                     }
                 }
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated your appointment.";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PurposeId"] = new SelectList(_context.Purposes, "Purpose_Id", "PurposeName");
@@ -215,6 +230,8 @@ namespace CRMS.Controllers
             if (engagement != null)
             {
                 await _appointments.DeleteAsync(id);
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED an appointment.";
+                TempData.Keep();
             }
             return RedirectToAction(nameof(Index));
         }

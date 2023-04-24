@@ -25,6 +25,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.Automigrate();
+
 app.UseStaticFiles();
 
 app.UseRouting();
