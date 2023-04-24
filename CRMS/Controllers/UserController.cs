@@ -293,7 +293,7 @@ namespace CRMS.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
-
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -305,7 +305,7 @@ namespace CRMS.Controllers
             }
             else
             {
-                var result = await _userManager.DeleteAsync(user);
+                
                 return View(user);
             }
         }
@@ -317,7 +317,16 @@ namespace CRMS.Controllers
                 throw new RepositoryNullException("Application User table is null.");
             }
             var deleteAppUser = await _userManager.FindByIdAsync(id.ToString());
-            
+
+            var sysadmin = await _userManager.FindByEmailAsync("su@crms.com");
+
+            if (deleteAppUser.Id == sysadmin.Id)
+            {
+                TempData["ErrorMessage"] = $"FAILED! Cannot delete the System Administrator.";
+                TempData.Keep();
+                return RedirectToAction("Index");
+            }
+
             if (deleteAppUser != null)
             {
                 await _userManager.DeleteAsync(deleteAppUser);
