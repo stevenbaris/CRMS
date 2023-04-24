@@ -14,6 +14,21 @@
 
 <header class="card1">
     <div>
+        @if (ViewBag.SuccessMessage != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @ViewBag.SuccessMessage
+                
+            </div>
+        }
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                @ViewBag.ErrorMessage
+               
+            </div>
+        }
+       
         <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Employees</h1></center>
         <hr />
         <p style="color: gray">Employees > Index</p>
@@ -73,6 +88,7 @@
                             <div class="d-grid gap-2">
                                 <a type="button" class="btn btn-warning" asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                                 <a type="button" class="btn btn-danger" asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a type="button" class="btn btn-secondary" asp-controller="User" asp-action="ResetPassword" asp-route-Id="@item.Id">Reset Password</a>
                             </div>
                         </td>
                     </tr>

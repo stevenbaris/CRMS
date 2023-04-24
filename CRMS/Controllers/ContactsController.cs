@@ -4,6 +4,7 @@ using CRMS.Services;
 using CRMS.Services.Contacts_Services;
 using CRMS.Services.Records;
 using CRMS.ViewModels.Contact;
+using CRMS.ViewModels.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -45,7 +46,14 @@ namespace CRMS.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewAll()
         {
-
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
             if (_signInManager.IsSignedIn(User))
             {
                 if (User.IsInRole("Admin"))
@@ -57,7 +65,10 @@ namespace CRMS.Controllers
                     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                     return View(await _contactRepository.GetAllMyContactsAsync(Guid.Parse(userId)));
                 }
+               
             }
+
+           
             return RedirectToAction("Login","User");
 
         }
@@ -111,6 +122,8 @@ namespace CRMS.Controllers
                 else
                 {
                     await _contactRepository.CreateAsync(contact);
+                    TempData["SuccessMessage"] = $"SUCCESS! You have successfully created a new contact .";
+                    TempData.Keep();
                     return RedirectToAction(nameof(ViewAll));
                 }
             }
@@ -201,7 +214,8 @@ namespace CRMS.Controllers
                         model.UpdateDate = DateTime.Now;
                         model.Updater = user;
                         await _contactRepository.UpdateAsync(model);
-
+                        TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated the contact information.";
+                        TempData.Keep();
                     }
                 }
                 catch (DbUpdateConcurrencyException)
@@ -252,7 +266,8 @@ namespace CRMS.Controllers
             {
                 await _contactRepository.DeleteAsync(id);
             }
-
+            TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED the contact.";
+            TempData.Keep();
 
             return RedirectToAction(nameof(ViewAll));
         }

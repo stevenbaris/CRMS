@@ -1,4 +1,5 @@
 ﻿using CRMS.Data;
+using CRMS.Exceptions;
 using CRMS.Models;
 using CRMS.Services;
 using CRMS.ViewModels.User;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Data;
 using System.Security.Claims;
 
@@ -88,20 +90,6 @@ namespace CRMS.Controllers
             // Return an error message indicating that the user does not have access to the admin section
             ModelState.AddModelError("", "Invalid Administrator credentials");
             return View();
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(userViewModel);
-            //}
-
-            //var result = await _signInManager.PasswordSignInAsync(userViewModel.UserName, userViewModel.Password, userViewModel.RememberMe, false);
-
-            //if (!result.Succeeded)
-            //{
-            //    ModelState.AddModelError(string.Empty, "Invalid login credential.");
-            //    return View(userViewModel);
-            //}
-
         }
 
 
@@ -112,7 +100,7 @@ namespace CRMS.Controllers
 
             foreach (var role in _roleManager.Roles)
             {
-                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
             ViewBag.RoleName = list;
@@ -127,7 +115,7 @@ namespace CRMS.Controllers
 
             foreach (var role in _roleManager.Roles)
             {
-                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
             ViewBag.RoleName = list;
@@ -136,11 +124,6 @@ namespace CRMS.Controllers
             {
                 return View(createUserViewModel);
             }
-
-           
-            //ViewData["RoleList"] = new SelectList(_roleManager.Roles, "Id", "Name");
-
-           
 
             var user = new ApplicationUser
             {
@@ -151,8 +134,15 @@ namespace CRMS.Controllers
                 CityAddress = createUserViewModel.Address,
             };
 
-         
-            var result = await _userManager.CreateAsync(user,);
+            var emailExist = _crmsDbContext.Users.Any(x => x.Email == user.Email);
+
+            if (emailExist)
+            {
+                ModelState.AddModelError("Email", "Email already exist!");
+                return View();
+            }
+
+            var result = await _userManager.CreateAsync(user, createUserViewModel.Password);
 
             if (!result.Succeeded)
             {
@@ -166,6 +156,9 @@ namespace CRMS.Controllers
 
             //Add Role
             await _userManager.AddToRoleAsync(user, createUserViewModel.RoleName);
+
+            TempData["SuccessMessage"] = $"SUCCESS! You have successfully added the User: {user.FullName} with {createUserViewModel.RoleName} role .";
+            TempData.Keep();
 
             return RedirectToAction(actionName: "Index", controllerName: "User");
         }
@@ -185,6 +178,7 @@ namespace CRMS.Controllers
             var users = await _userManager.Users.ToListAsync();
             var usersWithRoles = new List<IndexUserViewModel>();
 
+
             foreach (var user in users)
             {
                 var roles = await _userManager.GetRolesAsync(user);
@@ -198,6 +192,17 @@ namespace CRMS.Controllers
                 };
                 usersWithRoles.Add(userViewModel);
             }
+
+
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
+
             return View(usersWithRoles);
         }
 
@@ -211,18 +216,18 @@ namespace CRMS.Controllers
         public async Task<IActionResult> IndexNoRole()
         {
             var usersWithoutAnyRole = _crmsDbContext.Users
-        .Where(c => !_crmsDbContext.UserRoles
-        .Select(b => b.UserId).Distinct()
-        .Contains(c.Id)).ToList();
+                .Where(c => !_crmsDbContext.UserRoles
+                .Select(b => b.UserId).Distinct()
+                .Contains(c.Id)).ToList();
             return View(usersWithoutAnyRole);
         }
 
         public async Task<IActionResult> Edit(Guid id)
         {
             var user = _unitOfWork.User.GetUser(id);
-            var roles = _unitOfWork.Role.GetRoles();
 
             var userRoles = await _signInManager.UserManager.GetRolesAsync(user);
+            var uRole = userRoles.FirstOrDefault();
 
             List<SelectListItem> list = new List<SelectListItem>();
 
@@ -231,18 +236,12 @@ namespace CRMS.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
-            ViewBag.Roles = list;
-
-            var roleItems = roles.Select(role =>
-                new SelectListItem(
-                    role.Name,
-                    role.Id.ToString(),
-                    userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
+            ViewBag.RoleName = list;
 
             var vm = new EditUserViewModel
             {
                 User = user,
-                Roles = roleItems
+                Role = uRole
             };
 
             return View(vm);
@@ -251,50 +250,28 @@ namespace CRMS.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditUserViewModel data)
         {
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in _roleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            }
+
+            ViewBag.RoleName = list;
+
             var user = _unitOfWork.User.GetUser(data.User.Id);
             if (user == null)
             {
                 return NotFound();
             }
-
-            var userRolesInDb = await _signInManager.UserManager.GetRolesAsync(user);
-
-            //Loop through the roles in ViewModel
-            //Check if the Role is Assigned In DB
-            //If Assigned -> Do Nothing
-            //If Not Assigned -> Add Role
-
-            var rolesToAdd = new List<string>();
-            var rolesToDelete = new List<string>();
-
-            foreach (var role in data.Roles)
+                        
+            var userRolesInDb = await _userManager.GetRolesAsync(user);
+            var uRole = userRolesInDb.FirstOrDefault();
+            if (uRole != null)
             {
-                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
-                if (role.Selected)
-                {
-                    if (assignedInDb == null)
-                    {
-                        rolesToAdd.Add(role.Text);
-                    }
-                }
-                else
-                {
-                    if (assignedInDb != null)
-                    {
-                        rolesToDelete.Add(role.Text);
-                    }
-                }
+                var romoveRole = await _userManager.RemoveFromRoleAsync(user, uRole);
             }
-
-            if (rolesToAdd.Any())
-            {
-                await _signInManager.UserManager.AddToRolesAsync(user, rolesToAdd);
-            }
-
-            if (rolesToDelete.Any())
-            {
-                await _signInManager.UserManager.RemoveFromRolesAsync(user, rolesToDelete);
-            }
+            var addtoRole = await _userManager.AddToRoleAsync(user, data.Role);
+           
 
             user.FirstName = data.User.FirstName;
             user.LastName = data.User.LastName;
@@ -302,6 +279,8 @@ namespace CRMS.Controllers
             user.CityAddress = data.User.CityAddress;
 
             _unitOfWork.User.UpdateUser(user);
+            TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated the user data.";
+            TempData.Keep();
 
             // return RedirectToAction("Edit", new { id = user.Id });
             return RedirectToAction("Index");
@@ -322,25 +301,34 @@ namespace CRMS.Controllers
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User cannot be found";
-                return View("Not Found");
+                return NotFound();
             }
             else
             {
                 var result = await _userManager.DeleteAsync(user);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-
-                return View("Index");
+                return View(user);
             }
         }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            if (_userManager.Users == null)
+            {
+                throw new RepositoryNullException("Application User table is null.");
+            }
+            var deleteAppUser = await _userManager.FindByIdAsync(id.ToString());
+            
+            if (deleteAppUser != null)
+            {
+                await _userManager.DeleteAsync(deleteAppUser);
+               
+            }
+            TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED the User.";
+            TempData.Keep();
+
+            return RedirectToAction("Index");
+        }
+
 
         [AllowAnonymous]
         [HttpGet]
@@ -452,13 +440,36 @@ namespace CRMS.Controllers
                 // log the exception
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
-
-                
-
-
-            
-               
           
+        }
+
+        
+        public async Task<IActionResult> ResetPassword(Guid Id)
+        {
+            var user = await _userManager.FindByIdAsync(Id.ToString());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var newPassword = "@CoreUser" + DateTime.Now.ToString("MMdd");
+            var remove = await _userManager.RemovePasswordAsync(user);
+            if (!remove.Succeeded)
+            {
+                TempData["ErrorMessage"] = $"FAILED! Cannot remove the old password for User: {user.FullName}.";
+                TempData.Keep();
+                return RedirectToAction("Index");
+            }
+            var add = await _userManager.AddPasswordAsync(user, newPassword);
+            if (!remove.Succeeded)
+            {
+                TempData["ErrorMessage"] = $"UNSUCCESSFUL! Failed to reset the password for User: {user.FullName}.";
+                TempData.Keep();
+                return RedirectToAction("Index");
+            }
+            TempData["SuccessMessage"] = $"SUCCESS! You have successfully reset the password for User: {user.FullName}. The New Password is: {newPassword}";
+            TempData.Keep();
+            return RedirectToAction("Index");
         }
 
     }

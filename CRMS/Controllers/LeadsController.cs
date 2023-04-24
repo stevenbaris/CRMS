@@ -32,6 +32,14 @@ namespace CRMS.Controllers
         public async Task<IActionResult> Index()
         {
             var leadsIndex = await _leads.GetAllAsync();
+            if (TempData["SuccessMessage"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            }
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
 
             if (_signInManager.IsSignedIn(User))
             {
@@ -141,6 +149,8 @@ namespace CRMS.Controllers
                 var users = _userManager.GetUserId(HttpContext.User);
                 leadsCreate.CreatedBy = Guid.Parse(users);
                 await _leads.CreateAsync(leadsCreate);
+                TempData["SuccessMessage"] = $"Congratulations! You have successfully created a new lead .";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
             return View("~/Views/Records/Leads/Create.cshtml", leadsCreate);
@@ -221,6 +231,8 @@ namespace CRMS.Controllers
                         throw;
                     }
                 }
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated your lead's information.";
+                TempData.Keep();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StatusId"] = new SelectList(_context.Statuses, "LeadStatus_Id", "LeadStatusName");
@@ -259,6 +271,8 @@ namespace CRMS.Controllers
             if (engagement != null)
             {
                 await _leads.DeleteAsync(id);
+                TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED a lead data.";
+                TempData.Keep();
             }
             return RedirectToAction(nameof(Index));
         }
