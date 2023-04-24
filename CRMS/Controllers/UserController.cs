@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections.Generic;
 using System.Data;
 using System.Security.Claims;
 
@@ -130,7 +132,7 @@ namespace CRMS.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
-            ViewBag.Roles = list;
+            ViewBag.RoleName = list;
 
             if (!ModelState.IsValid)
             {
@@ -146,6 +148,13 @@ namespace CRMS.Controllers
                 CityAddress = createUserViewModel.Address,
             };
 
+            var emailExist = _crmsDbContext.Users.Any(x => x.Email == user.Email);
+
+            if (emailExist)
+            {
+                ModelState.AddModelError("Email", "Email already exist!");
+                return View();
+            }
             var result = await _userManager.CreateAsync(user);
 
             if (!result.Succeeded)
@@ -218,6 +227,7 @@ namespace CRMS.Controllers
 
             var userRoles = await _signInManager.UserManager.GetRolesAsync(user);
 
+
             List<SelectListItem> list = new List<SelectListItem>();
 
             foreach (var role in _roleManager.Roles)
@@ -225,7 +235,9 @@ namespace CRMS.Controllers
                 list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
             }
 
-            ViewBag.Roles = list;
+            ViewBag.RoleName = list;
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
 
             var roleItems = roles.Select(role =>
                 new SelectListItem(
@@ -233,12 +245,12 @@ namespace CRMS.Controllers
                     role.Id.ToString(),
                     userRoles.Any(ur => ur.Contains(role.Name)))).ToList();
 
+
             var vm = new EditUserViewModel
             {
                 User = user,
-                Roles = roleItems
+                Roles = currentRoles
             };
-
             return View(vm);
         }
 
@@ -257,28 +269,37 @@ namespace CRMS.Controllers
             //Check if the Role is Assigned In DB
             //If Assigned -> Do Nothing
             //If Not Assigned -> Add Role
+            List<SelectListItem> list = new List<SelectListItem>();
+            foreach (var role in _roleManager.Roles)
+            {
+                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+            }
+
+            ViewBag.RoleName = list;
+
+            
 
             var rolesToAdd = new List<string>();
             var rolesToDelete = new List<string>();
 
-            foreach (var role in data.Roles)
-            {
-                var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
-                if (role.Selected)
-                {
-                    if (assignedInDb == null)
-                    {
-                        rolesToAdd.Add(role.Text);
-                    }
-                }
-                else
-                {
-                    if (assignedInDb != null)
-                    {
-                        rolesToDelete.Add(role.Text);
-                    }
-                }
-            }
+            //foreach (var role in data.Roles)
+            //{
+            //    var assignedInDb = userRolesInDb.FirstOrDefault(ur => ur == role.Text);
+            //    if (role.Selected)
+            //    {
+            //        if (assignedInDb == null)
+            //        {
+            //            rolesToAdd.Add(role.Text);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (assignedInDb != null)
+            //        {
+            //            rolesToDelete.Add(role.Text);
+            //        }
+            //    }
+            //}
 
             if (rolesToAdd.Any())
             {
@@ -320,17 +341,19 @@ namespace CRMS.Controllers
             }
             else
             {
-                var result = await _userManager.DeleteAsync(user);
+                //var result = await _userManager.DeleteAsync(user);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
+                //if (result.Succeeded)
+                //{
+                //    return RedirectToAction("Index");
+                //}
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                //foreach (var error in result.Errors)
+                //{
+                //    ModelState.AddModelError("", error.Description);
+                //}
+
+                return View("~/Views/Customization/Components/Roles/Roles/Delete.cshtml", user);
 
                 return View("Index");
             }

@@ -165,7 +165,7 @@
                     
                     <div class="col-md-4">
                         <div class="form-floating">
-                            <h5 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.CreateDate)</h5>
+                            <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.CreateDate)</h6>
                             <p style="font-size: 13px; color: gray;">Date Created</p>
                         </div>
                     </div>
@@ -174,12 +174,12 @@
                         <div class="form-floating">
                                 @if (Model.ListLeads != null)
                                 {
-                                    <h5 style="color: #002756;">Sales</h5>
+                                    <h6 style="color: #002756;">Sales</h6>
 
                                 }
                                 else
                                 {
-                                    <h5 style="color: #002756;">None</h5>
+                                    <h6 style="color: #002756;">None</h6>
 
                                 }
                             <p style="font-size: 13px; color: gray;">Pipeline</p>
@@ -190,62 +190,62 @@
                             <div class="form-floating">
                                 @if (Model.ListLeads != null && Model.ListLeads.Any())
                                 {
-                                <h5 style="color: #002756;">@Model.ListLeads.Last().status.LeadStatusName</h5>
+                                    <h6 style="color: #002756;">@Model.ListLeads.Last().status.LeadStatusName</h6>
                                 }
                                 else
                                 {
-                                <h5 style="color: #002756;">None</h5>
+                                    <h6 style="color: #002756;">None</h6>
 
                                 }
                                 <p style="font-size: 13px; color: gray;">Stage</p>
                             </div>
                         </div>              
                 </div>
-                <br />
+
                 <hr />
                     <!--PUT MORE DETAILS OF CONTACT-->
-                <h3 class="mt-4" style="font-weight: bold; color: #002756; align-self: center; font-family: Poppins;"> Information</h3>
+                <h4 class="mt-3" style="font-weight: bold; color: #002756; align-self: center; font-family: Poppins;"> Information</h4>
 
                     <div class="w3-center row g-3 mt-2">
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Email)</h5>
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Email)</h6>
                                 <p style="font-size: 13px; color: gray;">Email</p>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.PhoneNumber)</h5>
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.PhoneNumber)</h6>
                                 <p style="font-size: 13px; color: gray;">Phone</p>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.DOB)</h5>
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.DOB)</h6>
                                 <p style="font-size: 13px; color: gray;">Birth Date</p>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Gender)</h5>
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Gender)</h6>
                                 <p style="font-size: 13px; color: gray;">Gender</p>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @Html.DisplayFor(model => model.Contacts.Owner.FullName)</h5>
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model => model.Contacts.Owner.FullName)</h6>
                                 <p style="font-size: 13px; color: gray;">Contact Owner</p>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <h5 style="color: #002756;"> @(Model.Contacts.ContactCreatorID != null ? Model.Contacts.Creator?.FirstName + " " + Model.Contacts.Creator?.LastName ?? "N/A" : "SYSTEM")</h5>
+                                <h6 style="color: #002756;"> @(Model.Contacts.ContactCreatorID != null ? Model.Contacts.Creator?.FirstName + " " + Model.Contacts.Creator?.LastName ?? "N/A" : "SYSTEM")</h6>
                                 <p style="font-size: 13px; color: gray;">Contact Creator</p>
                             </div>
                         </div>                                           

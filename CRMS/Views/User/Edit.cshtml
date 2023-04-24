@@ -62,9 +62,9 @@
 
         <div class="col-md-4">
             <div class="form-floating">
-                @Html.DropDownListFor(model => model.RoleName, (IEnumerable<SelectListItem>)ViewBag.RoleName, "-- Select Role --", new { @class = "form-control", @required = "required"  })
-                <label asp-for="RoleName">Role</label>
-                <span asp-validation-for="RoleName" class="text-danger"></span>
+                @Html.DropDownListFor(model => model.Roles, (IEnumerable<SelectListItem>)ViewBag.RoleName, "-- Select Role --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="Roles">Role</label>
+                <span asp-validation-for="Roles" class="text-danger"></span>
                 <div class="invalid-feedback">
                     Please choose a Role!
                 </div>

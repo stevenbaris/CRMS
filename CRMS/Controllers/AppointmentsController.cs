@@ -183,6 +183,7 @@ namespace CRMS.Controllers
             return View("~/Views/Records/Appointment/Edit.cshtml", appointmentEdit);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             var appointmentPurpose = await _appointments.GetbyIdAsync(id);

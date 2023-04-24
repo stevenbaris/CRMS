@@ -23,6 +23,7 @@ namespace CRMS.ViewModels.User
         public string Email { get; set; } = default!;
 
         [Required]
+        [MinLength(5, ErrorMessage = "Password should be atleast 6 characters long")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = default!;
 

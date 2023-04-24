@@ -76,22 +76,23 @@
                                     <img src="~/img/uf8za19o.png" alt="" width="40px"  class="rounded-pill me-2">
                                     <strong>@User.Identity.Name</strong>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark cebuana-bg-blue text-small shadow" aria-labelledby="dropdownUser1" style="">
+                                <ul class="dropdown-menu dropdown-menu-dark cebuana-bg-blue text-small shadow" aria-labelledby="dropdownUser1" style="border-radius: 15px;">
                                     <li>
                                         <div class="container-fluid">
                                             <div class="d-flex align-items-center flex-column p-1">
                                                 <img src="~/img/uf8za19o.png" alt="User" style="width:80%"class="rounded-pill mt-4">
-                                                <h4><strong>@User.Identity.Name</strong></h4>
+                                                <h4 style="margin-top: 15px"><strong>@User.Identity.Name</strong></h4>
                                                 @*<p class="title">CEO & Founder, Example</p>
                                                 <p>Harvard University</p>*@
                                             </div>
+                                            <hr />
                                         </div>
                                     </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" asp-controller="User" asp-action="ManageProfile">Manage Profile</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Logout">Log out</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a style="height: 50px; text-align:center; justify-content: center; align-items: center; display: flex;" class="dropdown-item" asp-controller="User" asp-action="ManageProfile">Manage Profile</a>
+                                    </li>
+                                    <li><a style="height: 50px; text-align:center; justify-content: center; align-items: center; display: flex;" class="dropdown-item" asp-area="" asp-controller="User" asp-action="Logout">Log out</a></li>
+                                    
                                 </ul>
                             </div>
                         }
