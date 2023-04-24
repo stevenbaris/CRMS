@@ -21,7 +21,7 @@ namespace ProductAPI.Data
             var db = _appConfig.GetConnectionString("DB");
             var userName = _appConfig.GetConnectionString("UserName");
             var password = _appConfig.GetConnectionString("Password");
-            string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true;"; /*TrustServerCertificate = true*/
+            string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true;Trusted_Connection=True;TrustServerCertificate=True"; /*TrustServerCertificate = true*/
 
             optionsBuilder.UseSqlServer(connectionString, sqlOptions =>
             {

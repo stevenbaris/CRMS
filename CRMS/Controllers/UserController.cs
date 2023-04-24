@@ -112,7 +112,7 @@ namespace CRMS.Controllers
 
             foreach (var role in _roleManager.Roles)
             {
-                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
             }
 
             ViewBag.RoleName = list;
@@ -127,15 +127,20 @@ namespace CRMS.Controllers
 
             foreach (var role in _roleManager.Roles)
             {
-                list.Add(new SelectListItem() { Value = role.Name, Text = role.Name });
+                list.Add(new SelectListItem() { Value = role.Id.ToString(), Text = role.Name });
             }
 
-            ViewBag.Roles = list;
+            ViewBag.RoleName = list;
 
             if (!ModelState.IsValid)
             {
                 return View(createUserViewModel);
             }
+
+           
+            //ViewData["RoleList"] = new SelectList(_roleManager.Roles, "Id", "Name");
+
+           
 
             var user = new ApplicationUser
             {
@@ -146,7 +151,8 @@ namespace CRMS.Controllers
                 CityAddress = createUserViewModel.Address,
             };
 
-            var result = await _userManager.CreateAsync(user);
+         
+            var result = await _userManager.CreateAsync(user,);
 
             if (!result.Succeeded)
             {

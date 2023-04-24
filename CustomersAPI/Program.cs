@@ -30,6 +30,8 @@ builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.Automigrate();
+
 app.UseSwagger();
 
 app.UseSwaggerUI();

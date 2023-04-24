@@ -1,6 +1,7 @@
 ﻿using CRMS.Models;
 using CRMS.Services._BackgroundServices.Token;
 using Newtonsoft.Json;
+using NuGet.Common;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -48,30 +49,48 @@ namespace CRMS.Services._BackgroundServices
                     // Wait for a certain amount of time before retrying
                     await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
                 }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
             }
         }
 
         private async Task<string> GetTokenAsync()
         {
-            var _username = _configuration["ProductAPI:UserName"];
-            var _password = _configuration["ProductAPI:Password"];
-            var _URI = _configuration["ProductAPI:URI"];
+            Tokens token;
 
-            var json = JsonConvert.SerializeObject(new
-            {
-                UserName = _username,
-                Password = _password
-            });
+            try { 
+                var _username = _configuration["ProductAPI:UserName"];
+                var _password = _configuration["ProductAPI:Password"];
+                var _URI = _configuration["ProductAPI:URI"];
+
+                var json = JsonConvert.SerializeObject(new
+                {
+                    UserName = _username,
+                    Password = _password
+                });
             
-            // Send a POST request to the API to get a token
-            var request = new HttpRequestMessage(HttpMethod.Post, _URI+"/signin");
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                // Send a POST request to the API to get a token
+                var request = new HttpRequestMessage(HttpMethod.Post, _URI+"/signin");
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
+                var response = await _httpClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-            // Extract the token from the response
-            var token = JsonConvert.DeserializeObject<Tokens>(responseContent);
+                // Extract the token from the response
+                var apitoken = JsonConvert.DeserializeObject<Tokens>(responseContent);
+
+                token = apitoken;
+                
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
 
             return token.AccessToken;
         }
@@ -79,15 +98,38 @@ namespace CRMS.Services._BackgroundServices
         private async Task<List<Product>> GetProductApiDataAsync(string token)
         {
             var _URI = _configuration["ProductAPI:URI"];
+            var data = new List<Product>();
             // Send a GET request to the API to get data
-            var request = new HttpRequestMessage(HttpMethod.Get, _URI+"/api/v1/Product/ProductList");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            try
+            { 
+                var request = new HttpRequestMessage(HttpMethod.Get, _URI+"/api/v1/Product/ProductList");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _httpClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
+                var response = await _httpClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-            // Deserialize the response content to a list of API data objects
-            var data = JsonConvert.DeserializeObject<List<Product>>(responseContent);
+                // Deserialize the response content to a list of API data objects
+                var apidata = JsonConvert.DeserializeObject<List<Product>>(responseContent);
+                data.AddRange(apidata);
+            }
+            catch (HttpRequestException ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("Failed to get customer API data.", ex);
+            }
+            catch (JsonException ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("Failed to deserialize customer API data.", ex);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("An error occurred while getting customer API data.", ex);
+            }
 
             return data;
         }

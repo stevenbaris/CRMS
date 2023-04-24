@@ -4,6 +4,8 @@ using CRMS.Services.Contacts_Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
+using NuGet.Common;
+using NuGet.Packaging;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -14,15 +16,19 @@ namespace CRMS.Services._BackgroundServices
         private readonly HttpClient _httpClient;
         private readonly IServiceProvider _serviceProvider;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<CustomerAPI> _logger;
 
         public CustomerAPI(
             HttpClient httpClient,
             IConfiguration configuration,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger<CustomerAPI> logger)
         {
             _httpClient = httpClient;
             _configuration = configuration;
             _serviceProvider = serviceProvider;
+            _logger = logger;
+            _logger = logger;
         }
 
 
@@ -46,35 +52,53 @@ namespace CRMS.Services._BackgroundServices
                 {
                     // Log the exception
                     Console.WriteLine($"Error: {ex.Message}");
+                    _logger.LogError("HTTP Error");
 
                     // Wait for a certain amount of time before retrying
                     await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception
+                    Console.WriteLine($"Error: {ex.Message}");
+                    _logger.LogError("Another exception Error");
                 }
             }
         }
 
         private async Task<string> GetTokenAsync()
         {
-            var _URI = _configuration["CustomerAPI:URI"];
-            var _username = _configuration["CustomerAPI:UserName"];
-            var _password = _configuration["CustomerAPI:Password"];
-
-            var json = JsonConvert.SerializeObject(new
+            Tokens token;
+            try
             {
-                UserName = _username,
-                Password = _password
-            });
+                var _URI = _configuration["CustomerAPI:URI"];
+                var _username = _configuration["CustomerAPI:UserName"];
+                var _password = _configuration["CustomerAPI:Password"];
 
-            // Send a POST request to the API to get a token
-            var request = new HttpRequestMessage(HttpMethod.Post, _URI+"/signin");
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(new
+                {
+                    UserName = _username,
+                    Password = _password
+                });
 
-            var response = await _httpClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
+                // Send a POST request to the API to get a token
+                var request = new HttpRequestMessage(HttpMethod.Post, _URI + "/signin");
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Extract the token from the response
-            var token = JsonConvert.DeserializeObject<Tokens>(responseContent);
+                var response = await _httpClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
 
+                // Extract the token from the response
+                var apitoken = JsonConvert.DeserializeObject<Tokens>(responseContent);
+                token = apitoken;
+                
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return null;
+            }
             return token.AccessToken;
         }
 
@@ -82,17 +106,40 @@ namespace CRMS.Services._BackgroundServices
         private async Task<List<Contacts>> GetCustomerApiDataAsync(string token)
         {
             var _URI = _configuration["CustomerAPI:URI"];
+            var data = new List<Contacts>();
 
-            // Send a GET request to the API to get data
-            var request = new HttpRequestMessage(HttpMethod.Get, _URI +"/api/v1/Customer/CustomerList");
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            try
+            {
+                // Send a GET request to the API to get data
+                var request = new HttpRequestMessage(HttpMethod.Get, _URI + "/api/v1/Customer/CustomerList");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _httpClient.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
+                var response = await _httpClient.SendAsync(request);
+                var responseContent = await response.Content.ReadAsStringAsync();
 
-            // Deserialize the response content to a list of API data objects
-            var data = JsonConvert.DeserializeObject<List<Contacts>>(responseContent);
-
+                // Deserialize the response content to a list of API data objects
+                var apidata = JsonConvert.DeserializeObject<List<Contacts>>(responseContent);
+                data.AddRange(apidata);
+                
+            }
+            catch (HttpRequestException ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("Failed to get customer API data.", ex);
+            }
+            catch (JsonException ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("Failed to deserialize customer API data.", ex);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                throw new Exception("An error occurred while getting customer API data.", ex);
+            }
             return data;
         }
 

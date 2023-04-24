@@ -20,7 +20,7 @@ namespace CustomersAPI.Data
             var db = _appConfig.GetConnectionString("DB");
             var userName = _appConfig.GetConnectionString("UserName");
             var password = _appConfig.GetConnectionString("Password");
-            string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true";
+            string connectionString = $"Server={server};Database={db};User Id= {userName};Password={password};MultipleActiveResultSets=true;TrustServerCertificate=True";
 
             optionsBuilder.UseSqlServer(connectionString, sqlOptions =>
             {
