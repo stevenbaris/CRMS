@@ -1,0 +1,528 @@
+﻿@model DetailsViewModel
+
+@section Styles{
+    <style>
+        .contact-details {
+            display: flex;
+            height: 100vh;
+        }
+
+        .left-section {
+            position: sticky;
+            top: 0;
+            width: 30%;
+            height: 100%;
+            background-color: #f2f2f2;
+        }
+
+        .right-section {
+            width: 70%;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .tabs {
+            background-color: #ddd;
+            overflow: hidden;
+        }
+
+        .tablinks {
+            background-color: #ccc;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            float: left;
+        }
+
+            .tablinks.active {
+                background-color: #bbb;
+            }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+        }
+
+            .tabcontent.active {
+                display: block;
+            }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            position: sticky;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #ccc; /* default background color */
+        }
+
+        .pic-initials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+    </style>
+}
+<div class="contact-details">
+    <div class="left-section">
+        <!-- Contact details will be displayed here -->
+        <div class="d-flex flex-column">
+            <div class="d-flex w3-container justify-content-start ">
+                <!--PUT NAV HERE-->
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="mt-2 flex-grow-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">Contacts</li>
+                        <li class="breadcrumb-item active" aria-current="page">Details</li>
+                    </ol>
+                </nav>
+
+                <a asp-controller="Contacts" asp-action="ViewAll" class="w3-right mt-2">Back</a>
+            </div>
+            <div class="d-flex w3-container mt-5">
+                <!--PUT CONTACT PIC & NAME-->
+                <div class="profile-pic w3-container mx-4">
+                    <div class="pic-initials">
+                        <!-- Name initials will be displayed here -->
+                    </div>
+                </div>
+                <div class="d-flex flex-column w3-container">
+                    <h1>@Html.DisplayFor(model=>model.Contacts.FullName)</h1>
+                    <h5>Individual</h5>
+                    <h5>No Company Affiliated</h5>
+                </div>
+            </div>
+            <div class="w3-container w3-center row g-3 mt-5">
+                <!--PUT OVERVIEW-->
+                <div class="col-md-4">
+                    <p>CREATED DATE</p>
+                    <h4>@Html.DisplayFor(model=>model.Contacts.CreateDate)</h4>
+                </div>
+                @*<div style="border-left: 1px solid black; height: 100px;"></div>*@
+                <div class="col-md-4">
+                    <p>PIPELINE:</p>
+                    @if (Model.ListLeads != null)
+                    {
+                        <h4>Sales</h4>
+
+                    }
+                    else
+                    {
+                        <h4>NONE</h4>
+
+                    }
+                </div>
+                @*<div style="border-left: 1px solid black; height: 100px;"></div>*@
+                <div class="col-md-4">
+                    <p>PIPELINE STAGE</p>
+                    @if (Model.ListLeads != null && Model.ListLeads.Any())
+                    {
+                        <h4>@Model.ListLeads.Last().status.LeadStatusName</h4>
+                    }
+                    else
+                    {
+                        <h4>NONE</h4>
+
+                    }
+
+                </div>
+            </div>
+            <hr />
+            <div class="d-flex flex-column w3-container mt-3">
+                <!--PUT MORE DETAILS OF CONTACT-->
+                <h3> About this Contact:</h3>
+                <div class="ps-5">
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.Email)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contacts.Email)
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.Gender)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contacts.Gender)
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.PhoneNumber)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contacts.PhoneNumber)
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.DOB)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contacts.DOB)
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.ContactOwnerID)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Contacts.Owner.FullName)
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Contacts.ContactCreatorID)
+                        </dt>
+                        <dd>
+                            @(Model.Contacts.ContactCreatorID != null ? Model.Contacts.Creator?.FirstName + " " + Model.Contacts.Creator?.LastName ?? "N/A" : "SYSTEM")
+                        </dd>
+                    </dl>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-section">
+        <div class="tabs">
+            <button class="tablinks active" onclick="openTab(event, 'leads')">Leads</button>
+            <button class="tablinks" onclick="openTab(event, 'engagement-records')">Engagement Records</button>
+            <button class="tablinks" onclick="openTab(event, 'appointments')">Appointments</button>
+        </div>
+        <div class="tabcontent active" id="leads">
+            <!-- Leads content will be displayed here -->
+
+            <a asp-controller="Leads" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <br />
+            <br />
+
+            @if (!Model.ListLeads.Where(c => c.ProspectId == Model.Contacts.Contact_Id).Any())
+            {
+                <div class="w3-card-4">
+                    <header class="w3-container w3-highway-blue">
+                        <h1>No deals/leads created for this contact</h1>
+                    </header>
+                </div>
+            }
+            else
+            {
+                foreach (var leads in Model.ListLeads)
+                {
+                    <div class=" w3-card-4 my-3">
+                        <header class="w3-container w3-highway-blue row g-3 ">
+                            <div class="col-md-8">
+                                <h1>@leads.status.LeadStatusName</h1>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="text-warning text-end">Close-Win by: @leads.CreatedDate.AddDays(30).ToString("MM-dd-yy")</h5>
+                            </div>
+
+
+                        </header>
+
+                        <div class="w3-container py-md-2 row g-3">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.status.LeadStatusName" disabled>
+                                    <label>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.product.ProductName" disabled>
+                                    <label>Product</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.source.SourceName" disabled>
+                                    <label>Lead Source:</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.CreatedDate" disabled>
+                                    <label>Creation Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.PrefContactMethod" disabled>
+                                    <label>Creation Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.PrefContactDay" disabled>
+                                    <label>Preferred Contact Time</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@leads.PrefContactTime" disabled>
+                                    <label>Preferred Contact Time</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer class="w3-container w3-gray  py-2 d-flex justify-content-end">
+                            <a asp-controller="Leads" asp-action="Edit" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-green w3-hover-black">Edit </a>
+                            <a asp-controller="Leads" asp-action="Delete" asp-route-id="@leads.Leads_Id" class="w3-button mx-1 w3-red w3-hover-black">Delete</a>
+                        </footer>
+
+                    </div>
+                }
+
+            }
+
+        </div>
+        <div class="tabcontent" id="engagement-records">
+            <!-- Engagement Records content will be displayed here -->
+            <a asp-controller="Engagement" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <br />
+            <br />
+
+            @if (!Model.ListEngagement.Where(c => c.ContactId == Model.Contacts.Contact_Id).Any())
+            {
+                <div class="w3-card-4">
+                    <header class="w3-container w3-highway-blue">
+                        <h1>No engagement recorded for this contact</h1>
+                    </header>
+                </div>
+            }
+            else
+            {
+                foreach (var engagement in Model.ListEngagement)
+                {
+                    <div class=" w3-card-4 my-3">
+                        <header class="w3-container w3-highway-blue row g-3 ">
+                            <div class="col-md-8">
+                                <h1>@engagement.CommunicationMethod.CommunicationMethodName</h1>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="text-warning text-end">Next Engagement: @engagement.Engagement_Date.AddDays(7).ToString("MM-dd-yy")</h5>
+                            </div>
+
+
+                        </header>
+
+                        <div class="w3-container py-md-2 row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@engagement.Topic" disabled>
+                                    <label>Topic</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@engagement.Engagement_Date.Date.ToString("yyyy-MM-dd")" disabled>
+                                    <label>Engagement Date</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@engagement.Effectivity.Effectivity_Name" disabled>
+                                    <label>Remarks:</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@engagement.Engagement_Description" disabled>
+                                    <label>Description</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer class="w3-container w3-gray  py-2 d-flex justify-content-end">
+                            <a asp-controller="Engagement" asp-action="Edit" asp-route-id="@engagement.Engagement_Id" class="w3-button mx-1 w3-green w3-hover-black">Edit </a>
+                            <a asp-controller="Engagement" asp-action="Delete" asp-route-id="@engagement.Engagement_Id" class="w3-button mx-1 w3-red w3-hover-black">Delete</a>
+                        </footer>
+
+                    </div>
+                }
+
+            }
+        </div>
+
+        <div class="tabcontent" id="appointments">
+            <!-- Appointments content will be displayed here -->
+            <a asp-controller="Appointments" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id" class="w3-button w3-highway-blue w3-hover-red">Create New</a>
+            <br />
+            <br />
+            @if (!Model.ListAppointments.Where(c => c.ContactId == Model.Contacts.Contact_Id).Any())
+            {
+                <div class="w3-card-4">
+                    <header class="w3-container w3-highway-blue">
+                        <h1>No Appointment Scheduled for this Contact</h1>
+                    </header>
+                </div>
+            }
+            else
+            {
+                foreach (var appointment in Model.ListAppointments)
+                {
+                    <div class=" w3-card-4 mb-5">
+                        <header class="w3-container w3-highway-blue row g-3 ">
+                            <div class="col-md-10">
+                                <h3 class="flex-grow-1">@appointment.SchedStatus</h3>
+                            </div>
+                            <div class="col-md-2 text-end">
+                                <h5>Due in @((appointment.Appointment_DateTime - DateTime.Now).TotalDays.ToString("0")) Days</h5>
+                            </div>
+
+
+                        </header>
+
+                        <div class="w3-container py-md-2 row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@appointment.AppointmentPurpose.PurposeName" disabled>
+                                    <label>Purpose</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@appointment.Appointment_DateTime.Date.ToString("yyyy-MM-dd")" disabled>
+                                    <label>Date</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@appointment.Appointment_DateTime.ToString("hh:mm tt")" disabled>
+                                    <label>Time</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <input class="form-control" value="@appointment.Description" disabled>
+                                    <label>Description</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <footer class="w3-container w3-gray  py-2 d-flex justify-content-end">
+                            <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@appointment.Appointment_Id" class="w3-button mx-1 w3-green w3-hover-black">Edit </a>
+                            <a asp-controller="Appointments" asp-action="Delete" asp-route-id="@appointment.Appointment_Id" class="w3-button mx-1 w3-red w3-hover-black">Delete</a>
+                        </footer>
+
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+    <script>
+        var initials = '@ViewData["ContactInitials"]'; // replace with the user's name initials
+        var colors = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#dc3545', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#6c757d', '#343a40', '#007bff', '#6c757d', '#28a745', '#ffc107', '#dc3545', '#17a2b8']; // add more colors as needed
+        var randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.querySelector('.profile-pic').style.backgroundColor = randomColor;
+        document.querySelector('.pic-initials').innerHTML = initials;
+
+
+    </script>
+}
+
+
+
+
+<div class="content">
+    <!-- Nav pills -->
+    <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#regis">Register</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="login" class="container tab-pane active">
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Email address</label>
+                    <input type="email" class="form-control is-valid" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control is-invalid" id="exampleInputPassword1" placeholder="Password">
+                    <small id="emailHelp" class="form-text text-muted">Password incorrect.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+
+        @*--second--*@
+        <div id="regis" class="container tab-pane fade">
+            <form>
+                <div class="form-group">
+                    <label for="InputName">Full Name</label>
+                    <input type="text" class="form-control is-valid" id="InputName" placeholder="Full Name">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="InputUsername">Username</label>
+                    <input type="text" class="form-control is-valid" id="InputUsername" placeholder="Username">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput2">Email address</label>
+                    <input type="email" class="form-control is-valid" id="exampleFormControlInput2" placeholder="name@example.com">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword2">Password</label>
+                    <input type="password" class="form-control is-invalid" id="exampleInputPassword2" placeholder="Password">
+                    <small id="emailHelp" class="form-text text-muted">Password incorrect.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPasswordVer">Verify Password</label>
+                    <input type="password" class="form-control is-invalid" id="exampleInputPasswordVer" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+        

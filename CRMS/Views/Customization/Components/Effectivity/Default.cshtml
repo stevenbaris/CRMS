@@ -1,0 +1,26 @@
+﻿@model List<Effectivity>
+<br />
+<a asp-controller="Effectivities" asp-action="Create" class="w3-button w3-left w3-green">+ New Effectivity</a>
+<br />
+<br />
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+    <thead class="header-bg-light text-uppercase">
+        <tr>
+            <th scope="col">Effectivitty</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var eff in Model)
+        {
+            <tr>
+                <td>@eff.Effectivity_Name</td>
+                <td>
+                    <a asp-controller="Effectivities" asp-action="Edit" asp-route-id="@eff.Effectivity_Id" class="btn btn-sm btn-success">Edit</a>
+
+                    <a asp-controller="Effectivities" asp-action="Delete" asp-route-id=@eff.Effectivity_Id class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

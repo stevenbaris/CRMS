@@ -1,0 +1,27 @@
+﻿@model List<LeadStatus>
+
+<br />
+<a asp-controller="LeadStatus" asp-action="Create" class="w3-button w3-left w3-green">+ New Status</a>
+<br />
+<br />
+<table class="table table-bordered table-overflow-auto-w100" style="overflow-x:auto">
+    <thead class="header-bg-light text-uppercase">
+        <tr>
+            <th scope="col">Lead Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var status in Model)
+        {
+            <tr>
+                <td>@status.LeadStatusName</td>
+                <td>
+                    <a asp-controller="LeadStatus" asp-action="Edit" asp-route-id="@status.LeadStatus_Id" class="btn btn-sm btn-success">Edit</a>
+
+                    <a asp-controller="LeadStatus" asp-action="Delete" asp-route-id="@status.LeadStatus_Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,212 @@
+#Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: corecrms
+
+#SQL SERVER
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crmsdbserver
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: crmsdbserver
+  template:
+    metadata:
+      labels:
+        app: crmsdbserver
+    spec:
+      containers:
+      - name: crmsdbserver
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        ports:
+        - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: P@ssw0rd123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crmsdbserver
+  namespace: corecrms
+  labels:
+    app: crmsdbserver
+spec:
+  selector:
+    app: crmsdbserver
+  ports:
+  - name: tcp
+    port: 1433
+    targetPort: 1433
+  type: NodePort
+
+#MVC WEB APP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crmsweb
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: crmsweb
+  template:
+    metadata:
+      labels:
+        app: crmsweb
+    spec:
+      containers:
+      - name: crmsweb
+        image: sigiel07/corecrmsweb:3.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        #DB Connection
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: CRMSdb
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
+        #Customer API
+        - name: CustomerAPI__URI
+          value: http://customerapi
+        - name: CustomerAPI__UserName
+          value: "su@crms.com"
+        - name: CustomerAPI__Password
+          value: "Admin123"
+          #Product API
+        - name: ProductAPI__URI
+          value: http://productapi
+        - name: ProductAPI__UserName
+          value: "su@crms.com"
+        - name: ProductAPI__Password
+          value: "Admin123"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crmsweb
+  namespace: corecrms
+  labels:
+    app: crmsweb
+spec:
+  selector:
+    app: crmsweb
+  ports:
+  - name: tcp
+    port: 5126
+    targetPort: 80
+  type: NodePort
+
+#CUSTOMER API
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: customerapi
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: customerapi
+  template:
+    metadata:
+      labels:
+        app: customerapi
+    spec:
+      containers:
+      - name: customerapi
+        image: sigiel07/customersapi:3.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: Customerdb
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customerapi
+  namespace: corecrms
+  labels:
+    app: customerapi
+spec:
+  selector:
+    app: customerapi
+  ports:
+  - name: tcp
+    port: 80
+    targetPort: 80
+  type: NodePort
+
+
+# PRODUCT API
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: productapi
+  namespace: corecrms
+spec:
+  selector:
+    matchLabels:
+      app: productapi
+  template:
+    metadata:
+      labels:
+        app: productapi
+    spec:
+      containers:
+      - name: productapi
+        image: sigiel07/productapi:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: ConnectionStrings__Server
+          value: crmsdbserver
+        - name: ConnectionStrings__DB
+          value: Productdb
+        - name: ConnectionStrings__UserName
+          value: sa
+        - name: ConnectionStrings__Password
+          value: P@ssw0rd123
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: productapi
+  namespace: corecrms
+  labels:
+    app: productapi
+spec:
+  selector:
+    app: productapi
+  ports:
+  - name: tcp
+    port: 80
+    targetPort: 80
+  type: NodePort

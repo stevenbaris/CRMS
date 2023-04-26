@@ -1,0 +1,27 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  CapstoneDB:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+    - 1435:1433
+    environment:
+    - ACCEPT_EULA=Y
+    - MSSQL_SA_PASSWORD=P@ssw0rd123
+  ProductAPI:
+    image: productapi
+    build:
+      context: .
+      dockerfile: ProductAPIv1/Dockerfile
+    ports:
+      - 5999:80
+    environment:
+      - ConnectionStrings__Server=CapstoneDB
+      - ConnectionStrings__DB=ProductsDB
+      - ConnectionStrings__UserName=sa
+      - ConnectionStrings__Password=P@ssw0rd123
+    depends_on:
+      - CapstoneDB
+    restart: on-failure

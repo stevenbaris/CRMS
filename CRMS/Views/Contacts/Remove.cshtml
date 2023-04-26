@@ -1,0 +1,17 @@
+﻿@model Contacts
+
+<div class="w3-container d-flex justify-content-center align-items-center">
+<div class="w3-container ">
+    <form class="w3-container " asp-controller="Contacts" asp-action="Remove">
+        <div class="card1" style="max-width:600px">
+            <div class="w3-container  w3-padding-16 ">
+                <h3 class="w3-center">Are you sure you want to delete this contact?</h3>
+                    <input type="hidden" asp-for="@Model.Contact_Id" />
+                <button type="submit" class="btn btn-danger w3-right">DELETE</button>
+                    <a asp-action="ViewAll" type="button" class="btn btn-secondary">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+

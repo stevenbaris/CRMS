@@ -1,0 +1,575 @@
+﻿@model DetailsViewModel
+
+@section Styles{
+<style>
+        .contact-details {
+          display: flex;
+          height: 100%;       
+        }
+
+        .left-section {
+          position: sticky;
+          top: 0;
+          width: 30%;
+          height: 100vh;
+          /*background-color: #f2f2f2;*/
+          border: 2px solid lightgray;
+          border-radius: 20px;
+          padding: 1em;
+        }
+
+        .right-section {
+          width: 70%;
+          height: 100vh;
+          overflow: auto;
+          border: 2px solid lightgray;
+          border-radius: 20px;
+          padding: 1em;
+          margin-left: 10px;
+        }
+
+        .tabs {
+          background-color: #ddd;
+          overflow: hidden;
+        }
+
+        .tablinks {
+          background-color: #ccc;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          padding: 10px 20px;
+          float: left;
+        }
+
+        .tablinks.active {
+          background-color: #bbb;
+        }
+
+        .tabcontent {
+          display: none;
+          padding: 20px;
+        }
+
+        .tabcontent.active {
+          display: block;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            align-self: center;
+            position: relative;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #ccc; /* default background color */
+        }
+
+        .pic-initials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+        }
+        /*----*/
+        .course-container {
+            display: flex;
+            justify-content: center;
+        }
+        .course {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0px 10px 1px rgba(0, 0, 0, 0.2);
+            display: flex;
+            
+            max-height: 100%;
+            max-width: 100%;
+            margin: 20px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+            .course p {
+                opacity: 0.6;
+                margin: 0;
+                letter-spacing: 1px;
+            }
+
+            .course h2 {
+                letter-spacing: 1px;
+                align-self: center;
+                margin: 10px 0;
+            }
+
+        .course-preview {
+            background-color: #002756;
+            color: #fff;
+            padding: 30px;
+            width: 300px;
+        }
+
+            .course-preview a {
+                color: #fff;
+                display: inline-block;
+                font-size: 12px;
+                opacity: 0.6;
+                margin-top: 30px;
+                text-decoration: none;
+            }
+
+        .course-info {
+            padding: 30px;
+            position: relative;
+            width: 100%;
+        }
+
+
+        .btnn {
+            background-color: #002756;
+            border: 0;
+            border-radius: 50px;
+            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            font-size: 16px;
+            padding: 12px 25px;
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            letter-spacing: 1px;
+        }
+
+</style>
+}
+
+<header class="card1">
+    <div class="contact-details" style="font-family: Poppins;">
+        <div class="left-section">
+            <!-- Contact details will be displayed here -->
+            <div class="d-flex flex-column">
+               
+
+                    <!--PUT CONTACT PIC & NAME-->
+                <div class="profile-pic mx-4 pic-initials mt-4">
+                    
+                </div>
+
+                <div class="d-flex flex-column mt-4" style="align-self: center; color: #002756;">
+                    <h2 style="font-weight: bold; font-family:Poppins">@Html.DisplayFor(model=>model.Contacts.FullName)</h2>
+
+                </div>
+
+                <div class="w3-center row g-3 mt-4">
+                    
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.CreateDate)</h6>
+                            <p style="font-size: 13px; color: gray;">Date Created</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" style="border-right: 2px solid lightgray; border-left: 2px solid lightgray;">
+                        <div class="form-floating">
+                                @if (Model.ListLeads != null)
+                                {
+                                    <h6 style="color: #002756;">Sales</h6>
+
+                                }
+                                else
+                                {
+                                    <h6 style="color: #002756;">None</h6>
+
+                                }
+                            <p style="font-size: 13px; color: gray;">Pipeline</p>
+                        </div>
+                    </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                @if (Model.ListLeads != null && Model.ListLeads.Any())
+                                {
+                                    <h6 style="color: #002756;">@Model.ListLeads.Last().status.LeadStatusName</h6>
+                                }
+                                else
+                                {
+                                    <h6 style="color: #002756;">None</h6>
+
+                                }
+                                <p style="font-size: 13px; color: gray;">Stage</p>
+                            </div>
+                        </div>              
+                </div>
+
+                <hr />
+                    <!--PUT MORE DETAILS OF CONTACT-->
+                <h4 class="mt-3" style="font-weight: bold; color: #002756; align-self: center; font-family: Poppins;"> Information</h4>
+
+                    <div class="w3-center row g-3 mt-2">
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Email)</h6>
+                                <p style="font-size: 13px; color: gray;">Email</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.PhoneNumber)</h6>
+                                <p style="font-size: 13px; color: gray;">Phone</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.DOB)</h6>
+                                <p style="font-size: 13px; color: gray;">Birth Date</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model=>model.Contacts.Gender)</h6>
+                                <p style="font-size: 13px; color: gray;">Gender</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @Html.DisplayFor(model => model.Contacts.Owner.FullName)</h6>
+                                <p style="font-size: 13px; color: gray;">Contact Owner</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <h6 style="color: #002756;"> @(Model.Contacts.ContactCreatorID != null ? Model.Contacts.Creator?.FirstName + " " + Model.Contacts.Creator?.LastName ?? "N/A" : "SYSTEM")</h6>
+                                <p style="font-size: 13px; color: gray;">Contact Creator</p>
+                            </div>
+                        </div>                                           
+                    </div>
+            </div>
+        </div>
+        <div class="right-section">
+            @*-Table-*@
+            <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button style="color: #002756; font-weight: bold;" class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Leads</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button style="color: #002756; font-weight: bold;" class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Engagement Records</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button style="color: #002756; font-weight: bold;" class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Appointments</button>
+                </li>
+            </ul>
+
+            
+            <div class="tab-content" id="myTabContent">
+                @*-Leads Content-*@
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4" style="margin-right: 20px;">
+                        <a button class="btn w3-highway-blue me-md-2 cebuana-bg-blue" type="button" asp-controller="Leads" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id">+ New Lead</a>
+                    </div>                  
+
+                    @if (!Model.ListLeads.Where(c => c.ProspectId == Model.Contacts.Contact_Id).Any())
+                    {
+                            <center>
+                                <br/>
+                                <i class="bi bi-exclamation-triangle fa-6x" style="color: gray;"></i>
+                                <h5 style="color: gray;">No leads created at the moment!</h5>
+                            </center>
+                    }
+                    else
+                    {
+                        foreach (var leads in Model.ListLeads)
+                        {
+                            <div class="course-container">
+                                <div class="course">
+                                    <div class="course-preview">
+                                        <p>Status</p>
+                                        <h2>@leads.status.LeadStatusName</h2>
+                                        <hr />
+                                        <p style="font-size: 13px;">Close-Win By:</p>
+                                        <h5>@leads.CreatedDate.AddDays(30).ToString("MM-dd-yy")</h5>
+                                    </div>
+
+                                    <div class="course-info">
+                                        <div class="row g-3">
+
+                                            <div class="col-md-11">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Creation Date and Time</p>
+                                                    <h5>@leads.CreatedDate</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-floating">
+
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                style="background-color: #002756; border: 0; border-radius: 10px;">
+                                                            <i class="bi bi-list"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" style="border-radius: 10px;">
+                                                            <li><a class="dropdown-item" asp-controller="Leads" asp-action="Edit" asp-route-id="@leads.Leads_Id">Edit</a></li>
+                                                            <li><a class="dropdown-item" asp-controller="Leads" asp-action="Delete" asp-route-id="@leads.Leads_Id">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Lead Source</p>
+                                                    <h5>@leads.source.SourceName</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-8">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Product</p>
+                                                    <h5>@leads.product.ProductName</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Preferred Method</p>
+                                                    <h5>@leads.PrefContactMethod</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Preferred Day</p>
+                                                    <h5>@leads.PrefContactDay</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Preferred Time</p>
+                                                    <h5>@leads.PrefContactTime</h5>
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                @*--Engagement--*@
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4" style="margin-right: 20px;">
+                        <a button class="btn w3-highway-blue me-md-2 cebuana-bg-blue" type="button" asp-controller="Engagement" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id">+ New Engagement</a>
+                    </div>
+
+                    @if (!Model.ListEngagement.Where(c => c.ContactId == Model.Contacts.Contact_Id).Any())
+                    {
+
+                        <center>
+                            <br />
+                            <i class="bi bi-exclamation-triangle fa-6x" style="color: gray;"></i>
+                            <h5 style="color: gray;">No engagement recorded at the moment!</h5>
+                        </center>
+     
+                    }
+                    else
+                    {
+                        foreach (var engagement in Model.ListEngagement)
+                        {
+                            <div class="course-container">
+                                <div class="course">
+                                    <div class="course-preview">
+                                        <p>Method</p>
+                                        <h2>@engagement.CommunicationMethod.CommunicationMethodName</h2>
+                                        <hr />
+                                        <p style="font-size: 13px;">Next Engagement:</p>
+                                        <h5>@engagement.Engagement_Date.AddDays(7).ToString("MM-dd-yy")</h5>
+                                    </div>
+
+                                    <div class="course-info">
+                                        <div class="row g-3">
+
+                                            <div class="col-md-11">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Engagement Date</p>
+                                                    <h5>@engagement.Engagement_Date.Date.ToString("yyyy-MM-dd")</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-floating">
+
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                style="background-color: #002756; border: 0; border-radius: 10px;">
+                                                            <i class="bi bi-list"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" style="border-radius: 10px;">
+                                                            <li><a class="dropdown-item" asp-controller="Engagement" asp-action="Edit" asp-route-id="@engagement.Engagement_Id">Edit</a></li>
+                                                            <li><a class="dropdown-item" asp-controller="Engagement" asp-action="Delete" asp-route-id="@engagement.Engagement_Id">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Topic</p>
+                                                    <h5>@engagement.Topic</h5>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Description</p>
+                                                    <h5>@engagement.Engagement_Description</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Reason</p>
+                                                    <h5>@engagement.EngagementType.EngagementName</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Remarks</p>
+                                                    <h5>@engagement.Effectivity.Effectivity_Name</h5>
+                                                </div>
+                                            </div> 
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                @*--Appointments--*@
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4" style="margin-right: 20px;">
+                        <a button class="btn w3-highway-blue me-md-2 cebuana-bg-blue" type="button" asp-controller="Appointments" asp-action="Create" asp-route-id="@Model.Contacts.Contact_Id">+ New Appointment</a>
+                    </div>
+
+                    @if (!Model.ListAppointments.Where(c => c.ContactId == Model.Contacts.Contact_Id).Any())
+                    {
+
+                        <center>
+                            <br />
+                            <i class="bi bi-exclamation-triangle fa-6x" style="color: gray;"></i>
+                            <h5 style="color: gray;">No appointment scheduled at the moment!</h5>
+                        </center>
+ 
+                    }
+                    else
+                    {
+                        foreach (var appointment in Model.ListAppointments)
+                        {
+                            <div class="course-container">
+                                <div class="course">
+                                    <div class="course-preview">
+                                        <p>Status</p>
+                                        <h2>@appointment.SchedStatus</h2>
+                                        <hr />
+                                        <p style="font-size: 13px;">Remaining Day(s):</p>
+                                        <h5>@((appointment.Appointment_DateTime.Date - DateTime.Now.Date).TotalDays.ToString("0"))</h5>
+                                    </div>
+
+                                    <div class="course-info">
+                                        <div class="row g-3">
+
+                                            <div class="col-md-11">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Appointment Date</p>
+                                                    <h5>@appointment.Appointment_DateTime.Date.ToString("yyyy-MM-dd")</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1">
+                                                <div class="form-floating">
+
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                style="background-color: #002756; border: 0; border-radius: 10px;">
+                                                            <i class="bi bi-list"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu" style="border-radius: 10px;">
+                                                            <li><a class="dropdown-item" asp-controller="Appointments" asp-action="Edit" asp-route-id="@appointment.Appointment_Id">Edit</a></li>
+                                                            <li><a class="dropdown-item" asp-controller="Appointments" asp-action="Delete" asp-route-id="@appointment.Appointment_Id">Delete</a></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Purpose</p>
+                                                    <h5>@appointment.AppointmentPurpose.PurposeName</h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <p style="font-size: 12px;">Description</p>
+                                                    <h5>@appointment.Description</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>  
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+   
+
+@section Scripts{
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+    <script>
+        var initials = '@ViewData["ContactInitials"]'; // replace with the user's name initials
+        var colors = ['#002756']; // add more colors as needed
+        var randomColor = colors[Math.floor(Math.random() * colors.length)];
+        document.querySelector('.profile-pic').style.backgroundColor = randomColor;
+        document.querySelector('.pic-initials').innerHTML = initials;
+    </script> 
+}

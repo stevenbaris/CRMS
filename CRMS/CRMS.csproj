@@ -4,16 +4,54 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Documentation\**" />
+    <Compile Remove="Views\Contacts\Components\**" />
+    <Compile Remove="Views\Contacts\Contact_List\**" />
+    <Compile Remove="Views\Contacts\GetAll\**" />
+    <Compile Remove="Views\ManageLeads\**" />
+    <Compile Remove="Views\ManageUsers\**" />
+    <Compile Remove="Views\Shared\Component\**" />
     <Content Remove="Documentation\**" />
+    <Content Remove="Views\Contacts\Components\**" />
+    <Content Remove="Views\Contacts\Contact_List\**" />
+    <Content Remove="Views\Contacts\GetAll\**" />
+    <Content Remove="Views\ManageLeads\**" />
+    <Content Remove="Views\ManageUsers\**" />
+    <Content Remove="Views\Shared\Component\**" />
     <EmbeddedResource Remove="Documentation\**" />
+    <EmbeddedResource Remove="Views\Contacts\Components\**" />
+    <EmbeddedResource Remove="Views\Contacts\Contact_List\**" />
+    <EmbeddedResource Remove="Views\Contacts\GetAll\**" />
+    <EmbeddedResource Remove="Views\ManageLeads\**" />
+    <EmbeddedResource Remove="Views\ManageUsers\**" />
+    <EmbeddedResource Remove="Views\Shared\Component\**" />
     <None Remove="Documentation\**" />
+    <None Remove="Views\Contacts\Components\**" />
+    <None Remove="Views\Contacts\Contact_List\**" />
+    <None Remove="Views\Contacts\GetAll\**" />
+    <None Remove="Views\ManageLeads\**" />
+    <None Remove="Views\ManageUsers\**" />
+    <None Remove="Views\Shared\Component\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Contacts\Index.cshtml" />
+    <Content Remove="Views\Contacts\removemodal.cshtml" />
+    <Content Remove="Views\Contacts\_CreateModal.cshtml" />
+    <Content Remove="Views\Contacts\_DeleteModal.cshtml" />
+    <Content Remove="Views\Contacts\_EditModal.cshtml" />
+    <Content Remove="Views\Contacts\_Tab-Content.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.15">
       <PrivateAssets>all</PrivateAssets>
@@ -24,10 +62,20 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.53.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\SqlRepositories\" />
+    <Folder Include="ViewModels\Account\" />
+    <Folder Include="ViewModels\Employees\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Records\Appointment\Create.cshtml" />
+    <None Include="Views\Records\Appointment\Edit.cshtml" />
+    <None Include="Views\Records\Appointment\Index.cshtml" />
   </ItemGroup>
 
 </Project>

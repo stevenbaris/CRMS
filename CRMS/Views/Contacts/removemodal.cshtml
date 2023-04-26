@@ -1,0 +1,26 @@
+﻿
+
+
+<div class="w3-container">
+    <div id="myModal" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+            <div class="w3-center">
+                <span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            </div>
+
+            <form class="w3-container" asp-controller="Contacts" asp-action="RemoveConfirmed" asp-route-id="@ViewData["id"]">
+                <div class="w3-section">
+                    <div class="w3-container  w3-padding-16 ">
+                        <h3 class="w3-center">Are you sure you want to delete this contact?</h3>
+                        <input type="hidden" name="ContactId" value="@ViewData["id"]" />
+                        <button type="submit" class="w3-button w3-right w3-green">DELETE</button>
+                        <button onclick="document.getElementById('myModal').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

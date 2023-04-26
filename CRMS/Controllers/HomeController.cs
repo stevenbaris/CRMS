@@ -1,32 +1,42 @@
 ﻿using CRMS.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace CRMS.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly SignInManager<ApplicationUser> _signinManager;
+public HomeController(SignInManager<ApplicationUser> signinManager)
         {
-            _logger = logger;
+            _signinManager = signinManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            if (_signinManager.IsSignedIn(User))
+            {
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            return RedirectToAction("Login", "User");
         }
 
-        public IActionResult Privacy()
+
+        public IActionResult Marketing()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult CustomerService()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
     }
 }

@@ -1,0 +1,228 @@
+﻿@model ManageAccountViewModel
+@inject SignInManager<ApplicationUser> _signInManager
+
+<header class="card1">
+
+    <div>
+        <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Manage Profile</h1></center>
+        <hr />
+        <p style="color: gray">User > Settings</p>
+        <br />
+        @*<p></a>int Count</p>*@  
+        <br />
+    </div>
+
+    <div class="container-fluid row g-3">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+  
+        <form asp-controller="User" asp-action="ManageProfile" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--BASIC INFORMATION-->
+            <div class="card my-2" style=" border: 2px solid lightgray;
+            border-radius: 20px; padding: 35px;">
+                <div class="border-bottom bg-white ">
+                    <h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 10px; float: left;">Basic Information</h3>
+                    <a button class="btn w3-highway-blue me-md-2" type="button" id="editBasicInfo" href="#" style="text-align:right;float:right;">Edit</a>
+                    <br /> <br />                  
+                </div>
+                @*<button class="accordion border-bottom bg-light"><strong>Basic Information</strong></button>*@
+                <div class="panel">
+                    <div class="row g-3 p-3">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="FirstName" class="form-control basicinfofield" placeholder=" " readonly>
+                                <label asp-for="FirstName">First Name</label>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="LastName" class="form-control basicinfofield" placeholder=" " readonly>
+                                <label asp-for="LastName">Last Name</label>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <input asp-for="Address" class="form-control basicinfofield" placeholder=" " readonly>
+                                <label asp-for="Address">Address</label>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Email Address-->
+            <div class="card my-2" style=" border: 2px solid lightgray;
+            border-radius: 20px; padding: 35px;">
+                <div class="border-bottom bg-white">
+                    <div class="form-floating">
+                        <h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 10px; float: left;">
+                            Username / Email Address </h3>
+                        <a button class="btn w3-highway-blue me-md-2" type="button" id="editEmail" href="#" style="text-align:right;float:right;">Edit</a>   
+                    </div>          
+                    
+                    <br /> <br />
+                </div>
+                <div class="panel">
+                    <div class="row g-3 p-3">
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            if (User.IsInRole("Admin"))
+                            {
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input asp-for="Username" class="form-control emailfields" placeholder=" " readonly>
+                                        <label asp-for="Username">Username</label>
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                        <div class="invalid-feedback">
+                                            This field is required!
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="Email" class="form-control emailfields" placeholder=" " readonly>
+                                <label asp-for="Email">Current Email</label>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Password-->
+            <div class="card my-2" style=" border: 2px solid lightgray;
+            border-radius: 20px; padding: 35px;">
+                <div class="col border-bottom bg-white p-2">
+                    <h3 style="font-weight: bold; font-family: Poppins; color:#002756; margin-bottom: 10px; float: left;">Change Password</h3>
+
+                </div>
+                <div class="panel">
+                    <div class="row g-3 p-3">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="ExistingPassword" class="form-control passwordfield" placeholder=" ">
+                                <label asp-for="ExistingPassword">Old Password</label>
+                                <span asp-validation-for="ExistingPassword" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="NewPassword" class="form-control passwordfield" placeholder=" ">
+                                <label asp-for="NewPassword">New Password</label>
+                                <span asp-validation-for="NewPassword" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input asp-for="ConfirmNewPassword" class="form-control passwordfield" placeholder=" ">
+                                <label asp-for="ConfirmNewPassword">Confirm New Password</label>
+                                <span asp-validation-for="ConfirmNewPassword" class="text-danger"></span>
+                                <div class="invalid-feedback">
+                                    This field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 py-1">
+                <button id="saveChangesButton" class="btn w3-highway-blue btn-success text-white mt-4" type="submit" disabled>Save Changes</button>
+            </div>
+
+        </form>
+    </div>
+
+</header>
+      
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#editBasicInfo").click(function (e) {
+                e.preventDefault();
+                var $fields = $(".basicinfofield");
+                if ($fields.prop("readonly")) {
+                    $fields.prop("readonly", false);
+                    $(this).text("Cancel");
+                } else {
+                    $fields.prop("readonly", true);
+                    $(this).text("Edit");
+                }
+            });
+            $("#editEmail").click(function (e) {
+                e.preventDefault();
+                var $fields = $(".emailfields");
+                if ($fields.prop("readonly")) {
+                    $fields.prop("readonly", false);
+                    $(this).text("Cancel");
+                } else {
+                    $fields.prop("readonly", true);
+                    $(this).text("Edit");
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        const inputBoxes = document.querySelectorAll('.passwordfield, .emailfields, .basicinfofield');
+
+        // Get the Save Changes button
+        const saveChangesButton = document.getElementById('saveChangesButton');
+
+        // Disable the button initially
+        saveChangesButton.disabled = true;
+
+        // Add an event listener to each input box
+        inputBoxes.forEach(inputBox => {
+            inputBox.addEventListener('input', () => {
+                // Check if the input box has a default value
+                if (inputBox.defaultValue !== inputBox.value) {
+                    // Enable the button if there are changes in any input box
+                    saveChangesButton.disabled = false;
+                } else {
+                    // Disable the button if there are no changes
+                    saveChangesButton.disabled = true;
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,107 @@
+﻿@model EditUserViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Edit Employee</h1></center>
+    <hr />
+    <p style="color: gray">Employees > Edit</p>
+    <br />
+
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="User" asp-action="Edit" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="@Model.User.Id" />
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="@Model.User.FirstName" class="form-control" placeholder=" " required>
+                <label asp-for="@Model.User.FirstName">First Name</label>
+                <span asp-validation-for="@Model.User.FirstName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    First Name is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="@Model.User.LastName" class="form-control" placeholder=" " required>
+                <label asp-for="@Model.User.LastName">Last Name</label>
+                <span asp-validation-for="@Model.User.LastName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Last Name is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="@Model.User.Email" class="form-control" placeholder=" " required>
+                <label asp-for="@Model.User.Email">Email</label>
+                <span asp-validation-for="@Model.User.Email" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Email is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                <input asp-for="@Model.User.CityAddress" class="form-control" placeholder=" " required>
+                <label asp-for="@Model.User.CityAddress">Address</label>
+                <span asp-validation-for="@Model.User.CityAddress" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Address is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.Role, (IEnumerable<SelectListItem>)ViewBag.RoleName, "-- Select Role --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="RoleName">Role</label>
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Role!
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn w3-highway-blue">Edit</button>
+            <button asp-action="index" class="btn btn-secondary">Cancel</button>
+        </div>
+
+    </form>
+</header>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>

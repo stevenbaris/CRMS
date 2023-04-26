@@ -1,0 +1,137 @@
+﻿@model Engagement
+
+@{
+    ViewData["Title"] = "Edit Engagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">Edit Engagement</h1></center>
+    <hr />
+    <p style="color: gray">Engagements > Edit</p>
+    <br />
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="Engagement" asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Engagement_Id" />
+        <input type="hidden" asp-for="CreatedById" />
+        <input type="hidden" asp-for="CreatedDate" />
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.EditorFor(model => model.Engagement_Date, new { htmlAttributes = new { @class = "form-control", @required = "required", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                @*<input asp-for="Engagement_Date" class="form-control" required>*@
+                <label asp-for="Engagement_Date">Engagement Date</label>
+                <span asp-validation-for="Engagement_Date" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Date and Time are required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.ContactId, (IEnumerable<SelectListItem>)ViewBag.ContactsList, "-- Select Contact --", new { @class = "form-control", @required = "required"  })
+                <label asp-for="ContactId">Contact</label>
+                <span asp-validation-for="ContactId" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Contact!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="Topic" class="form-control" placeholder=" " required>
+                <label asp-for="Topic">Topic</label>
+                <span asp-validation-for="Topic" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Topic is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="Engagement_Description" class="form-control" placeholder=" " required>
+                <label asp-for="Engagement_Description">Description</label>
+                <span asp-validation-for="Engagement_Description" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Description is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.ETypeId, (IEnumerable<SelectListItem>)ViewBag.EngagementTypeList, "-- Select Reason --", new { @class = "form-control", @required = "required" })
+                <label asp-for="ETypeId">Reason</label>
+                <span asp-validation-for="ETypeId" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Reason!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.CommsMethodId, (IEnumerable<SelectListItem>)ViewBag.CommsMethodList, "-- Select Communication Method --", new { @class = "form-control", @required = "required" })
+                <label asp-for="CommsMethodId">Method</label>
+                <span asp-validation-for="CommsMethodId" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Method!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+                @Html.DropDownListFor(model => model.EffectivityId, (IEnumerable<SelectListItem>)ViewBag.EffectivityList, "-- Select Remarks --", new { @class = "form-control", @required = "required" })
+                <label asp-for="EffectivityId">Remarks</label>
+                <span asp-validation-for="EffectivityId" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Please choose a Remarks!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn w3-highway-blue">Edit</button>
+            <button onclick="history.go(-1)" class="btn btn-secondary">Cancel</button>
+        </div>
+
+    </form>
+</header>
+
+@section Scripts{
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>
+}

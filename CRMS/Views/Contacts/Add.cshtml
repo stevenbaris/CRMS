@@ -1,0 +1,156 @@
+﻿@model Contacts
+@inject SignInManager<ApplicationUser> _signinManager
+@{
+    ViewData["Title"] = "New Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<header class="card1">
+    <center><h1 style="font-weight: bold; font-family: Poppins; color:#002756">New Contact</h1></center>
+    <hr />
+    <p style="color: gray">Contacts > Create</p>
+    <br />
+    <form class="row g-3 needs-validation" style=" border: 2px solid lightgray;
+    border-radius: 20px; padding: 35px;" novalidate asp-controller="Contacts" asp-action="Add" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Contact_Id" />
+        <input type="hidden" asp-for="CreateDate" />
+        <input type="hidden" asp-for="ContactCreatorID" />
+        <input type="hidden" asp-for="IsLocal" />
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="FirstName" class="form-control" placeholder=" " required>
+                <label asp-for="FirstName">First Name</label>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    First Name is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="LastName" class="form-control" placeholder=" " required>
+                <label asp-for="LastName">Last Name</label>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Last Name is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="Email" class="form-control" placeholder=" " required>
+                <label asp-for="Email">Email</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Email is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input asp-for="PhoneNumber" class="form-control" placeholder=" " required>
+                <label asp-for="PhoneNumber">Phone number</label>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Phone Number is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.DropDownListFor(M=>M.Gender, Html.GetEnumSelectList<GenderType>(), "-- Select Gender --",  new { @class = "form-control", @required = "required" })
+                <label asp-for="Gender">Gender</label>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Gender is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @*<input asp-for="Appointment_DateTime" class="form-control" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>*@
+                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @required = "required",  max = DateTime.Now.ToString("yyyy-MM-dd")} })
+                <label asp-for="DOB">Date of Birth</label>
+                <span asp-validation-for="DOB" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Date of Birth is required!
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                
+                @if (ViewBag.OwnerList != null || ViewBag.CurrentUser != null)
+                {
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.OwnerList, "-- Select Owner --", new { @class = "form-control", @required = "required" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.ContactOwnerID, (IEnumerable<SelectListItem>)ViewBag.CurrentUser, "-- Select Owner --", new { @class = "form-control", @required = "required" })
+                    }
+                }
+                <label asp-for="ContactOwnerID" class="control-label">Contact Owner:</label>
+                <span asp-validation-for="ContactOwnerID" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Contact Owner is required!
+
+                </div>
+            </div>
+        </div>
+       
+
+        <div class="col-md-6">
+            <div class="form-floating">
+                @Html.EditorFor(model => model.DateAssigned, new { htmlAttributes = new { @class = "form-control", @required = "required",  max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                <label asp-for="DateAssigned">Date Assigned</label>
+                <span asp-validation-for="DateAssigned" class="text-danger"></span>
+                <div class="invalid-feedback">
+                    Date Assigned is required!
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <br />
+            <button type="submit" class="btn w3-highway-blue">Create</button>
+            <button onclick="history.go(-1)" class="btn btn-secondary">Cancel</button>
+        </div>
+
+    </form>
+</header>
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+</script>
