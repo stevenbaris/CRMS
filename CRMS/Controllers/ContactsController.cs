@@ -287,6 +287,7 @@ namespace CRMS.Controllers
                 Contacts = contact,
                 ListLeads = (await _leadsRepo.GetAllAsync())
                     .Where(l => l.ProspectId == contact.Contact_Id)
+                    .OrderByDescending(l => l.CreatedDate)
                     .ToList(),
                 ListAppointments = (await _appointmentsRepo.GetAllAsync())
                     .Where(a => a.ContactId == contact.Contact_Id)
