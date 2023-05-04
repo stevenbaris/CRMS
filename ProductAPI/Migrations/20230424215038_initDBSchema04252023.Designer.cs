@@ -12,8 +12,8 @@ using ProductAPI.Data;
 namespace ProductAPI.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230421134602_initDBSchema042123")]
-    partial class initDBSchema042123
+    [Migration("20230424215038_initDBSchema04252023")]
+    partial class initDBSchema04252023
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,66 +189,66 @@ namespace ProductAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Product_Id = new Guid("32cb1f44-bb0b-4a0d-a884-204f12123bac"),
+                            Product_Id = new Guid("c79f1314-1a21-4379-90e3-79ade3b8b22a"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Cash Assistance Due to Food Poisoning",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9234),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1302),
                             ProductDescription = "CL Personal Accident Nano Insurance covers loss for Accidental Death, Disablement, or Dismemberment, and Cash Assistance due to Food Poisoning.",
                             ProductName = "CL Personal Accident Nano",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9252)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1324)
                         },
                         new
                         {
-                            Product_Id = new Guid("d0a0792d-3aa0-47e0-9971-b5a60a383494"),
+                            Product_Id = new Guid("24e15c7c-7bf1-4817-8c6a-5021ecb3f99a"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement, Accident Medical Reimbursement, Accidental Burial Benefit, Cash Assistance Benefit, Fire Cash Assistance",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9264),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1336),
                             ProductDescription = "CL Personal Accident Nano Plus Insurance covers Accidental Death, Disablement, or Dismemberment, Accident Medical Reimbursement, Accident Burial Benefit, Cash Assistance benefit, and Fire Cash Assistance.",
                             ProductName = "CL Personal Accident Nano Plus",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9265)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1336)
                         },
                         new
                         {
-                            Product_Id = new Guid("54aac3a6-172b-4059-8464-6e76a4e185ae"),
+                            Product_Id = new Guid("e657ecf0-97b4-4d17-800f-90ef1e129aa4"),
                             Benefits = "Earthquake, Typhoon, Flood, Windstorm, Volcanic Eruption and other Acts of Nature, Extended Coverage, BOWTAP, BWD, SL and other water related damages, Vandalism/Spontaneous Combustion, All Other Losses",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9267),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1338),
                             ProductDescription = "CL MicroEnterpriseProtekis a Property Insurance Program specially designed for Cebuana Lhuillier clients. It covers loss “ALL Risks” of physical loss, destruction of or damage to the property of the insured and wholly attributable to any sudden and unforeseen cause, except as hereinafter excluded, occurring during the currency of the policy.",
                             ProductName = "CL MicroEnterpriseProtek",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9267)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1339)
                         },
                         new
                         {
-                            Product_Id = new Guid("c92d63de-28b4-46a6-8331-82d2884fd87b"),
+                            Product_Id = new Guid("4038f1a5-b6b2-4162-ae54-991c00614ede"),
                             Benefits = "Death Benefit, Accident or Sickness Emergency Cash Assistance, Accidental Dismemberment and/or Disablement, Murder and Unprovoked Assault and Residential Fire Reconstruction cash assistance",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9269),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1341),
                             ProductDescription = "For as low as P50, each certificate is valid for four (4) months from the date of issuance and can be availed up to a maximum of 5 certificates per insured.",
                             ProductName = "ProtectMAX",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9269)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1341)
                         },
                         new
                         {
-                            Product_Id = new Guid("820fc3af-e692-4149-a16e-740c4538e73e"),
+                            Product_Id = new Guid("c3f568d9-27e3-44e4-8666-3063ed8fb8f8"),
                             Benefits = "24/7 Call-a-doc, OP ER One Time use (All causes), Daily Hospital Income Benefit (All Causes)",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9270),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1343),
                             ProductDescription = "An Individual Personal Accident Insurance specifically designed for Cebuana Lhuillier clients.It covers Accidental Death and Disability (AD&D), Double Indemnity, 24/7 Call-a-doc, OP ER One Time use and Daily Hospital Income Benefit.",
                             ProductName = "CL Health Care",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9271)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1344)
                         },
                         new
                         {
-                            Product_Id = new Guid("a8ac0395-80d8-4334-bd9b-43da9650e4cd"),
+                            Product_Id = new Guid("2f80146c-edb5-45a6-9f94-48e8f3d899a1"),
                             Benefits = "Accidental Death, Accidental Dismemberment and/or Disablement",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9296),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1349),
                             ProductDescription = "Covers Accidental Death and Accidental Dismemberment and/or Disablement Benefit.",
                             ProductName = "CL Personal Accident Basic",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9296)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1350)
                         },
                         new
                         {
-                            Product_Id = new Guid("92482819-5f25-4812-83ad-396676583e5b"),
+                            Product_Id = new Guid("3f4877b4-ad1c-4923-9ad5-392364e17fad"),
                             Benefits = "The Policy is Effective for one (1) year from the date of issuance or after payment of claim,whichever comes first.",
-                            CreateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9298),
+                            CreateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1351),
                             ProductDescription = "covers the medical expenses incurred within a year from the date of issuance or purchase by the InsuredPerson for the treatment of an eligible emergency condition, availment of which caneither be as an Out-Patient in the Emergency Room Department or as an In-Patient of aHospital via cash assistance.",
                             ProductName = "CL ER Care",
-                            UpdateDate = new DateTime(2023, 2, 20, 21, 46, 2, 143, DateTimeKind.Local).AddTicks(9298)
+                            UpdateDate = new DateTime(2023, 2, 24, 5, 50, 38, 185, DateTimeKind.Local).AddTicks(1352)
                         });
                 });
 
@@ -335,11 +335,11 @@ namespace ProductAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2869b3b3-5b3c-4da8-a3d2-032087802559"),
+                            Id = new Guid("b8b012cc-a36f-46cd-84bb-4d3bc4263ead"),
                             AccessFailedCount = 0,
                             CityAddress = "Makati",
-                            ConcurrencyStamp = "41ab5bf6-9924-4efb-bbd7-a37f24c390e0",
-                            DOB = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "ffb7e2a9-1e88-424b-9dae-9226642a201c",
+                            DOB = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "su@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Super",
@@ -347,7 +347,7 @@ namespace ProductAPI.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "SU@CRMS.COM",
                             NormalizedUserName = "SU@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKrj0YV/ygYf7HAhTxbuqdkjry9eZMWStz5n8EfBq5Qr86//zhvJ8MtnRT1nLW8a5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJdDbWZQHe3YDl93KMgMB7Ag9+8V/Rv+XBY8fys6mH6oZozNjaOuCIK2XIDvYbROfQ==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -355,11 +355,11 @@ namespace ProductAPI.Migrations
                         },
                         new
                         {
-                            Id = new Guid("932ad144-be08-4450-9451-02c505035bd5"),
+                            Id = new Guid("fc348ec1-4f08-44ae-ad93-17c1b06cb8bb"),
                             AccessFailedCount = 0,
                             CityAddress = "Makati",
-                            ConcurrencyStamp = "284c4715-936e-4b91-85fa-b6d2a8e46a5d",
-                            DOB = new DateTime(2023, 4, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "1bf4f1da-ea22-42c2-8df7-f3211c51754c",
+                            DOB = new DateTime(2023, 4, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "user@crms.com",
                             EmailConfirmed = true,
                             FirstName = "Regular",
@@ -367,7 +367,7 @@ namespace ProductAPI.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "USER@CRMS.COM",
                             NormalizedUserName = "USER@CRMS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAVkThyxPGFc63hMqNv829vTuG1XYR/kpoESwtMKP1LeLYUXlNJ7ESRmILjmasquOA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECCnqguV6qjQu1GclX7UUmMPNRgAfABlV3HsHnFYfj8BKn6CvjBIL5ng6xGSuebOfw==",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
