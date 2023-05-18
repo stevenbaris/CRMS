@@ -111,5 +111,25 @@ namespace CustomersAPI.Configuration
 
             return Services;
         }
+
+
+        public static IServiceCollection AddCORS(this IServiceCollection Services)
+        {
+            Services
+                .AddCors(opt =>
+                {
+
+                });
+
+
+
+            //Services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("AdminPolicy", policy =>
+            //        policy.RequireRole("Admin"));
+            //});
+
+            return Services;
+        }
     }
 }

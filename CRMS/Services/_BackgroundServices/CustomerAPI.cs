@@ -74,6 +74,7 @@ namespace CRMS.Services._BackgroundServices
                 var _URI = _configuration["CustomerAPI:URI"];
                 var _username = _configuration["CustomerAPI:UserName"];
                 var _password = _configuration["CustomerAPI:Password"];
+                var _apiKey = _configuration["CustomerAPI:ApiKey"];
 
                 var json = JsonConvert.SerializeObject(new
                 {
@@ -83,6 +84,7 @@ namespace CRMS.Services._BackgroundServices
 
                 // Send a POST request to the API to get a token
                 var request = new HttpRequestMessage(HttpMethod.Post, _URI + "/signin");
+                request.Headers.Add("ApiKey", _apiKey);
                 request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await _httpClient.SendAsync(request);
