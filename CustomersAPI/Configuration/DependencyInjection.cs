@@ -121,7 +121,7 @@ namespace CustomersAPI.Configuration
                     opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
                     {
                         //policy.AllowAnyOrigin()
-                        policy.WithOrigins("https://localhost:44360", "mydomain.com")
+                        policy.WithOrigins("https://localhost:5126", "https://localhost:51524")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();

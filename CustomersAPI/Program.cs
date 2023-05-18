@@ -43,7 +43,7 @@ app.UseSwaggerUI();
 
 app.UseCors(MyAllowSpecificOrigins);
 
-//app.UseMiddleware<ApiKeyAuthentication>();
+app.UseMiddleware<ApiKeyAuthentication>();
 
 app.UseAuthentication();
 
