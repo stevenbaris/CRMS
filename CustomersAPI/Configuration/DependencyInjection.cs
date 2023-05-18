@@ -113,12 +113,12 @@ namespace CustomersAPI.Configuration
         }
 
 
-        public static IServiceCollection AddCORS(this IServiceCollection Services)
+        public static IServiceCollection AddCORS(this IServiceCollection Services, string MyAllowSpecificOrigins )
         {
             Services
                 .AddCors(opt =>
                 {
-                    opt.AddPolicy("MyAllowSpecificOrigins", policy =>
+                    opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
                     {
                         //policy.AllowAnyOrigin()
                         policy.WithOrigins("https://localhost:44360", "mydomain.com")

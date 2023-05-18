@@ -17,12 +17,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<CustomerDBContext>();
 
 
+
 //OTHER DEPENDENCY INJECTION SERVICES
+
 builder.Services
     .AddIdentityConfig()
     .AddAuthorizationandAuthentication(builder.Configuration)
     .AddRepoService()
     .AddSwaggerConfig();
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCORS(MyAllowSpecificOrigins);
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
@@ -35,6 +40,8 @@ app.Automigrate();
 app.UseSwagger();
 
 app.UseSwaggerUI();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 //app.UseMiddleware<ApiKeyAuthentication>();
 
