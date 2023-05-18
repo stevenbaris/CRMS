@@ -118,7 +118,15 @@ namespace CustomersAPI.Configuration
             Services
                 .AddCors(opt =>
                 {
-
+                    opt.AddPolicy("MyAllowSpecificOrigins", policy =>
+                    {
+                        //policy.AllowAnyOrigin()
+                        policy.WithOrigins("https://localhost:44360", "mydomain.com")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                        
+                    });
                 });
 
 
