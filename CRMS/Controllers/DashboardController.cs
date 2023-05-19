@@ -1,16 +1,22 @@
-﻿using CRMS.Models;
+﻿using CRMS.Data;
+using CRMS.Models;
 using CRMS.Models.Customization;
 using CRMS.Models.Records;
 using CRMS.Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Record_Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CRMS.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly CRMSDbContext _context;
+
         private readonly IRepository<Leads> _leadsRepo;
         private readonly IRepository<Engagement> _engagementRepo;
         private readonly IRepository<Appointments> _appointmentRepo;
@@ -27,7 +33,8 @@ namespace CRMS.Controllers
             IContactRepository contactRepo,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IRepository<Source> leadSourcesRepo)
+            IRepository<Source> leadSourcesRepo,
+            CRMSDbContext context)
         {
             _leadsRepo = leadsRepo;
             _engagementRepo = engagementRepo;
@@ -36,6 +43,7 @@ namespace CRMS.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _leadSourcesRepo = leadSourcesRepo;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -58,7 +66,12 @@ namespace CRMS.Controllers
                 .Where(e =>  e?.Engagement_Date.Date == DateTime.Now.AddDays(-7).Date)
                 .ToList();
 
-            var Appointments = (await _appointmentRepo.GetAllAsync()).Where(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID && a.SchedStatus == 0);
+            //var Appointments = (await _appointmentRepo.GetAllAsync()).Where(a => a.Appointment_DateTime.Date == DateTime.Now.Date && a.CreatedBy == userGUID && a.SchedStatus == 0);
+            var dateParam = new SqlParameter("@CurrentDate", DateTime.Now.Date);
+            var userParam = new SqlParameter("@UserId", userGUID);
+            var Appointments = _context.Appointments.FromSqlInterpolated($"EXECUTE GetAppointmentsByDateAndUser {dateParam}, {userParam}").AsEnumerable<dynamic>();
+
+
             var totalTasks = Appointments.Count() + NextEngagements.Count() + ContactsWithNoLeads.Count();
 
             //TOP LEAD SOURCE CARD

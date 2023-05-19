@@ -121,21 +121,13 @@ namespace CustomersAPI.Configuration
                     opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
                     {
                         //policy.AllowAnyOrigin()
-                        policy.WithOrigins("https://localhost:5126", "https://localhost:51524")
+                        policy.WithOrigins("http://localhost:5126", "http://localhost:51524")
                         .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials();
+                        .AllowAnyMethod();
+                        //.AllowCredentials();    
                         
                     });
                 });
-
-
-
-            //Services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("AdminPolicy", policy =>
-            //        policy.RequireRole("Admin"));
-            //});
 
             return Services;
         }

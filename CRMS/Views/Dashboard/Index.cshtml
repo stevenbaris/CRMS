@@ -192,9 +192,19 @@
                                         <td class="text-center">@meeting.Appointment_DateTime.ToString("MMM dd, yyyy")</td>
                                         <td class="text-center">@meeting.Appointment_DateTime.ToString("hh:mm tt")</td>
                                         <td class="text-center">
+                                            @*<a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FullName</a>*@
+                                        @*<a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FirstName</a>*@
+                                        @if (meeting.prospect != null)
+                                        {
                                             <a asp-controller="Contacts" asp-action="ContactDetail" asp-route-Id="@meeting.ContactId">@meeting.prospect.FullName</a>
+                                        }
                                         </td>
-                                        <td class="text-center">@meeting.AppointmentPurpose.PurposeName</td>
+                                        <td class="text-center">
+                                        @if (meeting.AppointmentPurpose != null)
+                                        {
+                                            @meeting.AppointmentPurpose.PurposeName
+                                        }
+                                        </td>
                                         <td class="text-center text-wrap">@meeting.Description</td>
                                         <td class="text-center">
                                         <a type="button" class="btn w3-highway-blue" asp-controller="Appointments" asp-action="Edit" asp-route-Id="@meeting.Appointment_Id">Update Status</a>

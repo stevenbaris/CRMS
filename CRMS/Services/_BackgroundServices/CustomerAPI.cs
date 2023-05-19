@@ -108,12 +108,14 @@ namespace CRMS.Services._BackgroundServices
         private async Task<List<Contacts>> GetCustomerApiDataAsync(string token)
         {
             var _URI = _configuration["CustomerAPI:URI"];
+            var _apiKey = _configuration["CustomerAPI:ApiKey"];
             var data = new List<Contacts>();
 
             try
             {
                 // Send a GET request to the API to get data
                 var request = new HttpRequestMessage(HttpMethod.Get, _URI + "/api/v1/Customer/CustomerList");
+                request.Headers.Add("ApiKey", _apiKey);
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                 var response = await _httpClient.SendAsync(request);
