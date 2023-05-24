@@ -6,6 +6,7 @@ using CRMS.Services._BackgroundServices;
 using CRMS.Services._BackgroundServices.Token;
 using CRMS.Services.Account_Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Contacts_Services.API;
 using CRMS.Services.Products_Services;
 using CRMS.Services.Record_Services;
 using CRMS.Services.Records;
@@ -61,6 +62,7 @@ namespace CRMS.Services._Config
 
                     //CONTACTS
                     .AddScoped<IContactRepository, ContactRepo>()
+                    .AddScoped<ISyncMvcToApi<Contacts>, MvcToCustomerApi>()
 
                     //RECORDS
                     .AddScoped<IRepository<Appointments>, AppointmentsRepo>()

@@ -1,12 +1,11 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CustomersAPI.DTO
 {
     public class CustomerDTO
     {
-        [DefaultValue(typeof(Guid), "00000000-0000-0000-0000-000000000000")]
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
+
 
         [Required]
         [MinLength(2)]

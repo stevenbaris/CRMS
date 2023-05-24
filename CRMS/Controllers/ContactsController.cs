@@ -2,6 +2,7 @@
 using CRMS.Models.Records;
 using CRMS.Services;
 using CRMS.Services.Contacts_Services;
+using CRMS.Services.Contacts_Services.API;
 using CRMS.Services.Records;
 using CRMS.ViewModels.Contact;
 using CRMS.ViewModels.User;
@@ -21,6 +22,7 @@ namespace CRMS.Controllers
         private readonly IRepository<Leads> _leadsRepo;
         private readonly IRepository<Engagement> _engagementsRepo;
         private readonly IRepository<Appointments> _appointmentsRepo;
+        private readonly ISyncMvcToApi<Contacts> _mvcToApi;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -31,7 +33,8 @@ namespace CRMS.Controllers
             IUserRepository userRepository,
             IRepository<Leads> leadsRepo,
             IRepository<Engagement> engagementsRepo,
-            IRepository<Appointments> appointmentsRepo)
+            IRepository<Appointments> appointmentsRepo,
+            ISyncMvcToApi<Contacts> mvcToApi)
         {
             _contactRepository = contactRepository;
             _signInManager = signInManager;
@@ -40,6 +43,7 @@ namespace CRMS.Controllers
             _leadsRepo = leadsRepo;
             _engagementsRepo = engagementsRepo;
             _appointmentsRepo = appointmentsRepo;
+            _mvcToApi = mvcToApi;
         }
 
 
@@ -122,6 +126,7 @@ namespace CRMS.Controllers
                 else
                 {
                     await _contactRepository.CreateAsync(contact);
+                    await _mvcToApi.AddApiData(contact);
                     TempData["SuccessMessage"] = $"SUCCESS! You have successfully created a new contact .";
                     TempData.Keep();
                     return RedirectToAction(nameof(ViewAll));
@@ -214,6 +219,7 @@ namespace CRMS.Controllers
                         model.UpdateDate = DateTime.Now;
                         model.Updater = user;
                         await _contactRepository.UpdateAsync(model);
+                        await _mvcToApi.UpdateApiData(id, model);
                         TempData["SuccessMessage"] = $"SUCCESS! You have successfully updated the contact information.";
                         TempData.Keep();
                     }
@@ -265,6 +271,7 @@ namespace CRMS.Controllers
             if (contact != null)
             {
                 await _contactRepository.DeleteAsync(id);
+                await _mvcToApi.DeleteApiData(id);
             }
             TempData["SuccessMessage"] = $"SUCCESS! You have successfully DELETED the contact.";
             TempData.Keep();

@@ -67,6 +67,7 @@ namespace CustomersAPI.Controllers
             }
             var customer = new Customer
             {
+                Contact_Id = customerDto.Id != Guid.Empty ? customerDto.Id.Value : Guid.NewGuid(),
                 FirstName = customerDto.FirstName,
                 LastName = customerDto.LastName,
                 Gender = customerDto.Gender,

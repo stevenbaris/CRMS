@@ -177,7 +177,7 @@ namespace CRMS.Services._BackgroundServices
                         UpdateDate = contact.UpdateDate,
                         IsLocal = false
                         
-                    };
+                        };
                         // Product does not exist in the database, add it
                         await _contactsRepo.CreateAsync(newContact);
                     }
